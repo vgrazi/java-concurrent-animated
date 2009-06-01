@@ -1,11 +1,6 @@
 package vgrazi.util;
 
-import vgrazi.concurrent.samples.ConcurrentExampleConstants;
-import vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher;
-
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 
 /**
  * Created by Victor Grazi.
@@ -15,7 +10,8 @@ public class IOUtils {
   public static String readHtmlText(String fileName) throws IOException {
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader(new FileReader(fileName));
+      final InputStream stream = fileName.getClass().getResourceAsStream(fileName);
+      reader = new BufferedReader(new InputStreamReader(stream));
       StringBuffer sb = new StringBuffer();
       String line;
       while((line = reader.readLine()) != null) {

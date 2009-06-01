@@ -124,8 +124,8 @@ public class ConcurrentExampleConstants {
 //          "<tr><td >&nbsp;</td><td align=\"left\"><font size=\"4\" color=\"black\">Copyright(CENTER) 2007 Victor J. Grazi <br> May not be reused without express permission of the author</font></td><td>&nbsp;</td></tr>" +
           "</table>" +
           "</html>";
-  public static final String INSTRUCTIONS_FILE = "images/instructions.html";
-  public static final String REFERENCES_FILE = "images/references.html";
+  public static final String INSTRUCTIONS_FILE = "/images/instructions.html";
+  public static final String REFERENCES_FILE = "/images/references.html";
   public static final Color CAS_CIRCLE_COLOR = Color.black;
   public static final Color CAS_ANIMATION_COLOR = Color.white;
 }
