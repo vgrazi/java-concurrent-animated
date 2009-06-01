@@ -62,7 +62,6 @@ public class ConcurrentExampleConstants {
           "<li>Victor J. Grazi<br>" +
           "VP Application Development - Credit Suisse<br>" +
           "vgrazi@gmail.com<br><br></li>" +
-//          "<li>Kirk Pepperdine - kirk@kodewerk.com</li>" +
           "</ul>" +
           "</font></td><td>&nbsp;</font></td><td>&nbsp;</td></tr>" +
           "</table>" +
@@ -101,7 +100,6 @@ public class ConcurrentExampleConstants {
           "<ul><li>Victor J. Grazi<br>" +
           "VP Application Development - Credit Suisse<br>" +
           "vgrazi@gmail.com<br><br></li>" +
-//          "<li>Kirk Pepperdine - kirk@kodewerk.com</li>" +
           "</ul>" +
           "</font></td><td>&nbsp;</td></tr>" +
 //          "<tr><td >&nbsp;</td><td align=\"left\"><font size=\"4\" color=\"dark blue\">Copyright(CENTER) 2007 Victor J. Grazi</font></td><td>&nbsp;</td></tr>" +
