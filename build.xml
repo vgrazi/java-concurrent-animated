@@ -28,7 +28,7 @@
 
     <target name="dist" depends="copyImages"
             description="generate the distribution">
-
+        <delete file="${dist}/concurrentanimated.jar"/>
         <!-- Put everything in ${build} into the jar file -->
         <jar jarfile="${dist}/concurrentanimated.jar" basedir="${build}">
             <manifest>
