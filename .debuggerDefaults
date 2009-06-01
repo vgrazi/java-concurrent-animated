@@ -1,0 +1,33 @@
+# ODB Defaults 28.Mar.07 -- You may edit by hand. See Manual for details
+
+#                        Class & method names must be complete. '*' must be freestanding.
+# DidntInstrument:       This is informative only. (You may change to InstrumentOnly.)
+# DontInstrumentMethod:  These methods won't be instrumented (but may be recorded).
+# DontRecordMethod:      These methods won't be recorded (ie, from the calling method).
+# DontEither:            These methods won't be recorded or instrumented.
+# MaxTimeStamps:         This is overridded by the command line argument, hence seldom used.
+# StartPattern:          Recording will start when this pattern is matched.
+# StopPattern:           Recording will stop when this pattern is matched (no restarts!).
+# SourceDirectory:       If sources can't be found normally, look here.
+# OnlyInstrument:        Only classes which match this prefix will be instrumented.
+# OnlyInstrument:        "" means default package only. No entry means everything.
+# UserSelectedField:     This instance variable (a final String) will be appended to the display string
+# UserSelectedField:     "com.lambda.Thing name"  ->   <Thing_23 John>
+# SpecialFormatter:      com.lambda.Debugger.SpecialTimeStampFormatter
+
+MaxTimeStamps:		2000000
+StartPattern:		
+StopPattern:		
+SourceDirectory:	"C:/dev/concurrent/concurrent/src/"
+OnlyInstrument:		
+DidntInstrument:	
+DontInstrumentMethod:	
+DontInstrumentMethod:	"*	 toString"
+DontInstrumentMethod:	"*	 valueOf"
+DontRecordMethod:	
+DontRecordMethod:	"*	 toString"
+DontRecordMethod:	"*	 valueOf"
+DontRecordMethod:	"java.lang.StringBuilder	 *"
+DontRecordMethod:	"java.lang.StringBuffer	 *"
+DontRecordMethod:	"java.lang.Object	 new"
+UserSelectedField:	"com.lambda.Debugger.DemoThing	 name"

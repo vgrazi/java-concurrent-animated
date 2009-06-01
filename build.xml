@@ -1,0 +1,40 @@
+<project name="JavaConcurrent" default="dist" basedir=".">
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="dist" location="dist"/>
+    <property name="build" location="${dist}/"/>
+
+    <target name="clean"
+            description="clean up">
+        <!-- Delete the ${dist} directory trees -->
+        <delete dir="${dist}"/>
+    </target>
+
+    <target name="init">
+        <mkdir dir="dist/images"/>
+    </target>
+
+    <target name="compile" depends="init"
+            description="compile the source ">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}"/>
+    </target>
+
+    <target name="copyImages" depends="compile">
+        <copy todir="dist/images">
+            <fileset dir="images"/>
+        </copy>
+    </target>
+
+    <target name="dist" depends="copyImages"
+            description="generate the distribution">
+
+        <!-- Put everything in ${build} into the jar file -->
+        <jar jarfile="${dist}/concurrentanimated.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
