@@ -44,6 +44,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
       addButtonSpacer();
       initializeReadReleaseButton();
       initializeWriteDowngradeToReadButton();
+      initializeThreadCountField();
       initialized = true;
     }
   }
@@ -88,18 +89,25 @@ public class ReadWriteLockExample extends ConcurrentExample {
       public void run() {
         setAnimationCanvasVisible(true);
         setState(1);
-        readAcquire();
+        int count = getThreadCount();
+        for (int i = 0; i < count; i++) {
+          threadCountExecutor.execute(new Runnable() {
+            public void run() {
+              readAcquire();
+            }
+          });
+        }
       }
     });
   }
 
   private void readAcquire() {
     message1(new Date() + " Waiting to acquire READ lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-    final ConcurrentSprite sprite = createAcquiringSprite();
 
     Lock readLock = lock.readLock();
     logger.info("Acquiring read lock " + readLock);
     readLock.lock();
+    final ConcurrentSprite sprite = createAcquiringSprite();
     writerOwned = false;
     sprite.setAcquired();
     message1(new Date() + " Acquired read lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
@@ -119,7 +127,14 @@ public class ReadWriteLockExample extends ConcurrentExample {
     initializeButton(writeAcquireButton, new Runnable() {
       public void run() {
         setState(3);
-        writeAcquire();
+        int count = getThreadCount();
+        for (int i = 0; i < count; i++) {
+          threadCountExecutor.execute(new Runnable() {
+            public void run() {
+              writeAcquire();
+            }
+          });
+        }
       }
     });
   }
@@ -145,7 +160,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
 
           // housekeeping to reset the animation as a read lock
           downgrade = writerOwned = false;
-          
+
           // convert our color to a read lock
           sprite.setColor(ConcurrentExampleConstants.ACQUIRING_COLOR);
 
@@ -205,9 +220,14 @@ public class ReadWriteLockExample extends ConcurrentExample {
     });
   }
 
+  private void initializeThreadCountField() {
+    initializeTextField("Thread Count:", threadCountField, "1");
+  }
+
   protected void reset() {
     resetExample();
     lock = new ReentrantReadWriteLock(isFair());
+    threadCountField.setText("1");
     setState(0);
   }
 
