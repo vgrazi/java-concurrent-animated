@@ -8,6 +8,7 @@ import vgrazi.concurrent.samples.examples.*;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
 import vgrazi.util.logging.Logger;
 import vgrazi.util.IOUtils;
+import vgrazi.util.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -119,45 +120,13 @@ public class ConcurrentExampleLauncher {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setMenuBar(menuBar);
     initializeMenuItems();
-    Rectangle bounds = getPreferredFrameBounds();
-    frame.setBounds(bounds);
+    UIUtils.center(frame, .9f, .9f);
     ((JComponent) container).setOpaque(true);
     setBackgroundColors();
     showSplash();
     frame.setVisible(true);
   }
 
-  /**
-   * Returns the bounds that the frames should size to on launch
-   * @return the bounds that the frames should size to on launch
-   */
-  private Rectangle getPreferredFrameBounds() {
-    int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-    GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
-    GraphicsConfiguration graphicsConfiguration = graphicsDevice.getDefaultConfiguration();
-
-    int taskbarHeight = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfiguration).bottom + top;
-    int right = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfiguration).right;
-
-    int top;
-    int left;
-    int width;
-    int height;
-
-    if (ConcurrentExampleLauncher.width <= 0 || ConcurrentExampleLauncher.height <= 0) {
-      top = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfiguration).top;
-      left = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfiguration).left;
-      width = screenWidth - left - right;
-      height = Toolkit.getDefaultToolkit().getScreenSize().height - taskbarHeight;
-    } else {
-      top = ConcurrentExampleLauncher.top;
-      left = ConcurrentExampleLauncher.left;
-      width = ConcurrentExampleLauncher.width;
-      height = ConcurrentExampleLauncher.height;
-    }
-    return new Rectangle(left, top, width, height);
-  }
 
   private void setBackgroundColors() {
     container.setBackground(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
@@ -246,33 +215,7 @@ public class ConcurrentExampleLauncher {
    * @return the preferred image size, which is the largest size that will fit into the existing screen, retaining the image proportions
    */
   private Dimension getImageSize(ImageIcon imageIcon) {
-
-    // get the actual image size
-    int imageWidth = imageIcon.getImage().getWidth(null);
-    int imageHeight = imageIcon.getImage().getHeight(null);
-
-    // get the frame image size
-    int screenWidth = container.getWidth();
-    int screenHeight = container.getHeight();
-    if (screenWidth == 0 || screenHeight == 0) {
-      Rectangle frameBounds = getPreferredFrameBounds();
-      screenWidth = frameBounds.width;
-      screenHeight = frameBounds.height;
-      // todo: figure out a better way to preserve the size of the opening screen
-    }
-    if(imageHeight > screenHeight || imageWidth > screenWidth) {
-      float widthRatio = imageWidth / (float) screenWidth;
-      float heightRatio = imageHeight / (float) screenHeight;
-      if (widthRatio >= heightRatio) {
-        imageHeight = (int) (imageHeight / widthRatio);
-        imageWidth = screenWidth;
-      } else {
-        imageWidth = (int) (imageWidth / heightRatio);
-        imageHeight = screenHeight;
-      }
-    }
-
-    return new Dimension(imageWidth, imageHeight);
+    return frame.getSize();
   }
 
   public void launchExamplePanel(ConcurrentExample examplePanel) {
