@@ -30,7 +30,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
     Component[] components = target.getComponents();
     JScrollPane snippetPane = null;
     List<JButton> buttons = new ArrayList<JButton>();
-    //    List<Component> other = new ArrayList<Component>();
+        List<Component> others = new ArrayList<Component>();
     List<MessageLabel> messageLabels = new ArrayList<MessageLabel>();
     ConcurrentSpriteCanvas canvas = null;
     for (Component component : components) {
@@ -44,7 +44,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
       } else if (component instanceof ConcurrentSpriteCanvas) {
         canvas = (ConcurrentSpriteCanvas) component;
       } else {
-        //        other.add(component);
+        others.add(component);
       }
     }
 
@@ -99,6 +99,16 @@ public class ConcurrentExampleLayout extends FlowLayout {
     }
 
     yPos += INSET * 2;
+
+    // layout others
+    xPos = INSET;
+    for (Component component : others) {
+      final Dimension preferredSize = component.getPreferredSize();
+      final int width = preferredSize.width;
+      component.setBounds(xPos, yPos, width, preferredSize.height);
+      xPos += width + INSET;
+    }
+    yPos += height + INSET;
 
     // layout message labels (should be 2 of them)
     final int defaultWidth = xPosOfSnippet - INSET;
