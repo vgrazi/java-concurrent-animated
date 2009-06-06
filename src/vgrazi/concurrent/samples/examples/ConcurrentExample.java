@@ -4,13 +4,17 @@ import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import vgrazi.concurrent.samples.sprites.ConcurrentSpriteCanvas;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
 import vgrazi.concurrent.samples.*;
+import vgrazi.util.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class ConcurrentExample extends JPanel {
@@ -67,6 +71,9 @@ public abstract class ConcurrentExample extends JPanel {
   private boolean fair;
   private final int slideNumber;
   private final ConcurrentLinkedQueue<JButton> buttons = new ConcurrentLinkedQueue<JButton>();
+  protected final JTextField threadCountField = new JTextField(5);
+  protected final Executor threadCountExecutor = Executors.newCachedThreadPool();
+  private final static Logger logger = Logger.getLogger(ConcurrentExample.class.getName());
 
 
   //  public ConcurrentExample() {
@@ -141,11 +148,11 @@ public abstract class ConcurrentExample extends JPanel {
     this.container = container;
   }
 
-  protected ConcurrentSprite createAcquiringSprite() {
+  protected synchronized ConcurrentSprite createAcquiringSprite() {
     return createAcquiringSprite(ConcurrentSprite.SpriteType.ARROW);
   }
 
-  protected ConcurrentSprite createAcquiringSprite(ConcurrentSprite.SpriteType type) {
+  protected synchronized ConcurrentSprite createAcquiringSprite(ConcurrentSprite.SpriteType type) {
     final int index = getNextAcquiringIndex();
     return createAcquiringSprite(index, type);
   }
@@ -154,7 +161,7 @@ public abstract class ConcurrentExample extends JPanel {
     canvas.shuffleSprites();
   }
 
-  public ConcurrentSprite createAcquiringSprite(int index, ConcurrentSprite.SpriteType type) {
+  public synchronized ConcurrentSprite createAcquiringSprite(int index, ConcurrentSprite.SpriteType type) {
     ConcurrentSprite sprite = new ConcurrentSprite(index);
     sprite.setType(type);
     sprite.setAcquiring();
@@ -322,6 +329,24 @@ public abstract class ConcurrentExample extends JPanel {
     add(imagePanel);
   }
 
+  /**
+   * Initializes a text field with the specified label and initial value
+   * @param labelText
+   * @param field
+   * @param initialValue
+   */
+  protected void initializeTextField(String labelText, JTextField field, String initialValue) {
+    JPanel panel = new JPanel();
+    panel.setOpaque(false);
+    final JLabel label = new JLabel(labelText);
+    label.setForeground(Color.white);
+    panel.add(label);
+    panel.add(field);
+    field.setHorizontalAlignment(SwingConstants.CENTER);
+    field.setText(initialValue);
+    add(panel);
+  }
+
   protected void message1(String text, Color foreground) {
     final JLabel messageLabel = message1Label;
     message(messageLabel, foreground, text);
@@ -469,4 +494,20 @@ public abstract class ConcurrentExample extends JPanel {
     return ConcurrentSlideShow.slideShowSlides;
   }
 
+  /**
+   * Returns the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
+   * @return the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
+   */
+  protected int getThreadCount() {
+    int count = 1;
+    String countText = threadCountField.getText();
+    if(!StringUtils.isBlank(countText)) {
+      try {
+        count = Integer.parseInt(countText);
+      } catch (NumberFormatException e) {
+        logger.info("User entered incorrect value, using 1");
+      }
+    }
+    return count;
+  }
 }
