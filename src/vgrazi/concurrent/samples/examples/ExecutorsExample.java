@@ -1,6 +1,5 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
@@ -26,12 +25,16 @@ public class ExecutorsExample extends ConcurrentExample {
   public static final String FIXED_TYPE = "FixedThreadPool";
   public static final String SINGLE_TYPE = "SingleThreadExecutor";
   public static final String CACHED_TYPE = "CachedThreadPool";
+  private final JTextField threadCountField = createThreadCountField();
+
 
   /**
    * Each example must have a unique slide show index (or -1). Indexes must start with 0 and must be in sequence, no skipping
+   * @param label the label to display at the top of the
+   * @param frame the launcher frame to display the example
+   * @param slideShowIndex when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
    */
   public ExecutorsExample(String label, Container frame, int slideShowIndex) {
-//    super(frame, buttonFrame, ExampleType.WORKING);
     super(label, frame, ExampleType.BLOCKING, 390, false, slideShowIndex);
   }
 
@@ -74,10 +77,8 @@ public class ExecutorsExample extends ConcurrentExample {
 
   protected void initializeComponents() {
     if (!initialized) {
-//      initializeFixedThreadPooledButton();
-//      initializeSingleThreadButton();
-//      initializeCachedThreadPooledButton();
       initializeExecuteButton();
+      initializeThreadCountField(threadCountField);
       initialized = true;
     }
     reset();
@@ -130,26 +131,29 @@ public class ExecutorsExample extends ConcurrentExample {
   private void initializeExecuteButton() {
     initializeButton(executeButton, new Runnable() {
       public void run() {
-        final int index = nextIndex++;
-        message1("Executing index " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-        final ConcurrentSprite sprite = createAcquiringSprite();
-        executor.execute(new Runnable() {
+        final int threadCount = getThreadCount(threadCountField);
+        for (int i = 0; i < threadCount; i++) {
+          final int index = nextIndex++;
+          message1("Executing index " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+          final ConcurrentSprite sprite = createAcquiringSprite();
+          executor.execute(new Runnable() {
 
-          public void run() {
-            setState(3);
-            sprite.setAcquired();
-            try {
-              int sleepTime = ExecutorsExample.this.sleepTime + (int) (Math.random() * 500);
-              Thread.sleep(sleepTime);
-              sprite.setReleased();
+            public void run() {
+              setState(3);
+              sprite.setAcquired();
+              try {
+                int sleepTime = ExecutorsExample.this.sleepTime + (int) (Math.random() * 500);
+                Thread.sleep(sleepTime);
+                sprite.setReleased();
+              }
+              catch (InterruptedException e) {
+                sprite.setReleased();
+                Thread.currentThread().interrupt();
+              }
+              message2("Completed executing index " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
             }
-            catch (InterruptedException e) {
-              sprite.setReleased();
-              Thread.currentThread().interrupt();
-            }
-            message2("Completed executing index " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
-          }
-        });
+          });
+        }
       }
     });
   }
@@ -167,6 +171,7 @@ public class ExecutorsExample extends ConcurrentExample {
     else if(getTitle().equals(CACHED_TYPE)) {
       initializeCachedThreadPool();
     }
+    resetThreadCountField(threadCountField);
 
     nextIndex = 1;
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
