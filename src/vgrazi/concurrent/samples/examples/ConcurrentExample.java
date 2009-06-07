@@ -71,7 +71,6 @@ public abstract class ConcurrentExample extends JPanel {
   private boolean fair;
   private final int slideNumber;
   private final ConcurrentLinkedQueue<JButton> buttons = new ConcurrentLinkedQueue<JButton>();
-  protected final JTextField threadCountField = new JTextField(5);
   protected final Executor threadCountExecutor = Executors.newCachedThreadPool();
   private final static Logger logger = Logger.getLogger(ConcurrentExample.class.getName());
 
@@ -330,21 +329,62 @@ public abstract class ConcurrentExample extends JPanel {
   }
 
   /**
-   * Initializes a text field with the specified label and initial value
-   * @param labelText
-   * @param field
-   * @param initialValue
+   * Returns a default thread count field
+   * @return a default thread count field
    */
-  protected void initializeTextField(String labelText, JTextField field, String initialValue) {
+  protected JTextField createThreadCountField() {
+    final JTextField threadCountField = new JTextField(3);
+    threadCountField.setHorizontalAlignment(SwingConstants.CENTER);
+    return threadCountField;
+  }
+
+  /**
+   * The examples have the ability to create one or more thread count text fields.
+   * To do so, declare a JTextField, then call initializeThreadCountField.
+   * To get the value, call getThreadCount() supplying the field instance.
+   * This method supplies a default label "Thread Count:"
+   * @param threadCountField the field containing the thread count
+   * @see #getThreadCount
+   * @see #initializeThreadCountField(JTextField, String)
+   */
+  protected void initializeThreadCountField(JTextField threadCountField) {
+    initializeThreadCountField(threadCountField, "Thread Count:");
+  }
+  /**
+   * The examples have the ability to create one or more thread count text fields.
+   * To do so, declare a JTextField, then call initializeThreadCountField.
+   * To get the value, call getThreadCount() supplying the field instance.
+   * @param threadCountField the field containing the thread count
+   * @param labelText the label to display
+   * @see #getThreadCount
+   */
+  protected void initializeThreadCountField(JTextField threadCountField, String labelText) {
     JPanel panel = new JPanel();
     panel.setOpaque(false);
     final JLabel label = new JLabel(labelText);
     label.setForeground(Color.white);
     panel.add(label);
-    panel.add(field);
-    field.setHorizontalAlignment(SwingConstants.CENTER);
-    field.setText(initialValue);
+    panel.add(threadCountField);
+    threadCountField.setText("1");
     add(panel);
+  }
+
+  /**
+   * Returns the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
+   * @return the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
+   * @param threadCountField the field containing the count value to convert
+   */
+  protected int getThreadCount(JTextField threadCountField) {
+    int count = 1;
+    String countText = threadCountField.getText();
+    if(!StringUtils.isBlank(countText)) {
+      try {
+        count = Integer.parseInt(countText);
+      } catch (NumberFormatException e) {
+        logger.info("User entered incorrect value, using 1");
+      }
+    }
+    return count;
   }
 
   protected void message1(String text, Color foreground) {
@@ -492,22 +532,5 @@ public abstract class ConcurrentExample extends JPanel {
 
   public Map<Integer, ActionListener> getSlideShowSlides() {
     return ConcurrentSlideShow.slideShowSlides;
-  }
-
-  /**
-   * Returns the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
-   * @return the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
-   */
-  protected int getThreadCount() {
-    int count = 1;
-    String countText = threadCountField.getText();
-    if(!StringUtils.isBlank(countText)) {
-      try {
-        count = Integer.parseInt(countText);
-      } catch (NumberFormatException e) {
-        logger.info("User entered incorrect value, using 1");
-      }
-    }
-    return count;
   }
 }
