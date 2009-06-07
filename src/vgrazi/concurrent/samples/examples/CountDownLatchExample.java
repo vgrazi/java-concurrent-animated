@@ -25,6 +25,7 @@ public class CountDownLatchExample extends ConcurrentExample {
 
   private int index;
   private boolean initialized = false;
+  private final JTextField threadCountField = createThreadCountField();
   private static final int MIN_SNIPPET_POSITION = 360;
 
   public String getTitle() {
@@ -41,22 +42,37 @@ public class CountDownLatchExample extends ConcurrentExample {
       initializeButton(acquireButton, new Runnable() {
         public void run() {
           setAnimationCanvasVisible(true);
-          acquire();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                acquire();
+              }
+            });
+          }
         }
       });
       initializeButton(releaseButton, new Runnable() {
         public void run() {
-          release();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            release();
+          }
         }
       });
       initializeButton(attemptButton, new Runnable() {
         public void run() {
-          attempt();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                attempt();
+              }
+            });
+          }
         }
       });
-//      initializeResetButton(xLoc++, 0, 1, 1);
-//      initializeSnippet();
-
+      initializeThreadCountField(threadCountField);
       initialized = true;
     }
 
@@ -127,6 +143,7 @@ public class CountDownLatchExample extends ConcurrentExample {
     super.reset();
     countDownLatch = new CountDownLatch(4);
     index = 1;
+    resetThreadCountField(threadCountField);
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     setState(0);
