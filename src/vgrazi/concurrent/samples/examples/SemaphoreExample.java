@@ -40,9 +40,9 @@ public class SemaphoreExample extends ConcurrentExample {
   private String timeoutString = "";
   private final List<ConcurrentSprite> acquiredSprites = new ArrayList<ConcurrentSprite>();
   private static final int MIN_SNIPPET_POSITION = 320;
+  private JTextField threadCountField = createThreadCountField();
 
   public SemaphoreExample(String title, Container frame, boolean fair, int slideNumber) {
-//    super(frame, buttonFrame, ExampleType.WORKING);
     super(title, frame, ExampleType.BLOCKING, MIN_SNIPPET_POSITION, fair, slideNumber);
     if(fair) {
       initializeFair();
@@ -99,39 +99,58 @@ public class SemaphoreExample extends ConcurrentExample {
   protected void initializeComponents() {
     reset();
     if (!initialized) {
-//      initializeButton(unfairButton, new Runnable() {
-//        public void run() {
-//          initializeNonFair();
-//        }
-//      });
-//      initializeButton(fairButton, new Runnable() {
-//        public void run() {
-//          initializeFair();
-//        }
-//      });
       initializeButton(timedtryAcquireButton, new Runnable() {
         public void run() {
           timeoutString = "1000L, TimeUnit.MILLISECONDS";
-          tryTimedAcquire();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                tryTimedAcquire();
+              }
+            });
+          }
         }
       });
       initializeButton(immediatetryAcquireButton, new Runnable() {
         public void run() {
           timeoutString = "";
-          tryUntimedAcquire();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                tryUntimedAcquire();                
+              }
+            });
+          }
         }
       });
       initializeButton(acquireButton, new Runnable() {
         public void run() {
           setAnimationCanvasVisible(true);
-          acquire();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                acquire();
+              }
+            });
+          }
         }
       });
       initializeButton(releaseButton, new Runnable() {
         public void run() {
-          release();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                release();
+              }
+            });
+          }
         }
       });
+      initializeThreadCountField(threadCountField);
 
       initialized = true;
     }
@@ -265,6 +284,7 @@ public class SemaphoreExample extends ConcurrentExample {
       }
     }
     acquiredSprites.clear();
+    resetThreadCountField(threadCountField);
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
   }
