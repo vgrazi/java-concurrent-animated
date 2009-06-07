@@ -27,6 +27,7 @@ public class ReentrantLockExample extends ConcurrentExample {
   private final JButton attemptButton = new JButton("tryLock");
   private boolean initialized = false;
   private static final int MIN_SNIPPET_POSITION = 300;
+  private final JTextField threadCountField = createThreadCountField();
 
   public String getTitle() {
     return "ReentrantLock";
@@ -69,20 +70,44 @@ public class ReentrantLockExample extends ConcurrentExample {
     if(!initialized) {
       initializeButton(acquireButton, new Runnable() {
         public void run() {
-          acquire();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                acquire();                
+              }
+            });
+          }
         }
       });
 
       initializeButton(releaseButton, new Runnable() {
         public void run() {
-          release();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            release();
+            try {
+              // sleep a little to give a chance for the locking thread to reach its target
+              Thread.sleep(500);
+            } catch (InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
+          }
         }
       });
       initializeButton(attemptButton, new Runnable() {
         public void run() {
-          attempt();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                attempt();
+              }
+            });
+          }
         }
       });
+      initializeThreadCountField(threadCountField);
       initialized = true;
     }
   }
@@ -181,6 +206,7 @@ public class ReentrantLockExample extends ConcurrentExample {
     lock = new ReentrantLock();
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
     message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
+    resetThreadCountField(threadCountField);
     setState(0);
     super.reset();
   }
