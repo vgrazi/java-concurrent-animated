@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project relativePaths="false" version="4">
   <component name="ChangeListManager">
-    <list default="true" readonly="true" name="Default" comment="Added thread count field">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Javaconcurrenta.iml" afterPath="$PROJECT_DIR$/Javaconcurrenta.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javaconcurrenta.iws" afterPath="$PROJECT_DIR$/javaconcurrenta.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javaconcurrenta.ipr" afterPath="$PROJECT_DIR$/javaconcurrenta.ipr" />
-    </list>
+    <list default="true" readonly="true" name="Default" comment="" />
     <list name="InteliiJ" comment="" />
     <ignored path="dist/vgrazi/" />
     <ignored path="src/vgrazi/util/logging/" />
@@ -83,48 +79,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ConcurrentExampleLauncher.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="233" column="21" selection-start="9745" selection-end="9745" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConcurrentExample.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="352" column="5" selection-start="11799" selection-end="11799" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConcurrentExampleLayout.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExampleLayout.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="46" selection-start="1541" selection-end="1541" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ReadWriteLockExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="49" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.0">
+            <state line="43" column="24" selection-start="1801" selection-end="1801" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExecutorsExample.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ExecutorsExample.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="21" selection-start="5201" selection-end="5201" vertical-scroll-proportion="0.0">
+            <state line="79" column="21" selection-start="5201" selection-end="5201" vertical-scroll-proportion="0.35699373">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -132,10 +99,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SemaphoreExample.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SemaphoreExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.5513627">
+            <state line="30" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="method#getSnippet#0;class#SemaphoreExample#0" expanded="false" />
               </folding>
@@ -545,20 +512,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExampleLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="46" selection-start="1541" selection-end="1541" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="233" column="21" selection-start="9745" selection-end="9745" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dist/vgrazi/concurrent/samples/examples/ReentrantLockExample.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -573,9 +526,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
+    <entry file="file://$PROJECT_DIR$/dist/vgrazi/concurrent/samples/examples/SemaphoreExample.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="49" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="method#getSnippet#0;class#SemaphoreExample#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="233" column="21" selection-start="9745" selection-end="9745" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -589,27 +558,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExampleLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="21" selection-start="5201" selection-end="5201" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/vgrazi/concurrent/samples/examples/SemaphoreExample.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="42" column="46" selection-start="1541" selection-end="1541" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java">
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.5513627">
+        <state line="43" column="24" selection-start="1801" selection-end="1801" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="21" selection-start="5201" selection-end="5201" vertical-scroll-proportion="0.35699373">
           <folding>
-            <element signature="method#getSnippet#0;class#SemaphoreExample#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
