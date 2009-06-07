@@ -20,8 +20,23 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.io.IOException;
 
-//import org.apache.log4j.Logger;
 
+/**
+todo
+•	I will try to expand the explanations on the descriptive slides, and also will add a mouseover to explain what is happening, especially on each executor, and explain fair and unfair<br><br>
+
+Walking through the slides using page down is good, but seems to skip at least one of the functions in comparison to the drop-down menu. For example, using page down to navigate to 'sempahore' then again to 'Future', but can't get to 'semaphore (fair)' without using the menu. Also, explanation of what 'fair' does in comparison would be good.<br>
+•	Each screen use the underlying components to control the animations. Semaphore fair and unfair for some reason have been acting the same in JDK1.6. This seems to be a JDK issue. I removed fair to avoid confusion. I put it back now. (Fair guarantees that waiting threads are released in the order they arrived. Unfair doesn’t)<br><br>
+
+Scheduled executors are covered in the slide, but not in the animations?<br>
+•	No reason, just didn’t get to that one<br><br>
+
+Not sure there's enough information for 'condition' –<br>
+•	This was hard to visualize, if someone can suggest a better approach please let me know. The way it works is that a lock is created (see the code snippet in the animation) and used to create one or more conditions. Then, threads that wish to be notified when any of those conditions occur will call await on the condition, and will sit there blocking, until another thread calls signal() or signalAll() on that condition. If signal() is called, one thread will be notified. If signalAll() is called, all threads will be notified.<br><br>
+
+Countdownlatch, I'm not sure whether it's obvious from the slides that once the countdown has been reached, all further threads execute immediately.<br>
+•	I can add some more explanation to the power point “Once the countdown has been completed, all further calls to await will pass through unblocked<br><br>
+*/
 public class ConcurrentExampleLauncher {
   private final static Logger logger = Logger.getLogger(ConcurrentExampleLauncher.class.getCanonicalName());
   private final JFrame frame = new JFrame();
@@ -31,10 +46,6 @@ public class ConcurrentExampleLauncher {
   private final MenuBar menuBar = new MenuBar();
   private final TreeMap<Integer, ActionListener> slideShowSlides = new TreeMap<Integer, ActionListener>();
 
-  private static int left;
-  private static int top;
-  private static int width;
-  private static int height;
   private static final String REFERENCES = "References";
   private static final String HELP = "Help";
   private static ConcurrentExampleLauncher instance;
@@ -55,12 +66,6 @@ public class ConcurrentExampleLauncher {
   private static String REFERENCES_LABEL;
 
   public static void main(String[] args) throws IOException {
-    if (args.length >= 4) {
-      left = Integer.parseInt(args[0]);
-      top = Integer.parseInt(args[1]);
-      width = Integer.parseInt(args[2]);
-      height = Integer.parseInt(args[3]);
-    }
     instance = new ConcurrentExampleLauncher();
   }
 
@@ -204,7 +209,7 @@ public class ConcurrentExampleLauncher {
     logger.log(Level.INFO, "ConcurrentExampleLauncher.showTitlePane image: " + url);
     ImageIcon imageIcon = new ImageIcon(url);
     if (resizeImage) {
-      Dimension size = getImageSize(imageIcon);
+      Dimension size = getImageSize();
       imageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(size.width, size.height, 0));
     }
     return imageIcon;
@@ -212,10 +217,9 @@ public class ConcurrentExampleLauncher {
 
   /**
    * Returns the preferred image size, which is the largest size that will fit into the existing screen, retaining the image proportions
-   * @param imageIcon contains the image to render
    * @return the preferred image size, which is the largest size that will fit into the existing screen, retaining the image proportions
    */
-  private Dimension getImageSize(ImageIcon imageIcon) {
+  private Dimension getImageSize() {
     return frame.getSize();
   }
 
@@ -234,7 +238,6 @@ public class ConcurrentExampleLauncher {
     } else {
       showSplashes();
     }
-    //            container.repaint(1000);    
   }
 
   public void launchImagePanel(ImagePanel imagePanel) {
@@ -242,12 +245,9 @@ public class ConcurrentExampleLauncher {
     this.examplePanel = null;
     this.imagePanel = imagePanel;
     imagePanel.setVisible(true);
-//    imagePanel.setOpaque(true);
-//    frame.setVisible(true);
     container.add(imagePanel);
     container.validate();
     container.doLayout();
-    //            container.repaint(1000);
   }
 
   boolean flip = false;
