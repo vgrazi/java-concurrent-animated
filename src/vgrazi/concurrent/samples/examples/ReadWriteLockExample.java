@@ -3,11 +3,11 @@ package vgrazi.concurrent.samples.examples;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
-import vgrazi.util.logging.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Date;
+import java.util.logging.Logger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -31,9 +31,9 @@ public class ReadWriteLockExample extends ConcurrentExample {
   private static int minSnippetPosition = 390;
   private boolean downgrade = false;
   private boolean writerOwned = false;
+  private final JTextField threadCountField = createThreadCountField();
 
   public ReadWriteLockExample(String label, Container frame, boolean fair, int slideNumber) {
-    //    super(frame, buttonFrame, ExampleType.WORKING);
     super(label, frame, ExampleType.BLOCKING, minSnippetPosition, fair, slideNumber);
   }
 
@@ -44,7 +44,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
       addButtonSpacer();
       initializeReadReleaseButton();
       initializeWriteDowngradeToReadButton();
-      initializeThreadCountField();
+      initializeThreadCountField(threadCountField);
       initialized = true;
     }
   }
@@ -89,7 +89,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
       public void run() {
         setAnimationCanvasVisible(true);
         setState(1);
-        int count = getThreadCount();
+        int count = getThreadCount(threadCountField);
         for (int i = 0; i < count; i++) {
           threadCountExecutor.execute(new Runnable() {
             public void run() {
@@ -106,8 +106,9 @@ public class ReadWriteLockExample extends ConcurrentExample {
 
     Lock readLock = lock.readLock();
     logger.info("Acquiring read lock " + readLock);
-    readLock.lock();
+    // create the sprite before locking, otherwise the thread won't appear if another thread has the lock
     final ConcurrentSprite sprite = createAcquiringSprite();
+    readLock.lock();
     writerOwned = false;
     sprite.setAcquired();
     message1(new Date() + " Acquired read lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
@@ -127,7 +128,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
     initializeButton(writeAcquireButton, new Runnable() {
       public void run() {
         setState(3);
-        int count = getThreadCount();
+        int count = getThreadCount(threadCountField);
         for (int i = 0; i < count; i++) {
           threadCountExecutor.execute(new Runnable() {
             public void run() {
@@ -220,14 +221,10 @@ public class ReadWriteLockExample extends ConcurrentExample {
     });
   }
 
-  private void initializeThreadCountField() {
-    initializeTextField("Thread Count:", threadCountField, "1");
-  }
-
   protected void reset() {
     resetExample();
     lock = new ReentrantReadWriteLock(isFair());
-    threadCountField.setText("1");
+    resetThreadCountField(threadCountField);    
     setState(0);
   }
 
