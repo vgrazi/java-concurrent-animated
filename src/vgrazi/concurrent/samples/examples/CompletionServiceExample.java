@@ -30,7 +30,7 @@ public class CompletionServiceExample extends ConcurrentExample {
   private CompletionService<Result> completionService;
   private int index;
   private int RESET_COUNT = 0;
-
+  private JTextField threadCountField = createThreadCountField();
   public CompletionServiceExample(String title, Container frame, int slideNumber) {
     super(title, frame, ExampleType.BLOCKING, 390, false, slideNumber);
   }
@@ -45,15 +45,22 @@ public class CompletionServiceExample extends ConcurrentExample {
       initializeButton(submitButton, new Runnable() {
         public void run() {
           setState(1);
-          submit();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            submit();
+          }
         }
       });
       initializeButton(takeButton, new Runnable() {
         public void run() {
           setState(2);
-          take();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            take();
+          }
         }
       });
+      initializeThreadCountField(threadCountField);
       initialized = true;
     }
   }
@@ -126,6 +133,7 @@ public class CompletionServiceExample extends ConcurrentExample {
     completionService = new ExecutorCompletionService<Result>(executorService);
     index = 0;
     RESET_COUNT++;
+    resetThreadCountField(threadCountField);
     message1("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     message2("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     setState(0);
