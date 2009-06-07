@@ -1,21 +1,28 @@
 package vgrazi.concurrent.samples.examples;
 
+import vgrazi.concurrent.samples.ConcurrentExampleConstants;
+import vgrazi.concurrent.samples.ExampleType;
+import vgrazi.concurrent.samples.ImagePanel;
+import vgrazi.concurrent.samples.MessageLabel;
+import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import vgrazi.concurrent.samples.sprites.ConcurrentSpriteCanvas;
-import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
-import vgrazi.concurrent.samples.*;
 import vgrazi.util.StringUtils;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Logger;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 public abstract class ConcurrentExample extends JPanel {
 
@@ -358,14 +365,55 @@ public abstract class ConcurrentExample extends JPanel {
    * @param labelText the label to display
    * @see #getThreadCount
    */
-  protected void initializeThreadCountField(JTextField threadCountField, String labelText) {
+  protected void initializeThreadCountField(final JTextField threadCountField, String labelText) {
     JPanel panel = new JPanel();
     panel.setOpaque(false);
     final JLabel label = new JLabel(labelText);
     label.setForeground(Color.white);
     panel.add(label);
-    panel.add(threadCountField);
+    final JSpinner spinner = new JSpinner();
+    spinner.setEditor(threadCountField);
+    final boolean[] inchange = new boolean[]{false};
+    spinner.addChangeListener(new ChangeListener() {
+      public void stateChanged(ChangeEvent e) {
+        final int value = (Integer)spinner.getValue();
+        if(value < 1) {
+          spinner.setValue(1);
+        }
+        else {
+          // don't change the threadCountField if the change if the notification originated from the threadCountField
+          if (!inchange[0]) {
+            threadCountField.setText(String.valueOf(value));
+          }
+        }
+      }
+    });
+    threadCountField.getDocument().addDocumentListener(new DocumentListener() {
+
+      public void insertUpdate(DocumentEvent e) {
+        setSpinnerFromField();
+      }
+
+      public void removeUpdate(DocumentEvent e) {
+        setSpinnerFromField();
+      }
+
+      public void changedUpdate(DocumentEvent e) {
+        setSpinnerFromField();
+      }
+
+      private void setSpinnerFromField() {
+        inchange[0] = true;
+        spinner.setValue(getThreadCount(threadCountField));
+        inchange[0] = false;
+      }
+    });
+    final Dimension preferredSize = spinner.getPreferredSize();
+    preferredSize.width = 45;
+    spinner.setPreferredSize(preferredSize);
+    panel.add(spinner);
     resetThreadCountField(threadCountField);
+    spinner.setValue(getThreadCount(threadCountField));
     add(panel);
   }
 
