@@ -149,7 +149,7 @@ public class CyclicBarrierExample extends ConcurrentExample {
   protected void reset() {
     super.reset();
     createBarrier();
-
+    resetThreadCountField(threadCountField);    
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     setState(0);

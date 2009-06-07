@@ -144,6 +144,7 @@ public class BlockingQueueExample extends ConcurrentExample {
 
   protected void reset() {
     super.reset();
+    resetThreadCountField(threadCountField);
     queue = new ArrayBlockingQueue<ConcurrentSprite>(4);
     index = 1;
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
