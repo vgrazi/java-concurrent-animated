@@ -365,7 +365,7 @@ public abstract class ConcurrentExample extends JPanel {
     label.setForeground(Color.white);
     panel.add(label);
     panel.add(threadCountField);
-    threadCountField.setText("1");
+    resetThreadCountField(threadCountField);
     add(panel);
   }
 
@@ -385,6 +385,14 @@ public abstract class ConcurrentExample extends JPanel {
       }
     }
     return count;
+  }
+
+  /**
+   * Resets the supplied thread count field to "1"
+   * @param threadCountField the field to reset
+   */
+  protected void resetThreadCountField(JTextField threadCountField) {
+    threadCountField.setText("1");
   }
 
   protected void message1(String text, Color foreground) {
