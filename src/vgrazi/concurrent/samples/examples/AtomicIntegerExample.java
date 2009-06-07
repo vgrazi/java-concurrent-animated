@@ -83,6 +83,7 @@ public class AtomicIntegerExample extends ConcurrentExample {
         }
       });
       initializeThreadCountField(threadCountField);
+      resetThreadCountField();
       initialized = true;
     }
   }
@@ -178,13 +179,20 @@ public class AtomicIntegerExample extends ConcurrentExample {
 
   protected void reset() {
     super.reset();
-    resetThreadCountField(threadCountField);
+    resetThreadCountField();
     setState(0);
     value = 1;
     atomicInteger = new AtomicInteger(value);
     CAS.setValue(atomicInteger.intValue());
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+  }
+
+  /**
+   * Resets our thread count field to the default value of 4
+   */
+  private void resetThreadCountField() {
+    resetThreadCountField(threadCountField, 4);
   }
 
   @Override
