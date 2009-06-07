@@ -440,7 +440,16 @@ public abstract class ConcurrentExample extends JPanel {
    * @param threadCountField the field to reset
    */
   protected void resetThreadCountField(JTextField threadCountField) {
-    threadCountField.setText("1");
+    resetThreadCountField(threadCountField, 1);
+  }
+
+  /**
+   * Resets the supplied thread count field to "1"
+   * @param threadCountField the field to reset
+   * @param value the value to set in the field
+   */
+  protected void resetThreadCountField(JTextField threadCountField, int value) {
+    threadCountField.setText(String.valueOf(value));
   }
 
   protected void message1(String text, Color foreground) {
