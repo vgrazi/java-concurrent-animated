@@ -36,6 +36,7 @@ public class AtomicIntegerExample extends ConcurrentExample {
   private final JButton compareAndSetButton = new JButton("compareAndSet");
   private final JButton incrementAndGetButton = new JButton("incrementAndGet");
   private boolean initialized = false;
+  private JTextField threadCountField = createThreadCountField();
   private static final int MIN_SNIPPET_POSITION = 400;
   private int value;
 
@@ -81,7 +82,7 @@ public class AtomicIntegerExample extends ConcurrentExample {
           incrementAndGet();
         }
       });
-
+      initializeThreadCountField(threadCountField);
       initialized = true;
     }
   }
@@ -90,7 +91,8 @@ public class AtomicIntegerExample extends ConcurrentExample {
     try {
       setState(1);
       final List<ConcurrentSprite> sprites = new ArrayList<ConcurrentSprite>();
-      for (int i = 0; i < 4; i++) {
+      final int count = getThreadCount(threadCountField);
+      for (int i = 0; i < count; i++) {
         ConcurrentSprite sprite = createAcquiringSprite();
         sprite.setType(ConcurrentSprite.SpriteType.CAS);
         sprite.setExpectedValue(CAS.getValue());
@@ -138,7 +140,8 @@ public class AtomicIntegerExample extends ConcurrentExample {
     try {
       setState(2);
       final List<ConcurrentSprite> sprites = new ArrayList<ConcurrentSprite>();
-      for (int i = 0; i < 4; i++) {
+      final int count = getThreadCount(threadCountField);
+      for (int i = 0; i < count; i++) {
         ConcurrentSprite sprite = createAcquiringSprite();
         sprite.setType(ConcurrentSprite.SpriteType.CAS);
         sprite.setValue(ConcurrentSprite.NO_VALUE);
@@ -175,6 +178,7 @@ public class AtomicIntegerExample extends ConcurrentExample {
 
   protected void reset() {
     super.reset();
+    resetThreadCountField(threadCountField);
     setState(0);
     value = 1;
     atomicInteger = new AtomicInteger(value);
