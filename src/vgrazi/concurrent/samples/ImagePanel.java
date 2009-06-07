@@ -1,11 +1,12 @@
 package vgrazi.concurrent.samples;
 
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
-import vgrazi.util.logging.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 //import org.apache.log4j.Logger;
 
@@ -20,7 +21,7 @@ public class ImagePanel extends JPanel {
   private int xPos;
   private int yPos;
   private String imageName;
-  private final static Logger logger = Logger.getLogger(ImagePanel.class);
+  private final static Logger logger = Logger.getLogger(ImagePanel.class.getName());
   public void setVisible(boolean aFlag) {
     super.setVisible(aFlag);
   }
@@ -40,14 +41,14 @@ public class ImagePanel extends JPanel {
         if(concurrentExample != null && concurrentExample.getAnimationCanvas().isVisible()) {
           xPos = e.getX();
           yPos = e.getY();
-          logger.debug("ConcurrentSpriteCanvas.mousePressed " + e);
+          logger.log(Level.INFO, "ConcurrentSpriteCanvas.mousePressed " + e);
         }
       }
 
       public void mouseClicked(MouseEvent e) {
         if(e.getClickCount() > 1) {
           toggleView();
-          logger.debug("ConcurrentSpriteCanvas.mouseDouble Clicked " + e);
+          logger.log(Level.INFO, "ConcurrentSpriteCanvas.mouseDouble Clicked " + e);
         }
       }
     });
@@ -60,7 +61,7 @@ public class ImagePanel extends JPanel {
           yPos = e.getY();
           Point location = concurrentExample.getAnimationCanvas().getLocation();
           concurrentExample.getAnimationCanvas().setLocation((int) location.getX() + deltaX, (int) (location.getY() + deltaY));
-          logger.debug("ConcurrentSpriteCanvas.mouseDragged " + e);
+          logger.log(Level.INFO, "ConcurrentSpriteCanvas.mouseDragged " + e);
         }
       }
     });

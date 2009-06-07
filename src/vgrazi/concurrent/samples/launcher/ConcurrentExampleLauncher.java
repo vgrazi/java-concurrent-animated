@@ -6,7 +6,6 @@ import vgrazi.concurrent.samples.ImagePanel;
 import vgrazi.concurrent.samples.ImagePanelActionListener;
 import vgrazi.concurrent.samples.examples.*;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
-import vgrazi.util.logging.Logger;
 import vgrazi.util.IOUtils;
 import vgrazi.util.UIUtils;
 
@@ -15,6 +14,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 import java.util.TreeMap;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class ConcurrentExampleLauncher {
   private static final KeyAdapter keyListener = new KeyAdapter() {
     @Override
     public void keyReleased(KeyEvent e) {
-      logger.debug("ConcurrentExampleLauncher.keyPressed " + e);
+      logger.log(Level.INFO, "ConcurrentExampleLauncher.keyPressed " + e);
       if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
         ConcurrentSlideShow.nextSlide();
       } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
@@ -200,7 +201,7 @@ public class ConcurrentExampleLauncher {
 
   private ImageIcon getImageIcon(String imageName, boolean resizeImage) {
     URL url = ConcurrentExampleLauncher.class.getClassLoader().getResource(imageName);
-    logger.debug("ConcurrentExampleLauncher.showTitlePane image: " + url);
+    logger.log(Level.INFO, "ConcurrentExampleLauncher.showTitlePane image: " + url);
     ImageIcon imageIcon = new ImageIcon(url);
     if (resizeImage) {
       Dimension size = getImageSize(imageIcon);
