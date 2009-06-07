@@ -75,7 +75,7 @@ public class ConcurrentExampleLauncher {
             new ExecutorsExample(ExecutorsExample.CACHED_TYPE, container, delta++));
     initializeMenuItem("Semaphore",
             new SemaphoreExample("Semaphore", container, false, delta++),
-            new SemaphoreExample("Semaphore (fair)", container, true, -1));
+            new SemaphoreExample("Semaphore (fair)", container, true, delta++));
     initializeImageSlide("images/future.jpg", delta++, false, Alignment.CENTER);
     initializeMenuItem("Future", new FutureExample("Future", container, delta++));
     initializeImageSlide("images/reentrantLock.jpg", delta++, false, Alignment.CENTER);
