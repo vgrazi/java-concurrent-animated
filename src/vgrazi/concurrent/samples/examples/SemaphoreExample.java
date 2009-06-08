@@ -103,7 +103,9 @@ public class SemaphoreExample extends ConcurrentExample {
             "Semaphore permits a specified fixed number<br>" +
             "of threads access.<br><br>" +
             "Once permits are exhausted, no other threads<br>" +
-            "may acquire until holding threads release." +
+            "may acquire until holding threads release.<br><br>" +
+            "Unfair mode selects waiting threads randomly when permits becomes available.<br>" +
+            "Fair mode selects waiting threads in the order they arrived." +
             "</body>" +
             "</HTML>";
   }
