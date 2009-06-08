@@ -75,6 +75,49 @@ public class ExecutorsExample extends ConcurrentExample {
             "    </FONT></PRE></html";
   }
 
+  @Override
+  public String getToolTipText() {
+    if(getTitle().equals(FIXED_TYPE)) {
+      return "<HTML>" +
+              "<body>" +
+              "FixedThreadPoolExecutor maintains a constant<br>" +
+              "sized pool of threads.<br><br>" +
+              "When all of those threads are executing," +
+              "<br>additional clients must wait<br>" +
+              "until threads are released.<br>" +
+              "</body>" +
+              "</HTML>";
+    }
+    else if(getTitle().equals(SINGLE_TYPE)){
+      return "<HTML>" +
+              "<body>" +
+              "SingleThreadPoolExecutor is a fixed thread pool<br>" +
+              "executor with just one thread.<br><br>" +
+              "While that thread is executing,<br>" +
+              "additional clients must wait until <br>" +
+              "the thread is released.<br>" +
+              "</body>" +
+              "</HTML>";
+    }
+    else if(getTitle().equals(CACHED_TYPE)) {
+      return "<HTML>" +
+              "<body>" +
+              "CachedThreadPoolExecutor attempts to reuse<br>" +
+              "threads once they are created.<br><br>" +
+              "If there are no pooled threads available,<br>" +
+              "new threads will be created as requests come in.<br><br>" +
+              "Threads timeout and leave the pool after 60 seconds,<br>" +
+              "to conserve resources.<br>" +
+              "</body>" +
+              "</HTML>";
+    }
+    return "<HTML>" +
+            "<body>" +
+            "" +
+            "</body>" +
+            "</HTML>";
+  }
+
   protected void initializeComponents() {
     if (!initialized) {
       initializeExecuteButton();
