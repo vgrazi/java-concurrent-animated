@@ -96,6 +96,18 @@ public class SemaphoreExample extends ConcurrentExample {
     return snippet;
   }
 
+  @Override
+  public String getToolTipText() {
+    return "<HTML>" +
+            "<body>" +
+            "Semaphore permits a specified fixed number<br>" +
+            "of threads access.<br><br>" +
+            "Once permits are exhausted, no other threads<br>" +
+            "may acquire until holding threads release." +
+            "</body>" +
+            "</HTML>";
+  }
+
   protected void initializeComponents() {
     reset();
     if (!initialized) {

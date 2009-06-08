@@ -122,6 +122,9 @@ public class ConcurrentExampleLauncher {
   private ConcurrentExampleLauncher() throws IOException {
     SPLASH_LABEL = IOUtils.readHtmlText(ConcurrentExampleConstants.INSTRUCTIONS_FILE);
     REFERENCES_LABEL = IOUtils.readHtmlText(ConcurrentExampleConstants.REFERENCES_FILE);
+    ToolTipManager ttm = ToolTipManager.sharedInstance();
+    ttm.setDismissDelay(30*60*1000);
+    ttm.setInitialDelay(500);
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setMenuBar(menuBar);

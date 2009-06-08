@@ -127,6 +127,7 @@ public abstract class ConcurrentExample extends JPanel {
         }
       }
     });
+    snippetLabel.setToolTipText(getToolTipText());
     snippetLabel.setFont(SNIPPET_FONT);
     imagePanel.setOpaque(true);
   }

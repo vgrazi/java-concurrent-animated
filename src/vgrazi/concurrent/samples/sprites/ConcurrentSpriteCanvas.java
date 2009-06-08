@@ -8,6 +8,8 @@ import vgrazi.concurrent.samples.examples.ConcurrentExample;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
 import java.util.Queue;
@@ -68,13 +70,45 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private int verticalIndex;
   private final PropertyChangeSupport PROPERTY_CHANGE_SUPPORT = new PropertyChangeSupport(this);
 
-  public ConcurrentSpriteCanvas(ConcurrentExample concurrentExample, String labelText) {
+  public ConcurrentSpriteCanvas(final ConcurrentExample concurrentExample, final String labelText) {
     setFont(ConcurrentExampleConstants.MUTEX_HEADER_FONT);
     this.concurrentExample = concurrentExample;
     setOpaque(true);
+
     setDoubleBuffered(true);
     setLabelText(labelText);
     fontMetrics = getFontMetrics(getFont());
+    addMouseMotionListener(new MouseMotionAdapter() {
+      private Rectangle labelBounds;
+
+      @Override
+      public void mouseMoved(MouseEvent e) {
+        super.mouseMoved(e);
+        final String toolTipText = concurrentExample.getToolTipText();
+        if (toolTipText != null) {
+          Rectangle labelBounds = getLabelBounds();
+          final Point point = e.getPoint();
+          System.out.println("Mouse:" + point + " title:" + labelBounds + " text:" + toolTipText);
+          if(labelBounds.contains(point)) {
+            ConcurrentSpriteCanvas.this.setToolTipText(toolTipText);
+          } else{
+            ConcurrentSpriteCanvas.this.setToolTipText("");
+          }
+        }
+      }
+
+      public Rectangle getLabelBounds() {
+        if(labelBounds == null) {
+          int w = fontMetrics.stringWidth(labelText);
+          int h = fontMetrics.getHeight();
+          int x = getLabelXPosition();
+          // we want the rectangle to start at the top left, not bottom, so subtract the text height displacement
+          int y = getLabelYPosition() - h;
+          labelBounds = new Rectangle(x, y, w, h);
+        }
+        return labelBounds;
+      }
+    });
     resumeClock();
   }
 
@@ -179,7 +213,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
     // Draw the label text
     g.setColor(ConcurrentExampleConstants.MUTEX_FONT_COLOR);
-    g.drawString(labelText, (ACQUIRE_BORDER + RELEASE_BORDER) / 2 + leftOffset - (fontMetrics.stringWidth(labelText)) / 2, topOffset - 10);
+    g.drawString(labelText, getLabelXPosition(), getLabelYPosition());
 
     //    System.out.println("ConcurrentSpriteCanvas.paint sprite count:" + sprites.size());
     try {
@@ -213,6 +247,22 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
     //    g.drawString(labelText, 100, topOffset + 20);
 
+  }
+
+  /**
+   * Returns the x position to start drawing the label
+   * @return the x position to start drawing the label
+   */
+  private int getLabelXPosition() {
+    return (ACQUIRE_BORDER + RELEASE_BORDER) / 2 + leftOffset - (fontMetrics.stringWidth(labelText)) / 2;
+  }
+
+  /**
+   * Returns the y position to start drawing the label
+   * @return the y position to start drawing the label
+   */
+  private int getLabelYPosition() {
+    return topOffset - 10;
   }
 
   private void drawMutex(Graphics2D g, Dimension size) {
