@@ -163,7 +163,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
       case CAS:
         DELTA = 3;
         BACK_DELTA = 0;
-        topBorder += 30;
+        topBorder = 32;
         int borderDelta = 80;
         ACQUIRE_BORDER = ACQUIRE_BORDER_BLOCKING + borderDelta;
         RELEASE_BORDER = RELEASE_BORDER_BLOCKING + borderDelta + 10;
@@ -171,10 +171,16 @@ public class ConcurrentSpriteCanvas extends JPanel {
       case BLOCKING:
       case PLURAL:
       case ONE_USE:
+        DELTA = 5;
+        BACK_DELTA = 15;
+        topBorder = 2;
         ACQUIRE_BORDER = ACQUIRE_BORDER_BLOCKING;
         RELEASE_BORDER = RELEASE_BORDER_BLOCKING;
         break;
       case WORKING:
+        DELTA = 5;
+        BACK_DELTA = 15;
+        topBorder = 2;
         ACQUIRE_BORDER = ACQUIRE_BORDER_WORKING;
         RELEASE_BORDER = RELEASE_BORDER_WORKING;
         break;
