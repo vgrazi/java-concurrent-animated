@@ -6,7 +6,7 @@ package vgrazi.concurrent.samples.examples;
 public interface Pooled {
   /**
    * Returns the number of available threads in the pool
-   * @return
+   * @return the number of available threads in the pool
    */
   int getAvailableThreadCount();
 }
