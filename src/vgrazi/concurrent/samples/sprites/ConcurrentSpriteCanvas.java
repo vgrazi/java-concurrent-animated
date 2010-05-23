@@ -5,6 +5,7 @@ import vgrazi.concurrent.samples.ExampleType;
 import static vgrazi.concurrent.samples.ExampleType.ONE_USE;
 import static vgrazi.concurrent.samples.ExampleType.PLURAL;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
+import vgrazi.concurrent.samples.examples.Pooled;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private static long DELAY = 20;
   static int DELTA = 5;
   static int BACK_DELTA = 15;
-  private static final int ARROW_LENGTH = 5;
+  private static final int ARROW_LENGTH = 10;
+  private static final int OVAL_LENGTH = 5;
+  private static final int ARROW_HEAD_LENGTH = 5;
   private static final int RADIUS = 5;
   private int ARROW_DELTA = 20;
   //  private int leftBorder = 2;
@@ -53,7 +56,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private ScheduledExecutorService clock;
 
   private Queue<ConcurrentSprite> sprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
-//  private java.util.List<ConcurrentSprite> sprites = new ArrayList<ConcurrentSprite>();
+  private Queue<ConcurrentSprite> pooledSprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
   private ConcurrentExample concurrentExample;
   private String labelText;
   static ExampleType exampleType;
@@ -88,7 +91,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         if (toolTipText != null) {
           Rectangle labelBounds = getLabelBounds();
           final Point point = e.getPoint();
-          System.out.println("Mouse:" + point + " title:" + labelBounds + " text:" + toolTipText);
+//          System.out.println("Mouse:" + point + " title:" + labelBounds + " text:" + toolTipText);
           if(labelBounds.contains(point)) {
             ConcurrentSpriteCanvas.this.setToolTipText(toolTipText);
           } else{
@@ -169,6 +172,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         RELEASE_BORDER = RELEASE_BORDER_BLOCKING + borderDelta + 10;
         break;
       case BLOCKING:
+      case POOLED:
       case PLURAL:
       case ONE_USE:
         DELTA = 5;
@@ -248,11 +252,12 @@ public class ConcurrentSpriteCanvas extends JPanel {
           default:
         }
       }
+      if (exampleType == ExampleType.POOLED) {
+        drawPool(g);
+      }
     } catch (ConcurrentModificationException e) {
       System.out.println("ConcurrentSpriteCanvas.paint " + e);
     }
-    //    g.drawString(labelText, 100, topOffset + 20);
-
   }
 
   /**
@@ -288,6 +293,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         g.drawString(String.valueOf(CAS.getValue()), xPos, yPos);
         break;
       case BLOCKING:
+      case POOLED:
         g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, size.height - 20 - topOffset, true);
         break;
       case WORKING:
@@ -313,6 +319,32 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
+  public void drawPool(Graphics g) {
+    int availableThreadCount = ((Pooled) concurrentExample).getAvailableThreadCount();
+    int poolSize = pooledSprites.size();
+    if(availableThreadCount < poolSize) {
+      for(int i = 0; i < poolSize - availableThreadCount; i++) {
+        pooledSprites.remove();
+      }
+    }
+    else {
+      for(int i = 0; i < availableThreadCount - poolSize; i++) {
+        ConcurrentSprite sprite = new ConcurrentSprite(pooledSprites.size());
+        sprite.setAcquired();
+        sprite.moveToLocation(RELEASE_BORDER_WORKING);
+        pooledSprites.add(sprite);
+      }
+    }
+    int yPos = getSize().height - 20 - topOffset - 10 * ARROW_DELTA;
+//    int yPos = topOffset + ARROW_DELTA * 3 / 4 + (deltaY + BORDER) * verticalIndex + (getSize().height - 20 - topOffset) / 2 + 10;
+    for (ConcurrentSprite sprite : pooledSprites) {
+      yPos += deltaY;
+      int xPos = sprite.getCurrentLocation();
+      sprite.bumpCurrentLocation(DELTA);
+      drawArrowSprite(g, xPos, yPos, sprite);
+    }
+  }
+
   public void bumpVerticalMutexIndex() {
     verticalIndex += 1;
     NEXT_LOCATION += deltaY + BORDER;
@@ -330,18 +362,23 @@ public class ConcurrentSpriteCanvas extends JPanel {
   }
 
   private void drawReleased(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
+    int y;
     switch (sprite.getType()) {
+      case RUNNABLE:
+//// Uncomment this to display a rectangle instead of an arrow for releasing runnable
+//        y = yPos;
+//        g.drawRect(xPos - 57 + 30, yPos-4, ARROW_LENGTH * 6 - 30, 8);
+//        break;
       case ARROW:
       case CAS:
-        int y;
         if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
           y = yPos;
           int y1 = yPos - ARROW_LENGTH;
           int y2 = yPos + ARROW_LENGTH;
           // draw the top arrow head
-          g.drawLine(xPos, y, xPos - ARROW_LENGTH * 4, y1);
+          g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y1);
           // draw the bottom arrow head
-          g.drawLine(xPos, y, xPos - ARROW_LENGTH * 4, y2);
+          g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y2);
           int length = ARROW_LENGTH * 3;
           g.drawLine(xPos, y, xPos - length * 6, y);
 
@@ -375,7 +412,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         if (exampleType == ExampleType.ONE_USE) {
           y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
         }
-        g.fillOval(xPos - 85, y, ARROW_LENGTH * 18, ARROW_LENGTH * 2);
+        g.fillOval(xPos - 85, y, OVAL_LENGTH * 18, OVAL_LENGTH * 2);
       }
       break;
     }
@@ -389,6 +426,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
     switch (sprite.getType()) {
       case ARROW:
+      case RUNNABLE:
       case CAS:
         int width = RADIUS * 2;
         if (exampleType == ExampleType.ONE_USE) {
@@ -410,7 +448,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         g.drawLine(xPos, y, xPos - ARROW_LENGTH * 6, y);
         break;
       case OVAL:
-        g.fillOval(xPos - 85, y, ARROW_LENGTH * 18, ARROW_LENGTH * 2);
+        g.fillOval(xPos - 85, y, OVAL_LENGTH * 18, OVAL_LENGTH * 2);
         break;
     }
     sprite.kickCurrentLocation(DELTA);
@@ -418,44 +456,27 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   private void drawAcquiring(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     switch (sprite.getType()) {
+      case RUNNABLE:
+//// Uncomment this to display a rectangle instead of an arrow for acquiring runnable
+//        System.out.printf("State:%s location:%d  destination:%d%n", sprite.getState(), sprite.getCurrentLocation(), sprite.getDestination());
+//        // if right side of rectangle is to the left of mutex, butt up to mutex.
+//        // otherwise, center it
+//        if (sprite.isAcquired()) {
+//          // center the rectangle over the arrow
+//          g.drawRect(xPos - 52, yPos-4, ARROW_LENGTH * 6 - 35, 8);
+//          drawArrowSprite(g, xPos, yPos, sprite);
+//        }
+//        else {
+//          // butt the rectangle up to the mutex
+//          g.drawRect(xPos - 57 + 30, yPos-4, ARROW_LENGTH * 6 - 30, 8);
+//        }
+//        break;
       case ARROW:
       case CAS:
-        int y = yPos;
-        int y1 = yPos - ARROW_LENGTH;
-        int y2 = yPos + ARROW_LENGTH;
-        if (exampleType == ExampleType.ONE_USE) {
-          y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
-          y1 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
-          y2 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
-        }
-        // draw the top arrow head
-        g.drawLine(xPos, y, xPos - ARROW_LENGTH * 4, y1);
-        // draw the bottom arrow head
-        g.drawLine(xPos, y, xPos - ARROW_LENGTH * 4, y2);
-        int length;
-        if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
-          length = ARROW_LENGTH * 3;
-        }
-        else {
-          length = ARROW_LENGTH;
-        }
-        g.drawLine(xPos, y, xPos - length * 6, y);
-        if(sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
-          // draw the attempted replacement
-          g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
-          int spriteValue = sprite.getValue();
-          if (spriteValue != ConcurrentSprite.NO_VALUE) {
-            String value = String.valueOf(spriteValue);
-            g.drawString(value, xPos - 85, y);
-          }
-        }
-        int expectedValue = sprite.getExpectedValue();
-        if (expectedValue != ConcurrentSprite.NO_VALUE) {
-          g.drawString("(" + expectedValue + ")", xPos - 53, y);
-        }
+        drawArrowSprite(g, xPos, yPos, sprite);
         break;
       case OVAL:
-        g.fillOval(xPos - 85, yPos, ARROW_LENGTH * 18, ARROW_LENGTH * 2 + 5);
+        g.fillOval(xPos - 85, yPos, OVAL_LENGTH * 18, OVAL_LENGTH * 2 + 5);
         break;
     }
     if (sprite.isActionCompleted()) {
@@ -464,6 +485,43 @@ public class ConcurrentSpriteCanvas extends JPanel {
     sprite.bumpCurrentLocation(DELTA);
     if(sprite.getCurrentLocation() >= sprite.getDestination()) {
       notifyListeners(ConcurrentAnimationEvent.ARRIVED, sprite);
+    }
+  }
+
+  private void drawArrowSprite(Graphics g, int xPos, int yPos, ConcurrentSprite sprite) {
+    int y = yPos;
+    int y1 = yPos - ARROW_HEAD_LENGTH;
+    int y2 = yPos + ARROW_HEAD_LENGTH;
+    if (exampleType == ExampleType.ONE_USE) {
+      y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
+      y1 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
+      y2 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
+    }
+    g.setColor(sprite.getColor());
+    // draw the top arrow head
+    g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y1);
+    // draw the bottom arrow head
+    g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y2);
+    int length;
+    if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
+      length = ARROW_LENGTH * 3;
+    }
+    else {
+      length = ARROW_LENGTH;
+    }
+    g.drawLine(xPos, y, xPos - length * 6, y);
+    if(sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
+      // draw the attempted replacement
+      g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
+      int spriteValue = sprite.getValue();
+      if (spriteValue != ConcurrentSprite.NO_VALUE) {
+        String value = String.valueOf(spriteValue);
+        g.drawString(value, xPos - 85, y);
+      }
+    }
+    int expectedValue = sprite.getExpectedValue();
+    if (expectedValue != ConcurrentSprite.NO_VALUE) {
+      g.drawString("(" + expectedValue + ")", xPos - 53, y);
     }
   }
 
