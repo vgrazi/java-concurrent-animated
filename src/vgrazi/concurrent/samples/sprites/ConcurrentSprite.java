@@ -28,7 +28,7 @@ public class ConcurrentSprite {
 
 
   public static enum SpriteType {
-    ARROW, OVAL, CAS
+    ARROW, RUNNABLE, OVAL, CAS
   }
 
   private SpriteType type = SpriteType.ARROW;
@@ -160,8 +160,24 @@ public class ConcurrentSprite {
     currentLocation = ConcurrentSpriteCanvas.ACQUIRE_BORDER;
   }
 
+  public void moveToLocation(int location) {
+    currentLocation = location;
+  }
+
   public Color getColor() {
     return color;
+  }
+
+  public boolean isAcquiring() {
+    return state == SpriteState.ACQUIRING;
+  }
+
+  public boolean isAcquired() {
+    return state == SpriteState.ACQUIRED;
+  }
+
+  public boolean isReleased() {
+    return state == SpriteState.RELEASED;
   }
 
   public boolean isRejected() {
