@@ -54,7 +54,7 @@ public class ConcurrentExampleLauncher {
   private static final KeyAdapter keyListener = new KeyAdapter() {
     @Override
     public void keyReleased(KeyEvent e) {
-      logger.log(Level.INFO, "ConcurrentExampleLauncher.keyPressed " + e);
+//      logger.log(Level.INFO, "ConcurrentExampleLauncher.keyPressed " + e);
       if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
         ConcurrentSlideShow.nextSlide();
       } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
@@ -71,12 +71,11 @@ public class ConcurrentExampleLauncher {
 
   private void initializeMenuItems() {
     warmup();
-    initializeImageSlide("images/concurrent.gif", SPLASH_LABEL, delta++, false, Alignment.CENTER);
     initializeImageSlide("images/concurrentPackage.jpg", delta++, false, Alignment.CENTER);
     initializeImageSlide("images/executors.jpg", delta++, false, Alignment.CENTER);
     initializeMenuItem("Executors",
-            new ExecutorsExample(ExecutorsExample.FIXED_TYPE, container, delta++),
             new ExecutorsExample(ExecutorsExample.SINGLE_TYPE, container, delta++),
+            new ExecutorsExample(ExecutorsExample.FIXED_TYPE, container, delta++),
             new ExecutorsExample(ExecutorsExample.CACHED_TYPE, container, delta++));
     initializeMenuItem("Semaphore",
             new SemaphoreExample("Semaphore", container, false, delta++),
@@ -104,6 +103,7 @@ public class ConcurrentExampleLauncher {
     //    initializeButton("AtomicInteger", new AtomicIntegerExampleOrig(container, buttonPanel, -1), buttonPanel);
     initializeImageSlide("images/concurrent.gif", REFERENCES_LABEL, delta++, false, Alignment.CENTER);
     initializeReferencesMenuItem();
+    initializeImageSlide("images/concurrent.gif", SPLASH_LABEL, delta++, false, Alignment.CENTER);
     initializeHelpMenuItem();
     Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new Runnable() {
       public void run() {
@@ -209,7 +209,7 @@ public class ConcurrentExampleLauncher {
 
   private ImageIcon getImageIcon(String imageName, boolean resizeImage) {
     URL url = ConcurrentExampleLauncher.class.getClassLoader().getResource(imageName);
-    logger.log(Level.INFO, "ConcurrentExampleLauncher.showTitlePane image: " + url);
+//    logger.log(Level.INFO, "ConcurrentExampleLauncher.showTitlePane image: " + url);
     ImageIcon imageIcon = new ImageIcon(url);
     if (resizeImage) {
       Dimension size = getImageSize();
