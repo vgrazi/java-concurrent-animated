@@ -6,18 +6,17 @@ import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /*
  * @user vgrazi.
  * Time: 12:26:11 AM
  */
 
-public class ExecutorsExample extends ConcurrentExample {
-
-  private Executor executor;
+public class ExecutorsExample extends ConcurrentExample implements Pooled {
+  private ExecutorService executor;
   private int nextIndex;
   private final JButton executeButton = new JButton("execute");
   private boolean initialized = false;
@@ -35,7 +34,7 @@ public class ExecutorsExample extends ConcurrentExample {
    * @param slideShowIndex when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
    */
   public ExecutorsExample(String label, Container frame, int slideShowIndex) {
-    super(label, frame, ExampleType.BLOCKING, 390, false, slideShowIndex);
+    super(label, frame, ExampleType.POOLED, 390, false, slideShowIndex);
   }
 
   @Override
@@ -165,7 +164,9 @@ public class ExecutorsExample extends ConcurrentExample {
     executor = Executors.newFixedThreadPool(4);
   }
   private void initializeSingleThreadPool() {
-    executor = Executors.newSingleThreadExecutor();
+    // todo: replace fixed with single
+//    executor = Executors.newSingleThreadExecutor();
+    executor = Executors.newFixedThreadPool(1);
   }
   private void initializeCachedThreadPool() {
     executor = Executors.newCachedThreadPool();
@@ -178,7 +179,7 @@ public class ExecutorsExample extends ConcurrentExample {
         for (int i = 0; i < threadCount; i++) {
           final int index = nextIndex++;
           message1("Executing index " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-          final ConcurrentSprite sprite = createAcquiringSprite();
+          final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.RUNNABLE);
           executor.execute(new Runnable() {
 
             public void run() {
@@ -203,7 +204,7 @@ public class ExecutorsExample extends ConcurrentExample {
 
   protected void reset() {
     if (executor != null) {
-      ((ExecutorService) executor).shutdown();
+      executor.shutdown();
     }
     if(getTitle().equals(FIXED_TYPE)) {
       initializeFixedThreadPool();
@@ -221,5 +222,22 @@ public class ExecutorsExample extends ConcurrentExample {
     message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
     setState(0);
     super.reset();
+  }
+
+  public int getAvailableThreadCount() {
+//      System.out.println(String.format("Active count: %d   Core Pool Size: %d   Pool Size:%d   Task count: %d", tpExecutor.getActiveCount(), tpExecutor.getCorePoolSize(), tpExecutor.getPoolSize(), tpExecutor.getTaskCount()));
+    if(getTitle().equals(FIXED_TYPE)) {
+      ThreadPoolExecutor tpExecutor = (ThreadPoolExecutor) executor;
+      return tpExecutor.getCorePoolSize() - tpExecutor.getActiveCount();
+    }
+    else if(getTitle().equals(SINGLE_TYPE)) {
+      ThreadPoolExecutor tpExecutor = (ThreadPoolExecutor) executor;
+      return tpExecutor.getCorePoolSize() - tpExecutor.getActiveCount();
+    }
+    else if(getTitle().equals(CACHED_TYPE)) {
+      ThreadPoolExecutor tpExecutor = (ThreadPoolExecutor) executor;
+      return tpExecutor.getPoolSize() - tpExecutor.getActiveCount();
+    }
+    return 0;
   }
 }
