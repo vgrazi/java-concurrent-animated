@@ -12,6 +12,11 @@ public enum ExampleType {
   BLOCKING,
 
   /**
+   * Renders a thread pool mutex
+   */
+  POOLED,
+
+  /**
    * Renders a working mutex
    */
   WORKING,
