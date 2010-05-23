@@ -20,12 +20,20 @@ public class ConcurrentSlideShow {
     if(slideShowIndex < slideShowSlides.size()) {
       slideShowIndex++;
     }
+    else {
+      slideShowIndex = 1;
+    }
+//    System.out.println("ConcurrentSlideShow.bumpSlideShowIndex displaying slide " + slideShowIndex);
   }
 
   public static void kickSlideShowIndex() {
-    if(slideShowIndex > 0) {
+    if(slideShowIndex > 1) {
       slideShowIndex--;
     }
+    else {
+      slideShowIndex = slideShowSlides.size();
+    }
+//    System.out.println("ConcurrentSlideShow.bumpSlideShowIndex displaying slide " + slideShowIndex);
   }
 
   public static ActionListener getCurrentSlideAction() {
