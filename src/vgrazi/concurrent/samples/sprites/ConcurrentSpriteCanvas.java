@@ -365,10 +365,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
     int y;
     switch (sprite.getType()) {
       case RUNNABLE:
-//// Uncomment this to display a rectangle instead of an arrow for releasing runnable
-//        y = yPos;
-//        g.drawRect(xPos - 57 + 30, yPos-4, ARROW_LENGTH * 6 - 30, 8);
-//        break;
+        g.fill3DRect(xPos - 57 + 30, yPos-4, ARROW_LENGTH * 6 - 30, 8, true);
+        break;
       case ARROW:
       case CAS:
         if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
@@ -457,20 +455,19 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private void drawAcquiring(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     switch (sprite.getType()) {
       case RUNNABLE:
-//// Uncomment this to display a rectangle instead of an arrow for acquiring runnable
 //        System.out.printf("State:%s location:%d  destination:%d%n", sprite.getState(), sprite.getCurrentLocation(), sprite.getDestination());
-//        // if right side of rectangle is to the left of mutex, butt up to mutex.
-//        // otherwise, center it
-//        if (sprite.isAcquired()) {
-//          // center the rectangle over the arrow
-//          g.drawRect(xPos - 52, yPos-4, ARROW_LENGTH * 6 - 35, 8);
-//          drawArrowSprite(g, xPos, yPos, sprite);
-//        }
-//        else {
-//          // butt the rectangle up to the mutex
-//          g.drawRect(xPos - 57 + 30, yPos-4, ARROW_LENGTH * 6 - 30, 8);
-//        }
-//        break;
+        // if right side of rectangle is to the left of mutex, butt up to mutex.
+        // otherwise, center it
+        if (sprite.isAcquired()) {
+          // center the rectangle over the arrow
+          g.fill3DRect(xPos - 52, yPos-4, ARROW_LENGTH * 6 - 35, 8, true);
+          drawArrowSprite(g, xPos, yPos, sprite);
+        }
+        else {
+          // butt the rectangle up to the mutex
+          g.fill3DRect(xPos - 57 + 30, yPos-4, ARROW_LENGTH * 6 - 30, 8, true);
+        }
+        break;
       case ARROW:
       case CAS:
         drawArrowSprite(g, xPos, yPos, sprite);
