@@ -535,6 +535,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   public void clearSprites() {
     sprites.clear();
+    pooledSprites.clear();
   }
 
   //  private static void parameterTestFrame() {
