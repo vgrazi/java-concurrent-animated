@@ -335,13 +335,17 @@ public class ConcurrentSpriteCanvas extends JPanel {
         pooledSprites.add(sprite);
       }
     }
-    int yPos = getSize().height - 20 - topOffset - 10 * ARROW_DELTA;
+    int yPos = getSize().height - 20 - topOffset - 7 * ARROW_DELTA;
+    g.setColor(ConcurrentExampleConstants.MUTEX_FONT_COLOR);
+    g.drawString("Pooled",  ACQUIRE_BORDER + leftOffset + 12, yPos - 45);
+    g.drawString("Threads", ACQUIRE_BORDER + leftOffset + 8, yPos - 20);
+    g.drawLine(ACQUIRE_BORDER + leftOffset + 8, yPos - 17, ACQUIRE_BORDER + leftOffset + RELEASE_BORDER - ACQUIRE_BORDER + leftOffset - 8, yPos - 17);
 //    int yPos = topOffset + ARROW_DELTA * 3 / 4 + (deltaY + BORDER) * verticalIndex + (getSize().height - 20 - topOffset) / 2 + 10;
     for (ConcurrentSprite sprite : pooledSprites) {
-      yPos += deltaY;
       int xPos = sprite.getCurrentLocation();
       sprite.bumpCurrentLocation(DELTA);
       drawArrowSprite(g, xPos, yPos, sprite);
+      yPos += deltaY;
     }
   }
 
@@ -365,7 +369,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     int y;
     switch (sprite.getType()) {
       case RUNNABLE:
-        g.fill3DRect(xPos - 57 + 30, yPos-4, ARROW_LENGTH * 6 - 30, 8, true);
+        g.fill3DRect(xPos - 57 + 30, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 30, 8, true);
         break;
       case ARROW:
       case CAS:
@@ -460,12 +464,12 @@ public class ConcurrentSpriteCanvas extends JPanel {
         // otherwise, center it
         if (sprite.isAcquired()) {
           // center the rectangle over the arrow
-          g.fill3DRect(xPos - 52, yPos-4, ARROW_LENGTH * 6 - 35, 8, true);
+          g.fill3DRect(xPos - 52, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 35, 8, true);
           drawArrowSprite(g, xPos, yPos, sprite);
         }
         else {
           // butt the rectangle up to the mutex
-          g.fill3DRect(xPos - 57 + 30, yPos-4, ARROW_LENGTH * 6 - 30, 8, true);
+          g.fill3DRect(xPos - 57 + 30, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 30, 8, true);
         }
         break;
       case ARROW:
