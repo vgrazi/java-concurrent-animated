@@ -24,18 +24,22 @@ public class FutureExample extends ConcurrentExample {
   private boolean initialized = false;
   private static final int MIN_SNIPPET_POSITION = 300;
 
+  public FutureExample(String title, Container frame, int slideNumber) {
+    super(title, frame, ExampleType.ONE_USE, MIN_SNIPPET_POSITION, false, slideNumber);
+  }
+
   private void executorApproach() throws ExecutionException, InterruptedException {
     setAnimationCanvasVisible(true);
 
 //    sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
     sprite = createAcquiringSprite();
+    sprite.setType(ConcurrentSprite.SpriteType.RUNNABLE);
     sprite.setAcquired();
     sprite.moveToAcquiringBorder();
     future = Executors.newCachedThreadPool().submit(new Callable<Object>() {
       public Object call() throws Exception {
         try {
-          Thread.sleep(1000);
-          sleepRandom(500, 1000);
+          Thread.sleep(2000);
           sprite.setActionCompleted();
         }
         catch(InterruptedException e) {
@@ -71,10 +75,6 @@ public class FutureExample extends ConcurrentExample {
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\">Object result = future.get(); \n" +
             " \n" +
        "    </FONT></PRE></html";
-  }
-
-  public FutureExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.ONE_USE, MIN_SNIPPET_POSITION, false, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -115,34 +115,6 @@ public class FutureExample extends ConcurrentExample {
       initialized = true;
     }
   }
-
-//  private void put() {
-//    // need to lock or will get an IllegalMonitorStateException. This is analogous to synchronized(lock)
-//    lock.lock();
-//    try {
-//      ConcurrentSprite sprite = createAcquiringSprite();
-//      while(count >= 4) {
-//        // Temporarily relinquish lock, give control to other threads, and wait until signalled (that the count has been reduced)
-//        notFullCondition.await();
-//      }
-//      availableSprites.add(sprite);
-//      sprite.setAcquired();
-//      count++;
-//      // note: it would have been possible to use 1 condition, and use signalAll
-////      fullCondition.signalAll();
-//      System.out.println("ConditionExample.put SIGNALLING");
-////      fullCondition.signal();
-//      System.out.println("ConditionExample.put SIGNALING COMPLETE");
-//      notEmptyCondition.signal();
-//    }
-//    catch(InterruptedException e) {
-//      Thread.currentThread().interrupt();
-//    }
-//    finally {
-//      lock.unlock();
-//      System.out.println("ConditionExample.put RELEASED");
-//    }
-//  }
 
   @Override
   public void spriteRemoved(ConcurrentSprite sprite) {
