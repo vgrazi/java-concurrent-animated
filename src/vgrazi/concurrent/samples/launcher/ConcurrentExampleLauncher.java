@@ -1,24 +1,23 @@
 package vgrazi.concurrent.samples.launcher;
 
+import org.xml.sax.SAXException;
 import vgrazi.concurrent.samples.Alignment;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ImagePanel;
-import vgrazi.concurrent.samples.ImagePanelActionListener;
-import vgrazi.concurrent.samples.examples.*;
+import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
 import vgrazi.util.IOUtils;
 import vgrazi.util.UIUtils;
 
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
-import java.awt.event.*;
-import java.net.URL;
-import java.util.TreeMap;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.URL;
 
 
 /**
@@ -38,19 +37,13 @@ Countdownlatch, I'm not sure whether it's obvious from the slides that once the 
 •	I can add some more explanation to the power point “Once the countdown has been completed, all further calls to await will pass through unblocked<br><br>
 */
 public class ConcurrentExampleLauncher {
-  private final static Logger logger = Logger.getLogger(ConcurrentExampleLauncher.class.getCanonicalName());
   private final JFrame frame = new JFrame();
   private final Container container = frame.getContentPane();
   private JLabel backgroundImage;
   private ConcurrentExample examplePanel;
-  private final MenuBar menuBar = new MenuBar();
-  private final TreeMap<Integer, ActionListener> slideShowSlides = new TreeMap<Integer, ActionListener>();
 
-  private static final String REFERENCES = "References";
-  private static final String HELP = "Help";
   private static ConcurrentExampleLauncher instance;
   private ImagePanel imagePanel;
-  private static int delta = 0;
   private static final KeyAdapter keyListener = new KeyAdapter() {
     @Override
     public void keyReleased(KeyEvent e) {
@@ -65,61 +58,11 @@ public class ConcurrentExampleLauncher {
   private static String SPLASH_LABEL;
   private static String REFERENCES_LABEL;
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
     instance = new ConcurrentExampleLauncher();
   }
 
-  private void initializeMenuItems() {
-    warmup();
-    initializeImageSlide("images/concurrentPackage.jpg", delta++, false, Alignment.CENTER);
-    initializeImageSlide("images/executors.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("Executors",
-            new ExecutorsExample(ExecutorsExample.SINGLE_TYPE, container, delta++),
-            new ExecutorsExample(ExecutorsExample.FIXED_TYPE, container, delta++),
-            new ExecutorsExample(ExecutorsExample.CACHED_TYPE, container, delta++));
-    initializeMenuItem("Semaphore",
-            new SemaphoreExample("Semaphore", container, false, delta++),
-            new SemaphoreExample("Semaphore (fair)", container, true, delta++));
-    initializeImageSlide("images/future.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("Future", new FutureExample("Future", container, delta++));
-    initializeImageSlide("images/reentrantLock.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("ReentrantLock", new ReentrantLockExample("ReentrantLock", container, delta++));
-    initializeImageSlide("images/condition.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("Condition", new ConditionExample("Condition", container, delta++));
-    initializeImageSlide("images/reentrantRWLock.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("ReadWriteLock",
-            new ReadWriteLockExample("ReadWriteLock (default)", container, false, delta++),
-            new ReadWriteLockExample("ReadWriteLock (fair)",    container, false, -1));
-    initializeImageSlide("images/blockingQueue.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("BlockingQueue", new BlockingQueueExample("BlockingQueue", container, delta++));
-    initializeImageSlide("images/cyclicBarrier.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("CyclicBarrier", new CyclicBarrierExample("CyclicBarrier", container, delta++));
-    initializeImageSlide("images/countdownLatch.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("CountDownLatch", new CountDownLatchExample("CountDownLatch", container, delta++));
-    initializeImageSlide("images/AtomicInteger.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("AtomicInteger", new AtomicIntegerExample("Atomic Integer", container, delta++));
-    initializeImageSlide("images/completionService.jpg", delta++, false, Alignment.CENTER);
-    initializeMenuItem("CompletionService", new CompletionServiceExample("CompletionService", container, delta++));
-    //    initializeButton("AtomicInteger", new AtomicIntegerExampleOrig(container, buttonPanel, -1), buttonPanel);
-    initializeImageSlide("images/concurrent.gif", REFERENCES_LABEL, delta++, false, Alignment.CENTER);
-    initializeReferencesMenuItem();
-    initializeImageSlide("images/concurrent.gif", SPLASH_LABEL, delta++, false, Alignment.CENTER);
-    initializeHelpMenuItem();
-    Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new Runnable() {
-      public void run() {
-        container.repaint();
-      }
-    }, 0, 1000, TimeUnit.MILLISECONDS);
-  }
-
-  /**
-   * It seems to take too much time to launch the first Example. Therefore let's warm one up here.
-   */
-  private void warmup() {
-    new ExecutorsExample(ExecutorsExample.FIXED_TYPE, container, delta++);
-  }
-
-  private ConcurrentExampleLauncher() throws IOException {
+  private ConcurrentExampleLauncher() throws IOException, SAXException, ParserConfigurationException {
     SPLASH_LABEL = IOUtils.readHtmlText(ConcurrentExampleConstants.INSTRUCTIONS_FILE);
     REFERENCES_LABEL = IOUtils.readHtmlText(ConcurrentExampleConstants.REFERENCES_FILE);
     ToolTipManager ttm = ToolTipManager.sharedInstance();
@@ -127,8 +70,9 @@ public class ConcurrentExampleLauncher {
     ttm.setInitialDelay(500);
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    MenuBar menuBar = new MenuBar();
     frame.setMenuBar(menuBar);
-    initializeMenuItems();
+    new MenuBuilder(this, container, menuBar, frame).initializeMenuItems();
     UIUtils.center(frame, .9f, .9f);
     ((JComponent) container).setOpaque(true);
     setBackgroundColors();
@@ -203,7 +147,7 @@ public class ConcurrentExampleLauncher {
       backgroundImage.requestFocus();
       container.validate();
     } finally {
-      frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));      
+      frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
   }
 
@@ -280,85 +224,6 @@ public class ConcurrentExampleLauncher {
     if (((Container) frame.getGlassPane()).getComponentCount() > 0) {
       ((Container) frame.getGlassPane()).remove(0);
     }
-  }
-
-  /**
-   * Creates a menu in the menu bar with the specified label. Under that menu, creates a menu item for each supplied
-   * example, using the example title as the menu item label
-   * @param menuLabel the label for the menu
-   * @param examplePanels the examples to add to the menu
-   */
-  private void initializeMenuItem(final String menuLabel, final ConcurrentExample... examplePanels) {
-    Menu menu = new Menu(menuLabel + " ");
-    menuBar.add(menu);
-    if (examplePanels != null && examplePanels.length > 0) {
-      for (final ConcurrentExample examplePanel : examplePanels) {
-        // give the example access to the slide show slides (even if it is not involved in the slide show, so that
-        // the user can digress to a menu item and then continue the slide show where it left off.
-        ConcurrentSlideShow.setSlideShowSlides(slideShowSlides);
-        ActionListener actionListener = new ExampleActionListener(examplePanel);
-        if (examplePanel.getSlideNumber() != -1) {
-          slideShowSlides.put(examplePanel.getSlideNumber(), actionListener);
-        }
-        MenuItem menuItem = new MenuItem(examplePanel.getTitle());
-        menuItem.addActionListener(actionListener);
-        menu.add(menuItem);
-      }
-    }
-  }
-
-  private void initializeReferencesMenuItem() {
-    Menu menu = new Menu(REFERENCES);
-    menuBar.add(menu);
-    MenuItem menuItem = new MenuItem(REFERENCES);
-    menu.add(menuItem);
-    menuItem.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        launchExamplePanel(null);
-        container.repaint(50);
-      }
-    });
-  }
-
-  /**
-   * Creates a Help About menu item
-   */
-  private void initializeHelpMenuItem() {
-    Menu menu = new Menu(HELP);
-    menuBar.add(menu);
-    MenuItem menuItem = new MenuItem("About");
-    menu.add(menuItem);
-    menuItem.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        logger.info(System.getProperties().toString());
-        infoDialog();
-        container.repaint(50);
-      }
-    });
-  }
-
-  private void initializeImageSlide(String imageName, int slideNumber, boolean resizeImage, Alignment alignment) {
-    initializeImageSlide(imageName, null, slideNumber, resizeImage, alignment);
-  }
-
-  private void initializeImageSlide(String imageName, String htmlText, int slideNumber, boolean resizeImage, Alignment alignment) {
-    if (slideNumber != -1) {
-      ActionListener actionListener = new ImagePanelActionListener(imageName, htmlText, resizeImage, alignment);
-      slideShowSlides.put(slideNumber, actionListener);
-    }
-  }
-
-  private void infoDialog() {
-    String message =
-            new StringBuilder().
-                    append("Java VM version:").append(System.getProperty("java.vm.version")).append('\n').
-                    append(System.getProperty("sun.os.patch.level")).append('\n').
-                    append("Java version:").append(System.getProperty("java.version")).append('\n').
-                    append("Runtime version:").append(System.getProperty("java.runtime.version")).append('\n').
-                    append("CPU:").append(System.getProperty("sun.cpu.isalist")).append('\n').
-
-                    toString();
-    JOptionPane.showInternalMessageDialog(frame.getContentPane(), message, "System info", JOptionPane.INFORMATION_MESSAGE);
   }
 
   public static ConcurrentExampleLauncher getInstance() {
