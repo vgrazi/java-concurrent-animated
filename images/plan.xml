@@ -24,8 +24,8 @@
     </MenuItem>
     <ImageSlide image="images/reentrantRWLock.jpg"/>
     <MenuItem label="ReadWriteLock">
-        <Example class="vgrazi.concurrent.samples.examples.ConditionExample" paging="true" fair="false" mutexLabel="ReadWriteLock"/>
-        <Example class="vgrazi.concurrent.samples.examples.ConditionExample" paging="false" fair="true" mutexLabel="ReadWriteLock (fair)"/>
+        <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="true" fair="false" mutexLabel="ReadWriteLock"/>
+        <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="false" fair="true" mutexLabel="ReadWriteLock (fair)"/>
     </MenuItem>
     <ImageSlide image="images/blockingQueue.jpg"/>
     <MenuItem label="BlockingQueue">
