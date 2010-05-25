@@ -21,7 +21,7 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
   private final JButton executeButton = new JButton("execute");
   private boolean initialized = false;
   private int sleepTime = 1000;
-  public static final String FIXED_TYPE = "FixedThreadPool";
+  public static final String FIXED_TYPE =  "FixedThreadPool";
   public static final String SINGLE_TYPE = "SingleThreadExecutor";
   public static final String CACHED_TYPE = "CachedThreadPool";
   private final JTextField threadCountField = createThreadCountField();
