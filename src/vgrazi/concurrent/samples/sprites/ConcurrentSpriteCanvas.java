@@ -37,10 +37,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private static final int ARROW_HEAD_LENGTH = 5;
   private static final int RADIUS = 5;
   private int ARROW_DELTA = 20;
-  //  private int leftBorder = 2;
   private int rightBorder = 2;
   private int topBorder = 2;
-  //  private int bottomBorder = 2;
   private int topOffset = 30;
   private int leftOffset = 0;
 
@@ -249,6 +247,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
               drawReleased(g, xPos, yPos, sprite);
             }
             break;
+          case PULLING:
+            drawPulling(g, xPos, yPos, sprite);
+            break;
           default:
         }
       }
@@ -409,6 +410,10 @@ public class ConcurrentSpriteCanvas extends JPanel {
           g.drawString(String.valueOf(value), xPos - ARROW_LENGTH * 11, y);
         }
         break;
+      case PULLER: {
+        drawPulling(g, xPos, yPos, sprite);
+      }
+      break;
       case OVAL: {
         y = yPos;
         if (exampleType == ExampleType.ONE_USE) {
@@ -420,6 +425,30 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
     sprite.bumpCurrentLocation(DELTA);
   }
+
+  /**
+   * A pulling sprite is a "getter" thread that pulls the result from a Future
+   * It is drawn to the right of the mutex and waits for the associated sprite to be released
+   * @param index
+   * @param type
+   * @return
+   */
+  private void drawPulling(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
+    int y = yPos - RADIUS;
+    if (exampleType == ExampleType.ONE_USE) {
+      y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
+    }
+    g.fillOval(xPos - RADIUS, y, RADIUS * 2, RADIUS * 2);
+    y = yPos;
+    if (exampleType == ExampleType.ONE_USE) {
+      y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
+    }
+    g.drawLine(xPos, y, xPos - ARROW_LENGTH * 6 , y);
+    if (!sprite.isReleased()) {
+      sprite.bumpCurrentLocation(DELTA);
+    }
+  }
+
 
   private void drawRejected(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y = yPos;

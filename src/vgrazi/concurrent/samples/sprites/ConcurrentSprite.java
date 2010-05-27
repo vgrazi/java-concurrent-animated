@@ -17,7 +17,8 @@ public class ConcurrentSprite {
     ACQUIRED,
     RELEASED,
     REJECTED,
-    ACTION_COMPLETED;
+    ACTION_COMPLETED,
+    PULLING
   }
 
   /**
@@ -28,7 +29,7 @@ public class ConcurrentSprite {
 
 
   public static enum SpriteType {
-    ARROW, RUNNABLE, OVAL, CAS
+    ARROW, RUNNABLE, OVAL, CAS, PULLER
   }
 
   private SpriteType type = SpriteType.ARROW;
@@ -91,6 +92,19 @@ public class ConcurrentSprite {
     //    }
   }
 
+  /**
+   * Draw this Sprite pulling right, from mutex right border
+   */
+  public void setPulling() {
+    if (state == SpriteState.ACQUIRING) {
+      state = SpriteState.PULLING;
+    }
+    final int delta = 155;
+    destination = ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta + 10;
+    if (currentLocation  == 0) {
+      currentLocation = ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta;
+    }
+  }
   /**
    * Draw this Sprite escaping from the borders.
    */

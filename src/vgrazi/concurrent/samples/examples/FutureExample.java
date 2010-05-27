@@ -22,13 +22,13 @@ public class FutureExample extends ConcurrentExample {
   private ConcurrentSprite sprite;
 
   private boolean initialized = false;
-  private static final int MIN_SNIPPET_POSITION = 300;
+  private static final int MIN_SNIPPET_POSITION = 400;
 
   public FutureExample(String title, Container frame, int slideNumber) {
     super(title, frame, ExampleType.ONE_USE, MIN_SNIPPET_POSITION, false, slideNumber);
   }
 
-  private void executorApproach() throws ExecutionException, InterruptedException {
+  private void launchAcquiringSprite() throws ExecutionException, InterruptedException {
     setAnimationCanvasVisible(true);
 
 //    sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
@@ -84,7 +84,7 @@ public class FutureExample extends ConcurrentExample {
           try {
             setState(1);
             enableSetButton();
-            executorApproach();
+            launchAcquiringSprite();
           } catch(ExecutionException e) {
             e.printStackTrace();
           } catch(InterruptedException e) {
@@ -94,12 +94,15 @@ public class FutureExample extends ConcurrentExample {
       });
       initializeButton(getButton, new Runnable() {
         public void run() {
+          getButton.setEnabled(false);
           setState(2);
           if(future != null) {
             try {
+              ConcurrentSprite pullerSprite = createPullingSprite(sprite);
               future.get();
               if (sprite != null) {
                 sprite.setReleased();
+                pullerSprite.setReleased();
               }
             } catch (InterruptedException e) {
               Thread.currentThread().interrupt();
@@ -107,7 +110,6 @@ public class FutureExample extends ConcurrentExample {
               e.printStackTrace();
             }
           }
-          getButton.setEnabled(false);
           // select a random mutex from the list
 
         }
@@ -118,8 +120,10 @@ public class FutureExample extends ConcurrentExample {
 
   @Override
   public void spriteRemoved(ConcurrentSprite sprite) {
-    bumpMutexVerticalIndex();    
-    enableGetButton();
+    if (sprite.getType() != ConcurrentSprite.SpriteType.PULLER) {
+      bumpMutexVerticalIndex();
+      enableGetButton();
+    }
   }
 
   public String getDescriptionHtml() {

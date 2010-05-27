@@ -164,6 +164,28 @@ public abstract class ConcurrentExample extends JPanel {
     return createAcquiringSprite(index, type);
   }
 
+  /**
+   * A pulling sprite is a "getter" thread that pulls the result from a Future
+   * It is drawn to the right of the mutex and waits for the associated sprite to be released
+   * @param index
+   * @param type
+   * @return
+   */
+  protected synchronized ConcurrentSprite createPullingSprite(ConcurrentSprite pullee) {
+    return createPullingSprite(pullee, ConcurrentSprite.SpriteType.PULLER);
+  }
+
+  /**
+   * A pulling sprite is a "getter" thread that pulls the result from a Future
+   * It is drawn to the right of the mutex and waits for the associated sprite to be released
+   * @param index
+   * @param type
+   * @return
+   */
+  protected synchronized ConcurrentSprite createPullingSprite(ConcurrentSprite pullee, ConcurrentSprite.SpriteType type) {
+    return createPullingSprite(pullee.getIndex(), type);
+  }
+
   public void shuffleSprites() {
     canvas.shuffleSprites();
   }
@@ -172,6 +194,21 @@ public abstract class ConcurrentExample extends JPanel {
     ConcurrentSprite sprite = new ConcurrentSprite(index);
     sprite.setType(type);
     sprite.setAcquiring();
+    canvas.addSprite(sprite);
+    return sprite;
+  }
+
+  /**
+   * A pulling sprite is a "getter" thread that pulls the result from a Future
+   * It is drawn to the right of the mutex and waits for the associated sprite to be released
+   * @param index
+   * @param type
+   * @return
+   */
+  public synchronized ConcurrentSprite createPullingSprite(int index, ConcurrentSprite.SpriteType type) {
+    ConcurrentSprite sprite = new ConcurrentSprite(index);
+    sprite.setType(type);
+    sprite.setPulling();
     canvas.addSprite(sprite);
     return sprite;
   }
