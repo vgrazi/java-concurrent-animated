@@ -66,7 +66,7 @@ public class CompletionServiceExample extends ConcurrentExample {
   }
 
   private void submit() {
-    final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.ARROW);
+    final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.RUNNABLE);
     final Result result = new Result(index++, sprite, RESET_COUNT);
     Callable<Result> callable = new Callable<Result>() {
       public Result call() throws Exception {
