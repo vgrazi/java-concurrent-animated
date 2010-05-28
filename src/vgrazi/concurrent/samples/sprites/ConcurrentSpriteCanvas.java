@@ -485,6 +485,15 @@ public class ConcurrentSpriteCanvas extends JPanel {
     sprite.kickCurrentLocation(DELTA);
   }
 
+  /**
+   * Draws the animation of the sprite into the mutex and stops once inside.
+   * If the state of the sprite is ACQUIRING, animates into the mutex
+   * If the state of the sprite is ACQUIRED, stops inside the mutex
+   * @param g the graphics to paint
+   * @param xPos the x pixel position
+   * @param yPos the y pixel position
+   * @param sprite the sprite to animate
+   */
   private void drawAcquiring(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     switch (sprite.getType()) {
       case RUNNABLE:
@@ -498,7 +507,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         }
         else {
           // butt the rectangle up to the mutex
-          g.fill3DRect(xPos - 57 + 30, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 30, 8, true);
+          g.fill3DRect(xPos - 57 + 30, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 34, 8, true);
         }
         break;
       case ARROW:
