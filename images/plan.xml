@@ -1,8 +1,8 @@
 <plan>
-    <MenuItem label="Legend">
-    </MenuItem>
     <ImageSlide image="images/concurrentPackage.jpg"/>
-    <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Usage Legend"/>
+    <MenuItem label="Legend">
+        <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Usage Legend for Animations "/>
+    </MenuItem>
     <ImageSlide image="images/executors.jpg"/>
     <MenuItem label="Executors">
         <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
