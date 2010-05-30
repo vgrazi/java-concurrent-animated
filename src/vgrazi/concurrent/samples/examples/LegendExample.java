@@ -94,7 +94,7 @@ public class LegendExample extends ConcurrentExample {
         break;
       case 4:
         resetExample();
-        sprites[11] = createTextSprite("A Runnable");
+        sprites[11] = createTextSprite("A Runnable ");
         sprites[12] = createAcquiringSprite(ConcurrentSprite.SpriteType.RUNNABLE);
         position++;
         break;
