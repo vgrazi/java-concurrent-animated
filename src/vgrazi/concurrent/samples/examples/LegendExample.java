@@ -7,13 +7,14 @@ import vgrazi.concurrent.samples.sprites.ConcurrentTextSprite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /*
  * @user vgrazi.
  * Time: 12:26:11 AM
  */
 public class LegendExample extends ConcurrentExample {
-  private final Object MUTEX = new Object();
   int position = 0;
   private final JButton startButton = new JButton("Start Demo");
   private final ConcurrentSprite[] sprites = new ConcurrentSprite[30];
@@ -56,10 +57,10 @@ public class LegendExample extends ConcurrentExample {
         // reset just in case we are coming around again
         resetExample();
         // todo: add justification - left, right, center.
-        sprites[0] = createTextSprite("This is");
-        sprites[6] = createTextSprite("a block");
-        sprites[7] = createTextSprite("of some");
-        sprites[8] = createTextSprite("sort.");
+        sprites[0] = createTextSprite("This is   ");
+        sprites[6] = createTextSprite("a block  ");
+        sprites[7] = createTextSprite("of some  ");
+        sprites[8] = createTextSprite("sort.   ");
         sprites[0].setAcquired();
         sprites[6].setAcquired();
         sprites[7].setAcquired();
@@ -67,9 +68,9 @@ public class LegendExample extends ConcurrentExample {
         position++;
         break;
       case 1:
-        sprites[1] = createTextSprite("Threads are");
-        sprites[2] = createTextSprite("represented");
-        sprites[3] = createTextSprite("as arrows");
+        sprites[1] = createTextSprite("Threads are ");
+        sprites[2] = createTextSprite("represented ");
+        sprites[3] = createTextSprite(" as arrows ");
         sprites[4] = createAcquiringSprite();
         position++;
         break;
@@ -77,7 +78,7 @@ public class LegendExample extends ConcurrentExample {
         sprites[4].setAcquired();
         ((ConcurrentTextSprite) sprites[1]).setText("");
         ((ConcurrentTextSprite) sprites[2]).setText("Acquired");
-        ((ConcurrentTextSprite) sprites[3]).setText("the lock");
+        ((ConcurrentTextSprite) sprites[3]).setText("the lock  ");
         sprites[1].setAcquired();
         sprites[2].setAcquired();
         sprites[3].setAcquired();
@@ -98,7 +99,7 @@ public class LegendExample extends ConcurrentExample {
         position++;
         break;
       case 5:
-        sprites[11] = createTextSprite("Working");
+        sprites[11] = createTextSprite("Working ");
         sprites[11].setAcquired();
         sprites[12].setAcquired();
         position++;
@@ -129,12 +130,19 @@ public class LegendExample extends ConcurrentExample {
         position++;
         break;
       case 10:
-        sprites[18] = createTextSprite("Page Down");
-        sprites[19] = createTextSprite("To start");
-        sprites[20] = createTextSprite("presentation");
-        sprites[18].setAcquired();
-        sprites[19].setAcquired();
-        sprites[20].setAcquired();
+        sprites[18] = createTextSprite(   "Page Down ");
+        sprites[19] = createTextSprite( "to start    ");
+        sprites[20] = createTextSprite( "presentation");
+        sprites[18].setAcquiring();
+        sprites[19].setAcquiring();
+        sprites[20].setAcquiring();
+        Executors.newScheduledThreadPool(1).schedule(new Runnable() {
+          public void run() {
+            sprites[18].setReleased();
+            sprites[19].setReleased();
+            sprites[20].setReleased();
+          }
+        }, 2, TimeUnit.SECONDS);
         position = 0;
         break;
     }
@@ -146,12 +154,6 @@ public class LegendExample extends ConcurrentExample {
   }
 
   private void resetExample() {
-    synchronized (MUTEX) {
-      MUTEX.notifyAll();
-    }
-    synchronized (MUTEX) {
-      MUTEX.notifyAll();
-    }
     super.reset();
     message1("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     message2("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
