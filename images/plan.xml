@@ -1,5 +1,5 @@
 <plan>
-    <MenuItem label="Future">
+    <MenuItem label="Legend">
         <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Legend"/>
     </MenuItem>
     <ImageSlide image="images/concurrentPackage.jpg"/>
