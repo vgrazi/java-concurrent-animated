@@ -7,6 +7,7 @@ import vgrazi.concurrent.samples.MessageLabel;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import vgrazi.concurrent.samples.sprites.ConcurrentSpriteCanvas;
+import vgrazi.concurrent.samples.sprites.ConcurrentTextSprite;
 import vgrazi.util.StringUtils;
 
 import javax.swing.*;
@@ -157,6 +158,14 @@ public abstract class ConcurrentExample extends JPanel {
 
   protected synchronized ConcurrentSprite createAcquiringSprite() {
     return createAcquiringSprite(ConcurrentSprite.SpriteType.ARROW);
+  }
+
+  protected synchronized ConcurrentSprite createTextSprite(String text) {
+    final int index = getNextAcquiringIndex();
+    ConcurrentSprite sprite = new ConcurrentTextSprite(text, index);
+    sprite.setAcquiring();
+    canvas.addSprite(sprite);
+    return sprite;
   }
 
   protected synchronized ConcurrentSprite createAcquiringSprite(ConcurrentSprite.SpriteType type) {
