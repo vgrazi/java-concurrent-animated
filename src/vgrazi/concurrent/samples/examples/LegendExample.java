@@ -16,6 +16,7 @@ public class LegendExample extends ConcurrentExample {
   private final Object MUTEX = new Object();
   int position = 0;
   private final JButton startButton = new JButton("Start Demo");
+  private final ConcurrentSprite[] sprites = new ConcurrentSprite[30];
 
   private boolean initialized = false;
   private static int minSnippetPosition = 500;
@@ -49,7 +50,6 @@ public class LegendExample extends ConcurrentExample {
     });
   }
 
-  ConcurrentSprite[] sprites = new ConcurrentSprite[100];
   private void startDemo() {
     switch (position) {
       case 0:
