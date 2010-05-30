@@ -1,4 +1,7 @@
 <plan>
+    <MenuItem label="Future">
+        <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Legend"/>
+    </MenuItem>
     <ImageSlide image="images/concurrentPackage.jpg"/>
     <ImageSlide image="images/executors.jpg"/>
     <MenuItem label="Executors">
