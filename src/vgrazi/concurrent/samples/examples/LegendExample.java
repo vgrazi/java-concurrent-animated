@@ -75,17 +75,19 @@ public class LegendExample extends ConcurrentExample {
         break;
       case 2:
         sprites[4].setAcquired();
-        sprites[5] = createTextSprite("Acquired");
-        sprites[5].setAcquired();
-        sprites[9] = createTextSprite("the lock");
-        sprites[9].setAcquired();
+        ((ConcurrentTextSprite) sprites[1]).setText("");
+        ((ConcurrentTextSprite) sprites[2]).setText("Acquired");
+        ((ConcurrentTextSprite) sprites[3]).setText("the lock");
+        sprites[1].setAcquired();
+        sprites[2].setAcquired();
+        sprites[3].setAcquired();
         position++;
         break;
       case 3:
-        ((ConcurrentTextSprite) sprites[5]).setText("Released");
-        ((ConcurrentTextSprite) sprites[9]).setText("");
-        sprites[5].setReleased();
-        sprites[9].setReleased();
+        ((ConcurrentTextSprite) sprites[2]).setText("Released");
+        sprites[1].setReleased();
+        sprites[2].setReleased();
+        sprites[3].setReleased();
         sprites[4].setReleased();
         position++;
         break;
