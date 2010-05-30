@@ -422,6 +422,12 @@ public class ConcurrentSpriteCanvas extends JPanel {
         g.fillOval(xPos - 85, y, OVAL_LENGTH * 18, OVAL_LENGTH * 2);
       }
       break;
+      case TEXT:
+        final ConcurrentTextSprite textSprite = (ConcurrentTextSprite) sprite;
+        final String text = textSprite.getText();
+        final int stringWidth = fontMetrics.stringWidth(text);
+        g.drawString(text, xPos - stringWidth, yPos);
+        break;
     }
     sprite.bumpCurrentLocation(DELTA);
   }
@@ -516,6 +522,12 @@ public class ConcurrentSpriteCanvas extends JPanel {
         break;
       case OVAL:
         g.fillOval(xPos - 85, yPos, OVAL_LENGTH * 18, OVAL_LENGTH * 2 + 5);
+        break;
+      case TEXT:
+        final ConcurrentTextSprite textSprite = (ConcurrentTextSprite) sprite;
+        final String text = textSprite.getText();
+        final int stringWidth = fontMetrics.stringWidth(text);
+        g.drawString(text, xPos - stringWidth, yPos);
         break;
     }
     if (sprite.isActionCompleted()) {
