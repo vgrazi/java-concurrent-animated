@@ -29,16 +29,16 @@ public class ConcurrentSprite {
 
 
   public static enum SpriteType {
-    ARROW, RUNNABLE, OVAL, CAS, PULLER
+    ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT;
   }
 
   private SpriteType type = SpriteType.ARROW;
 
   private int index = 0;
 
-  private int destination = 0;
+  protected int destination = 0;
 
-  private int currentLocation = 0;
+  protected int currentLocation = 0;
 
   /**
    * Used for CAS operations, value is the new value
