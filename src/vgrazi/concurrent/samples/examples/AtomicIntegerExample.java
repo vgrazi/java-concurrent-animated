@@ -64,7 +64,7 @@ public class AtomicIntegerExample extends ConcurrentExample {
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// and return the result.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> result = atomicVariable.incrementAndGet(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">); \n" +
             " \n" +
-            "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</PRE></html>";
+            "</PRE></html>";
 
     return snippet;
   }

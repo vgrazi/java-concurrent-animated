@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list readonly="true" id="eacee73e-ffc6-48dc-b1a2-ba45367842e3" name="Default" comment="copyImages now just takes image, html, and xml" />
-    <list default="true" id="cfa20229-04f8-47aa-a952-369e0e716765" name="Intellij" comment="Intellij">
+    <list default="true" id="cfa20229-04f8-47aa-a952-369e0e716765" name="Intellij" comment="Now rendering acquired threads as a rotating oval shaped line">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javaconcurrenta.iws" afterPath="$PROJECT_DIR$/javaconcurrenta.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/AtomicIntegerExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/AtomicIntegerExample.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CyclicBarrierExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CyclicBarrierExample.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/BlockingQueueExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/BlockingQueueExample.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javaconcurrenta.ipr" afterPath="$PROJECT_DIR$/javaconcurrenta.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ConcurrentExampleConstants.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ConcurrentExampleConstants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CountDownLatchExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CountDownLatchExample.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/workingThread.gif" afterPath="$PROJECT_DIR$/images/workingThread.gif" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="$USER_HOME_GRIFFON$/" />
@@ -90,40 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LegendExample.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/LegendExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="26" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ConcurrentExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="75" column="75" selection-start="3180" selection-end="3180" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Pooled.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/Pooled.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="17" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExecutorsExample.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="182" column="0" selection-start="9927" selection-end="9927" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -131,10 +106,8 @@
       <file leaf-file-name="ReentrantLockExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="171" column="0" selection-start="7569" selection-end="7569" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="52" column="50" selection-start="3519" selection-end="3519" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,7 +115,7 @@
       <file leaf-file-name="ReadWriteLockExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="145" column="0" selection-start="6581" selection-end="6581" vertical-scroll-proportion="0.0">
+            <state line="272" column="131" selection-start="13415" selection-end="13428" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -150,10 +123,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConcurrentSpriteCanvas.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ConcurrentSpriteCanvas.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="41" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.19362187">
+            <state line="478" column="11" selection-start="16435" selection-end="16435" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AtomicIntegerExample.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/AtomicIntegerExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="91" selection-start="5033" selection-end="5033" vertical-scroll-proportion="0.24">
               <folding />
             </state>
           </provider>
@@ -162,16 +144,36 @@
       <file leaf-file-name="SemaphoreExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
+            <state line="117" column="40" selection-start="8836" selection-end="8849" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BlockingQueueExample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/BlockingQueueExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="188" column="66" selection-start="10915" selection-end="10921" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImagePanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/ImagePanel.java">
+      <file leaf-file-name="CyclicBarrierExample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CyclicBarrierExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="79" selection-start="3045" selection-end="3045" vertical-scroll-proportion="0.0">
+            <state line="36" column="46" selection-start="1320" selection-end="1324" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CountDownLatchExample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CountDownLatchExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="180" column="50" selection-start="9320" selection-end="9320" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -187,22 +189,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/MenuBuilder.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/FutureExample.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CompletionServiceExample.java" />
         <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentTextSprite.java" />
         <option value="$PROJECT_DIR$/images/plan.xml" />
         <option value="$PROJECT_DIR$/images/references.html" />
         <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ConcurrentExampleConstants.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java" />
         <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java" />
         <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/LegendExample.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java" />
         <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java" />
         <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CyclicBarrierExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/BlockingQueueExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CountDownLatchExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/AtomicIntegerExample.java" />
       </list>
     </option>
   </component>
@@ -381,6 +383,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="out" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javaconcurrenta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javaconcurrenta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -702,7 +718,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32474965" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48640916" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27925342" sideWeight="0.6237482" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27925342" sideWeight="0.62266856" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3992095" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -714,8 +730,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3338119" sideWeight="0.6237482" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2914573" sideWeight="0.6666667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24766691" sideWeight="0.69241774" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29756796" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24766691" sideWeight="0.6938484" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29613733" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" x="96" y="96" width="1248" height="648" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -745,7 +761,7 @@
     <option name="ENABLE_BACKGROUND_PROCESSES" value="true" />
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tweaked white splace" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected bug where attempting sprites when rejected were not displaying retreating at all" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -759,8 +775,6 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <confirmMoveToFailedCommit value="1" />
-    <MESSAGE value="InteliiJ" />
-    <MESSAGE value="Javadoc" />
     <MESSAGE value="Added download site" />
     <MESSAGE value="Removed redundant email address" />
     <MESSAGE value="Added runnable sprite for pooled examples" />
@@ -784,6 +798,8 @@
     <MESSAGE value="Corrected - Moved Legend after concurrent overview slide" />
     <MESSAGE value="download was overlapping graphic" />
     <MESSAGE value="Tweaked white splace" />
+    <MESSAGE value="Now rendering acquired threads as a rotating oval shaped line" />
+    <MESSAGE value="Corrected bug where attempting sprites when rejected were not displaying retreating at all" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -811,28 +827,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/images/plan.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="140" selection-start="232" selection-end="232" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/images/references.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="111" selection-start="2574" selection-end="2580" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.6.0_18/src.zip!/java/util/concurrent/ThreadPoolExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1327" column="16" selection-start="51864" selection-end="51864" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/BlockingQueueExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="11" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentTextSprite.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="13" selection-start="97" selection-end="97" vertical-scroll-proportion="0.0">
@@ -854,13 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/Pooled.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="17" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
@@ -877,35 +864,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="0" selection-start="7569" selection-end="7569" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/LegendExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="73" column="26" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="0" selection-start="6581" selection-end="6581" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -916,9 +878,69 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CyclicBarrierExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="46" selection-start="1320" selection-end="1324" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="50" selection-start="3519" selection-end="3519" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/BlockingQueueExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="188" column="66" selection-start="10915" selection-end="10921" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CountDownLatchExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="180" column="50" selection-start="9320" selection-end="9320" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="272" column="131" selection-start="13415" selection-end="13428" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="40" selection-start="8836" selection-end="8849" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="41" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.19362187">
+        <state line="478" column="11" selection-start="16435" selection-end="16435" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="75" selection-start="3180" selection-end="3180" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/AtomicIntegerExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="91" selection-start="5033" selection-end="5033" vertical-scroll-proportion="0.24">
           <folding />
         </state>
       </provider>

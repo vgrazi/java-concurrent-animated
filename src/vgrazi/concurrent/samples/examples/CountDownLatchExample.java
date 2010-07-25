@@ -160,7 +160,7 @@ public class CountDownLatchExample extends ConcurrentExample {
        " \n" +
        "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to acquire will block</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// until the specified number of releases are counted</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\">Thread acquireThread = </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread(</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Runnable() { \n" +
+       "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\">Thread acquireThread = </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread() { \n" +
        "      </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
        "        </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
        "          countDownLatch.await(); \n" +
@@ -169,7 +169,7 @@ public class CountDownLatchExample extends ConcurrentExample {
 //       "      } \n" +
 //       "    }); \n" +
        " \n" +
-       "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\">Thread releaseThread = </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread(</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Runnable() { \n" +
+       "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\">Thread releaseThread = </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread() { \n" +
        "      </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
        "        countDownLatch.countDown(); \n" +
        "      } \n" +
@@ -178,7 +178,7 @@ public class CountDownLatchExample extends ConcurrentExample {
        "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// timed await is like await except that it</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// times out after the specified timeout period</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        "      </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>try</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
-       "        countDownLatch.await(1000L, TimeUnit.MILLISECONDS)</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
+       "        countDownLatch.await(1L, TimeUnit.SECONDS)</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
        "      } </FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>catch</B></FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) { }\n" +
 //       "      } \n" +
        "</FONT></PRE></html>";

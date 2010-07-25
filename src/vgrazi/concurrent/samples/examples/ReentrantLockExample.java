@@ -50,7 +50,7 @@ public class ReentrantLockExample extends ConcurrentExample {
        " \n" +
        "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Try Lock Thread - All waiting threads are<br>    // notified when lock is released. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
        "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">try</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
-       "         lock.tryLock(1000L, TimeUnit.MILLISECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
+       "         lock.tryLock(1L, TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
        "       // lock unblocks and work continues... \n" +
        "       "+

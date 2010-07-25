@@ -257,7 +257,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
             "      lock.readLock().lock(); \n" +
             "      </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// or</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-            "      lock.readLock().tryLock(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000099>\">1000L, TimeUnit.MILLISECONDS</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">); \n" +
+            "      lock.readLock().tryLock(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000099>\">1L, TimeUnit.SECONDS</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">); \n" +
             "    }" +
             " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(InterruptedException e) { }\n" +
             //            "      Thread.currentThread().interrupt(); \n" +
@@ -270,7 +270,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>try</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
             "      lock.writeLock().lock(); \n" +
             "      </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// or</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "      lock.writeLock().tryLock(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000099>\">1000L, TimeUnit.MILLISECONDS</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
+            "      lock.writeLock().tryLock(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000099>\">1L, TimeUnit.SECONDS</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
             "    }" +
             " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>catch</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) { }\n" +
             //            "    } \n" +
