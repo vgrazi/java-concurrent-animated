@@ -469,6 +469,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
     switch (sprite.getType()) {
       case ARROW:
+      case WORKING:
       case RUNNABLE:
       case CAS:
         int width = RADIUS * 2;
