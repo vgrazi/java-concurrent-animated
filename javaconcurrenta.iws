@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="eacee73e-ffc6-48dc-b1a2-ba45367842e3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java" />
+    <list readonly="true" id="eacee73e-ffc6-48dc-b1a2-ba45367842e3" name="Default" comment="copyImages now just takes image, html, and xml" />
+    <list default="true" id="cfa20229-04f8-47aa-a952-369e0e716765" name="Intellij" comment="Intellij">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javaconcurrenta.iws" afterPath="$PROJECT_DIR$/javaconcurrenta.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ExampleType.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ExampleType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javaconcurrenta.ipr" afterPath="$PROJECT_DIR$/javaconcurrenta.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/slides/ConcurrentSlideShow.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/slides/ConcurrentSlideShow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ConcurrentExampleConstants.java" afterPath="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ConcurrentExampleConstants.java" />
     </list>
-    <list id="56b07e05-2aed-40c2-ab67-be49dff3b178" name="InteliiJ" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javaconcurrenta.iws" afterPath="$PROJECT_DIR$/javaconcurrenta.iws" />
-    </list>
-    <ignored path="src/vgrazi/util/logging/" />
-    <ignored path="javaconcurrenta.iws" />
     <ignored path=".idea/workspace.xml" />
-    <ignored path="dist/vgrazi/" />
-    <ignored mask="*.class" />
-    <ignored path="dist/images/" />
     <ignored path="$USER_HOME_GRIFFON$/" />
-    <ignored path="dist/" />
+    <ignored path="dist/images/" />
+    <ignored path="src/vgrazi/util/logging/" />
+    <ignored path="dist/vgrazi/" />
     <ignored path="$USER_HOME_GRAILS$/" />
+    <ignored path="dist/" />
     <ignored path="out/" />
+    <ignored path="javaconcurrenta.iws" />
+    <ignored mask="*.class" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,11 +81,71 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="ConcurrentSprite.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="32" column="3" selection-start="694" selection-end="694" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LegendExample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/LegendExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="73" column="26" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ConcurrentExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="44" selection-end="44" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Pooled.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/Pooled.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="17" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExecutorsExample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="182" column="0" selection-start="9927" selection-end="9927" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReentrantLockExample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="171" column="0" selection-start="7569" selection-end="7569" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReadWriteLockExample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="145" column="0" selection-start="6581" selection-end="6581" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,7 +153,7 @@
       <file leaf-file-name="ConcurrentSpriteCanvas.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="529" column="36" selection-start="18483" selection-end="18483" vertical-scroll-proportion="0.7876712">
+            <state line="54" column="41" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.19362187">
               <folding />
             </state>
           </provider>
@@ -104,7 +162,16 @@
       <file leaf-file-name="SemaphoreExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="9" selection-start="9462" selection-end="9462" vertical-scroll-proportion="0.0">
+            <state line="7" column="0" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImagePanel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/ImagePanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="90" column="79" selection-start="3045" selection-end="3045" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -120,9 +187,27 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/MenuBuilder.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/FutureExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CompletionServiceExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentTextSprite.java" />
+        <option value="$PROJECT_DIR$/images/plan.xml" />
+        <option value="$PROJECT_DIR$/images/references.html" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ConcurrentExampleConstants.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/LegendExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java" />
         <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java" />
       </list>
     </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -236,8 +321,26 @@
               <option name="myItemId" value="vgrazi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
+              <option name="myItemId" value="javaconcurrenta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javaconcurrenta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vgrazi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="samples" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -262,52 +365,85 @@
               <option name="myItemId" value="samples" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="launcher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javaconcurrenta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javaconcurrenta" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="out" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Favorites" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="342" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="313" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="314" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="31" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="336" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3" value="3" />
     <property name="RunManagerConfig.showSettingsBeforeRunnig" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
-    <property name="recentsLimit" value="5" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="269" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder5" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder5" value="5" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="269" />
+    <property name="recentsLimit" value="5" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth1" value="273" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth0" value="273" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth5" value="790" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth4" value="273" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth3" value="274" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="340" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="339" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth5" value="813" />
+    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder5" value="5" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="vgrazi.concurrent.samples.examples" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="vgrazi.concurrent.samples.sprites" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="vgrazi.util" />
     </key>
@@ -323,119 +459,6 @@
     <option name="referencePos" value="0" />
     <option name="showLabels" value="true" />
   </component>
-  <component name="RestoreUpdateTree">
-    <UpdateInfo date="5/23/10 4:00 AM" ActionInfo="_Update">
-      <UpdatedFiles>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated from server" />
-          <option name="myStatusName" value="Changed on server" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CHANGED_ON_SERVER" />
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Updated" />
-            <option name="myStatusName" value="Changed" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="UPDATED" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Created" />
-            <option name="myStatusName" value="Created" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="CREATED" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Deleted" />
-            <option name="myStatusName" value="Deleted" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="true" />
-            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Restored" />
-            <option name="myStatusName" value="Will be restored" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="RESTORED" />
-          </FILE-GROUP>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Modified" />
-          <option name="myStatusName" value="Modified" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MODIFIED" />
-          <PATH vcs="svn" revision="">C:\dev\javaconcurrenta\src\vgrazi\concurrent\samples\sprites\ConcurrentSpriteCanvas.java</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Skipped" />
-          <option name="myStatusName" value="Skipped" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SKIPPED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with conflicts" />
-          <option name="myStatusName" value="Will be merged with conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_CONFLICTS" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged" />
-          <option name="myStatusName" value="Will be merged" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED" />
-          <PATH vcs="svn" revision="50">C:\dev\javaconcurrenta\src\vgrazi\concurrent\samples\sprites\ConcurrentSpriteCanvas.java</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Not in repository" />
-          <option name="myStatusName" value="Not in repository" />
-          <option name="mySupportsDeletion" value="true" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UNKNOWN" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally added" />
-          <option name="myStatusName" value="Locally added" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_ADDED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally removed" />
-          <option name="myStatusName" value="Locally removed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_REMOVED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Switched" />
-          <option name="myStatusName" value="Switched" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SWITCHED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with property conflicts" />
-          <option name="myStatusName" value="Will be merged with property conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with tree conflicts" />
-          <option name="myStatusName" value="Will be merged with tree conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-        </FILE-GROUP>
-      </UpdatedFiles>
-    </UpdateInfo>
-  </component>
   <component name="RunManager" selected="Application.ConcurrentExampleLauncher">
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
@@ -446,6 +469,14 @@
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" air_descriptor_path="" air_program_params="" air_publisher_id="" air_root_dir_path="" air_run_mode="AppDescriptor" class_name="" html_or_swf_file_path="" main_class_name="" method_name="" module_name="" output_log_level="" package_name="" port="0" run_mode="HtmlOrSwfFile" scope="Class" socket_policy_port="0" url_to_launch="http://">
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -631,15 +662,17 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="eacee73e-ffc6-48dc-b1a2-ba45367842e3" name="Default" comment="" />
+      <changelist id="cfa20229-04f8-47aa-a952-369e0e716765" name="Intellij" comment="" />
       <created>1274599860812</created>
-      <updated>1274599860812</updated>
+      <updated>1275251683357</updated>
     </task>
     <task id="LOCAL-00001" summary="InteliiJ">
       <changelist id="56b07e05-2aed-40c2-ab67-be49dff3b178" name="InteliiJ" comment="" />
       <created>1274599783171</created>
       <updated>1274599783171</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -666,40 +699,42 @@
     <frame x="-4" y="-4" width="1448" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32618025" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24838477" sideWeight="0.66523606" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39974457" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32474965" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52360517" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32474965" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48640916" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27925342" sideWeight="0.6237482" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3992095" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32331902" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3662375" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="ConsoleMavenPlugin" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24982053" sideWeight="0.66523606" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3090129" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="SVN Properties" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1954023" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="IdeaSpring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3338119" sideWeight="0.6237482" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2914573" sideWeight="0.6666667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24766691" sideWeight="0.69241774" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29756796" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" x="96" y="96" width="1248" height="648" />
+      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="SVN Properties" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="IdeaSpring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
     <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
@@ -710,7 +745,7 @@
     <option name="ENABLE_BACKGROUND_PROCESSES" value="true" />
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added pool rendering&#10;Increased thread length" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tweaked white splace" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -723,20 +758,32 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Added a spinner" />
-    <MESSAGE value="Reset now resets thread count" />
-    <MESSAGE value="Added threadCountField" />
-    <MESSAGE value="Added Semaphore(Fair) to slides" />
-    <MESSAGE value="Removed" />
-    <MESSAGE value="Removed copyright notice" />
-    <MESSAGE value="Added todo's and some small refactoring" />
-    <MESSAGE value="Changed default to 4" />
-    <MESSAGE value="Added reset method that accepts int value" />
-    <MESSAGE value="Added more detail in tool tip" />
-    <MESSAGE value="Added tool tips" />
-    <MESSAGE value="No longer displaying tool tip" />
-    <MESSAGE value="Single thread executor is now the first executor example&#10;removed some logging" />
-    <MESSAGE value="Added pool rendering&#10;Increased thread length" />
+    <confirmMoveToFailedCommit value="1" />
+    <MESSAGE value="InteliiJ" />
+    <MESSAGE value="Javadoc" />
+    <MESSAGE value="Added download site" />
+    <MESSAGE value="Removed redundant email address" />
+    <MESSAGE value="Added runnable sprite for pooled examples" />
+    <MESSAGE value="reset now clears pooled sprites" />
+    <MESSAGE value="copyImages now just takes image, html, and xml" />
+    <MESSAGE value="initial revision" />
+    <MESSAGE value="Added puller sprite support" />
+    <MESSAGE value="drawAcquiring now renders the acquired runnable correctly inside the mutex (was butting out a few pixels)" />
+    <MESSAGE value="Changed sprites from arrows to Runnable rectangles" />
+    <MESSAGE value="Moved single thread executor before fixed" />
+    <MESSAGE value="Initial revision" />
+    <MESSAGE value="Added createTextSprite method" />
+    <MESSAGE value="Added support for text sprites" />
+    <MESSAGE value="Added a legend example" />
+    <MESSAGE value="Typo" />
+    <MESSAGE value="Added a finale" />
+    <MESSAGE value="Tweaks" />
+    <MESSAGE value="slight code org" />
+    <MESSAGE value="Some tweaks" />
+    <MESSAGE value="Moved Legend after concurrent overview slide" />
+    <MESSAGE value="Corrected - Moved Legend after concurrent overview slide" />
+    <MESSAGE value="download was overlapping graphic" />
+    <MESSAGE value="Tweaked white splace" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -751,196 +798,178 @@
     <buildFile url="file://$PROJECT_DIR$/build.xml">
       <antCommandLine value="" />
       <runInBackground value="true" />
-      <targetFilters />
+      <targetFilters>
+        <filter targetName="clean" isVisible="true" />
+        <filter targetName="compile" isVisible="true" />
+        <filter targetName="copyImages" isVisible="false" />
+        <filter targetName="dist" isVisible="true" />
+        <filter targetName="init" isVisible="false" />
+      </targetFilters>
       <treeView value="true" />
       <verbose value="true" />
       <viewClosedWhenNoErrors value="false" />
     </buildFile>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/images/plan.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="140" selection-start="232" selection-end="232" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/images/references.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="70" selection-start="2148" selection-end="2148" vertical-scroll-proportion="-7.25" />
+        <state line="19" column="111" selection-start="2574" selection-end="2580" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/images/instructions.html">
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0_18/src.zip!/java/util/concurrent/ThreadPoolExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="35" selection-start="1614" selection-end="1614" vertical-scroll-proportion="-9.916667" />
+        <state line="1327" column="16" selection-start="51864" selection-end="51864" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/vgrazi/concurrent/samples/examples/CyclicBarrierExample.class">
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/BlockingQueueExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="41" column="11" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CyclicBarrierExample.java">
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentTextSprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="13" selection-start="3917" selection-end="3917" vertical-scroll-proportion="0.0" />
+        <state line="5" column="13" selection-start="97" selection-end="97" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/AtomicIntegerExample.java">
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/ConcurrentExampleConstants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="191" column="60" selection-start="9762" selection-end="9762" vertical-scroll-proportion="0.0" />
+        <state line="131" column="0" selection-start="11372" selection-end="11372" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/ImagePanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="5" selection-start="6555" selection-end="6555" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="14" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="55" selection-start="0" selection-end="1346" vertical-scroll-proportion="0.9283019" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="44" selection-end="44" vertical-scroll-proportion="0.0">
+        <state line="90" column="79" selection-start="3045" selection-end="3045" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/SemaphoreExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="9" selection-start="9462" selection-end="9462" vertical-scroll-proportion="0.0">
+        <state line="7" column="0" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/Pooled.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="182" column="0" selection-start="9927" selection-end="9927" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReentrantLockExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="171" column="0" selection-start="7569" selection-end="7569" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/LegendExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="26" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ConcurrentExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="145" column="0" selection-start="6581" selection-end="6581" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="3" selection-start="694" selection-end="694" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="529" column="36" selection-start="18483" selection-end="18483" vertical-scroll-proportion="0.7876712">
+        <state line="54" column="41" selection-start="1934" selection-end="1934" vertical-scroll-proportion="0.19362187">
           <folding />
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
-    <option name="states">
-      <map>
-        <entry key="Copyright.UI">
-          <value>
-            <UIState>
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl>
               <option name="proportions">
-                <SplitterProportionsDataImpl />
+                <list>
+                  <option value="0.2" />
+                </list>
               </option>
-            </UIState>
-          </value>
-        </entry>
-        <entry key="Errors.UI">
-          <value>
-            <UIState>
+            </SplitterProportionsDataImpl>
+          </splitter-proportions>
+          <settings />
+        </UIState>
+      </state>
+      <state key="Copyright.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl />
+          </splitter-proportions>
+        </UIState>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl>
               <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
+                <list>
+                  <option value="0.2" />
+                </list>
               </option>
-              <option name="lastEditedConfigurable" value="Default|IDE Profiles" />
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ProjectJDKs.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-              <option name="lastEditedConfigurable" value="1.5" />
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ScopeChooserConfigurable.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-            </UIState>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="myStates">
-      <map>
-        <entry key="Copyright.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl />
-              </option>
-            </UIState>
-          </value>
-        </entry>
-        <entry key="Errors.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-              <option name="lastEditedConfigurable" value="Default|IDE Profiles" />
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ProjectJDKs.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-              <option name="lastEditedConfigurable" value="1.5" />
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ScopeChooserConfigurable.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-            </UIState>
-          </value>
-        </entry>
-      </map>
-    </option>
+            </SplitterProportionsDataImpl>
+          </splitter-proportions>
+          <last-edited>1.5</last-edited>
+        </UIState>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl />
+          </splitter-proportions>
+          <settings />
+        </UIState>
+      </state>
+    </states>
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />

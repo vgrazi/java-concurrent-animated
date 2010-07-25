@@ -29,10 +29,15 @@ public class ConcurrentSprite {
 
 
   public static enum SpriteType {
-    ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT;
+     WORKING, ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT,
   }
 
-  private SpriteType type = SpriteType.ARROW;
+  /**
+   * WORKING sprite is equivalent to an ARROW sprint except in the acquired state.
+   * When the sprite is acquired, an ARROW sprite will render as an arrow bouncing off the right border
+   * Whereas a WORKING sprite will render as a rotating "working" thread.
+   */
+  private SpriteType type = SpriteType.WORKING;
 
   private int index = 0;
 

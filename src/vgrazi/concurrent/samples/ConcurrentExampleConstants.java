@@ -33,6 +33,8 @@ public class ConcurrentExampleConstants {
           "CENTER:\\Documents and Settings\\Victor\\My Documents\\My Pictures\\Morris_Frieda.jpg",
           "CENTER:\\Documents and Settings\\Victor\\My Documents\\My Pictures\\Morris_Frieda_Victoria.jpg",
   };
+  public static final String WORKING_THREAD_IMAGE = "images/workingThread.gif";
+
   public static int imageIndex = 0;
   public static final String SPLASH_LABEL =
           "<html>" +

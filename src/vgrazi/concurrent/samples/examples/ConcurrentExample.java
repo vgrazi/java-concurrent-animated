@@ -157,7 +157,7 @@ public abstract class ConcurrentExample extends JPanel {
   }
 
   protected synchronized ConcurrentSprite createAcquiringSprite() {
-    return createAcquiringSprite(ConcurrentSprite.SpriteType.ARROW);
+    return createAcquiringSprite(ConcurrentSprite.SpriteType.WORKING);
   }
 
   protected synchronized ConcurrentSprite createTextSprite(String text) {
@@ -241,7 +241,7 @@ public abstract class ConcurrentExample extends JPanel {
   }
 
   protected ConcurrentSprite createAttemptingSprite() {
-    return createAttemptingSprite(ConcurrentSprite.SpriteType.ARROW);
+    return createAttemptingSprite(ConcurrentSprite.SpriteType.WORKING);
   }
 
   protected ConcurrentSprite createAttemptingSprite(ConcurrentSprite.SpriteType type) {

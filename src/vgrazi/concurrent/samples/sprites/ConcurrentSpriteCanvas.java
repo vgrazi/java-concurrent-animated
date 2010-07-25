@@ -1,5 +1,6 @@
 package vgrazi.concurrent.samples.sprites;
 
+import sun.awt.image.FileImageSource;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import static vgrazi.concurrent.samples.ExampleType.ONE_USE;
@@ -57,6 +58,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private Queue<ConcurrentSprite> pooledSprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
   private ConcurrentExample concurrentExample;
   private String labelText;
+  private final Image image = createImage(new FileImageSource(ConcurrentExampleConstants.WORKING_THREAD_IMAGE));
+
+
   static ExampleType exampleType;
 
   private final int BORDER = 5;
@@ -331,6 +335,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     else {
       for(int i = 0; i < availableThreadCount - poolSize; i++) {
         ConcurrentSprite sprite = new ConcurrentSprite(pooledSprites.size());
+        sprite.setType(ConcurrentSprite.SpriteType.ARROW);
         sprite.setAcquired();
         sprite.moveToLocation(RELEASE_BORDER_WORKING);
         pooledSprites.add(sprite);
@@ -373,6 +378,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         g.fill3DRect(xPos - 57 + 30, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 30, 8, true);
         break;
       case ARROW:
+      case WORKING:
       case CAS:
         if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
           y = yPos;
@@ -516,6 +522,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
           g.fill3DRect(xPos - 57 + 30, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 34, 8, true);
         }
         break;
+      case WORKING:
       case ARROW:
       case CAS:
         drawArrowSprite(g, xPos, yPos, sprite);
@@ -548,31 +555,34 @@ public class ConcurrentSpriteCanvas extends JPanel {
       y1 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
       y2 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
     }
-    g.setColor(sprite.getColor());
-    // draw the top arrow head
-    g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y1);
-    // draw the bottom arrow head
-    g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y2);
-    int length;
-    if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
-      length = ARROW_LENGTH * 3;
-    }
-    else {
-      length = ARROW_LENGTH;
-    }
-    g.drawLine(xPos, y, xPos - length * 6, y);
-    if(sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
-      // draw the attempted replacement
-      g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
-      int spriteValue = sprite.getValue();
-      if (spriteValue != ConcurrentSprite.NO_VALUE) {
-        String value = String.valueOf(spriteValue);
-        g.drawString(value, xPos - 85, y);
+    if(sprite.getType() != ConcurrentSprite.SpriteType.WORKING  || !sprite.isAcquired() || xPos < RELEASE_BORDER_WORKING - 30) {
+      g.setColor(sprite.getColor());
+      // draw the top arrow head
+      g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y1);
+      // draw the bottom arrow head
+      g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y2);
+      int length;
+      if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
+        length = ARROW_LENGTH * 3;
+      } else {
+        length = ARROW_LENGTH;
       }
-    }
-    int expectedValue = sprite.getExpectedValue();
-    if (expectedValue != ConcurrentSprite.NO_VALUE) {
-      g.drawString("(" + expectedValue + ")", xPos - 53, y);
+      g.drawLine(xPos, y, xPos - length * 6, y);
+      if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
+        // draw the attempted replacement
+        g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
+        int spriteValue = sprite.getValue();
+        if (spriteValue != ConcurrentSprite.NO_VALUE) {
+          String value = String.valueOf(spriteValue);
+          g.drawString(value, xPos - 85, y);
+        }
+      }
+      int expectedValue = sprite.getExpectedValue();
+      if (expectedValue != ConcurrentSprite.NO_VALUE) {
+        g.drawString("(" + expectedValue + ")", xPos - 53, y);
+      }
+    } else {
+      g.drawImage(image, ACQUIRE_BORDER + 10, y-3, null);
     }
   }
 

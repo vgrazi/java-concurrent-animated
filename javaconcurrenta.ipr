@@ -5,7 +5,7 @@
     <buildFile url="file://$PROJECT_DIR$/build.xml">
       <additionalClassPath />
       <antReference projectDefault="true" />
-      <customJdkName value="" />
+      <customJdkName value="1.5" />
       <maximumHeapSize value="128" />
       <maximumStackSize value="32" />
       <properties />
@@ -253,6 +253,14 @@
   <component name="ProjectDetails">
     <option name="projectName" value="javaconcurrenta" />
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="Victor">
+      <words>
+        <w>grazi</w>
+        <w>reentrant</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectKey">
     <option name="state" value="https://javaconcurrenta.svn.sourceforge.net/svnroot/javaconcurrenta/javaconcurrenta.ipr" />
   </component>
@@ -274,7 +282,7 @@
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ResourceManagerContainer">
@@ -380,102 +388,6 @@
   <component name="com.yanaware.intellij.ideaspring.PluginConfigurable">
     <option name="autoscrolling" value="false" />
     <option name="autoscrollingFromSource" value="false" />
-  </component>
-  <component name="masterDetails">
-    <option name="states">
-      <map>
-        <entry key="Copyright.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl />
-              </option>
-            </UIState>
-          </value>
-        </entry>
-        <entry key="Errors.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl />
-              </option>
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ProjectJDKs.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-              <option name="lastEditedConfigurable" value="1.5" />
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ScopeChooserConfigurable.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl />
-              </option>
-            </UIState>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="myStates">
-      <map>
-        <entry key="Copyright.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl />
-              </option>
-            </UIState>
-          </value>
-        </entry>
-        <entry key="Errors.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl />
-              </option>
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ProjectJDKs.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-              <option name="lastEditedConfigurable" value="1.5" />
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ScopeChooserConfigurable.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl />
-              </option>
-            </UIState>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="se.expertsystem.intellij.aop.aspectj.AspectJProjectComponent">
     <setting name="isActivated" value="false" />
