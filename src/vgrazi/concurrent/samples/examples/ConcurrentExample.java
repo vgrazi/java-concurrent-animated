@@ -566,6 +566,8 @@ public abstract class ConcurrentExample extends JPanel {
         snippet = snippet.replaceAll("<state" + state + ":(#\\d\\d\\d\\d\\d\\d)>", "$1");
         snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", ConcurrentExampleConstants.HTML_DISABLED_COLOR);
       }
+      snippet = snippet.replaceAll(String.format("state%d-size", state), "24pt");
+      snippet = snippet.replaceAll(String.format("state[~%d]-size", state), "21pt");
       getSnippetLabel().setText(snippet);
     }
   }
