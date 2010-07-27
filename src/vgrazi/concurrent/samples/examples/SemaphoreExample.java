@@ -1,6 +1,5 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
@@ -8,10 +7,10 @@ import vgrazi.concurrent.samples.sprites.ConcurrentSpriteCanvas;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * @user vgrazi.
@@ -38,18 +37,14 @@ public class SemaphoreExample extends ConcurrentExample {
   private final JButton immediatetryAcquireButton = new JButton("tryAcquire()");
   private boolean initialized = false;
   private String timeoutString = "";
-  private final List<ConcurrentSprite> acquiredSprites = new ArrayList<ConcurrentSprite>();
+  // todo: when you create more threads than permits, they don't always release
+  private final List<ConcurrentSprite> acquiredSprites = new Vector<ConcurrentSprite>();
   private static final int MIN_SNIPPET_POSITION = 320;
   private JTextField threadCountField = createThreadCountField();
 
   public SemaphoreExample(String title, Container frame, boolean fair, int slideNumber) {
     super(title, frame, ExampleType.BLOCKING, MIN_SNIPPET_POSITION, fair, slideNumber);
-    if(fair) {
-      initializeFair();
-    }
-    else {
-      initializeNonFair();
-    }
+    initializeFair(fair);
   }
 
   protected String getSnippet() {
@@ -168,42 +163,34 @@ public class SemaphoreExample extends ConcurrentExample {
 
       initialized = true;
     }
-
   }
 
-  private void initializeNonFair() {
-    reset();
-    semaphore = new Semaphore(4, false);
-  }
-
-  private void initializeFair() {
+  private void initializeFair(boolean fair) {
     reset();
     setState(6);
-    semaphore = new Semaphore(4, true);
+    semaphore = new Semaphore(4, fair);
   }
 
+  /**
+   * process release button action
+   */
   private void release() {
-    int index;
-    if (!acquiredSprites.isEmpty()) {
-      ConcurrentSprite sprite;
-      if (semaphore.isFair()) {
-        index = 0;
+    ConcurrentSprite sprite = null;
+    synchronized (this) {
+      if (!acquiredSprites.isEmpty()) {
+        sprite = acquiredSprites.remove(0);
       }
-      else {
-        index = getRandomIndex();
-      }
-      sprite = acquiredSprites.remove(index);
+    }
+    if (sprite != null) {
       synchronized (sprite) {
         sprite.notify();
       }
     }
+    semaphore.release();
   }
 
   private void _release(ConcurrentSprite sprite) {
     setState(2);
-    message2("Attempting release ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-    semaphore.release();
-    shuffleSprites();
     sprite.setReleased();
     message2("Released ", ConcurrentExampleConstants.MESSAGE_COLOR);
     setState(2);
@@ -215,15 +202,17 @@ public class SemaphoreExample extends ConcurrentExample {
       setState(1);
       ConcurrentSprite sprite = createAcquiringSprite();
       semaphore.acquire();
-      acquiredSprites.add(sprite);
+      synchronized (this) {
+        acquiredSprites.add(sprite);
+      }
       sprite.setAcquired();
       message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
       setState(1);
+      // the sprite has been acquired by the permit. Wait now for a release message
       synchronized (sprite) {
         sprite.wait();
       }
       _release(sprite);
-      acquiredSprites.remove(sprite);
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
@@ -238,12 +227,14 @@ public class SemaphoreExample extends ConcurrentExample {
         message1("Acquire succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();
         setState(3);
-        acquiredSprites.add(sprite);
+        synchronized (this) {
+          acquiredSprites.add(sprite);
+        }
+        // the sprite has been acquired by the permit. Wait now for a release message
         synchronized (sprite) {
           sprite.wait();
         }
         _release(sprite);
-        acquiredSprites.remove(sprite);
       } else {
         Thread.sleep(ConcurrentSpriteCanvas.getTimeToAcquireBorder());
         message1("Acquire failed", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
@@ -266,13 +257,14 @@ public class SemaphoreExample extends ConcurrentExample {
         message1("Acquire succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();
         setState(3);
-        acquiredSprites.add(sprite);
+        synchronized (this) {
+          acquiredSprites.add(sprite);
+        }
+        // the sprite has been acquired by the permit. Wait now for a release message
         synchronized (sprite) {
-          //          acquiredSprites.add(sprite);
           sprite.wait();
         }
         _release(sprite);
-        acquiredSprites.remove(sprite);
       } else {
         Thread.sleep(ConcurrentSpriteCanvas.getTimeToAcquireBorder());
         message1("Acquire failed", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
@@ -312,13 +304,4 @@ public class SemaphoreExample extends ConcurrentExample {
       setState(0);
     }    
   }
-
-  // todo: this is being applied to the holding sprites instead of the waiting sprites. Modify to wait instead for waiting sprites.
-  private int getRandomIndex() {
-//    int index = random.nextInt(acquiredSprites.size());
-//    System.out.println("SemaphoreExample.getRandomIndex size, index -> " + acquiredSprites.size() + "," + index);
-//    return index;
-    return 0;
-  }
-
 }
