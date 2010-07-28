@@ -10,7 +10,7 @@
         <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="CachedThreadPool"/>
     </MenuItem>
     <MenuItem label="Semaphore">
-        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="true" fair="false" mutexLabel="Semaphore"/>
+        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="false" fair="false" mutexLabel="Semaphore"/>
         <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="true" fair="true" mutexLabel="Semaphore (fair)"/>
     </MenuItem>
     <ImageSlide image="images/reentrantLock.jpg"/>
