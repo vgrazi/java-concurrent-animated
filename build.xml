@@ -41,5 +41,8 @@
             </manifest>
         </jar>
     </target>
+    <target name="run" depends="dist">
+        <java jar="dist/concurrentAnimated.jar" fork="true"/>
+    </target>
 
 </project>
