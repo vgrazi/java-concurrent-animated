@@ -79,7 +79,8 @@ public class ImagePanel extends JPanel {
 
     JPanel panel = new JPanel(new GridLayout(1, 9));
     panel.setOpaque(false);
-    ImageIcon icon = new ImageIcon("CENTER:\\dev\\concurrent\\concurrent\\classes\\images\\button.gif");
+    // todo: what is this button for, I don't see it anywhere in the app
+    ImageIcon icon = new ImageIcon("button.gif");
     JButton button = new JButton(icon);
     button.setOpaque(false);
     button.setBorderPainted(false);

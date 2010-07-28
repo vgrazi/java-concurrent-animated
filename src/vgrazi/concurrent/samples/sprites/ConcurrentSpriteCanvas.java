@@ -1,12 +1,12 @@
 package vgrazi.concurrent.samples.sprites;
 
-import sun.awt.image.FileImageSource;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import static vgrazi.concurrent.samples.ExampleType.ONE_USE;
 import static vgrazi.concurrent.samples.ExampleType.PLURAL;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.examples.Pooled;
+import vgrazi.concurrent.samples.util.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +58,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private Queue<ConcurrentSprite> pooledSprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
   private ConcurrentExample concurrentExample;
   private String labelText;
-  private final Image image = createImage(new FileImageSource(ConcurrentExampleConstants.WORKING_THREAD_IMAGE));
+  private final static Image workingThreadImage = UIUtils.getImageIcon(ConcurrentExampleConstants.WORKING_THREAD_IMAGE).getImage();
 
 
   static ExampleType exampleType;
@@ -583,7 +583,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         g.drawString("(" + expectedValue + ")", xPos - 53, y);
       }
     } else {
-      g.drawImage(image, ACQUIRE_BORDER + 10, y-3, null);
+      g.drawImage(workingThreadImage, ACQUIRE_BORDER + 10, y-3, null);
     }
   }
 

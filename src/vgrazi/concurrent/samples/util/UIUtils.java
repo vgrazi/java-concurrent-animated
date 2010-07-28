@@ -1,6 +1,10 @@
 package vgrazi.concurrent.samples.util;
 
+import vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher;
+
+import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 /**
  * @user vgrazi.
@@ -36,5 +40,12 @@ public class UIUtils {
 //      screenHeight = 768;
 //    }
     return new Dimension(screenWidth, screenHeight);
+  }
+
+  public static ImageIcon getImageIcon(String imageName) {
+    URL url = ConcurrentExampleLauncher.class.getClassLoader().getResource(imageName);
+//    logger.log(Level.INFO, "ConcurrentExampleLauncher.showTitlePane image: " + url);
+    ImageIcon imageIcon = new ImageIcon(url);
+    return imageIcon;
   }
 }
