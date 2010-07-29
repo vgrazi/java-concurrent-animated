@@ -187,12 +187,13 @@ public class SemaphoreExample extends ConcurrentExample {
       }
     }
     semaphore.release();
+    displayPermits();
   }
 
   private void _release(ConcurrentSprite sprite) {
     setState(2);
     sprite.setReleased();
-    message2("Released ", ConcurrentExampleConstants.MESSAGE_COLOR);
+    message1("Released ", ConcurrentExampleConstants.MESSAGE_COLOR);
     setState(2);
   }
 
@@ -202,6 +203,7 @@ public class SemaphoreExample extends ConcurrentExample {
       setState(1);
       ConcurrentSprite sprite = createAcquiringSprite();
       semaphore.acquire();
+      displayPermits();
       synchronized (this) {
         acquiredSprites.add(sprite);
       }
@@ -224,6 +226,7 @@ public class SemaphoreExample extends ConcurrentExample {
       message1("Trying acquire..", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       ConcurrentSprite sprite = createAttemptingSprite();
       if (semaphore.tryAcquire(timeout, TimeUnit.MILLISECONDS)) {
+        displayPermits();
         message1("Acquire succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();
         setState(3);
@@ -254,6 +257,7 @@ public class SemaphoreExample extends ConcurrentExample {
     ConcurrentSprite sprite = createAttemptingSprite();
     try {
       if (semaphore.tryAcquire()) {
+        displayPermits();
         message1("Acquire succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();
         setState(3);
@@ -281,6 +285,9 @@ public class SemaphoreExample extends ConcurrentExample {
     return sb.toString();
   }
 
+  private void displayPermits() {
+    message2(String.format("Available permits:%d of %d", semaphore.availablePermits(), 4), Color.white);
+  }
   protected void reset() {
     super.reset();
     semaphore = new Semaphore(4, isFair());
@@ -292,7 +299,7 @@ public class SemaphoreExample extends ConcurrentExample {
     acquiredSprites.clear();
     resetThreadCountField(threadCountField);
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+    displayPermits();
   }
 
   @Override
