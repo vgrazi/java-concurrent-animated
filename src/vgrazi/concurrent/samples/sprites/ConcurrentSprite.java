@@ -45,6 +45,8 @@ public class ConcurrentSprite {
 
   protected int currentLocation = 0;
 
+  int circleLocation;
+
   /**
    * Used for CAS operations, value is the new value
    */
@@ -169,6 +171,18 @@ public class ConcurrentSprite {
 
   public void kickCurrentLocation(int pixels) {
     currentLocation -= pixels;
+  }
+
+  /**
+   * circle location is only used by working threads to display the circular animation path
+   * Other animations ignore it.
+   */
+  public void bumpCircleLocation() {
+    circleLocation++;
+  }
+
+  public int getCircleLocation() {
+    return circleLocation;
   }
 
   public void moveToAcquiringBorder() {

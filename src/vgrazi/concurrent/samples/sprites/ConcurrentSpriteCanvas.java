@@ -6,7 +6,6 @@ import static vgrazi.concurrent.samples.ExampleType.ONE_USE;
 import static vgrazi.concurrent.samples.ExampleType.PLURAL;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.examples.Pooled;
-import vgrazi.concurrent.samples.util.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +57,6 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private Queue<ConcurrentSprite> pooledSprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
   private ConcurrentExample concurrentExample;
   private String labelText;
-  private final static Image workingThreadImage = UIUtils.getImageIcon(ConcurrentExampleConstants.WORKING_THREAD_IMAGE).getImage();
 
 
   static ExampleType exampleType;
@@ -583,7 +581,65 @@ public class ConcurrentSpriteCanvas extends JPanel {
         g.drawString("(" + expectedValue + ")", xPos - 53, y);
       }
     } else {
-      g.drawImage(workingThreadImage, ACQUIRE_BORDER + 10, y-3, null);
+      renderWorkingAnimation(g, y-1, sprite.getCircleLocation());
+      sprite.bumpCircleLocation();
+    }
+  }
+
+  private void renderWorkingAnimation(Graphics g1, int y, int circleFrame) {
+//    g1.drawImage(workingThreadImage, ACQUIRE_BORDER + 10, y, null);
+    Graphics2D g = (Graphics2D) g1;
+    g.setStroke(new BasicStroke(2));
+    // top line of curved path
+    int pathWidth = 59;
+    g.drawLine(ACQUIRE_BORDER + 20, y, ACQUIRE_BORDER + pathWidth + 16, y);
+    int yDelta = 14;
+    // bottom line of curved path
+    g.drawLine(ACQUIRE_BORDER + 20, y + yDelta, ACQUIRE_BORDER + pathWidth + 16, y + yDelta);
+
+    // left arc
+    g.drawArc(ACQUIRE_BORDER + 13, y, 10, yDelta, 90, 180);
+    // right arc
+    g.drawArc(ACQUIRE_BORDER + 13 + pathWidth, y, 10, yDelta, -90, 180);
+
+    // now render the animation
+    // the number of pixels to move per frame
+    int frameDelta = 3;
+    int xPos1 = circleFrame * frameDelta;
+    int yPos;
+    int radius = 4;
+    // the equation of the above curved path is as follows
+    // xPos between 0 and pathWidth
+    xPos1 = xPos1 % ((pathWidth + 10) * 2);
+
+    if (xPos1 >= 0 && xPos1 < pathWidth -10) {
+      // animate left to right across the top
+      int xPos = xPos1;
+      yPos = y;
+      g.fillOval(ACQUIRE_BORDER + 20 + xPos, yPos - radius/2 -2, radius * 2, radius * 2);
+    }
+    else if (xPos1 >= pathWidth + 5 && xPos1 < pathWidth * 2 + 5)
+    {
+      // animate right to left across the bottom
+      int xPos = pathWidth * 2 - xPos1;
+      yPos = y;
+      g.fillOval(ACQUIRE_BORDER + 20 + xPos, yPos + yDelta - radius/2 -2, radius * 2, radius * 2);
+    }
+    else if(xPos1 >= pathWidth - 10 && xPos1 < pathWidth + 5) {
+      // animate along the right curve
+      int t = xPos1 - (pathWidth - 10);
+      int largeRadius = yDelta / 2;
+      int xPos = (int) ((int) (xPos1 + Math.sqrt((2 * largeRadius - t) * t)) - 4 - t*.3);
+      yPos = (int) (y + t * .8);
+      g.fillOval(ACQUIRE_BORDER + 20 + xPos, yPos - radius / 2 - 2, radius * 2, radius * 2);
+    }
+    else if(xPos1 >= pathWidth*2 + 5 && xPos1 <= pathWidth*2 + 20 ) {
+      // animate along the left curve
+      int t = xPos1 - (pathWidth*2 + 5);
+      int largeRadius = yDelta / 2;
+      int xPos = (int) ((int) (xPos1 - Math.sqrt((2 * largeRadius - t) * t)) - 4 - t*.2) + 22;
+      yPos = (int) (y - t * .8) + largeRadius +4;
+      g.fillOval(xPos, yPos - radius / 2 - 2, radius * 2, radius * 2);
     }
   }
 
