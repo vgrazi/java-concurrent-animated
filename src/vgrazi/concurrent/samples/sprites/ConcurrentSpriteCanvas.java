@@ -605,7 +605,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     // now render the animation
     // the number of pixels to move per frame
     int frameDelta = 3;
-    int xPos1 = circleFrame * frameDelta;
+    int xPos1 = circleFrame * frameDelta + pathWidth - 15 ;
     int yPos;
     int radius = 4;
     // the equation of the above curved path is as follows
