@@ -102,7 +102,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
   }
 
   private void readAcquire() {
-    message1(new Date() + " Waiting to acquire READ lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message1("Waiting to acquire READ lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
 
     Lock readLock = lock.readLock();
     logger.info("Acquiring read lock " + readLock);
@@ -111,7 +111,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
     readLock.lock();
     writerOwned = false;
     sprite.setAcquired();
-    message1(new Date() + " Acquired read lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
+    message1("Acquired read lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
     synchronized (MUTEX) {
       try {
         MUTEX.wait();
@@ -141,13 +141,13 @@ public class ReadWriteLockExample extends ConcurrentExample {
   }
 
   private void writeAcquire() {
-    message2(new Date() + " Waiting to acquire WRITE lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message2("Waiting to acquire WRITE lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     final ConcurrentSprite sprite = createAcquiringSprite();
     Lock writeLock = lock.writeLock();
     sprite.setColor(Color.RED);
     writeLock.lock();
     sprite.setAcquired();
-    message2(new Date() + " Acquired write lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
+    message2("Acquired write lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
     try {
       synchronized (MUTEX) {
         writerOwned = true;
@@ -186,7 +186,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
   private void writeDowngradeToRead() {
     if (writerOwned) {
       setState(5);
-      message2(new Date() + " Waiting to Downgrade WRITE lock...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      message2("Waiting to Downgrade WRITE lock...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       downgrade = true;
       synchronized (MUTEX) {
         MUTEX.notify();
@@ -195,7 +195,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
   }
 
   private void readRelease() {
-    message1(new Date() + " Waiting to release READ lock...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message1("Waiting to release READ lock...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     synchronized (MUTEX) {
       setState(4);
       downgrade = false;

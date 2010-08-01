@@ -153,7 +153,7 @@ public class ConnectionPool {
   }
 
   private void output(String s) {
-    System.out.println(new Date() + " " + s + ". connections:" + connections.size());
+    System.out.println(s + ". connections:" + connections.size());
   }
 
   private Connection createConnection() {

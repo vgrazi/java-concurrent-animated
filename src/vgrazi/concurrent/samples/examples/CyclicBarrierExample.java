@@ -162,7 +162,7 @@ public class CyclicBarrierExample extends ConcurrentExample {
       barrier = new CyclicBarrier(4, new Runnable() {
             public void run() {
               setState(2);
-              message2(new Date() + " Runnable hit", ConcurrentExampleConstants.MESSAGE_COLOR);
+              message2("Runnable hit", ConcurrentExampleConstants.MESSAGE_COLOR);
             }
           });
     }

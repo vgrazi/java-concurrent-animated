@@ -73,7 +73,7 @@ public abstract class ConcurrentExample extends JPanel {
   };
   protected ConcurrentSprite acquiredSprite;
   private static final int RELEASING_DELTA = 10;
-  private static final Font SNIPPET_FONT = new Font("Arial", Font.PLAIN, 18);
+  private static final Font SNIPPET_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 18);
   private String title;
   private ExampleType exampleType;
   private boolean fair;

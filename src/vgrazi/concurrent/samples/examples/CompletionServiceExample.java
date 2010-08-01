@@ -120,7 +120,7 @@ public class CompletionServiceExample extends ConcurrentExample {
   }
 
   private void use(Result result) {
-    message1("CompletionServiceExample.use: received result:" + result, ConcurrentExampleConstants.MESSAGE_COLOR);
+    message1("received result:" + result, ConcurrentExampleConstants.MESSAGE_COLOR);
   }
 
   public String getDescriptionHtml() {
