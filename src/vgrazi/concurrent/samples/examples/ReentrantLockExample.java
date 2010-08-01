@@ -21,9 +21,9 @@ public class ReentrantLockExample extends ConcurrentExample {
 
   private Lock lock;
   private final static Object MUTEX = new Object();
-
+  private int lockCount;
   private final JButton acquireButton = new JButton("lock");
-  private final JButton releaseButton = new JButton("unlock");
+  private final JButton unlockButton = new JButton("unlock");
   private final JButton attemptButton = new JButton("tryLock");
   private boolean initialized = false;
   private static final int MIN_SNIPPET_POSITION = 300;
@@ -81,16 +81,22 @@ public class ReentrantLockExample extends ConcurrentExample {
         }
       });
 
-      initializeButton(releaseButton, new Runnable() {
+      initializeButton(unlockButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
           for (int i = 0; i < count; i++) {
-            release();
-            try {
-              // sleep a little to give a chance for the locking thread to reach its target
-              Thread.sleep(500);
-            } catch (InterruptedException e) {
-              Thread.currentThread().interrupt();
+            if (lockCount > 0) {
+              unlock();
+              try {
+                // sleep a little to give a chance for the locking thread to reach its target
+                Thread.sleep(500);
+              } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+              }
+            }
+            else {
+              message1("Un-held lock calling unlock", Color.red);
+              message2("IllegalMonitorStateException thrown", Color.red);
             }
           }
         }
@@ -115,13 +121,14 @@ public class ReentrantLockExample extends ConcurrentExample {
   private void acquire() {
     setAnimationCanvasVisible(true);
     setState(1);
-    message1(new Date() + " Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     ConcurrentSprite sprite = createAcquiringSprite();
     lock.lock();
+    lockCount++;
     sprite.setAcquired();
     setAcquiredSprite(sprite);
-    message1(new Date() + " Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
+    message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
     waitForUnlockNotification();
   }
 
@@ -133,6 +140,7 @@ public class ReentrantLockExample extends ConcurrentExample {
       ConcurrentSprite sprite = createAttemptingSprite();
 
       if(lock.tryLock(timeout, TimeUnit.MILLISECONDS)) {
+        lockCount++;
         message1("Acquire attempt succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();
         setAcquiredSprite(sprite);
@@ -155,15 +163,16 @@ public class ReentrantLockExample extends ConcurrentExample {
       try {
         MUTEX.wait();
         lock.unlock();
+        lockCount--;
       } catch(InterruptedException e) {
         Thread.currentThread().interrupt();
       }
     }
   }
 
-  private void release() {
+  private void unlock() {
     setState(2);
-    message2(new Date() + " Waiting for release ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message2("Waiting for unlock ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     synchronized(this) {
       synchronized(MUTEX) {
         MUTEX.notify();
@@ -173,7 +182,7 @@ public class ReentrantLockExample extends ConcurrentExample {
         acquiredSprite.setReleased();
         setAcquiredSprite(null);
       }
-      message2(new Date() + " Released", ConcurrentExampleConstants.MESSAGE_COLOR);
+      message2("Unlocked", ConcurrentExampleConstants.MESSAGE_COLOR);
     }
     setState(2);
   }
