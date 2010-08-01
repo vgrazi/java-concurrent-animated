@@ -22,9 +22,9 @@ public class ConcurrentExampleConstants {
   public static final Color DEFAULT_BACKGROUND = new Color(0, 56, 104);// BLUE
   public static final Color MUTEX_BACKGROUND = new Color(135, 134, 126);//GRAY
   public static final Color MUTEX_FONT_COLOR = new Color(227, 223, 219);//GRAY 40%
-  public static final Font MUTEX_HEADER_FONT = new Font(Font.SERIF, Font.BOLD, 24);
-  public static final Font BUTTON_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
-  public static final Font LABEL_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 16);
+  public static final Font MUTEX_HEADER_FONT = new Font("Serif", Font.BOLD, 24);
+  public static final Font BUTTON_FONT = new Font("SansSerif", Font.PLAIN, 12);
+  public static final Font LABEL_FONT = new Font("SansSerif", Font.BOLD, 16);
   public static final String LOGO = "images/concurrent.gif";
 //  public static final String LOGO = "images/CS.JPG";
   public static final String LOGO_APPLET = "concurrent.gif";
