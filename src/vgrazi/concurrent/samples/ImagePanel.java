@@ -84,8 +84,8 @@ public class ImagePanel extends JPanel {
     JButton button = new JButton(icon);
     button.setOpaque(false);
     button.setBorderPainted(false);
-        button.setBorder(BorderFactory.createEmptyBorder());
-        button.setBackground(Color.BLUE);
+    button.setBorder(BorderFactory.createEmptyBorder());
+    button.setBackground(ConcurrentExampleConstants.DEFAULT_BUTTON_COLOR);
     button.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         ConcurrentExampleConstants.imageIndex++;
