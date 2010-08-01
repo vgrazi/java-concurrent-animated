@@ -99,15 +99,15 @@ public class LegendExample extends ConcurrentExample {
         position++;
         break;
       case 5:
-        sprites[11] = createTextSprite("Working ");
-        sprites[11].setAcquired();
+        sprites[13] = createTextSprite("Working ");
         sprites[12].setAcquired();
         position++;
         break;
       case 6:
-        ((ConcurrentTextSprite) sprites[11]).setText("Released");
+        ((ConcurrentTextSprite) sprites[13]).setText("Released");
         sprites[11].setReleased();
         sprites[12].setReleased();
+        sprites[13].setReleased();
         position++;
         break;
       case 7:
