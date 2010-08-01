@@ -6,7 +6,6 @@ import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
 import java.util.logging.Logger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -21,7 +20,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
   private final static Logger logger = Logger.getLogger(ReadWriteLockExample.class.getCanonicalName());
   private ReadWriteLock lock;
   private final Object MUTEX = new Object();
-
+  private volatile int lockCount;
   private final JButton readAcquireButton = new JButton("   lock.readLock().lock()    ");
   private final JButton readReleaseButton = new JButton("    unlock()   ");
   private final JButton writeAcquireButton = new JButton("   lock.writeLock().lock()   ");
@@ -103,12 +102,14 @@ public class ReadWriteLockExample extends ConcurrentExample {
 
   private void readAcquire() {
     message1("Waiting to acquire READ lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message2(" ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
 
     Lock readLock = lock.readLock();
     logger.info("Acquiring read lock " + readLock);
     // create the sprite before locking, otherwise the thread won't appear if another thread has the lock
     final ConcurrentSprite sprite = createAcquiringSprite();
     readLock.lock();
+    lockCount++;
     writerOwned = false;
     sprite.setAcquired();
     message1("Acquired read lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
@@ -117,6 +118,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
         MUTEX.wait();
         logger.info("read waking");
         readLock.unlock();
+        lockCount--;
         sprite.setReleased();
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
@@ -141,23 +143,28 @@ public class ReadWriteLockExample extends ConcurrentExample {
   }
 
   private void writeAcquire() {
-    message2("Waiting to acquire WRITE lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message1("Waiting to acquire WRITE lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message2(" ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     final ConcurrentSprite sprite = createAcquiringSprite();
     Lock writeLock = lock.writeLock();
     sprite.setColor(Color.RED);
     writeLock.lock();
+    lockCount++;
     sprite.setAcquired();
-    message2("Acquired write lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
+    message1("Acquired write lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
     try {
       synchronized (MUTEX) {
         writerOwned = true;
         MUTEX.wait();
         if (downgrade) {
           // Grab a read lock - since this is reentrant and we own the write lock, this will pass.
+          message1("Write lock downgraded to read lock", ConcurrentExampleConstants.MESSAGE_COLOR);
           lock.readLock().lock();
+          lockCount++;
 
           // We have the read lock, release the write lock
           writeLock.unlock();
+          lockCount--;
 
           // housekeeping to reset the animation as a read lock
           downgrade = writerOwned = false;
@@ -173,8 +180,10 @@ public class ReadWriteLockExample extends ConcurrentExample {
 
           // we are no longer waiting, release our lock
           lock.readLock().unlock();
+          lockCount--;
         } else {
           writeLock.unlock();
+          lockCount--;
         }
         sprite.setReleased();
       }
@@ -186,7 +195,8 @@ public class ReadWriteLockExample extends ConcurrentExample {
   private void writeDowngradeToRead() {
     if (writerOwned) {
       setState(5);
-      message2("Waiting to Downgrade WRITE lock...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      message1("Waiting to Downgrade WRITE lock...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      message2(" ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       downgrade = true;
       synchronized (MUTEX) {
         MUTEX.notify();
@@ -196,19 +206,26 @@ public class ReadWriteLockExample extends ConcurrentExample {
 
   private void readRelease() {
     message1("Waiting to release READ lock...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message2("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     synchronized (MUTEX) {
       setState(4);
       downgrade = false;
       MUTEX.notify();
     }
-    message1(".", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message1(" ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
   }
 
   private void initializeReadReleaseButton() {
     initializeButton(readReleaseButton, new Runnable() {
       public void run() {
         setState(2);
-        readRelease();
+        if (lockCount > 0) {
+          readRelease();
+        }
+        else {
+          message1("Un-held lock calling unlock", Color.red);
+          message2("IllegalMonitorStateException thrown", Color.red);
+        }
       }
     });
   }
