@@ -2,11 +2,6 @@ package vgrazi.concurrent.samples;
 
 import java.awt.*;
 
-/*
-* Copyright (CENTER) 2007 - Holt - Credit Suisse
-* Date: Oct 17, 2007 * Time: 5:56:39 PM
-* @version $Revision: $
-*/
 public class ConcurrentExampleConstants {
   public static final String HTML_DISABLED_COLOR = "#808080";
   public static final String HTML_FONT_COLOR = "#ffffff";
@@ -16,12 +11,15 @@ public class ConcurrentExampleConstants {
   public static final Color ERROR_MESSAGE_COLOR = Color.white; //new Color(157, 14, 45); // RED
   public static final Color WARNING_MESSAGE_COLOR = new Color(255, 199, 38);
   public static final Color ACQUIRING_COLOR = new Color(108, 203, 237);
-  //  private static final Color REJECTED_COLOR = Color.orange;
   public static final Color ATTEMPTING_COLOR = new Color(255, 199, 38);
   public static final Color REJECTED_COLOR = Color.white;//new Color(157, 14, 45);//RED
-  public static final Color DEFAULT_BACKGROUND = new Color(0, 56, 104);// BLUE
+  public static final Color DEFAULT_BACKGROUND = new Color(0, 56, 104);// DARK BLUE
   public static final Color MUTEX_BACKGROUND = new Color(135, 134, 126);//GRAY
   public static final Color MUTEX_FONT_COLOR = new Color(227, 223, 219);//GRAY 40%
+  public static final Color CAS_CIRCLE_COLOR = Color.black;
+  public static final Color CAS_ANIMATION_COLOR = Color.white;
+  protected static final Color DEFAULT_BUTTON_COLOR = Color.BLUE;
+
   public static final Font MUTEX_HEADER_FONT = new Font("Serif", Font.BOLD, 24);
   public static final Font BUTTON_FONT = new Font("SansSerif", Font.PLAIN, 12);
   public static final Font LABEL_FONT = new Font("SansSerif", Font.BOLD, 16);
@@ -128,8 +126,6 @@ public class ConcurrentExampleConstants {
   public static final String INSTRUCTIONS_FILE = "/images/instructions.html";
   public static final String REFERENCES_FILE = "/images/references.html";
   public static final String PLAN_FILE = "images/plan.xml";
-  public static final Color CAS_CIRCLE_COLOR = Color.black;
-  public static final Color CAS_ANIMATION_COLOR = Color.white;
 }
 /*
  * $Log: $
