@@ -21,7 +21,7 @@ public class ReentrantLockExample extends ConcurrentExample {
 
   private Lock lock;
   private final static Object MUTEX = new Object();
-  private int lockCount;
+  private volatile int lockCount;
   private final JButton acquireButton = new JButton("lock");
   private final JButton unlockButton = new JButton("unlock");
   private final JButton attemptButton = new JButton("tryLock");
@@ -97,6 +97,7 @@ public class ReentrantLockExample extends ConcurrentExample {
             else {
               message1("Un-held lock calling unlock", Color.red);
               message2("IllegalMonitorStateException thrown", Color.red);
+              break;
             }
           }
         }
