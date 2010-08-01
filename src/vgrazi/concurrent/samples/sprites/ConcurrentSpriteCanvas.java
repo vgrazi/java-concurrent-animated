@@ -206,7 +206,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     Graphics2D g = (Graphics2D) g1;
     g.setColor(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     g.setStroke(new BasicStroke(2));
-    g.fill3DRect(0, 0, 1500, 2000, true);
+    g.fillRect(0, 0, 1500, 2000);
     //    Set sprites = new HashSet(this.sprites);
     final Dimension size = getSize();
     for (ConcurrentSprite sprite : sprites) {

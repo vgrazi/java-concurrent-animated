@@ -14,6 +14,13 @@
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
   </component>
+  <component name="ColorBrowser">
+    <indexHtml>0</indexHtml>
+    <indexColor>0</indexColor>
+    <indexColorUIResource>0</indexColorUIResource>
+    <hexUppercase>N</hexUppercase>
+    <lastColor>-15051523</lastColor>
+  </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <resourceExtensions>
