@@ -586,60 +586,78 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
-  private void renderWorkingAnimation(Graphics g1, int y, int circleFrame) {
+  private void renderWorkingAnimation(Graphics g1, int yPos, int circleFrame) {
 //    g1.drawImage(workingThreadImage, ACQUIRE_BORDER + 10, y, null);
     Graphics2D g = (Graphics2D) g1;
     g.setStroke(new BasicStroke(2));
+
+
+//               <----------------W---------------->
+//              (-W, 0)
+//               ___________________________________(0,0)
+//            .                   ^                   .
+//       .                        |                      .
+//     .                          |                        .
+//    .                           |                         .
+//    .                           2R = yDelta               .
+//     .                          |                        .
+//        .                       |                      .
+//             . _________________V_________________  .
+//             (-W, 2R)                              (0,2R)
+
+
+    int W = 59;
+    int R = 7;
+    int yDelta = 2 * R;
     // top line of curved path
-    int pathWidth = 59;
-    g.drawLine(ACQUIRE_BORDER + 20, y, ACQUIRE_BORDER + pathWidth + 16, y);
-    int yDelta = 14;
+    g.drawLine(ACQUIRE_BORDER + 20, yPos, ACQUIRE_BORDER + W + 16, yPos);
     // bottom line of curved path
-    g.drawLine(ACQUIRE_BORDER + 20, y + yDelta, ACQUIRE_BORDER + pathWidth + 16, y + yDelta);
+    g.drawLine(ACQUIRE_BORDER + 20, yPos + yDelta, ACQUIRE_BORDER + W + 16, yPos + yDelta);
 
     // left arc
-    g.drawArc(ACQUIRE_BORDER + 13, y, 10, yDelta, 90, 180);
+    g.drawArc(ACQUIRE_BORDER + 13, yPos, 10, yDelta, 90, 180);
     // right arc
-    g.drawArc(ACQUIRE_BORDER + 13 + pathWidth, y, 10, yDelta, -90, 180);
+    g.drawArc(ACQUIRE_BORDER + 13 + W, yPos, 10, yDelta, -90, 180);
 
     // now render the animation
     // the number of pixels to move per frame
-    int frameDelta = 3;
-    int xPos1 = circleFrame * frameDelta + pathWidth - 15 ;
-    int yPos;
+    double frameDelta = 3;
+    int x, y;
     int radius = 4;
-    // the equation of the above curved path is as follows
-    // xPos between 0 and pathWidth
-    xPos1 = xPos1 % ((pathWidth + 10) * 2);
-
-    if (xPos1 >= 0 && xPos1 < pathWidth -10) {
-      // animate left to right across the top
-      int xPos = xPos1;
-      yPos = y;
-      g.fillOval(ACQUIRE_BORDER + 20 + xPos, yPos - radius/2 -2, radius * 2, radius * 2);
+    // There is a horizontal rectangle with a semi circle on either end.
+    // the top right of the rectangle is t=0, x=0, y=0
+    // the width of the rectangle is W, the radius of the circle is R (the length of the rectangle is 2R)
+    // the formula (as a dependency of t) is as follows:
+    // t in [0 to 2R):      x= SQRT((2R-t)*t, y = t                   THIS IS THE RIGHT ARC
+    // t in [2R to 2R+W]:   x=-t-2R, y=2R                             THIS IS THE BOTTOM LINE
+    // t in (2R+W to 4R+W): T=t-(2R+W), x=-W-SQRT((2R-T)*T), y = 2R-T THIS IS THE LEFT ARC
+    // t in [4R+W to 4R+2W]: x=t-(4R+2W), y=0                         THIS IS THE TOP LINE
+    // take the modulus
+    int t = (int) (frameDelta * circleFrame % (4*R + 2*W - 4));
+    if(t >= 0 && t < 2*R) {
+      // THE RIGHT ARC
+      x = (int) Math.sqrt((2*R-t)*t);
+      y = t;
+      g.fillOval(ACQUIRE_BORDER + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
-    else if (xPos1 >= pathWidth + 5 && xPos1 < pathWidth * 2 + 5)
-    {
-      // animate right to left across the bottom
-      int xPos = pathWidth * 2 - xPos1;
-      yPos = y;
-      g.fillOval(ACQUIRE_BORDER + 20 + xPos, yPos + yDelta - radius/2 -2, radius * 2, radius * 2);
+    else if(t >= 2*R && t <= 2*R+W) {
+      // BOTTOM LINE
+      x = -(t - 2*R) + radius;
+      y = 2*R;
+      g.fillOval(ACQUIRE_BORDER + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
-    else if(xPos1 >= pathWidth - 10 && xPos1 < pathWidth + 5) {
-      // animate along the right curve
-      int t = xPos1 - (pathWidth - 10);
-      int largeRadius = yDelta / 2;
-      int xPos = (int) ((int) (xPos1 + Math.sqrt((2 * largeRadius - t) * t)) - 4 - t*.3);
-      yPos = (int) (y + t * .8);
-      g.fillOval(ACQUIRE_BORDER + 20 + xPos, yPos - radius / 2 - 2, radius * 2, radius * 2);
+    else if(t > 2*R+W && t < 4*R+W) {
+      // LEFT ARC
+      int T = t-(2*R+W);
+      x = -W - (int) Math.sqrt((2*R-T) * T) + radius;
+      y = 2*R-T;
+      g.fillOval(ACQUIRE_BORDER + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
-    else if(xPos1 >= pathWidth*2 + 5 && xPos1 <= pathWidth*2 + 20 ) {
-      // animate along the left curve
-      int t = xPos1 - (pathWidth*2 + 5);
-      int largeRadius = yDelta / 2;
-      int xPos = (int) ((int) (xPos1 - Math.sqrt((2 * largeRadius - t) * t)) - 4 - t*.2) + 22;
-      yPos = (int) (y - t * .8) + largeRadius +4;
-      g.fillOval(xPos, yPos - radius / 2 - 2, radius * 2, radius * 2);
+    else {//if(t >= 4*R+W && t < 4*R+2*W-1) {
+      // TOP LINE
+      x = t-(4*R+2*W) + radius;
+      y = 0;
+      g.fillOval(ACQUIRE_BORDER + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
   }
 
