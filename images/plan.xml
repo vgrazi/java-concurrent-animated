@@ -5,8 +5,8 @@
     </MenuItem>
     <ImageSlide image="images/executors.jpg"/>
     <MenuItem label="Executors">
-        <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
         <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>
+        <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
         <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="CachedThreadPool"/>
     </MenuItem>
     <MenuItem label="Semaphore">
