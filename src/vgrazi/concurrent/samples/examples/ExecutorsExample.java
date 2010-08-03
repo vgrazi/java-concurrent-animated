@@ -20,7 +20,7 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
   private int nextIndex;
   private final JButton executeButton = new JButton("execute");
   private boolean initialized = false;
-  private int sleepTime = 1000;
+  private int sleepTime;
   public static final String FIXED_TYPE =  "FixedThreadPool";
   public static final String SINGLE_TYPE = "SingleThreadExecutor";
   public static final String CACHED_TYPE = "CachedThreadPool";
@@ -40,12 +40,15 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
   @Override
   protected void setDefaultState() {
     if(getTitle().equals(FIXED_TYPE)) {
+      sleepTime = 2000;
       setState(0);
     }
     else if(getTitle().equals(SINGLE_TYPE)) {
+      sleepTime = 1000;
       setState(1);
     }
     else if(getTitle().equals(CACHED_TYPE)) {
+      sleepTime = 1000;
       setState(2);
     }
   }
