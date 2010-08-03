@@ -568,8 +568,10 @@ public abstract class ConcurrentExample extends JPanel {
       }
       // in order to change the size of the selected font, include a size css font style as follows: font-size:state2-size
       // the state number (in this example state2) corresponds to the state parameter
-      snippet = snippet.replaceAll(String.format("state%d-size", state), "24pt");
-      snippet = snippet.replaceAll(String.format("state[~%d]-size", state), "21pt");
+      if (state>=0) {
+        snippet = snippet.replaceAll(String.format("state%d-size", state), "24pt");
+        snippet = snippet.replaceAll(String.format("state[~%d]-size", state), "21pt");
+      }
       getSnippetLabel().setText(snippet);
     }
   }
