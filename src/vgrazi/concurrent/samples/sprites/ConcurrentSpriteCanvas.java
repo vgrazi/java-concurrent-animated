@@ -292,7 +292,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         g.setColor(ConcurrentExampleConstants.CAS_CIRCLE_COLOR);
 
         int xPos = ACQUIRE_BORDER + leftOffset + (RELEASE_BORDER - ACQUIRE_BORDER + leftOffset - fontWidth) / 2;
-        int yPos = topOffset + fontHeight - 10;
+        int yPos = topOffset + fontHeight;
         g.drawString(String.valueOf(CAS.getValue()), xPos, yPos);
         break;
       case BLOCKING:
