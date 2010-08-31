@@ -285,9 +285,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
       case CAS:
         g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, size.height - 20 - topOffset, true);
         // todo: calculate dymanically
-        FontMetrics fm = g.getFontMetrics();
-        int fontWidth = fm.stringWidth(String.valueOf(CAS.getValue()));
-        int fontHeight = fm.getHeight();
+        int fontWidth = fontMetrics.stringWidth(String.valueOf(CAS.getValue()));
+        int fontHeight = fontMetrics.getHeight();
 
         g.setColor(ConcurrentExampleConstants.CAS_CIRCLE_COLOR);
 
