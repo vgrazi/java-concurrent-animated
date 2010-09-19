@@ -204,6 +204,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
     super.paint(g1);
 
     Graphics2D g = (Graphics2D) g1;
+    Map<RenderingHints.Key, Object> map = new HashMap<RenderingHints.Key, Object>(1);
+    map.put(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+    g.addRenderingHints(map);
     g.setColor(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     g.setStroke(new BasicStroke(2));
     g.fillRect(0, 0, 1500, 2000);
