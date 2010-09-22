@@ -132,7 +132,7 @@ public class ConditionExample extends ConcurrentExample {
        "    lock.lock();\n" +
        "    try {\n" +
        "      condition.await(); \n" +
-       "    } catch(InterruptedException e) {}\n" +
+       "    } catch(InterruptedException e) { interrupt(); }\n" +
        "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
        "    finally {\n" +
        "      lock.unlock();\n" +
