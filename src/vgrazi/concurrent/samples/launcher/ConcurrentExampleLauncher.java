@@ -102,7 +102,7 @@ public class ConcurrentExampleLauncher {
   }
 
   private void showTitlePane(JLabel label) {
-    showTitlePane(label, "Visualizing the Java Concurrent API", ConcurrentExampleConstants.LOGO, false, Alignment.CENTER);
+    showTitlePane(label, "Visualizing the Java Concurrent API - JDK " + System.getProperty("java.version"), ConcurrentExampleConstants.LOGO, false, Alignment.CENTER);
   }
 
   public void showTitlePane(JLabel label, String frameTitle, String imageName, boolean resizeImage, Alignment alignment) {
