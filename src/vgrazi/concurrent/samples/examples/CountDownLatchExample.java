@@ -54,10 +54,7 @@ public class CountDownLatchExample extends ConcurrentExample {
       });
       initializeButton(releaseButton, new Runnable() {
         public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
             release();
-          }
         }
       });
       initializeButton(attemptButton, new Runnable() {
