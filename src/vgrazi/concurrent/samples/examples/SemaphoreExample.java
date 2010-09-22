@@ -108,19 +108,31 @@ public class SemaphoreExample extends ConcurrentExample {
   protected void initializeComponents() {
     reset();
     if (!initialized) {
-      initializeButton(timedtryAcquireButton, new Runnable() {
-        public void run() {
-          timeoutString = "1L, TimeUnit.SECONDS";
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                tryTimedAcquire();
-              }
-            });
+        initializeButton(acquireButton, new Runnable() {
+          public void run() {
+            setAnimationCanvasVisible(true);
+            int count = getThreadCount(threadCountField);
+            for (int i = 0; i < count; i++) {
+              threadCountExecutor.execute(new Runnable() {
+                public void run() {
+                  acquire();
+                }
+              });
+            }
           }
-        }
-      });
+        });
+        initializeButton(releaseButton, new Runnable() {
+          public void run() {
+            int count = getThreadCount(threadCountField);
+            for (int i = 0; i < count; i++) {
+              threadCountExecutor.execute(new Runnable() {
+                public void run() {
+                  release();
+                }
+              });
+            }
+          }
+        });
       initializeButton(immediatetryAcquireButton, new Runnable() {
         public void run() {
           timeoutString = "";
@@ -134,31 +146,19 @@ public class SemaphoreExample extends ConcurrentExample {
           }
         }
       });
-      initializeButton(acquireButton, new Runnable() {
-        public void run() {
-          setAnimationCanvasVisible(true);
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                acquire();
-              }
-            });
+        initializeButton(timedtryAcquireButton, new Runnable() {
+          public void run() {
+            timeoutString = "1L, TimeUnit.SECONDS";
+            int count = getThreadCount(threadCountField);
+            for (int i = 0; i < count; i++) {
+              threadCountExecutor.execute(new Runnable() {
+                public void run() {
+                  tryTimedAcquire();
+                }
+              });
+            }
           }
-        }
-      });
-      initializeButton(releaseButton, new Runnable() {
-        public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                release();
-              }
-            });
-          }
-        }
-      });
+        });
       initializeThreadCountField(threadCountField);
 
       initialized = true;
