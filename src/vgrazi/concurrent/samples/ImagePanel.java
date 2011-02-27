@@ -32,7 +32,6 @@ public class ImagePanel extends JPanel {
   }
   
   public ImagePanel(ConcurrentExample example) {
-//    super(" ");
     setLayout(new BorderLayout());
 
     concurrentExample = example;
@@ -79,26 +78,6 @@ public class ImagePanel extends JPanel {
 
     JPanel panel = new JPanel(new GridLayout(1, 9));
     panel.setOpaque(false);
-    // todo: what is this button for, I don't see it anywhere in the app
-    ImageIcon icon = new ImageIcon("button.gif");
-    JButton button = new JButton(icon);
-    button.setOpaque(false);
-    button.setBorderPainted(false);
-    button.setBorder(BorderFactory.createEmptyBorder());
-    button.setBackground(ConcurrentExampleConstants.DEFAULT_BUTTON_COLOR);
-    button.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        ConcurrentExampleConstants.imageIndex++;
-        if(ConcurrentExampleConstants.imageIndex >= ConcurrentExampleConstants.SLIDES.length) {
-          ConcurrentExampleConstants.imageIndex = 0;
-        }
-        add(new JLabel(new ImageIcon(imageName)));        
-        redoLayout();
-      }
-    });
-//    button.setOpaque(false);
-    addSpacers(panel);
-    panel.add(button);
     addSpacers(panel);
     add(panel, BorderLayout.SOUTH);
   }
