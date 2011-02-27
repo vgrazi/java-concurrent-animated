@@ -21,19 +21,19 @@ import java.io.IOException;
 
 /**
 todo
-•	I will try to expand the explanations on the descriptive slides, and also will add a mouseover to explain what is happening, especially on each executor, and explain fair and unfair<br><br>
+ï¿½	I will try to expand the explanations on the descriptive slides, and also will add a mouseover to explain what is happening, especially on each executor, and explain fair and unfair<br><br>
 
 Walking through the slides using page down is good, but seems to skip at least one of the functions in comparison to the drop-down menu. For example, using page down to navigate to 'sempahore' then again to 'Future', but can't get to 'semaphore (fair)' without using the menu. Also, explanation of what 'fair' does in comparison would be good.<br>
-•	Each screen use the underlying components to control the animations. Semaphore fair and unfair for some reason have been acting the same in JDK1.6. This seems to be a JDK issue. I removed fair to avoid confusion. I put it back now. (Fair guarantees that waiting threads are released in the order they arrived. Unfair doesn’t)<br><br>
+ï¿½	Each screen use the underlying components to control the animations. Semaphore fair and unfair for some reason have been acting the same in JDK1.6. This seems to be a JDK issue. I removed fair to avoid confusion. I put it back now. (Fair guarantees that waiting threads are released in the order they arrived. Unfair doesnï¿½t)<br><br>
 
 Scheduled executors are covered in the slide, but not in the animations?<br>
-•	No reason, just didn’t get to that one<br><br>
+ï¿½	No reason, just didnï¿½t get to that one<br><br>
 
-Not sure there's enough information for 'condition' –<br>
-•	This was hard to visualize, if someone can suggest a better approach please let me know. The way it works is that a lock is created (see the code snippet in the animation) and used to create one or more conditions. Then, threads that wish to be notified when any of those conditions occur will call await on the condition, and will sit there blocking, until another thread calls signal() or signalAll() on that condition. If signal() is called, one thread will be notified. If signalAll() is called, all threads will be notified.<br><br>
+Not sure there's enough information for 'condition' ï¿½<br>
+ï¿½	This was hard to visualize, if someone can suggest a better approach please let me know. The way it works is that a lock is created (see the code snippet in the animation) and used to create one or more conditions. Then, threads that wish to be notified when any of those conditions occur will call await on the condition, and will sit there blocking, until another thread calls signal() or signalAll() on that condition. If signal() is called, one thread will be notified. If signalAll() is called, all threads will be notified.<br><br>
 
 Countdownlatch, I'm not sure whether it's obvious from the slides that once the countdown has been reached, all further threads execute immediately.<br>
-•	I can add some more explanation to the power point “Once the countdown has been completed, all further calls to await will pass through unblocked<br><br>
+ï¿½	I can add some more explanation to the power point ï¿½Once the countdown has been completed, all further calls to await will pass through unblocked<br><br>
 */
 public class ConcurrentExampleLauncher {
   private final JFrame frame = new JFrame();
@@ -184,15 +184,6 @@ public class ConcurrentExampleLauncher {
     }
   }
 
-  public void launchImagePanel(ImagePanel imagePanel) {
-    clearFrame();
-    this.examplePanel = null;
-    this.imagePanel = imagePanel;
-    imagePanel.setVisible(true);
-    container.add(imagePanel);
-    container.validate();
-    container.doLayout();
-  }
 
   boolean flip = false;
 
