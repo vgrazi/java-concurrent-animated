@@ -10,6 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class JavaConcurrentAnimatedApplet extends JApplet {
+    ConcurrentExample examplePanel;
 
     @Override
     public void init() {
@@ -28,7 +29,7 @@ public class JavaConcurrentAnimatedApplet extends JApplet {
         try {
             Class aClass = Class.forName(example);
             Constructor constructor = aClass.getConstructor(String.class, Container.class, int.class);
-            ConcurrentExample examplePanel = (ConcurrentExample) constructor.newInstance(title, this, 0);
+            examplePanel = (ConcurrentExample) constructor.newInstance(title, this, 0);
             this.add(examplePanel);
             examplePanel.launchExample();
             examplePanel.setAnimationCanvasVisible(true);
@@ -50,5 +51,24 @@ public class JavaConcurrentAnimatedApplet extends JApplet {
     private void printBounds() {
         Rectangle bounds = getBounds();
         System.out.printf("new bounds: %d, %d, %d, %d%n", (int) bounds.getX(), (int) bounds.getY(), (int) bounds.getWidth(), (int) bounds.getHeight());
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        shutdown();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        shutdown();
+    }
+
+    private void shutdown() {
+        if(examplePanel != null) {
+            examplePanel.reset();
+            examplePanel = null;
+        }
     }
 }

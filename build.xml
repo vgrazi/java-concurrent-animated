@@ -17,7 +17,7 @@
     <target name="compile" depends="init"
             description="compile the source ">
         <!-- Compile the java code from ${src} into ${build} -->
-        <javac srcdir="${src}" destdir="${build}"/>
+        <javac srcdir="${src}" destdir="${build}" debug="true" debuglevel="lines,source"/>
     </target>
 
     <target name="copyImages" depends="compile">

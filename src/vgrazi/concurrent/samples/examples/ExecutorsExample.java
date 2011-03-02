@@ -205,10 +205,11 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
     });
   }
 
-  protected void reset() {
-    if (executor != null) {
-      executor.shutdown();
-    }
+  @Override
+  public void reset() {
+//    if (executor != null) {
+//      executor.shutdown();
+//    }
     if(getTitle().equals(FIXED_TYPE)) {
       initializeFixedThreadPool();
     }

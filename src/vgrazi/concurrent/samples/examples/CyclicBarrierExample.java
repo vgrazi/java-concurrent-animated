@@ -146,7 +146,8 @@ public class CyclicBarrierExample extends ConcurrentExample {
 
   }
 
-  protected void reset() {
+  @Override
+  public void reset() {
     super.reset();
     createBarrier();
     resetThreadCountField(threadCountField);    

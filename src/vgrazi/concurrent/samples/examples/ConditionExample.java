@@ -107,7 +107,8 @@ public class ConditionExample extends ConcurrentExample {
 
   }
 
-  protected void reset() {
+  @Override
+  public void reset() {
     lock = new ReentrantLock();
     condition = lock.newCondition();
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);

@@ -274,7 +274,7 @@ public abstract class ConcurrentExample extends JPanel {
     canvas.resetMutexVerticalIndex();
   }
 
-  protected void reset() {
+  public void reset() {
     acquiring = new AtomicInteger(0);
     releasing = new AtomicInteger(0);
     canvas.clearSprites();

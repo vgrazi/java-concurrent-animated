@@ -292,7 +292,8 @@ public class SemaphoreExample extends ConcurrentExample {
   private void displayPermits() {
     message2(String.format("Available permits:%d of %d", semaphore.availablePermits(), 4), Color.white);
   }
-  protected void reset() {
+  @Override
+  public void reset() {
     super.reset();
     semaphore = new Semaphore(4, isFair());
     for (ConcurrentSprite sprite : acquiredSprites) {

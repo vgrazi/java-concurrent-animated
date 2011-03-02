@@ -177,7 +177,7 @@ public class AtomicIntegerExample extends ConcurrentExample {
     return sb.toString();
   }
 
-  protected void reset() {
+  public void reset() {
     super.reset();
     resetThreadCountField();
     setState(0);

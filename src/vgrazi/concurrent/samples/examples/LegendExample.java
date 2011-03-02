@@ -148,7 +148,8 @@ public class LegendExample extends ConcurrentExample {
     }
   }
 
-  protected void reset() {
+  @Override
+  public void reset() {
     resetExample();
     position = 0;
   }

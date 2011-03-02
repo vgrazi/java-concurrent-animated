@@ -241,7 +241,8 @@ public class ReadWriteLockExample extends ConcurrentExample {
     });
   }
 
-  protected void reset() {
+  @Override
+  public void reset() {
     resetExample();
     lock = new ReentrantReadWriteLock(isFair());
     resetThreadCountField(threadCountField);    

@@ -131,7 +131,8 @@ public class FutureExample extends ConcurrentExample {
     return sb.toString();
   }
 
-  protected void reset() {
+  @Override
+  public void reset() {
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
     message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
     resetMutexVerticalIndex();

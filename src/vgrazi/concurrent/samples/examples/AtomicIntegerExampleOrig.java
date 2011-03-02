@@ -113,7 +113,8 @@ public class AtomicIntegerExampleOrig extends ConcurrentExample {
 
   }
 
-  protected void reset() {
+  @Override
+  public void reset() {
     value = 3;
     atomicVariable = new AtomicInteger(value);
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);

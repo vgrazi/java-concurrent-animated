@@ -218,7 +218,8 @@ public class ReentrantLockExample extends ConcurrentExample {
 
   }
 
-  protected void reset() {
+  @Override
+  public void reset() {
     lock = new ReentrantLock();
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
     message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);

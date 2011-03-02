@@ -169,7 +169,7 @@ public class BlockingQueueExample extends ConcurrentExample {
     return sb.toString();
   }
 
-  protected void reset() {
+  public void reset() {
     super.reset();
     resetThreadCountField(threadCountField);
     queue = new ArrayBlockingQueue<ConcurrentSprite>(4);

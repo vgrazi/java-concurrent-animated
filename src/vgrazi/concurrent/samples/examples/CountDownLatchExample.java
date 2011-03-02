@@ -136,7 +136,8 @@ public class CountDownLatchExample extends ConcurrentExample {
     return sb.toString();
   }
 
-  protected void reset() {
+  @Override
+  public void reset() {
     super.reset();
     countDownLatch = new CountDownLatch(4);
     index = 1;
