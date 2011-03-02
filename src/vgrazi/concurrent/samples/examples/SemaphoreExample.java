@@ -42,6 +42,10 @@ public class SemaphoreExample extends ConcurrentExample {
   private static final int MIN_SNIPPET_POSITION = 320;
   private JTextField threadCountField = createThreadCountField();
 
+  public SemaphoreExample(String title, Container frame, int slideNumber) {
+    super(title, frame, ExampleType.BLOCKING, MIN_SNIPPET_POSITION, true, slideNumber);
+  }
+
   public SemaphoreExample(String title, Container frame, boolean fair, int slideNumber) {
     super(title, frame, ExampleType.BLOCKING, MIN_SNIPPET_POSITION, fair, slideNumber);
     initializeFair(fair);

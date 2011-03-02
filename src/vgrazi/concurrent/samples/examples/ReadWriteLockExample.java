@@ -32,6 +32,9 @@ public class ReadWriteLockExample extends ConcurrentExample {
   private boolean writerOwned = false;
   private final JTextField threadCountField = createThreadCountField();
 
+  public ReadWriteLockExample(String label, Container frame, int slideNumber) {
+    this(label, frame, false, slideNumber);
+  }
   public ReadWriteLockExample(String label, Container frame, boolean fair, int slideNumber) {
     super(label, frame, ExampleType.BLOCKING, minSnippetPosition, fair, slideNumber);
   }
