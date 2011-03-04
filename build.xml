@@ -41,6 +41,18 @@
             </manifest>
         </jar>
     </target>
+
+    <target name="package-applet" depends="compile"
+            description="generate the applet">
+        <delete file="${dist}/concurrentanimatedapplet.jar"/>
+        <!-- Put everything in ${build} into the jar file -->
+        <jar jarfile="${dist}/concurrentanimatedapplet.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher"/>
+            </manifest>
+        </jar>
+    </target>
+
     <target name="run" depends="dist">
         <java jar="dist/concurrentAnimated.jar" fork="true"/>
     </target>
