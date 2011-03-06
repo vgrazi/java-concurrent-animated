@@ -230,18 +230,7 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
 
   public int getAvailableThreadCount() {
 //      System.out.println(String.format("Active count: %d   Core Pool Size: %d   Pool Size:%d   Task count: %d", tpExecutor.getActiveCount(), tpExecutor.getCorePoolSize(), tpExecutor.getPoolSize(), tpExecutor.getTaskCount()));
-    if(getTitle().equals(FIXED_TYPE)) {
-      ThreadPoolExecutor tpExecutor = (ThreadPoolExecutor) executor;
-      return tpExecutor.getCorePoolSize() - tpExecutor.getActiveCount();
-    }
-    else if(getTitle().equals(SINGLE_TYPE)) {
-      ThreadPoolExecutor tpExecutor = (ThreadPoolExecutor) executor;
-      return tpExecutor.getCorePoolSize() - tpExecutor.getActiveCount();
-    }
-    else if(getTitle().equals(CACHED_TYPE)) {
       ThreadPoolExecutor tpExecutor = (ThreadPoolExecutor) executor;
       return tpExecutor.getPoolSize() - tpExecutor.getActiveCount();
-    }
-    return 0;
   }
 }
