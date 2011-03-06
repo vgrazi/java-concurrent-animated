@@ -32,10 +32,12 @@
     <option name="USER" value="" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="f90aeb47-76c6-4d7d-900f-b250eb016863" name="Default" comment="Initial revision">
+    <list default="true" readonly="true" id="f90aeb47-76c6-4d7d-900f-b250eb016863" name="Default" comment="package-applet now does a clean before building">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/concurrent.ipr" afterPath="$PROJECT_DIR$/concurrent.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/concurrent.iws" afterPath="$PROJECT_DIR$/concurrent.iws" />
     </list>
+    <ignored path="$USER_HOME_GRAILS$/" />
+    <ignored path="$USER_HOME_GRIFFON$/" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,12 +188,79 @@
     </favorites_list>
     <option name="myCurrentFavoritesList" value="concurrent" />
   </component>
+  <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ConcurrentExampleLauncher.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java">
+      <file leaf-file-name="ReadWriteLock.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/ReadWriteLock.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="177" column="67" selection-start="7586" selection-end="7586" vertical-scroll-proportion="0.0">
+            <state line="35" column="7" selection-start="1870" selection-end="1870" vertical-scroll-proportion="-20.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReentrantLock.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/ReentrantLock.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="88" column="97" selection-start="5525" selection-end="5525" vertical-scroll-proportion="-29.8">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AtomicInteger.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/AtomicInteger.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="16" selection-start="560" selection-end="560" vertical-scroll-proportion="-7.8">
+              <folding>
+                <marker date="1299389241000" expanded="true" signature="808:884" placeholder="..." />
+                <marker date="1299389241000" expanded="true" signature="808:884" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Single_Thread_Executor.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/Single_Thread_Executor.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="7" selection-start="1931" selection-end="1931" vertical-scroll-proportion="9.8">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feed.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/feed.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="100" column="0" selection-start="4649" selection-end="4649" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="50" column="54" selection-start="1943" selection-end="1943" vertical-scroll-proportion="1.1377672">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Pooled.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/Pooled.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="6" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExecutorsExample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="220" column="44" selection-start="11017" selection-end="11017" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -200,36 +269,7 @@
       <file leaf-file-name="JavaConcurrentAnimatedApplet.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/applets/JavaConcurrentAnimatedApplet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="23" selection-start="339" selection-end="339" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FutureExample.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/FutureExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="3" selection-start="896" selection-end="896" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImagePanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/ImagePanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="101" selection-start="1505" selection-end="1505" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReadWriteLockExample.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="13" selection-start="621" selection-end="621" vertical-scroll-proportion="0.26799008">
+            <state line="16" column="68" selection-start="473" selection-end="473" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -238,7 +278,7 @@
       <file leaf-file-name="ConcurrentSpriteCanvas.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="129" column="0" selection-start="4441" selection-end="4441" vertical-scroll-proportion="0.0">
+            <state line="327" column="81" selection-start="10976" selection-end="10976" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -263,17 +303,24 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/JavaConcurrentAnimatedApplet.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/FutureExample.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/applets/JavaConcurrentAnimatedApplet.java" />
-        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/ImagePanel.java" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/CompletionService.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/ConcurrentHashMap.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/Condition.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/CountDownLatch.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/CyclicBarrier.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/Fixed_Thread_Pool_Executor.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/Fork_and_Join.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/Future.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/ReadWriteLock.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/Semaphore.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/Single_Thread_Executor.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/Overview.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/ReentrantLock.html" />
+        <option value="$USER_HOME$/Sites/jconcurrent/Site/feed.xml" />
+        <option value="$PROJECT_DIR$/build.xml" />
+        <option value="$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java" />
       </list>
     </option>
-  </component>
-  <component name="MavenRunner">
-    <option name="jreName" value="#JAVA_INTERNAL" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" value="concurrent" />
@@ -317,7 +364,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkin" />
@@ -530,7 +577,7 @@
     </subPane>
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
+    <option name="STATE" value="2" />
   </component>
   <component name="ProjectRootConfigurable.UI">
     <option name="proportions">
@@ -557,9 +604,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Favorites" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -574,7 +619,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
+              <option name="myItemId" value="jconcurrent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -584,29 +629,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
+              <option name="myItemId" value="jconcurrent" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="concurrent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vgrazi" />
+              <option name="myItemId" value="Site" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -616,123 +643,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vgrazi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="concurrent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="samples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="concurrent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vgrazi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="concurrent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="samples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="launcher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="concurrent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vgrazi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="concurrent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="samples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="concurrent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vgrazi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="concurrent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="samples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="applets" />
+              <option name="myItemId" value="JavaConcurrentAnimated" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="141" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="106" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="31" />
     <property name="OverrideImplement.combined" value="true" />
@@ -757,6 +680,7 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth3" value="113" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="136" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth5" value="810" />
@@ -765,7 +689,7 @@
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder5" value="5" />
-    <property name="options.lastSelected" value="Errors" />
+    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Java" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
@@ -784,16 +708,19 @@
       <recent name="concurrent.samples.jdk1_5.examples" />
       <recent name="java.util.concurrent" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$USER_HOME$/Sites/Java_Concurrent_Animated" />
+    </key>
+    <key name="IntroduceConstantDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="concurrent.samples.ConcurrentExampleConstants" />
+    </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="vgrazi.concurrent.samples.ConcurrentExampleConstants" />
       <recent name="concurrent.samples.ConcurrentExampleConstants" />
       <recent name="vgrazi.util.IOUtils" />
       <recent name="vgrazi.concurrent.samples.jdk1_5.examples.ConcurrentSlideShow" />
       <recent name="vgrazi.concurrent.samples.jdk1_5.examples.SlideShow" />
-    </key>
-    <key name="IntroduceConstantDialog.RECENTS_KEY">
-      <recent name="" />
-      <recent name="concurrent.samples.ConcurrentExampleConstants" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="vgrazi.concurrent.samples.sprites" />
@@ -820,7 +747,7 @@
     <option name="referencePos" value="0" />
     <option name="showLabels" value="true" />
   </component>
-  <component name="RunManager" selected="Applet.FutureApplet">
+  <component name="RunManager" selected="Applet.SingleThreadApplet">
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -830,6 +757,14 @@
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit">
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -859,39 +794,9 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -918,7 +823,20 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -935,7 +853,6 @@
         <value defaultName="wholeProject" />
       </option>
       <envs />
-      <patterns />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -976,7 +893,7 @@
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="1102" />
       <option name="HEIGHT" value="670" />
-      <option name="POLICY_FILE" value="file://$PROJECT_DIR$/appletviewer.policy" />
+      <option name="POLICY_FILE" value="file://$PROJECT_DIR$/java.policy" />
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -1026,7 +943,66 @@
         <option name="BuildArtifacts" enabled="true" />
       </method>
     </configuration>
+    <configuration default="false" name="FixedThreadPoolApplet" type="Applet" factoryName="Applet">
+      <module name="concurrent" />
+      <option name="MAIN_CLASS_NAME" value="vgrazi.concurrent.samples.applets.JavaConcurrentAnimatedApplet" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="1102" />
+      <option name="HEIGHT" value="670" />
+      <option name="POLICY_FILE" value="file://$PROJECT_DIR$/java.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <parameter name="example" value="vgrazi.concurrent.samples.examples.ExecutorsExample" />
+      <parameter name="title" value="FixedThreadPool" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="BuildArtifacts" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" name="SingleThreadApplet" type="Applet" factoryName="Applet">
+      <module name="concurrent" />
+      <option name="MAIN_CLASS_NAME" value="vgrazi.concurrent.samples.applets.JavaConcurrentAnimatedApplet" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="1102" />
+      <option name="HEIGHT" value="670" />
+      <option name="POLICY_FILE" value="file://$PROJECT_DIR$/java.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <parameter name="example" value="vgrazi.concurrent.samples.examples.ExecutorsExample" />
+      <parameter name="title" value="SingleThreadExecutor" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="BuildArtifacts" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" name="CachedThreadPool" type="Applet" factoryName="Applet">
+      <module name="concurrent" />
+      <option name="MAIN_CLASS_NAME" value="vgrazi.concurrent.samples.applets.JavaConcurrentAnimatedApplet" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="1102" />
+      <option name="HEIGHT" value="670" />
+      <option name="POLICY_FILE" value="file://$PROJECT_DIR$/java.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <parameter name="example" value="vgrazi.concurrent.samples.examples.ExecutorsExample" />
+      <parameter name="title" value="CachedThreadPool" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="BuildArtifacts" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="false" name="ConcurrentExampleLauncher" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher" />
       <option name="VM_PARAMETERS" value="-Xmx256M " />
       <option name="PROGRAM_PARAMETERS" value="700 30 800 800" />
@@ -1058,6 +1034,8 @@
       <method />
     </configuration>
     <configuration default="false" name="ReadWriteLockTester" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="vgrazi.concurrent.samples.examples.ReadWriteLockTester" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1080,6 +1058,8 @@
       <method />
     </configuration>
     <configuration default="false" name="ReadWriteLockTesterSwing" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="vgrazi.concurrent.samples.examples.ReadWriteLockTesterSwing" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1102,6 +1082,8 @@
       <method />
     </configuration>
     <configuration default="false" name="XMLGenerator" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="vgrazi.test.XMLGenerator" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="planets.xml" />
@@ -1123,15 +1105,18 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="8">
+    <list size="11">
       <item index="0" class="java.lang.String" itemvalue="Applet.ConcurrentExampleAppletLauncher" />
       <item index="1" class="java.lang.String" itemvalue="Applet.FutureApplet" />
       <item index="2" class="java.lang.String" itemvalue="Applet.BlockingQueueApplet" />
       <item index="3" class="java.lang.String" itemvalue="Applet.ReadWriteLockApplet" />
-      <item index="4" class="java.lang.String" itemvalue="Application.ConcurrentExampleLauncher" />
-      <item index="5" class="java.lang.String" itemvalue="Application.ReadWriteLockTester" />
-      <item index="6" class="java.lang.String" itemvalue="Application.ReadWriteLockTesterSwing" />
-      <item index="7" class="java.lang.String" itemvalue="Application.XMLGenerator" />
+      <item index="4" class="java.lang.String" itemvalue="Applet.FixedThreadPoolApplet" />
+      <item index="5" class="java.lang.String" itemvalue="Applet.SingleThreadApplet" />
+      <item index="6" class="java.lang.String" itemvalue="Applet.CachedThreadPool" />
+      <item index="7" class="java.lang.String" itemvalue="Application.ConcurrentExampleLauncher" />
+      <item index="8" class="java.lang.String" itemvalue="Application.ReadWriteLockTester" />
+      <item index="9" class="java.lang.String" itemvalue="Application.ReadWriteLockTesterSwing" />
+      <item index="10" class="java.lang.String" itemvalue="Application.XMLGenerator" />
     </list>
   </component>
   <component name="SQLPlugin.ProjectConfiguration">
@@ -1211,11 +1196,6 @@
     <option name="LOCK_ON_CHECKOUT" value="false" />
     <option name="UNLOCK_ON_CHECKIN" value="false" />
   </component>
-  <component name="StructureViewFactory">
-    <option name="AUTOSCROLL_MODE" value="true" />
-    <option name="AUTOSCROLL_FROM_SOURCE" value="false" />
-    <option name="ACTIVE_ACTIONS" value="" />
-  </component>
   <component name="Struts Assistant">
     <option name="showInputs" value="true" />
     <option name="resources">
@@ -1242,6 +1222,7 @@
     <option name="USER" value="" />
     <option name="PASSWORD" value="" />
     <option name="LAST_MERGED_REVISION" />
+    <option name="UPDATE_RUN_STATUS" value="false" />
     <option name="MERGE_DRY_RUN" value="false" />
     <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
     <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
@@ -1250,7 +1231,6 @@
     <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
     <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
     <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
     <configuration useDefault="true">$USER_HOME$/.subversion_IDEA</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
     <supportedVersion>125</supportedVersion>
@@ -1275,6 +1255,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="f90aeb47-76c6-4d7d-900f-b250eb016863" name="Default" comment="Initial revision" />
       <created>1298782124488</created>
       <updated>1298782124488</updated>
     </task>
@@ -1301,45 +1282,46 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="813" extended-state="6" />
+    <frame x="10" y="22" width="1420" height="860" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32900432" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32837838" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24964029" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3189189" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24945295" sideWeight="0.6621622" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47723934" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32892805" sideWeight="0.5" order="24" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3044733" sideWeight="0.5" order="22" side_tool="false" content_ui="tabs" />
-      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756132" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30405405" sideWeight="0.5" order="22" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24919094" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39967638" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25449318" sideWeight="0.67099565" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24653538" sideWeight="0.6716216" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="23" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26118326" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3391892" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="JavaEE:App" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25328466" sideWeight="0.45" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="100" y="100" width="1240" height="640" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.38115332" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JarSpy" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
       <window_info id="DBHelper" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="simpleUML" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.77459013" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756132" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950467" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981949" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="21" side_tool="false" content_ui="tabs" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="SQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6232057" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Properties" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31988874" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Profile" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25328466" sideWeight="0.18378378" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1370,10 +1352,8 @@
     <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
     <option name="ENABLE_BACKGROUND_PROCESSES" value="false" />
     <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
-    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
-    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed unused image button code (for loading &quot;forward&quot; button)" />
+    <option name="LAST_COMMIT_MESSAGE" value="package-applet now does a clean before building" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1386,9 +1366,15 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Initial revision" />
     <MESSAGE value="removed unused method launchImagePanel" />
     <MESSAGE value="Removed unused image button code (for loading &quot;forward&quot; button)" />
+    <MESSAGE value="Added constructor without fair boolean" />
+    <MESSAGE value="Initial revision" />
+    <MESSAGE value="Added constructor without fair boolean to support applet" />
+    <MESSAGE value="made ConcurrentExample.reset method public for access by JavaConcurrentAnimatedApplet" />
+    <MESSAGE value="Added package-applet target" />
+    <MESSAGE value="Corrected Heinz' discovered bug - FixedThreadPoolExecutors lazily create their threads" />
+    <MESSAGE value="package-applet now does a clean before building" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1434,6 +1420,21 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
+    <buildFile url="file://$PROJECT_DIR$/build.xml">
+      <antCommandLine value="" />
+      <runInBackground value="true" />
+      <targetFilters>
+        <filter targetName="clean" isVisible="true" />
+        <filter targetName="compile" isVisible="true" />
+        <filter targetName="copyImages" isVisible="false" />
+        <filter targetName="dist" isVisible="true" />
+        <filter targetName="init" isVisible="false" />
+        <filter targetName="run" isVisible="false" />
+      </targetFilters>
+      <treeView value="true" />
+      <verbose value="true" />
+      <viewClosedWhenNoErrors value="false" />
+    </buildFile>
   </component>
   <component name="com.intellij.ide.util.scopeChooser.ScopeChooserConfigurable" proportions="0.16666667" version="1">
     <option name="myLastEditedConfigurable" value="Local Scopes" />
@@ -1446,106 +1447,120 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/ConcurrentExampleConstants.java">
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/Fork_and_Join.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="130" column="28" selection-start="11379" selection-end="11379" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/AtomicIntegerExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="178" column="0" selection-start="9153" selection-end="9153" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/CyclicBarrierExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="155" column="25" selection-start="5653" selection-end="5653" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/AtomicIntegerExampleOrig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="878" selection-end="4346" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="39" selection-start="1012" selection-end="1012" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar:///System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar!/java/lang/Class.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="4" selection-start="6457" selection-end="6457" vertical-scroll-proportion="0.0">
+        <state line="35" column="7" selection-start="1871" selection-end="1871" vertical-scroll-proportion="-20.5">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar!/java/applet/Applet.class">
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/Future.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0">
+        <state line="35" column="7" selection-start="1817" selection-end="1817" vertical-scroll-proportion="-20.5">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar!/javax/swing/JApplet.class">
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="44" selection-start="180" selection-end="180" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/Semaphore.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="7" selection-start="1842" selection-end="1842" vertical-scroll-proportion="-20.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/Overview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="138" column="115" selection-start="9941" selection-end="9941" vertical-scroll-proportion="-8.8">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/Fixed_Thread_Pool_Executor.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="0" selection-start="4929" selection-end="6357" vertical-scroll-proportion="-11.8">
+          <folding>
+            <marker date="1299389411000" expanded="true" signature="887:971" placeholder="..." />
+            <marker date="1299389411000" expanded="true" signature="887:971" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/ReadWriteLock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="7" selection-start="1870" selection-end="1870" vertical-scroll-proportion="-20.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/ReentrantLock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="97" selection-start="5525" selection-end="5525" vertical-scroll-proportion="-29.8">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/AtomicInteger.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="16" selection-start="560" selection-end="560" vertical-scroll-proportion="-7.8">
+          <folding>
+            <marker date="1299389241000" expanded="true" signature="808:884" placeholder="..." />
+            <marker date="1299389241000" expanded="true" signature="808:884" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/Single_Thread_Executor.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="7" selection-start="1931" selection-end="1931" vertical-scroll-proportion="9.8">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Sites/jconcurrent/Site/feed.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="100" column="0" selection-start="4649" selection-end="4649" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/sprites/ConcurrentSpriteCanvas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="0" selection-start="4441" selection-end="4441" vertical-scroll-proportion="0.0">
+        <state line="327" column="81" selection-start="10976" selection-end="10976" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/FutureExample.java">
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/Pooled.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="3" selection-start="896" selection-end="896" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar!/java/lang/System.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="19" selection-start="153" selection-end="153" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar!/java/awt/Rectangle.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="4" selection-start="996" selection-end="1010" vertical-scroll-proportion="0.0">
+        <state line="10" column="6" selection-start="272" selection-end="272" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/applets/JavaConcurrentAnimatedApplet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="23" selection-start="339" selection-end="339" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/launcher/ConcurrentExampleLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="67" selection-start="7586" selection-end="7586" vertical-scroll-proportion="0.0">
+        <state line="16" column="68" selection-start="473" selection-end="473" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/ImagePanel.java">
+    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ExecutorsExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="101" selection-start="1505" selection-end="1505" vertical-scroll-proportion="0.0">
+        <state line="220" column="44" selection-start="11017" selection-end="11017" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vgrazi/concurrent/samples/examples/ReadWriteLockExample.java">
+    <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="621" selection-end="621" vertical-scroll-proportion="0.26799008">
+        <state line="50" column="54" selection-start="1943" selection-end="1943" vertical-scroll-proportion="1.1377672">
           <folding />
         </state>
       </provider>
@@ -1597,97 +1612,35 @@
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
+        <UIState>
           <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
+            <SplitterProportionsDataImpl>
+              <option name="proportions">
+                <list>
+                  <option value="0.2" />
+                  <option value="0.5" />
+                </list>
+              </option>
+            </SplitterProportionsDataImpl>
           </splitter-proportions>
-        </settings>
+          <last-edited>Java_Concurrent_Animated:ear exploded</last-edited>
+          <settings />
+        </UIState>
       </state>
       <state key="Copyright.UI">
-        <settings>
-          <splitter-proportions />
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Android</last-edited>
+        <UIState>
           <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
+            <SplitterProportionsDataImpl />
           </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.6</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>concurrent</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.6</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
+        </UIState>
       </state>
       <state key="ScopeChooserConfigurable.UI">
-        <settings>
-          <splitter-proportions />
-        </settings>
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl />
+          </splitter-proportions>
+          <settings />
+        </UIState>
       </state>
     </states>
   </component>

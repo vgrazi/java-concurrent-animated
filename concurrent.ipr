@@ -2,6 +2,36 @@
 <project version="4">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
+    <buildFile url="file://$PROJECT_DIR$/build.xml">
+      <additionalClassPath />
+      <antReference projectDefault="true" />
+      <customJdkName value="" />
+      <maximumHeapSize value="128" />
+      <maximumStackSize value="2" />
+      <properties />
+    </buildFile>
+  </component>
+  <component name="ArtifactManager">
+    <artifact type="exploded-war" name="Java_Concurrent_Animated:war exploded">
+      <output-path>$PROJECT_DIR$/out/artifacts/Java_Concurrent_Animated_war_exploded</output-path>
+      <root id="root">
+        <element id="javaee-facet-resources" facet="Java_Concurrent_Animated/web/Web" />
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="classes">
+            <element id="module-output" name="Java_Concurrent_Animated" />
+          </element>
+        </element>
+      </root>
+    </artifact>
+    <artifact type="exploded-ear" name="Java_Concurrent_Animated:ear exploded">
+      <output-path>$PROJECT_DIR$/out/artifacts/Java_Concurrent_Animated_ear_exploded</output-path>
+      <root id="root">
+        <element id="javaee-facet-resources" facet="Java_Concurrent_Animated/javaeeApplication/javaEEApplication" />
+        <element id="directory" name="web.war">
+          <element id="artifact" artifact-name="Java_Concurrent_Animated:war exploded" />
+        </element>
+      </root>
+    </artifact>
   </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
@@ -18,24 +48,7 @@
   <component name="CopyrightManager" default="">
     <module2copyright />
   </component>
-  <component name="DataSourceManagerImpl">
-    <DataSource DataSourceSourceName="LOCAL">
-      <option name="DRIVER_CLASS" value="com.mysql.jdbc.Driver" />
-      <option name="DATABASE_URL" value="jdbc://" />
-      <option name="DRIVER_PATH" />
-      <option name="DATBASE_USERNAME" value="" />
-      <option name="ENCODED_DATABASE_PASSWORD" value="" />
-      <option name="DEFAULT_SCHEMA_NAME" />
-      <option name="TABLE_PATTERN" value="" />
-      <option name="UUID" value="92209702-bf6a-480f-9d90-3bf648a7d199" />
-      <option name="NAME" value="DataSource" />
-      <libraries>
-        <library>
-          <url>jar://C:/Program Files/MySQL/MySQL Server 5.0/mysql-connector-java-5.0.8/mysql-connector-java-5.0.8-bin.jar!/</url>
-        </library>
-      </libraries>
-    </DataSource>
-  </component>
+  <component name="DataSourceManagerImpl" compressed="false" />
   <component name="DependenciesAnalyzeManager">
     <option name="myForwardDirection" value="false" />
   </component>
@@ -61,6 +74,28 @@
     <option name="printScope" value="2" />
     <option name="OPEN_IN_BROWSER" value="true" />
     <option name="OUTPUT_DIRECTORY" value="C:\dev\concurrent\exportToHTML" />
+  </component>
+  <component name="FacetAutodetectingManager">
+    <autodetection-disabled>
+      <facet-type id="web">
+        <modules>
+          <module name="Java_Concurrent_Animated">
+            <files>
+              <file url="file://$USER_HOME$/Sites/Java_Concurrent_Animated/web/WEB-INF/web.xml" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
+      <facet-type id="javaeeApplication">
+        <modules>
+          <module name="Java_Concurrent_Animated">
+            <files>
+              <file url="file://$USER_HOME$/Sites/Java_Concurrent_Animated/META-INF/application.xml" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
+    </autodetection-disabled>
   </component>
   <component name="IdProvider" IDEtalkID="5835881EA1959379B7FC2885541A03C2" />
   <component name="JavadocGenerationManager">
@@ -218,6 +253,7 @@
       <module fileurl="file://C:/dev/XMLGenerator/XMLGenerator.iml" filepath="C:/dev/XMLGenerator/XMLGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/concurrent.iml" filepath="$PROJECT_DIR$/concurrent.iml" />
       <module fileurl="file://C:/dev/groovy/groovy.iml" filepath="C:/dev/groovy/groovy.iml" />
+      <module fileurl="file://$USER_HOME$/Sites/jconcurrent/jconcurrent.iml" filepath="$USER_HOME$/Sites/jconcurrent/jconcurrent.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK" />
