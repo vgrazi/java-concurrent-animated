@@ -42,7 +42,7 @@
         </jar>
     </target>
 
-    <target name="package-applet" depends="compile"
+    <target name="package-applet" depends="clean,compile"
             description="generate the applet">
         <delete file="${dist}/concurrentanimatedapplet.jar"/>
         <!-- Put everything in ${build} into the jar file -->
