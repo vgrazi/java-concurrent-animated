@@ -515,7 +515,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
         // otherwise, center it
         if (sprite.isAcquired()) {
           // center the rectangle over the arrow
-          g.fill3DRect(xPos - 52, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 35, 8, true);
+          if(xPos < ACQUIRE_BORDER + 52) {
+            g.fill3DRect(xPos - 52, yPos-4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 35, 8, true);
+          }
           drawArrowSprite(g, xPos, yPos, sprite);
         }
         else {
@@ -556,7 +558,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
       y1 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
       y2 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
     }
-    if(sprite.getType() != ConcurrentSprite.SpriteType.WORKING  || !sprite.isAcquired() || xPos < RELEASE_BORDER_WORKING - 30) {
+    // WORKIING and RUNNABLE should render as an animated circular arrow
+    if((sprite.getType() != ConcurrentSprite.SpriteType.WORKING && sprite.getType() != ConcurrentSprite.SpriteType.RUNNABLE)  || !sprite.isAcquired() || xPos < RELEASE_BORDER_WORKING - 30) {
       g.setColor(sprite.getColor());
       // draw the top arrow head
       g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y1);
