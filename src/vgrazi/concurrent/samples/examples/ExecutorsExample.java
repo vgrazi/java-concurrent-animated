@@ -77,7 +77,7 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
 
           snippet += " \n" +
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Prestarting Core Threads</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> count = </FONT>\n" +
+            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> count = </FONT>\n" +
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\">  ((ThreadPoolExecutor)executor).prestartAllCoreThreads(); \n" +
             "    </FONT></PRE></html";
       }
