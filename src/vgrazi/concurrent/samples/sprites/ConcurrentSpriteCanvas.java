@@ -63,6 +63,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   private final int BORDER = 5;
   private final int deltaY = ARROW_DELTA - BORDER;
+  private final int oneUseDeltaY = ARROW_DELTA - BORDER + 12;
   private int NEXT_LOCATION;
   private final static int VERTICAL_ARROW_DELTA = 45;
   private final FontMetrics fontMetrics;
@@ -318,7 +319,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
           if(NEXT_LOCATION == 0) {
             NEXT_LOCATION = topOffset + ARROW_DELTA * 3 / 4 + (deltaY + BORDER) * verticalIndex;
           }
-          g.fill3DRect(ACQUIRE_BORDER + leftOffset, NEXT_LOCATION, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, deltaY, true);
+          g.fill3DRect(ACQUIRE_BORDER + leftOffset, NEXT_LOCATION, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, oneUseDeltaY, true);
         }
         break;
     }
