@@ -19,6 +19,7 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
   private ExecutorService executor;
   private int nextIndex;
   private final JButton executeButton = new JButton("execute");
+  private final JButton prestartButton = new JButton("prestartAllCoreThreads");
   private boolean initialized = false;
   private int sleepTime;
   public static final String FIXED_TYPE =  "FixedThreadPool";
@@ -54,7 +55,7 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
   }
 
   protected String getSnippet() {
-    return "<html><PRE><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+    String snippet = "<html><PRE><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// FixedThreadPool Construction</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Executor executor = </FONT>\n" +
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">     Executors.newFixedThreadPool(4);\n" +
@@ -68,13 +69,19 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">     Executors.newCachedThreadPool(); \n" +
             " \n" +
             "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Use the Executor to launch some Runnable </I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "      executor.execute(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Runnable(){ \n" +
+            "    executor.execute(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Runnable(){ \n" +
             "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>public</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>void</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> run(){ \n" +
             "          </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// do work</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "        } \n" +
-//            "      }); \n" +
-//            "    } \n" +
+            "        }}); \n";
+      if(!getTitle().equals(CACHED_TYPE)) {
+
+          snippet += " \n" +
+            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Prestarting Core Threads</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> count = </FONT>\n" +
+            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\">  ((ThreadPoolExecutor)executor).prestartAllCoreThreads(); \n" +
             "    </FONT></PRE></html";
+      }
+      return snippet;
   }
 
   @Override
@@ -123,7 +130,10 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
   protected void initializeComponents() {
     if (!initialized) {
       initializeExecuteButton();
-      initializeThreadCountField(threadCountField);
+        if (!getTitle().equals(CACHED_TYPE)) {
+            initializePrestartButton();
+        }
+        initializeThreadCountField(threadCountField);
       initialized = true;
     }
     reset();
@@ -201,6 +211,17 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
             }
           });
         }
+      }
+    });
+  }
+
+  private void initializePrestartButton() {
+    initializeButton(prestartButton, new Runnable() {
+      public void run() {
+          setState(4);
+          int count = ((ThreadPoolExecutor)executor).prestartAllCoreThreads();
+          message1(String.format("Prestarted %d thread%s", count, count==1?"":"s"), ConcurrentExampleConstants.MESSAGE_COLOR);
+          message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
       }
     });
   }
