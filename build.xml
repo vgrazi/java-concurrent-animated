@@ -39,6 +39,7 @@
             <manifest>
                 <attribute name="Main-Class" value="vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher"/>
             </manifest>
+            <exclude name="concurrentanimatedapplet.jar"/>
         </jar>
     </target>
 
