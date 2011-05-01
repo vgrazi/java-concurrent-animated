@@ -1,4 +1,4 @@
-package vgrazi.concurrent.samples.sprites;
+package vgrazi.concurrent.samples.canvases;
 
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
@@ -6,6 +6,10 @@ import static vgrazi.concurrent.samples.ExampleType.ONE_USE;
 import static vgrazi.concurrent.samples.ExampleType.PLURAL;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.examples.Pooled;
+import vgrazi.concurrent.samples.sprites.CAS;
+import vgrazi.concurrent.samples.sprites.ConcurrentAnimationEvent;
+import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
+import vgrazi.concurrent.samples.sprites.ConcurrentTextSprite;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,9 +35,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   private static long DELAY = 20;
   static int DELTA = 5;
-  static int BACK_DELTA = 15;
-  private static final int ARROW_LENGTH = 10;
-  private static final int OVAL_LENGTH = 5;
+  public static int BACK_DELTA = 15;
+  public static final int ARROW_LENGTH = 10;
+  static final int OVAL_LENGTH = 5;
   private static final int ARROW_HEAD_LENGTH = 5;
   private static final int RADIUS = 5;
   private int ARROW_DELTA = 20;
@@ -59,19 +63,19 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private String labelText;
 
 
-  static ExampleType exampleType;
+  public static ExampleType exampleType;
 
-  private final int BORDER = 5;
-  private final int deltaY = ARROW_DELTA - BORDER;
+  final int BORDER = 5;
+  protected final int deltaY = ARROW_DELTA - BORDER;
   private final int oneUseDeltaY = ARROW_DELTA - BORDER + 12;
   private int NEXT_LOCATION;
   private final static int VERTICAL_ARROW_DELTA = 45;
-  private final FontMetrics fontMetrics;
+  protected final FontMetrics fontMetrics;
 
   /**
    * Used only by the {@link ExampleType#ONE_USE} example type, used to position the mutex vertically
    */
-  private int verticalIndex;
+  int verticalIndex;
   private final PropertyChangeSupport PROPERTY_CHANGE_SUPPORT = new PropertyChangeSupport(this);
 
   public ConcurrentSpriteCanvas(final ConcurrentExample concurrentExample, final String labelText) {
@@ -80,8 +84,10 @@ public class ConcurrentSpriteCanvas extends JPanel {
     setOpaque(true);
 
     setDoubleBuffered(true);
-    setLabelText(labelText);
-    fontMetrics = getFontMetrics(getFont());
+      if (labelText != null) {
+          setLabelText(labelText);
+      }
+      fontMetrics = getFontMetrics(getFont());
     addMouseMotionListener(new MouseMotionAdapter() {
       private Rectangle labelBounds;
 
@@ -90,14 +96,16 @@ public class ConcurrentSpriteCanvas extends JPanel {
         super.mouseMoved(e);
         final String toolTipText = concurrentExample.getToolTipText();
         if (toolTipText != null) {
-          Rectangle labelBounds = getLabelBounds();
-          final Point point = e.getPoint();
+            if (labelText != null) {
+                Rectangle labelBounds = getLabelBounds();
+                final Point point = e.getPoint();
 //          System.out.println("Mouse:" + point + " title:" + labelBounds + " text:" + toolTipText);
-          if(labelBounds.contains(point)) {
-            ConcurrentSpriteCanvas.this.setToolTipText(toolTipText);
-          } else{
-            ConcurrentSpriteCanvas.this.setToolTipText("");
-          }
+                if(labelBounds.contains(point)) {
+                  ConcurrentSpriteCanvas.this.setToolTipText(toolTipText);
+                } else{
+                  ConcurrentSpriteCanvas.this.setToolTipText("");
+                }
+            }
         }
       }
 
@@ -222,14 +230,16 @@ public class ConcurrentSpriteCanvas extends JPanel {
       }
     }
 
-    // draw the mutex box
-    drawMutex(g, size);
+      if (labelText != null) {
+// draw the mutex box
+          drawMutex(g, size);
 
-    // Draw the label text
-    g.setColor(ConcurrentExampleConstants.MUTEX_FONT_COLOR);
-    g.drawString(labelText, getLabelXPosition(), getLabelYPosition());
+          // Draw the label text
+          g.setColor(ConcurrentExampleConstants.MUTEX_FONT_COLOR);
+          g.drawString(labelText, getLabelXPosition(), getLabelYPosition());
+      }
 
-    //    System.out.println("ConcurrentSpriteCanvas.paint sprite count:" + sprites.size());
+      //    System.out.println("ConcurrentSpriteCanvas.paint sprite count:" + sprites.size());
     try {
       for (ConcurrentSprite sprite : sprites) {
         int index = sprite.getIndex();
@@ -283,7 +293,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     return topOffset - 10;
   }
 
-  private void drawMutex(Graphics2D g, Dimension size) {
+  protected void drawMutex(Graphics2D g, Dimension size) {
     g.setColor(ConcurrentExampleConstants.MUTEX_BACKGROUND);
     switch(exampleType) {
       case CAS:
@@ -325,7 +335,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
-  public void drawPool(Graphics g) {
+  protected void drawPool(Graphics g) {
     int availableThreadCount = ((Pooled) concurrentExample).getAvailableThreadCount();
     int poolSize = pooledSprites.size();
     if(availableThreadCount < poolSize) {
@@ -372,7 +382,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
-  private void drawReleased(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
+  protected void drawReleased(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y;
     switch (sprite.getType()) {
       case RUNNABLE:
@@ -446,7 +456,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
    * @param type
    * @return
    */
-  private void drawPulling(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
+  protected void drawPulling(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y = yPos - RADIUS;
     if (exampleType == ExampleType.ONE_USE) {
       y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
@@ -463,7 +473,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
   }
 
 
-  private void drawRejected(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
+  protected void drawRejected(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y = yPos;
     if (exampleType == ExampleType.ONE_USE) {
       y += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
@@ -508,7 +518,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
    * @param yPos the y pixel position
    * @param sprite the sprite to animate
    */
-  private void drawAcquiring(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
+  protected void drawAcquiring(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     switch (sprite.getType()) {
       case RUNNABLE:
 //        System.out.printf("State:%s location:%d  destination:%d%n", sprite.getState(), sprite.getCurrentLocation(), sprite.getDestination());
@@ -550,7 +560,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
-  private void drawArrowSprite(Graphics g, int xPos, int yPos, ConcurrentSprite sprite) {
+  protected void drawArrowSprite(Graphics g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y = yPos;
     int y1 = yPos - ARROW_HEAD_LENGTH;
     int y2 = yPos + ARROW_HEAD_LENGTH;
@@ -592,7 +602,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
-  private void renderWorkingAnimation(Graphics g1, int yPos, int circleFrame) {
+  protected void renderWorkingAnimation(Graphics g1, int yPos, int circleFrame) {
 //    g1.drawImage(workingThreadImage, ACQUIRE_BORDER + 10, y, null);
     Graphics2D g = (Graphics2D) g1;
     g.setStroke(new BasicStroke(2));
@@ -616,14 +626,15 @@ public class ConcurrentSpriteCanvas extends JPanel {
     int R = 7;
     int yDelta = 2 * R;
     // top line of curved path
-    g.drawLine(ACQUIRE_BORDER + 20, yPos, ACQUIRE_BORDER + W + 16, yPos);
+    int border = getWorkerThreadLeftPosition();
+    g.drawLine(border + 20, yPos, border + W + 16, yPos);
     // bottom line of curved path
-    g.drawLine(ACQUIRE_BORDER + 20, yPos + yDelta, ACQUIRE_BORDER + W + 16, yPos + yDelta);
+    g.drawLine(border + 20, yPos + yDelta, border + W + 16, yPos + yDelta);
 
     // left arc
-    g.drawArc(ACQUIRE_BORDER + 13, yPos, 10, yDelta, 90, 180);
+    g.drawArc(border + 13, yPos, 10, yDelta, 90, 180);
     // right arc
-    g.drawArc(ACQUIRE_BORDER + 13 + W, yPos, 10, yDelta, -90, 180);
+    g.drawArc(border + 13 + W, yPos, 10, yDelta, -90, 180);
 
     // now render the animation
     // the number of pixels to move per frame
@@ -644,29 +655,37 @@ public class ConcurrentSpriteCanvas extends JPanel {
       // THE RIGHT ARC
       x = (int) Math.sqrt((2*R-t)*t);
       y = t;
-      g.fillOval(ACQUIRE_BORDER + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      g.fillOval(border + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
     else if(t >= 2*R && t <= 2*R+W) {
       // BOTTOM LINE
       x = -(t - 2*R) + radius;
       y = 2*R;
-      g.fillOval(ACQUIRE_BORDER + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      g.fillOval(border + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
     else if(t > 2*R+W && t < 4*R+W) {
       // LEFT ARC
       int T = t-(2*R+W);
       x = -W - (int) Math.sqrt((2*R-T) * T) + radius;
       y = 2*R-T;
-      g.fillOval(ACQUIRE_BORDER + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      g.fillOval(border + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
     else {//if(t >= 4*R+W && t < 4*R+2*W-1) {
       // TOP LINE
       x = t-(4*R+2*W) + radius;
       y = 0;
-      g.fillOval(ACQUIRE_BORDER + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      g.fillOval(border + W + 20 + x - radius*2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
   }
 
+  /**
+   * Returns the leftmost position of the worker thread.
+   * In general this will be the acquire border. However canvas subclasses can modify this
+   * @return the leftmost position of the worker thread.
+   */
+  protected int getWorkerThreadLeftPosition() {
+    return ACQUIRE_BORDER;
+  }
 
   public void addListener(ConcurrentAnimationEvent event, PropertyChangeListener listener) {
     PROPERTY_CHANGE_SUPPORT.addPropertyChangeListener(event.toString(), listener);
@@ -674,7 +693,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
   public void removeListener(ConcurrentAnimationEvent event, PropertyChangeListener listener) {
     PROPERTY_CHANGE_SUPPORT.removePropertyChangeListener(event.toString(), listener);
   }
-  private void notifyListeners(ConcurrentAnimationEvent event, ConcurrentSprite sprite) {
+  void notifyListeners(ConcurrentAnimationEvent event, ConcurrentSprite sprite) {
     PROPERTY_CHANGE_SUPPORT.firePropertyChange(event.toString(), sprite, null);
   }
 

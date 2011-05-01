@@ -14,9 +14,9 @@ public class ConcurrentTextSprite extends ConcurrentSprite {
 
   @Override
   public void bumpCurrentLocation(int pixels) {
-    currentLocation += pixels;
-    if (currentLocation > destination) {
-      currentLocation = destination;
+    setCurrentLocation(getCurrentLocation() + pixels);
+    if (getCurrentLocation() > destination) {
+      setCurrentLocation(destination);
     }
   }
 

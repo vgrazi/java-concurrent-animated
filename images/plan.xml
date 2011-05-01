@@ -1,4 +1,7 @@
 <plan>
+    <!--<MenuItem label="Fork &amp; Join">-->
+        <!--<Example class="vgrazi.concurrent.samples.examples.ForkAndJoinExample" paging="true" fair="false" mutexLabel="Fork &amp; Join"/>-->
+    <!--</MenuItem>-->
     <ImageSlide image="images/concurrentPackage.jpg"/>
     <MenuItem label="Legend">
         <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Usage Legend for Animations "/>
@@ -8,6 +11,10 @@
         <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>
         <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
         <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="CachedThreadPool"/>
+    </MenuItem>
+    <ImageSlide image="images/future.jpg"/>
+    <MenuItem label="Future">
+        <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false" mutexLabel="Future"/>
     </MenuItem>
     <MenuItem label="Semaphore">
         <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="false" fair="false" mutexLabel="Semaphore"/>
@@ -41,10 +48,6 @@
     <ImageSlide image="images/blockingQueue.jpg"/>
     <MenuItem label="BlockingQueue">
         <Example class="vgrazi.concurrent.samples.examples.BlockingQueueExample" paging="true" fair="false" mutexLabel="BlockingQueue"/>
-    </MenuItem>
-    <ImageSlide image="images/future.jpg"/>
-    <MenuItem label="Future">
-        <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false" mutexLabel="Future"/>
     </MenuItem>
     <ImageSlide image="images/completionService.jpg"/>
     <MenuItem label="CompletionService">

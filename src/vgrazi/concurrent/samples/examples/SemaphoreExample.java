@@ -3,7 +3,7 @@ package vgrazi.concurrent.samples.examples;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
-import vgrazi.concurrent.samples.sprites.ConcurrentSpriteCanvas;
+import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 
 import javax.swing.*;
 import java.awt.*;

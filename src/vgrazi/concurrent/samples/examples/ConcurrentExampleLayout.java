@@ -1,6 +1,6 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.sprites.ConcurrentSpriteCanvas;
+import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 import vgrazi.concurrent.samples.MessageLabel;
 
 import javax.swing.*;

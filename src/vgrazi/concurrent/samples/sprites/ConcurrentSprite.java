@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples.sprites;
 
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
+import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 
 import java.awt.*;
 
@@ -10,7 +11,32 @@ import java.awt.*;
  * Date: Sep 10, 2005 - 8:48:02 PM
  */
 public class ConcurrentSprite {
+  /**
+   * If value or expected value are set to NO_VALUE, they will not be drawn
+   */
+  public static int NO_VALUE = Integer.MIN_VALUE;
+  private SpriteState state = SpriteState.ACQUIRING;
 
+  /**
+   * WORKING sprite is equivalent to an ARROW sprint except in the acquired state.
+   * When the sprite is acquired, an ARROW sprite will render as an arrow bouncing off the right border
+   * Whereas a WORKING sprite will render as a rotating "working" thread.
+   */
+  private SpriteType type = SpriteType.WORKING;
+  private int index = 0;
+
+  protected int destination = 0;
+  private int currentLocation = 0;
+  private int verticalPosition;
+  int circleLocation;
+
+  public void setIndex(int index) {
+    this.index = index;
+  }
+
+  public static enum SpriteType {
+    WORKING, ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT;
+  }
 
   public static enum SpriteState {
     ACQUIRING,
@@ -20,43 +46,14 @@ public class ConcurrentSprite {
     ACTION_COMPLETED,
     PULLING
   }
-
-  /**
-   * If value or expected value are set to NO_VALUE, they will not be drawn
-   */
-  public static int NO_VALUE = Integer.MIN_VALUE;
-  private SpriteState state = SpriteState.ACQUIRING;
-
-
-  public static enum SpriteType {
-     WORKING, ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT,
-  }
-
-  /**
-   * WORKING sprite is equivalent to an ARROW sprint except in the acquired state.
-   * When the sprite is acquired, an ARROW sprite will render as an arrow bouncing off the right border
-   * Whereas a WORKING sprite will render as a rotating "working" thread.
-   */
-  private SpriteType type = SpriteType.WORKING;
-
-  private int index = 0;
-
-  protected int destination = 0;
-
-  protected int currentLocation = 0;
-
-  int circleLocation;
-
   /**
    * Used for CAS operations, value is the new value
    */
   private int value = NO_VALUE;
-
   /**
    * Used for CAS operations, checkValue is the originally checked value
    */
   private int expectedValue = NO_VALUE;
-
   private Color color = ConcurrentExampleConstants.ACQUIRING_COLOR;
 
   public ConcurrentSprite(int index, Color color) {
@@ -109,9 +106,10 @@ public class ConcurrentSprite {
     final int delta = 155;
     destination = ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta + 10;
     if (currentLocation  == 0) {
-      currentLocation = ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta;
+      setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta);
     }
   }
+
   /**
    * Draw this Sprite escaping from the borders.
    */
@@ -119,7 +117,7 @@ public class ConcurrentSprite {
     state = SpriteState.RELEASED;
     destination = Integer.MAX_VALUE;
     if (currentLocation < ConcurrentSpriteCanvas.ACQUIRE_BORDER) {
-      currentLocation = ConcurrentSpriteCanvas.ACQUIRE_BORDER;
+      setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER);
     }
   }
 
@@ -136,6 +134,9 @@ public class ConcurrentSprite {
     return state;
   }
 
+  public void setState(SpriteState state) {
+    this.state = state;
+  }
   public SpriteType getType() {
     return type;
   }
@@ -148,8 +149,21 @@ public class ConcurrentSprite {
     return index;
   }
 
+  public void setCurrentLocation(int currentLocation) {
+    this.currentLocation = currentLocation;
+//    System.out.printf("Current location: %d%n", currentLocation);
+  }
+
+  public void setVerticalPosition(int position) {
+    verticalPosition = position;
+  }
+
   public int getDestination() {
     return destination;
+  }
+
+  public void setDestination(int destination) {
+    this.destination = destination;
   }
 
   public int getCurrentLocation() {
@@ -157,20 +171,20 @@ public class ConcurrentSprite {
   }
 
   public void bumpCurrentLocation(int pixels) {
-    currentLocation += pixels;
+    setCurrentLocation(currentLocation + pixels);
     if (currentLocation > destination) {
-      currentLocation = destination;
+      setCurrentLocation(destination);
     } else if (currentLocation == destination) {
-      currentLocation = destination - ConcurrentSpriteCanvas.BACK_DELTA;
+      setCurrentLocation(destination - ConcurrentSpriteCanvas.BACK_DELTA);
     }
   }
 
   public void bumpLocationToDestination() {
-    currentLocation = destination;
+    setCurrentLocation(destination);
   }
 
   public void kickCurrentLocation(int pixels) {
-    currentLocation -= pixels;
+    setCurrentLocation(currentLocation - pixels);
   }
 
   /**
@@ -186,15 +200,15 @@ public class ConcurrentSprite {
   }
 
   public void moveToAcquiringBorder() {
-    currentLocation = ConcurrentSpriteCanvas.ACQUIRE_BORDER - 30;
+    setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER - 30);
   }
 
   public void moveToAcquiredBorder() {
-    currentLocation = ConcurrentSpriteCanvas.ACQUIRE_BORDER;
+    setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER);
   }
 
   public void moveToLocation(int location) {
-    currentLocation = location;
+    setCurrentLocation(location);
   }
 
   public Color getColor() {
