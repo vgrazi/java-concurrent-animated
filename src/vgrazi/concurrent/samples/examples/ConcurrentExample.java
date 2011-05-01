@@ -6,7 +6,7 @@ import vgrazi.concurrent.samples.ImagePanel;
 import vgrazi.concurrent.samples.MessageLabel;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
-import vgrazi.concurrent.samples.sprites.ConcurrentSpriteCanvas;
+import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentTextSprite;
 import vgrazi.util.StringUtils;
 
@@ -34,15 +34,17 @@ public abstract class ConcurrentExample extends JPanel {
   protected final JLabel message2Label = new MessageLabel(" ");
   protected final JPanel imagePanel = new ImagePanel(this);
   protected final JButton resetButton = new JButton("Reset");
-  private final ConcurrentSpriteCanvas canvas;
+
+  private ConcurrentSpriteCanvas canvas;
+
   protected final Random random = new Random();
-
   private AtomicInteger acquiring = new AtomicInteger(0);
-  private AtomicInteger releasing = new AtomicInteger(0);
 
+  private AtomicInteger releasing = new AtomicInteger(0);
   public static final String FONT_SIZE = "5";
 
   private final JLabel snippetLabel = new JLabel();
+
   private final JScrollPane snippetPane = new JScrollPane(snippetLabel);
   protected final KeyListener keyListener = new KeyAdapter() {
     public void keyReleased(KeyEvent e) {
@@ -81,12 +83,11 @@ public abstract class ConcurrentExample extends JPanel {
   private final ConcurrentLinkedQueue<JButton> buttons = new ConcurrentLinkedQueue<JButton>();
   protected final Executor threadCountExecutor = Executors.newCachedThreadPool();
   private final static Logger logger = Logger.getLogger(ConcurrentExample.class.getName());
-
-
   //  public ConcurrentExample() {
+
+
   //    this(ExampleType.BLOCKING);
   //  }
-
   /**
    * @param title              the title to display in the title bar
    * @param container          the container to contain the animation
@@ -100,7 +101,7 @@ public abstract class ConcurrentExample extends JPanel {
     this.exampleType = exampleType;
     this.fair = fair;
     this.slideNumber = slideNumber;
-    canvas = new ConcurrentSpriteCanvas(this, getTitle());
+    createCanvas();
     setContainer(container);
     setLayout(new ConcurrentExampleLayout(minSnippetPosition));
     setBackgroundColors();
@@ -120,7 +121,7 @@ public abstract class ConcurrentExample extends JPanel {
     snippetLabel.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        if ((e.getModifiersEx() & MouseEvent.ADJUSTMENT_EVENT_MASK) != 0) {
+        if((e.getModifiersEx() & MouseEvent.ADJUSTMENT_EVENT_MASK) != 0) {
           ConcurrentSlideShow.previousSlide();
         }
         else {
@@ -131,6 +132,18 @@ public abstract class ConcurrentExample extends JPanel {
 //    snippetLabel.setToolTipText(getToolTipText());
     snippetLabel.setFont(SNIPPET_FONT);
     imagePanel.setOpaque(true);
+  }
+
+  protected void createCanvas() {
+    setCanvas(new ConcurrentSpriteCanvas(this, getTitle()));
+  }
+
+  public ConcurrentSpriteCanvas getCanvas() {
+    return canvas;
+  }
+
+  protected void setCanvas(ConcurrentSpriteCanvas canvas) {
+    this.canvas = canvas;
   }
 
   public boolean isFair() {
