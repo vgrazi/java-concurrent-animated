@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 public abstract class ConcurrentExample extends JPanel {
 
   private Container container;
+  private Executor executor = Executors.newCachedThreadPool();
   //  private final Insets INSETS = new Insets(5, 5, 5, 5);
   protected final long timeout = 3 * 1000;
   protected final JLabel message1Label = new MessageLabel(" ");
@@ -370,8 +371,7 @@ public abstract class ConcurrentExample extends JPanel {
     button.addKeyListener(keyListener);
     button.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
-        Thread thread = new Thread(runnable);
-        thread.start();
+        executor.execute(runnable);
       }
     });
     add(button);
@@ -526,7 +526,7 @@ public abstract class ConcurrentExample extends JPanel {
     messageLabel.setForeground(foreground);
     messageLabel.setText(text);
     if (foreground == ConcurrentExampleConstants.MESSAGE_COLOR) {
-      Thread thread = new Thread(new Runnable() {
+      executor.execute(new Runnable() {
         public void run() {
           try {
             Thread.sleep(1000);
@@ -539,7 +539,6 @@ public abstract class ConcurrentExample extends JPanel {
           }
         }
       });
-      thread.start();
     }
   }
 
