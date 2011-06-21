@@ -60,19 +60,19 @@ public class FutureExample extends ConcurrentExample {
 
   protected String getSnippet() {
     return "<html><PRE><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"000000\"><I>// Future objects are returned from Executors</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"000000\"><I>//   or can be created by developers.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Future objects are returned from Executors</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>//   or can be created by con a FutureTask.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        " \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"000000\"><I>// The Future.get() method blocks</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"000000\"><I>//   until some result is available.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// The Future.get() method blocks</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>//   until some result is available.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        " \n" +
        "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Executors submit() methods return Future objects</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> final Future&lt;Object> future = </FONT>\n" +
        "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">     Executors.newCachedThreadPool().submit(someCallable); \n" +
        " \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">//  Finally, the Future task completes</FONT>\n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">//       and the block passes through.</FONT>\n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\">Object result = future.get(); \n" +
+            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\">//  Finally, the Future task completes</FONT>\n" +
+            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\">//       and the block passes through.</FONT>\n" +
+            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">Object result = future.get(); \n" +
             " \n" +
        "    </FONT></PRE></html";
   }

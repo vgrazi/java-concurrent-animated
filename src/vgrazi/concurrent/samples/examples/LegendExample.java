@@ -57,7 +57,7 @@ public class LegendExample extends ConcurrentExample {
         // reset just in case we are coming around again
         resetExample();
         // todo: add justification - left, right, center.
-        sprites[0] = createTextSprite("This is   ");
+        sprites[0] = createTextSprite("Gray is   ");
         sprites[6] = createTextSprite("a block  ");
         sprites[7] = createTextSprite("of some  ");
         sprites[8] = createTextSprite("sort.   ");
