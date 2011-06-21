@@ -72,14 +72,14 @@ public class AtomicIntegerExample extends ConcurrentExample {
   protected void initializeComponents() {
     reset();
     if (!initialized) {
-      initializeButton(compareAndSetButton, new Runnable() {
-        public void run() {
-          compareAndSet();
-        }
-      });
       initializeButton(incrementAndGetButton, new Runnable() {
         public void run() {
           incrementAndGet();
+        }
+      });
+      initializeButton(compareAndSetButton, new Runnable() {
+        public void run() {
+          compareAndSet();
         }
       });
       initializeThreadCountField(threadCountField);
