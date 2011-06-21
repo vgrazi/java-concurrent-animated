@@ -190,7 +190,7 @@ public class CompletionServiceExample extends ConcurrentExample {
           " \n" +
           " \n" +
           "<FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
-          "    // Now take results in the order they complete \n" +
+          "    // Now take results as they complete \n" +
           "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">Future<Result> future = completionService.take();</FONT>\n" +
           "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">Result result = future.get();</FONT>" +
           " \n" +
