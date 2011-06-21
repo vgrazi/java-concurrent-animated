@@ -304,9 +304,10 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
 			int xPos = ACQUIRE_BORDER + leftOffset;
 			int yPos = topOffset + fontHeight;
-			Set<Entry<Integer, String>> entries = GlobalConcurrentMap.get().entrySet();
-			for (Entry<Integer, String> entry : entries) {
-				g.drawString("" + entry.getKey() + entry.getValue(), xPos + 20, yPos);
+			Set<Integer> keySet = GlobalConcurrentMap.keySet();
+      TreeSet<Integer> set = new TreeSet<Integer>(keySet);
+			for (Integer key : set) {
+				g.drawString("" + key + GlobalConcurrentMap.get(key), xPos + 20, yPos);
 				yPos += fontHeight;
 			}
 			break;
