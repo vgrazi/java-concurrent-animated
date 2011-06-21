@@ -33,13 +33,13 @@
         <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="true" fair="false" mutexLabel="ReadWriteLock"/>
         <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="false" fair="true" mutexLabel="ReadWriteLock (fair)"/>
     </MenuItem>
-    <ImageSlide image="images/cyclicBarrier.jpg"/>
-    <MenuItem label="CyclicBarrier">
-        <Example class="vgrazi.concurrent.samples.examples.CyclicBarrierExample" paging="true" fair="false" mutexLabel="CyclicBarrier"/>
-    </MenuItem>
     <ImageSlide image="images/countdownLatch.jpg"/>
     <MenuItem label="CountDownLatch">
         <Example class="vgrazi.concurrent.samples.examples.CountDownLatchExample" paging="true" fair="false" mutexLabel="CountDownLatch"/>
+    </MenuItem>
+    <ImageSlide image="images/cyclicBarrier.jpg"/>
+    <MenuItem label="CyclicBarrier">
+        <Example class="vgrazi.concurrent.samples.examples.CyclicBarrierExample" paging="true" fair="false" mutexLabel="CyclicBarrier"/>
     </MenuItem>
     <ImageSlide image="images/AtomicInteger.jpg"/>
     <MenuItem label="AtomicInteger">
@@ -52,6 +52,9 @@
     <ImageSlide image="images/completionService.jpg"/>
     <MenuItem label="CompletionService">
         <Example class="vgrazi.concurrent.samples.examples.CompletionServiceExample" paging="true" fair="false" mutexLabel="CompletionService"/>
+    </MenuItem>
+    <MenuItem label="ConcurrentHashMap">
+        <Example class="vgrazi.concurrent.samples.examples.ConcurrentHashMapExample" paging="true" fair="false" mutexLabel="ConcurrentHashMap"/>
     </MenuItem>
     <ImageSlide image="images/concurrent.gif" text="/images/references.html"/>
     <References/>
