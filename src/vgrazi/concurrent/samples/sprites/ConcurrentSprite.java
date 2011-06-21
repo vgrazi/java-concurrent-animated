@@ -35,7 +35,7 @@ public class ConcurrentSprite {
   }
 
   public static enum SpriteType {
-    WORKING, ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT;
+    WORKING, ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT, PUT_IF_ABSENT;
   }
 
   public static enum SpriteState {
@@ -46,6 +46,7 @@ public class ConcurrentSprite {
     ACTION_COMPLETED,
     PULLING
   }
+
   /**
    * Used for CAS operations, value is the new value
    */
@@ -54,6 +55,9 @@ public class ConcurrentSprite {
    * Used for CAS operations, checkValue is the originally checked value
    */
   private int expectedValue = NO_VALUE;
+
+  private String expectedStringValue;
+
   private Color color = ConcurrentExampleConstants.ACQUIRING_COLOR;
 
   public ConcurrentSprite(int index, Color color) {
@@ -100,12 +104,12 @@ public class ConcurrentSprite {
    * Draw this Sprite pulling right, from mutex right border
    */
   public void setPulling() {
-    if (state == SpriteState.ACQUIRING) {
+    if(state == SpriteState.ACQUIRING) {
       state = SpriteState.PULLING;
     }
     final int delta = 155;
     destination = ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta + 10;
-    if (currentLocation  == 0) {
+    if(currentLocation == 0) {
       setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta);
     }
   }
@@ -116,7 +120,7 @@ public class ConcurrentSprite {
   public void setReleased() {
     state = SpriteState.RELEASED;
     destination = Integer.MAX_VALUE;
-    if (currentLocation < ConcurrentSpriteCanvas.ACQUIRE_BORDER) {
+    if(currentLocation < ConcurrentSpriteCanvas.ACQUIRE_BORDER) {
       setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER);
     }
   }
@@ -137,6 +141,7 @@ public class ConcurrentSprite {
   public void setState(SpriteState state) {
     this.state = state;
   }
+
   public SpriteType getType() {
     return type;
   }
@@ -172,9 +177,10 @@ public class ConcurrentSprite {
 
   public void bumpCurrentLocation(int pixels) {
     setCurrentLocation(currentLocation + pixels);
-    if (currentLocation > destination) {
+    if(currentLocation > destination) {
       setCurrentLocation(destination);
-    } else if (currentLocation == destination) {
+    }
+    else if(currentLocation == destination) {
       setCurrentLocation(destination - ConcurrentSpriteCanvas.BACK_DELTA);
     }
   }
@@ -269,5 +275,13 @@ public class ConcurrentSprite {
    */
   public void setExpectedValue(int checkValue) {
     this.expectedValue = checkValue;
+  }
+
+  public void setExpectedStringValue(String expectedStringValue) {
+    this.expectedStringValue = expectedStringValue;
+  }
+
+  public String getExpectedStringValue() {
+    return expectedStringValue;
   }
 }

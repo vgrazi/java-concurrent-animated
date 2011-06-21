@@ -6,10 +6,7 @@ import static vgrazi.concurrent.samples.ExampleType.ONE_USE;
 import static vgrazi.concurrent.samples.ExampleType.PLURAL;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.examples.Pooled;
-import vgrazi.concurrent.samples.sprites.CAS;
-import vgrazi.concurrent.samples.sprites.ConcurrentAnimationEvent;
-import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
-import vgrazi.concurrent.samples.sprites.ConcurrentTextSprite;
+import vgrazi.concurrent.samples.sprites.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
 import java.util.Queue;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -173,6 +171,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     exampleType = type;
     switch (exampleType) {
       case CAS:
+      case CONCURRENT_MAP:
         DELTA = 3;
         BACK_DELTA = 0;
         topBorder = 32;
@@ -295,12 +294,27 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   protected void drawMutex(Graphics2D g, Dimension size) {
     g.setColor(ConcurrentExampleConstants.MUTEX_BACKGROUND);
+    int fontHeight = fontMetrics.getHeight();
     switch(exampleType) {
+		case CONCURRENT_MAP: {
+            // render the existing map
+			g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, size.height - 20 - topOffset, true);
+
+			g.setColor(ConcurrentExampleConstants.CAS_CIRCLE_COLOR);
+
+			int xPos = ACQUIRE_BORDER + leftOffset;
+			int yPos = topOffset + fontHeight;
+			Set<Entry<Integer, String>> entries = GlobalConcurrentMap.get().entrySet();
+			for (Entry<Integer, String> entry : entries) {
+				g.drawString("" + entry.getKey() + entry.getValue(), xPos + 20, yPos);
+				yPos += fontHeight;
+			}
+			break;
+		}
       case CAS:
         g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, size.height - 20 - topOffset, true);
-        // todo: calculate dymanically
+        // todo: calculate dynamically
         int fontWidth = fontMetrics.stringWidth(String.valueOf(CAS.getValue()));
-        int fontHeight = fontMetrics.getHeight();
 
         g.setColor(ConcurrentExampleConstants.CAS_CIRCLE_COLOR);
 
@@ -377,7 +391,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
   public void resetMutexVerticalIndex() {
     verticalIndex = 0;
     NEXT_LOCATION = 0;
-    if(exampleType == ExampleType.CAS) {
+    if(exampleType == ExampleType.CAS || exampleType == ExampleType.CONCURRENT_MAP) {
       bumpVerticalMutexIndex();
     }
   }
@@ -391,7 +405,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
       case ARROW:
       case WORKING:
       case CAS:
-        if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
+      case PUT_IF_ABSENT:
+        if (sprite.getType() == ConcurrentSprite.SpriteType.CAS || sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT) {
           y = yPos;
           int y1 = yPos - ARROW_LENGTH;
           int y2 = yPos + ARROW_LENGTH;
@@ -418,7 +433,11 @@ public class ConcurrentSpriteCanvas extends JPanel {
         }
         int expectedValue = sprite.getExpectedValue();
         int value = sprite.getValue();
-        if (expectedValue != ConcurrentSprite.NO_VALUE) {
+        String expectedStringValue = sprite.getExpectedStringValue();
+        if (sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT && expectedStringValue != null) {
+          g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
+            g.drawString(expectedStringValue, xPos - ARROW_LENGTH * 11 + fontMetrics.stringWidth(String.valueOf(value)), y);
+        } else if (expectedValue != ConcurrentSprite.NO_VALUE) {
           g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
           g.drawString("(" + expectedValue + ")", xPos - ARROW_LENGTH * 11, y);
         }
@@ -482,25 +501,31 @@ public class ConcurrentSpriteCanvas extends JPanel {
       case ARROW:
       case WORKING:
       case RUNNABLE:
+      case PUT_IF_ABSENT:
       case CAS:
         int width = RADIUS * 2;
         if (exampleType == ExampleType.ONE_USE) {
           width += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
         }
-        if(sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
+        if(sprite.getType() == ConcurrentSprite.SpriteType.CAS || sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT) {
           g.fillOval(xPos - RADIUS - ARROW_LENGTH * 18 - RADIUS - 1, yPos - RADIUS, width, RADIUS * 2);
           g.drawLine(xPos, y, xPos - ARROW_LENGTH * 18, y);
           g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
           int value = sprite.getValue();
           if (value != ConcurrentSprite.NO_VALUE) {
-            g.drawString(String.valueOf(value), xPos - ARROW_LENGTH * 18, y);
+            g.drawString("<" + String.valueOf(value), xPos - ARROW_LENGTH * 18, y);
           }
+          String expectedStringValue = sprite.getExpectedStringValue();
+          if (sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT && expectedStringValue != null) {
+              g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
+              g.drawString(expectedStringValue + ">", xPos - ARROW_LENGTH * 18 + fontMetrics.stringWidth(String.valueOf(value)), y);
+        }
         }
         else {
           g.fillOval(xPos - RADIUS - ARROW_LENGTH * 6, yPos - RADIUS, width, RADIUS * 2);
           g.drawLine(xPos, y, xPos - ARROW_LENGTH * 6, y);
         }
-        g.drawLine(xPos, y, xPos - ARROW_LENGTH * 6, y);
+        g.drawLine(xPos, y, xPos - ARROW_LENGTH*6, y);
         break;
       case OVAL:
         g.fillOval(xPos - 85, y, OVAL_LENGTH * 18, OVAL_LENGTH * 2);
@@ -539,6 +564,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
       case WORKING:
       case ARROW:
       case CAS:
+      case PUT_IF_ABSENT:
         drawArrowSprite(g, xPos, yPos, sprite);
         break;
       case OVAL:
@@ -577,27 +603,35 @@ public class ConcurrentSpriteCanvas extends JPanel {
       // draw the bottom arrow head
       g.drawLine(xPos, y, xPos - ARROW_HEAD_LENGTH * 4, y2);
       int length;
-      if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
+      if (sprite.getType() == ConcurrentSprite.SpriteType.CAS || sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT) {
         length = ARROW_LENGTH * 3;
       } else {
         length = ARROW_LENGTH;
       }
       g.drawLine(xPos, y, xPos - length * 6, y);
-      if (sprite.getType() == ConcurrentSprite.SpriteType.CAS) {
+      if (sprite.getType() == ConcurrentSprite.SpriteType.CAS || sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT) {
         // draw the attempted replacement
         g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
         int spriteValue = sprite.getValue();
         if (spriteValue != ConcurrentSprite.NO_VALUE) {
           String value = String.valueOf(spriteValue);
+          if (sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT) {
+              g.drawString(value, xPos - 150, y);
+          } else {
           g.drawString(value, xPos - 85, y);
         }
       }
+      }
       int expectedValue = sprite.getExpectedValue();
-      if (expectedValue != ConcurrentSprite.NO_VALUE) {
+      String expectedStringValue = sprite.getExpectedStringValue();
+      if (sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT && expectedStringValue != null) {
+          g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
+          g.drawString(expectedStringValue + ">", xPos - 135, y);
+      } else if (expectedValue != ConcurrentSprite.NO_VALUE) {
         g.drawString("(" + expectedValue + ")", xPos - 53, y);
       }
     } else {
-      renderWorkingAnimation(g, y-1, sprite.getCircleLocation());
+      renderWorkingAnimation(g, y - 1, sprite.getCircleLocation());
       sprite.bumpCircleLocation();
     }
   }

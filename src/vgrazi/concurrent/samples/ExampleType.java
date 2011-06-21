@@ -34,5 +34,10 @@ public enum ExampleType {
   /**
    * Manipulates a number on the arrow and mutex
    */
-  CAS
+  CAS,
+
+  /**
+   * Manipulates a number on the arrow and a list of key/value pairs on the mutex
+   */
+  CONCURRENT_MAP
 }
