@@ -39,7 +39,7 @@ public class ReentrantLockExample extends ConcurrentExample {
        "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Constructor</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">final</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B> Lock lock = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantLock(); \n" +
        " \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Locking Thread - Once a Lock is acquired this<br>    // thread blocks until another thread calls unlock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
+       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Locking Thread - Once a Lock is acquired this<br>    // thread blocks until unlock is called.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
        "       lock.lock(); \n" +
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
        "       // lock unblocks and work continues... \n" +

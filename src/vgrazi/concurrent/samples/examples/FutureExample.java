@@ -60,13 +60,13 @@ public class FutureExample extends ConcurrentExample {
 
   protected String getSnippet() {
     return "<html><PRE><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Future objects are returned from Executors</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>//   or can be created by con a FutureTask.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Future objects are returned on submit to ExecutorService</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>//   or can be created by constructing a FutureTask.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        " \n" +
        "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// The Future.get() method blocks</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>//   until some result is available.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        " \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Executors submit() methods return Future objects</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// ExecutorService submit() returns a Future object</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
        "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> final Future&lt;Object> future = </FONT>\n" +
        "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">     Executors.newCachedThreadPool().submit(someCallable); \n" +
        " \n" +

@@ -1,13 +1,11 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +20,7 @@ public class CyclicBarrierExample extends ConcurrentExample {
 
   private CyclicBarrier barrier;
 
-  private final JButton barrierButton = new JButton("await()");
+  private final JButton awaitButton = new JButton("await()");
   private final JButton attemptButton = new JButton("await(timeMS, TimeUnit.MILLISECONDS)");
   private final JButton createButton = new JButton("barrier.reset()");
   private boolean initialized;
@@ -34,13 +32,13 @@ public class CyclicBarrierExample extends ConcurrentExample {
 
   protected void initializeComponents() {
     if(!initialized) {
-      initializeButton(barrierButton, new Runnable() {
+      initializeButton(awaitButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
           for (int i = 0; i < count; i++) {
             threadCountExecutor.execute(new Runnable() {
               public void run() {
-                release();
+                await();
               }
             });
           }
@@ -70,7 +68,7 @@ public class CyclicBarrierExample extends ConcurrentExample {
     reset();
   }
 
-  private void release() {
+  private void await() {
     ConcurrentSprite sprite = null;
     try {
       setAnimationCanvasVisible(true);
@@ -80,6 +78,7 @@ public class CyclicBarrierExample extends ConcurrentExample {
       sprite = createAcquiringSprite();
       int count = barrier.await();
       sprite.setReleased();
+      setState((0));
       message1("barrier complete " + count, ConcurrentExampleConstants.MESSAGE_COLOR);
     }
     catch(BrokenBarrierException e) {
