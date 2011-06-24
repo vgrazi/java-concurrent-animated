@@ -47,7 +47,9 @@ public class ReentrantLockExample extends ConcurrentExample {
        " \n" +
        "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Locking Thread - Once a Lock is acquired this<br>    // thread blocks until unlock is called.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
        "       lock.lock(); \n    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\">" +
-       "   lock.lockInterruptibly(); \n" +
+        "   try {                                \n" +
+        "         lock.lockInterruptibly();                     \n" +
+        "       } catch(InterruptedException {...}                            \n" +
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
        "       // lock unblocks and work continues... \n" +
        " \n" +
@@ -56,8 +58,8 @@ public class ReentrantLockExample extends ConcurrentExample {
        " lock.unlock(); \n" +
        " \n" +
        "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Try Lock Thread - All waiting threads are<br>    // notified when lock is released. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-       "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">try</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> { \n" +
-       "         if(lock.tryLock(1L, TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">)){\n" +
+       "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">try</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
+       "         if(lock.tryLock(1L, TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">)){\n" +
        "           try {                                \n" +
        "             doSomething();                     \n" +
        "           } finally {                            \n" +
@@ -67,10 +69,7 @@ public class ReentrantLockExample extends ConcurrentExample {
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
        "       // lock unblocks and work continues... \n" +
        "       "+
-       "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>} catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) { \n" +
-       "         Thread.currentThread().interrupt(); \n" +
-       "       } \n" +
-       "     }" +
+       "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>} catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) {..} \n" +
        "</FONT></PRE></html>";
     return snippet;
   }
