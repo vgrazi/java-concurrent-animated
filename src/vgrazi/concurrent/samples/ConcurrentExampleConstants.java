@@ -11,6 +11,7 @@ public class ConcurrentExampleConstants {
   public static final Color ERROR_MESSAGE_COLOR = Color.white; //new Color(157, 14, 45); // RED
   public static final Color WARNING_MESSAGE_COLOR = new Color(255, 199, 38);
   public static final Color ACQUIRING_COLOR = new Color(108, 203, 237);
+  public static final Color ACQUIRING_IMTERRUPTIBLY_COLOR = new Color(220, 220, 220);
   public static final Color ATTEMPTING_COLOR = new Color(255, 199, 38);
   public static final Color REJECTED_COLOR = Color.white;//new Color(157, 14, 45);//RED
   public static final Color DEFAULT_BACKGROUND = new Color(0, 56, 104);// DARK BLUE
