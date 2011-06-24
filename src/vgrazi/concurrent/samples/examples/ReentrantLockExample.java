@@ -252,7 +252,7 @@ public class ReentrantLockExample extends ConcurrentExample {
 
   /**
    * Sits in a wait block until MUTEX.notify() is called by the locked thread.
-   * @param sprite
+   * @param sprite the sprite that has acquired, waiting for release or interrupt
    */
   private void waitForUnlockNotification(ConcurrentSprite sprite) {
     synchronized(MUTEX) {
@@ -289,7 +289,7 @@ public class ReentrantLockExample extends ConcurrentExample {
   }
 
   public String getDescriptionHtml() {
-    StringBuffer sb = new StringBuffer();
+//    StringBuffer sb = new StringBuffer();
 //    sb.append("<html>");
 //    sb.append("<table border=\"0\"><tr valign='top'><td valign='top'>");
 //    sb.append("<font size='" + FONT_SIZE + "'color=\"" + ConcurrentExampleConstants.HTML_FONT_COLOR + "\">");
@@ -307,9 +307,8 @@ public class ReentrantLockExample extends ConcurrentExample {
 //    sb.append("<tr><td>&nbsp;</td></tr>");
 //    sb.append("<tr><td>&nbsp;</td></tr>");
 //    sb.append("</table></html>");
-
-    return sb.toString();
-
+//    return sb.toString();
+      return "";
   }
 
   @Override
