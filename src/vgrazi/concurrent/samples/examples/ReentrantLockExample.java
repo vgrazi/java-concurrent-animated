@@ -25,13 +25,13 @@ public class ReentrantLockExample extends ConcurrentExample {
   private final List<ThreadSpriteHolder> interruptibleSprites = Collections.synchronizedList(new ArrayList<ThreadSpriteHolder>());
   private volatile int lockCount;
   private final JButton lockButton = new JButton("lock");
-  private final JButton releaseButton = new JButton("release");
+  private final JButton unlockButton = new JButton("unlock");
   private final JButton interruptWaitingButton = new JButton("interrupt (waiting)");
   private final JButton interruptLockedButton = new JButton("interrupt (locked)");
   private final JButton tryButton = new JButton("tryLock");
   private final JButton lockInterruptiblyButton = new JButton("lockInterruptibly");
   private boolean initialized = false;
-  private static final int MIN_SNIPPET_POSITION = 400;
+  private static final int MIN_SNIPPET_POSITION = 450;
   private final JTextField threadCountField = createThreadCountField();
   private ThreadSpriteHolder lockedSprite;
 
@@ -53,17 +53,17 @@ public class ReentrantLockExample extends ConcurrentExample {
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
        "       // lock unblocks and work continues... \n" +
        " \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Unlocking Thread - All waiting threads are<br>    // notified when lock is released. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
+       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Unlocking Thread - All waiting threads are<br>    // notified when lock is unlockd. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
        "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
        " lock.unlock(); \n" +
        " \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Try Lock Thread - All waiting threads are<br>    // notified when lock is released. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
+       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Try Lock Thread - All waiting threads are<br>    // notified when lock is unlockd. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
        "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">try</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
        "         if(lock.tryLock(1L, TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">)){\n" +
        "           try {                                \n" +
        "             doSomething();                     \n" +
        "           } finally {                            \n" +
-       "             lock.release();                    \n" +
+       "             lock.unlock();                    \n" +
        "           }                                 \n" +     
        "         }\n" +
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
@@ -117,9 +117,9 @@ public class ReentrantLockExample extends ConcurrentExample {
         }
       });
 
-      initializeButton(releaseButton, new Runnable() {
+      initializeButton(unlockButton, new Runnable() {
         public void run() {
-          releaseMethod();
+          unlockMethod();
         }
       });
 
@@ -156,7 +156,7 @@ public class ReentrantLockExample extends ConcurrentExample {
     Thread.currentThread().interrupt();
   }
 
-  private void releaseMethod() {
+  private void unlockMethod() {
     setState(2);
     int count = getThreadCount(threadCountField);
     for (int i = 0; i < count; i++) {
@@ -167,7 +167,7 @@ public class ReentrantLockExample extends ConcurrentExample {
           Thread.sleep(500);
         } catch (InterruptedException e) {
           message1(e.getMessage(), ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-          System.out.println("ReentrantLockExample.releaseMethod interrupted");
+          System.out.println("ReentrantLockExample.unlockMethod interrupted");
           Thread.currentThread().interrupt();
         }
       }
@@ -251,7 +251,7 @@ public class ReentrantLockExample extends ConcurrentExample {
 
   /**
    * Sits in a wait block until MUTEX.notify() is called by the locked thread.
-   * @param sprite the sprite that has acquired, waiting for release or interrupt
+   * @param sprite the sprite that has acquired, waiting for unlock or interrupt
    */
   private void waitForUnlockNotification(ConcurrentSprite sprite) {
     synchronized(MUTEX) {
