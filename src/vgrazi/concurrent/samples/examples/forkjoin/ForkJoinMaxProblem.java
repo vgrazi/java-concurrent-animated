@@ -105,9 +105,9 @@ public class ForkJoinMaxProblem {
         forkJoinThread.setCurrentSprite(null);
         Solver solver1 = new Solver(array, start, mid, level +1);
         Solver solver2 = new Solver(array, mid, end, level +1);
+        forkJoinThread.setCurrentSprite(sprite);
         sleep();
         invokeAll(solver1, solver2);
-        forkJoinThread.setCurrentSprite(sprite);
         result = Math.max(solver1.result, solver2.result);
       }
       sprite.setComplete(result);
