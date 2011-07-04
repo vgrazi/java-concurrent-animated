@@ -94,7 +94,7 @@ public class ForkJoinMaxProblem {
         if(forkJoinThread.getIndex() == 0){
             concurrentExample.setState(2);
         }
-        sleep();
+//        sleep(.75f);
 
       }
       else {
@@ -105,17 +105,20 @@ public class ForkJoinMaxProblem {
         forkJoinThread.setCurrentSprite(null);
         Solver solver1 = new Solver(array, start, mid, level +1);
         Solver solver2 = new Solver(array, mid, end, level +1);
-        forkJoinThread.setCurrentSprite(sprite);
-        sleep();
+//        sleep(.375f);
         invokeAll(solver1, solver2);
+          forkJoinThread.setCurrentSprite(sprite);
+//        sleep(.375f);
+
         result = Math.max(solver1.result, solver2.result);
       }
+        sleep(.75f);
       sprite.setComplete(result);
     }
 
-    private void sleep() {
+    private void sleep(float seconds) {
       try {
-        Thread.sleep((long) (.75 * 1000L));
+        Thread.sleep((long) (seconds * 1000L));
       }
       catch(InterruptedException e) {
         Thread.currentThread().interrupt();
