@@ -25,7 +25,7 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
 
       initialized = true;
     }
-    resetThreadCountField(threadCountField, 2);
+    resetThreadCountField(threadCountField, 3);
     reset();
   }
 
