@@ -37,6 +37,3 @@ public class ConcurrentExampleConstants {
   public static final String REFERENCES_FILE = "/images/references.html";
   public static final String PLAN_FILE = "images/plan.xml";
 }
-/*
- * $Log: $
- */
