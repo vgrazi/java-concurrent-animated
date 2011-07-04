@@ -25,6 +25,11 @@ public class StopWatch {
     return getDurationString(duration);
   }
 
+  public String getDurationSecondsString() {
+    long duration = getDuration();
+    return getDurationSecondsString(duration);
+  }
+
   public static void main(String[] args) throws InterruptedException {
     StopWatch stopWatch = new StopWatch(false);
     String time = stopWatch.getDurationString(60*60000*2 + 60000 * 3 + 1000 * 5 + 123);
@@ -42,6 +47,12 @@ public class StopWatch {
     long min = fractionalPart(duration / 60000, 60);
     long hours = fractionalPart(duration /(60000 * 60), 60);
     return String.format("Hours:%d, Minutes:%d, Seconds:%d, MS:%d", hours, min, sec, ms);
+  }
+
+  private String getDurationSecondsString(long duration) {
+    long ms = fractionalPart(duration, 1000);
+    long sec = fractionalPart(duration / 1000, 60);
+    return String.format("%d.%d Seconds", sec, ms);
   }
 
   private long fractionalPart(long duration, int divisor) {
