@@ -6,8 +6,8 @@ import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ImagePanel;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
+import vgrazi.concurrent.samples.util.UIUtils;
 import vgrazi.util.IOUtils;
-import vgrazi.util.UIUtils;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
