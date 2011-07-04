@@ -78,7 +78,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
         textWidth = fontMetrics.stringWidth(text);
         xPos = (spriteWidth - textWidth)/2 + left;
 
-        g.drawString(text, xPos, yPos + spriteHeight - fontMetrics.getHeight() -5);
+        g.drawString(text, xPos, yPos + spriteHeight - fontMetrics.getHeight() -3);
       }
       text = String.format("(%d, %d)", sprite.getStart(), sprite.getEnd());
       textWidth = fontMetrics.stringWidth(text);
