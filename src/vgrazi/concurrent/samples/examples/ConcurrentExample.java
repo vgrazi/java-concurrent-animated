@@ -512,12 +512,12 @@ public abstract class ConcurrentExample extends JPanel {
     threadCountField.setText(String.valueOf(value));
   }
 
-  protected void message1(String text, Color foreground) {
+  public void message1(String text, Color foreground) {
     final JLabel messageLabel = message1Label;
     message(messageLabel, foreground, text);
   }
 
-  protected void message2(String text, Color foreground) {
+  public void message2(String text, Color foreground) {
     final JLabel messageLabel = message2Label;
     message(messageLabel, foreground, text);
   }
@@ -542,12 +542,12 @@ public abstract class ConcurrentExample extends JPanel {
     }
   }
 
-  protected void message1(Color foreground) {
+  public void message1(Color foreground) {
     message1Label.setForeground(foreground);
     message1Label.setText(message1Label.getText());
   }
 
-  protected void message2(Color foreground) {
+  public void message2(Color foreground) {
     message2Label.setForeground(foreground);
     message2Label.setText(message2Label.getText());
   }

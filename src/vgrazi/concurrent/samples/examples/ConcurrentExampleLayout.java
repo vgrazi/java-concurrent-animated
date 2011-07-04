@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples.examples;
 
 import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 import vgrazi.concurrent.samples.MessageLabel;
+import vgrazi.concurrent.samples.canvases.ForkJoinCanvas;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ import java.util.List;
  * Time: 2:30:51 PM
  */
 public class ConcurrentExampleLayout extends FlowLayout {
-  private static final int MAX_OTHER_WIDTH = 400;
+  private static final int MAX_OTHER_WIDTH = 650;
   private final int MIN_SNIPPET_XPOS;
   private static final int INSET = 5;
 
@@ -130,7 +131,10 @@ public class ConcurrentExampleLayout extends FlowLayout {
     if (otherWidth > MAX_OTHER_WIDTH) {
       otherWidth = MAX_OTHER_WIDTH;
     }
-    if (canvas != null) {
+    if(canvas instanceof ForkJoinCanvas) {
+      canvas.setBounds(INSET, yPos - 30, otherWidth, target.getSize().height - yPos);
+    }
+    else if (canvas != null) {
       canvas.setBounds(INSET, yPos, otherWidth, target.getSize().height - yPos);
     }
     if (snippetPane != null) {

@@ -19,11 +19,15 @@ public class ConcurrentExampleConstants {
   public static final Color MUTEX_FONT_COLOR = new Color(227, 223, 219);//GRAY 40%
   public static final Color CAS_CIRCLE_COLOR = Color.black;
   public static final Color CAS_ANIMATION_COLOR = Color.white;
-  protected static final Color DEFAULT_BUTTON_COLOR = Color.BLUE;
+  public static final Color DEFAULT_BUTTON_COLOR = Color.BLUE;
+  public static final Color TEXT_SPRITE_COLOR = Color.WHITE ;
+  public static final Color FORK_JOIN_THREAD_COLOR = Color.WHITE;
+  public static final Color FORK_JOIN_COMPLETE_COLOR = ConcurrentExampleConstants.ACQUIRING_COLOR.darker();
 
   public static final Font MUTEX_HEADER_FONT = new Font("Serif", Font.BOLD, 24);
   public static final Font BUTTON_FONT = new Font("SansSerif", Font.PLAIN, 12);
   public static final Font LABEL_FONT = new Font("SansSerif", Font.BOLD, 16);
+  public static final Font TEXT_SPRITE_FONT = new Font("Serif", Font.BOLD, 20);
   public static final String LOGO = "images/concurrent.gif";
 //  public static final String LOGO = "images/CS.JPG";
   public static final String LOGO_APPLET = "concurrent.gif";
