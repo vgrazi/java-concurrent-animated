@@ -43,6 +43,9 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
     int activeThreadCount = 0;
     for(int i = 0, spritesSize = sprites.size(); i < spritesSize; i++) {
       ForkJoinSprite sprite = sprites.get(i);
+      if(sprite == null) {
+          continue;
+      }
       if(!sprite.isComplete()) {
         g.setColor(ConcurrentExampleConstants.ACQUIRING_COLOR);
       }
@@ -75,7 +78,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
         textWidth = fontMetrics.stringWidth(text);
         xPos = (spriteWidth - textWidth)/2 + left;
 
-        g.drawString(text, xPos, yPos + spriteHeight - fontMetrics.getHeight());
+        g.drawString(text, xPos, yPos + spriteHeight - fontMetrics.getHeight() -5);
       }
       text = String.format("(%d, %d)", sprite.getStart(), sprite.getEnd());
       textWidth = fontMetrics.stringWidth(text);
@@ -84,7 +87,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
 
       // render the worker thread animation
       if(sprite.getForkJoinThread() != null) {
-        g.setColor(ConcurrentExampleConstants.FORK_JOIN_THREAD_COLOR);
+        g.setColor(sprite.getForkJoinThread().getThreadColor());
 //        g.drawLine(left + 5, yPos + 5, left + spriteWidth - 10, yPos + 5);
         renderWorkingAnimation(g, left, yPos + 5, sprite.getCircleLocation());
         sprite.bumpCircleLocation();
@@ -95,7 +98,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
     if(activeThreadCount != 0 && lastActiveCount != activeThreadCount) {
       lastActiveCount = activeThreadCount;
       getConcurrentExample().message1(String.format("%d active threads", activeThreadCount), ConcurrentExampleConstants.MESSAGE_COLOR);
-      System.out.printf("ForkJoinCanvas.drawForkJoinSprites active thread count:%d%n", activeThreadCount);
+//      System.out.printf("ForkJoinCanvas.drawForkJoinSprites active thread count:%d%n", activeThreadCount);
     }
   }
 

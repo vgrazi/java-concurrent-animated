@@ -11,6 +11,7 @@ import vgrazi.util.StopWatch;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ForkJoinMaxProblem {
@@ -70,7 +71,6 @@ public class ForkJoinMaxProblem {
       this.level = step;
     }
 
-    private int lastCount;
     @Override
     protected void compute() {
       final Thread thread = Thread.currentThread();
@@ -128,18 +128,23 @@ public class ForkJoinMaxProblem {
   private void findMax(int[] array) {
     Solver solver = new Solver(array, 0, array.length, 0);
 
-      System.out.println("Thread:"+ threadCount);
+//      System.out.println("Thread:"+ threadCount);
     pool = new ForkJoinPool(threadCount);
     StopWatch stopwatch = new StopWatch();
-    pool.invoke(solver);
+      try{
+          pool.invoke(solver);
+      }
+      catch(CancellationException e) {
+          System.out.println("ForkJoinMaxProblem.findMax cancelled");
+      }
       stopwatch.stop();
       String time = stopwatch.getDurationString();
-    int result = solver.result;
-      System.out.printf("Fork&Join   Done. Result: %d  time:%s%n", result, time);
+      int result = solver.result;
+//      System.out.printf("Fork&Join   Done. Result: %d  time:%s%n", result, time);
       concurrentExample.message1(String.format("Done - Result: %d    Execution time: %s%n", result, stopwatch.getDurationSecondsString()), ConcurrentExampleConstants.MESSAGE_COLOR);
-    displayThreadCounts();
-    int max = 0;
-    // Check if the result was ok
+//      displayThreadCounts();
+      int max = 0;
+      // Check if the result was ok
       stopwatch = new StopWatch();
 
     stopwatch.start();
@@ -150,7 +155,7 @@ public class ForkJoinMaxProblem {
     }
     stopwatch.stop();
     time = stopwatch.getDurationString();
-    System.out.printf("Synchronous Done. Result: %d  time:%s%n", max, time);
+//    System.out.printf("Synchronous Done. Result: %d  time:%s%n", max, time);
 
 
   }

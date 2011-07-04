@@ -47,13 +47,15 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
         ".s1 { color: rgb(128,128,128); font-style: italic; }\n" +
         ".s2 { color: rgb(0,0,128); font-weight: bold; }\n" +
         ".s3 { color: rgb(0,0,255); }\n" +
+        ".s4 { color: rgb(128,128,128); }\n" +
         "</style> \n" +
         "</head>\n" +
         "<BODY BGCOLOR=\"#ffffff\">" +
         "<pre><span class=\"s1\">  /** \n" +
-        "   * Calculate the array maximum using Fork &amp; Join \n" +
+        "   * Calculate the array[14] maximum using Fork &amp; Join \n" +
         "   */</span><span class=\"s0\"> \n" +
-        "  </span><span class=\"s2\">public int </span><span class=\"s0\">findMax(</span><span class=\"s2\">int</span><span class=\"s0\">[] array, <span class=\"s2\">int</span><span class=\"s0\"> threadCount) { \n" +
+        "  </span><span class=\"s2\">public int </span><span class=\"s0\">findMax(</span><span class=\"s2\">int</span>" +
+            "<span class=\"s0\">[] array, <span class=\"s2\">int</span><span class=\"s0\"> threadCount) { \n" +
         "    Solver solver = </span><span class=\"s2\">new </span><span class=\"s0\">Solver(array, </span><span class=\"s3\">0</span><span class=\"s0\">, array.length); \n" +
         "    ForkJoinPool pool = </span><span class=\"s2\">new </span><span class=\"s0\">ForkJoinPool(threadCount); \n" +
         "    pool.invoke(solver); \n" +

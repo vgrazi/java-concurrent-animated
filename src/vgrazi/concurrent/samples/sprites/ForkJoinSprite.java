@@ -62,7 +62,7 @@ public class ForkJoinSprite extends ConcurrentSprite {
   }
 
   public void removeThread() {
-    System.out.printf("ForkJoinSprite.removeThread %s from %s%n", forkJoinThread, this);
+//    System.out.printf("ForkJoinSprite.removeThread %s from %s%n", forkJoinThread, this);
     this.forkJoinThread = null;
   }
 
