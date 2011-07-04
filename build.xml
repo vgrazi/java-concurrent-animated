@@ -2,6 +2,7 @@
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
     <property name="dist" location="dist"/>
+    <property name="lib" location="lib"/>
     <property name="build" location="${dist}/"/>
 
     <target name="clean"
@@ -13,8 +14,10 @@
     <target name="init">
         <mkdir dir="dist/images"/>
     </target>
-
-    <target name="compile" depends="init"
+    <target name="unzip_jars" depends="init">
+        <unzip src="${lib}/jsr166y.jar" dest="${build}"/>
+    </target>
+    <target name="compile" depends="unzip_jars"
             description="compile the source ">
         <!-- Compile the java code from ${src} into ${build} -->
         <javac srcdir="${src}" destdir="${build}" debug="true" debuglevel="lines,source"/>
