@@ -44,7 +44,7 @@ public class ForkJoinMaxProblem {
   private int[] initialize() {
     int[] array = new int[arraySize];
     for(int i = 0; i < array.length; i++) {
-      array[i] = random.nextInt(arraySize* 2);
+      array[i] = random.nextInt(50);
     }
     return array;
   }
@@ -91,17 +91,25 @@ public class ForkJoinMaxProblem {
       final int length = end - start;
       if(length == 1) {
         result = array[start];
+        if(forkJoinThread.getIndex() == 0){
+            concurrentExample.setState(2);
+        }
+        sleep();
+
       }
       else {
+        if(forkJoinThread.getIndex() == 0){
+            concurrentExample.setState(3);
+        }
         int mid = (start + end)/2;
         forkJoinThread.setCurrentSprite(null);
         Solver solver1 = new Solver(array, start, mid, level +1);
         Solver solver2 = new Solver(array, mid, end, level +1);
+        sleep();
         invokeAll(solver1, solver2);
         forkJoinThread.setCurrentSprite(sprite);
         result = Math.max(solver1.result, solver2.result);
       }
-      sleep();
       sprite.setComplete(result);
     }
 
@@ -133,6 +141,7 @@ public class ForkJoinMaxProblem {
     StopWatch stopwatch = new StopWatch();
       try{
           pool.invoke(solver);
+          concurrentExample.setState(4);
       }
       catch(CancellationException e) {
           System.out.println("ForkJoinMaxProblem.findMax cancelled");
@@ -143,28 +152,26 @@ public class ForkJoinMaxProblem {
 //      System.out.printf("Fork&Join   Done. Result: %d  time:%s%n", result, time);
       concurrentExample.message1(String.format("Done - Result: %d    Execution time: %s%n", result, stopwatch.getDurationSecondsString()), ConcurrentExampleConstants.MESSAGE_COLOR);
 //      displayThreadCounts();
-      int max = 0;
+//      int max = 0;
       // Check if the result was ok
-      stopwatch = new StopWatch();
+//      stopwatch = new StopWatch();
 
-    stopwatch.start();
-    for(int i : array) {
-      if(i > max) {
-        max = i;
-      }
-    }
-    stopwatch.stop();
-    time = stopwatch.getDurationString();
+//    stopwatch.start();
+//    for(int i : array) {
+//      if(i > max) {
+//        max = i;
+//      }
+//    }
+//    stopwatch.stop();
+//    time = stopwatch.getDurationString();
 //    System.out.printf("Synchronous Done. Result: %d  time:%s%n", max, time);
-
-
   }
 
-  private void displayThreadCounts() {
-    for(Map.Entry<Thread, Integer> entry : counterMap.entrySet()) {
-      System.out.println(entry);
-    }
-  }
+//  private void displayThreadCounts() {
+//    for(Map.Entry<Thread, Integer> entry : counterMap.entrySet()) {
+//      System.out.println(entry);
+//    }
+//  }
   public void reset() {
     if(pool != null) {
       pool.shutdownNow();

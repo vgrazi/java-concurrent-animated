@@ -16,6 +16,7 @@ public class ForkJoinThread {
      * This is the color of this thread, as displayed when this thread is working as a rotating oval
      */
   private Color threadColor;
+  private int index;
   private static List<Thread> threads = new ArrayList<Thread>();
   public ForkJoinThread(Thread thread) {
     this.thread = thread;
@@ -28,13 +29,13 @@ public class ForkJoinThread {
    */
   private void registerThread(Thread thread) {
     synchronized (getClass()){
-        int index = threads.indexOf(thread);
+        index = threads.indexOf(thread);
         if(index < 0) {
             index = threads.size();
             threads.add(thread);
         }
-        index = index % ConcurrentExampleConstants.FORK_JOIN_THREAD_COLORS.length;
-        threadColor = ConcurrentExampleConstants.FORK_JOIN_THREAD_COLORS[index];
+        int colorIndex = index % ConcurrentExampleConstants.FORK_JOIN_THREAD_COLORS.length;
+        threadColor = ConcurrentExampleConstants.FORK_JOIN_THREAD_COLORS[colorIndex];
     }
   }
 
@@ -60,5 +61,11 @@ public class ForkJoinThread {
 
     public Color getThreadColor() {
         return threadColor;
+    }
+    public int getIndex () {
+        return index;
+    }
+    public static void reset() {
+        threads.clear();
     }
 }

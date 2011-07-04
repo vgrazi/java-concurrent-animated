@@ -569,24 +569,37 @@ public abstract class ConcurrentExample extends JPanel {
    *
    * @param state -1 colors the entire snippet. 0 colors the constructor, etc
    */
-  protected void setState(int state) {
+  public void setState(int state) {
     String snippet = getSnippet();
-    if (snippet != null) {
-      if (state == -1) {
-        snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", "$1");
-      } else {
-        snippet = snippet.replaceAll("<state" + state + ":(#\\d\\d\\d\\d\\d\\d)>", "$1");
-        snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", ConcurrentExampleConstants.HTML_DISABLED_COLOR);
-      }
-      // in order to change the size of the selected font, include a size css font style as follows: font-size:state2-size
-      // the state number (in this example state2) corresponds to the state parameter
-      if (state>=0) {
-        snippet = snippet.replaceAll(String.format("state%d-size", state), "24pt");
-        snippet = snippet.replaceAll(String.format("state[~%d]-size", state), "21pt");
-      }
-      getSnippetLabel().setText(snippet);
-    }
+    snippet = applyState(state, snippet);
+    getSnippetLabel().setText(snippet);
+
   }
+
+    private static String applyState(int state, String snippet) {
+//        System.out.println("ConcurrentExample.applyState " + state);
+        if (snippet != null) {
+          if (state == -1) {
+            snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", "$1");
+          } else {
+            snippet = snippet.replaceAll("<state" + state + ":(#\\d\\d\\d\\d\\d\\d)>", "$1");
+            snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", ConcurrentExampleConstants.HTML_DISABLED_COLOR);
+          }
+          // in order to change the size of the selected font, include a size css font style as follows: font-size:state2-size
+          // the state number (in this example state2) corresponds to the state parameter
+          if (state>=0) {
+            snippet = snippet.replaceAll(String.format("state%d-size", state), "24pt");
+            snippet = snippet.replaceAll(String.format("state[~%d]-size", state), "21pt");
+          }
+
+          // for newer html output, intelliJ is spitting out css. The default css class is .s9
+          // Look for <state2:s1> if state == 2 convert that to s1 else s9
+          snippet = snippet.replaceAll("<state" + state + "\\:(s\\d)>", "$1");
+          snippet = snippet.replaceAll("<state\\d:(s\\d)>", "s9");
+
+        }
+        return snippet;
+    }
 
   private JLabel getSnippetLabel() {
     return snippetLabel;

@@ -4,6 +4,7 @@ import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.canvases.ForkJoinCanvas;
 import vgrazi.concurrent.samples.examples.forkjoin.ForkJoinMaxProblem;
+import vgrazi.concurrent.samples.sprites.ForkJoinThread;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,37 +48,38 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
         ".s1 { color: rgb(128,128,128); font-style: italic; }\n" +
         ".s2 { color: rgb(0,0,128); font-weight: bold; }\n" +
         ".s3 { color: rgb(0,0,255); }\n" +
-        ".s4 { color: rgb(128,128,128); }\n" +
+        ".s9 { color: rgb(128,128,128); }\n" +
         "</style> \n" +
         "</head>\n" +
         "<BODY BGCOLOR=\"#ffffff\">" +
         "<pre><span class=\"s1\">  /** \n" +
         "   * Calculate the array[14] maximum using Fork &amp; Join \n" +
-        "   */</span><span class=\"s0\"> \n" +
-        "  </span><span class=\"s2\">public int </span><span class=\"s0\">findMax(</span><span class=\"s2\">int</span>" +
-            "<span class=\"s0\">[] array, <span class=\"s2\">int</span><span class=\"s0\"> threadCount) { \n" +
-        "    Solver solver = </span><span class=\"s2\">new </span><span class=\"s0\">Solver(array, </span><span class=\"s3\">0</span><span class=\"s0\">, array.length); \n" +
-        "    ForkJoinPool pool = </span><span class=\"s2\">new </span><span class=\"s0\">ForkJoinPool(threadCount); \n" +
+        "   */</span><span class=\"<state1:s0>\"> \n" +
+        "  </span><span class=\"<state0:s2>\">public int </span><span class=\"<state0:s0>\">findMax(</span><span class=\"<state0:s2>\">int</span>" +
+            "<span class=\"<state0:s0>\">[] array, <span class=\"<state0:s2>\">int</span><span class=\"<state0:s0>\"> threadCount) { \n" +
+        "    Solver solver = </span><span class=\"<state0:s2>\">new </span><span class=\"<state0:s0>\">Solver(array, </span><span class=\"<state0:s3>\">0</span><span class=\"<state0:s0>\">, array.length); \n" +
+        "    ForkJoinPool pool = </span><span class=\"<state0:s2>\">new </span><span class=\"<state0:s0>\">ForkJoinPool(threadCount); \n" +
         "    pool.invoke(solver); \n" +
-        "    </span><span class=\"s2\">int </span><span class=\"s0\">result = solver.result; \n" +
-        "    </span><span class=\"s2\">return </span><span class=\"s0\">result; \n" +
+        "    </span><span class=\"<state4:s2>\">int </span><span class=\"<state4:s0>\">result = solver.result; \n" +
+        "    </span><span class=\"<state4:s2>\">return </span><span class=\"<state4:s0>\">result; \n" +
         "  } \n" +
-        "  </span><span class=\"s2\">class </span><span class=\"s0\">Solver </span><span class=\"s2\">extends </span><span class=\"s0\">RecursiveAction { \n" +
-        "    </span><span class=\"s2\">private int </span><span class=\"s0\">start, end, result, array[]; \n" +
-        "    </span><span class=\"s2\">private </span><span class=\"s0\">Solver(</span><span class=\"s2\">int</span><span class=\"s0\">[] array, </span><span class=\"s2\">int </span><span class=\"s0\">start, </span><span class=\"s2\">int </span><span class=\"s0\">end) { \n" +
-        "      </span><span class=\"s2\">this</span><span class=\"s0\">.array = array; \n" +
-        "      </span><span class=\"s2\">this</span><span class=\"s0\">.start = start; \n" +
-        "      </span><span class=\"s2\">this</span><span class=\"s0\">.end = end; \n" +
+        "  </span><span class=\"<state0:s2>\">class </span><span class=\"<state0:s0>\">Solver </span><span class=\"<state0:s2>\">extends </span><span class=\"<state0:s0>\">RecursiveAction { \n" +
+        "    </span><span class=\"<state0:s2>\">private int </span><span class=\"<state0:s0>\">start, end, result, array[]; \n" +
+        "    </span><span class=\"<state0:s2>\">private </span><span class=\"<state0:s0>\">Solver(</span><span class=\"<state0:s2>\">int</span><span class=\"<state0:s0>\">[] array, </span>" +
+            "<span class=\"<state0:s2>\">int </span><span class=\"<state0:s0>\">start, </span><span class=\"<state0:s2>\">int </span><span class=\"<state0:s0>\">end) { \n" +
+        "      </span><span class=\"<state0:s2>\">this</span><span class=\"<state0:s0>\">.array = array; \n" +
+        "      </span><span class=\"<state0:s2>\">this</span><span class=\"<state0:s0>\">.start = start; \n" +
+        "      </span><span class=\"<state0:s2>\">this</span><span class=\"<state0:s0>\">.end = end; \n" +
         "    } \n" +
         "    @Override \n" +
-        "    </span><span class=\"s2\">protected void </span><span class=\"s0\">compute() { \n" +
-        "      </span><span class=\"s2\">if</span><span class=\"s0\">(end - start == </span><span class=\"s3\">1</span><span class=\"s0\">) { \n" +
+        "    </span><span class=\"<state0:s2>\">protected void </span><span class=\"<state0:s0>\">compute() { \n" +
+        "      </span><span class=\"<state2:s2>\">if</span><span class=\"<state2:s0>\">(end - start == </span><span class=\"<state2:s3>\">1</span><span class=\"<state2:s0>\">) { \n" +
         "        result = array[start]; \n" +
         "      } \n" +
-        "      </span><span class=\"s2\">else </span><span class=\"s0\">{ \n" +
-        "        </span><span class=\"s2\">int </span><span class=\"s0\">mid = (start + end)/</span><span class=\"s3\">2</span><span class=\"s0\">; \n" +
-        "        Solver solver1 = </span><span class=\"s2\">new </span><span class=\"s0\">Solver(array, start, mid); \n" +
-        "        Solver solver2 = </span><span class=\"s2\">new </span><span class=\"s0\">Solver(array, mid, end); \n" +
+        "      </span><span class=\"<state3:s2>\">else </span><span class=\"<state0:s0>\">{ \n" +
+        "        </span><span class=\"<state3:s2>\">int </span><span class=\"<state3:s0>\">mid = (start + end)/</span><span class=\"<state3:s3>\">2</span><span class=\"<state3:s0>\">; \n" +
+        "        Solver solver1 = </span><span class=\"<state3:s2>\">new </span><span class=\"<state3:s0>\">Solver(array, start, mid); \n" +
+        "        Solver solver2 = </span><span class=\"<state3:s2>\">new </span><span class=\"<state3:s0>\">Solver(array, mid, end); \n" +
         "        invokeAll(solver1, solver2); \n" +
         "        result = Math.max(solver1.result, solver2.result); \n" +
         "      } \n" +
@@ -106,6 +108,8 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
     }
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
     ((ForkJoinCanvas) getCanvas()).reset();
+    ForkJoinThread.reset();
+    setState(0);
   }
 
   /**
