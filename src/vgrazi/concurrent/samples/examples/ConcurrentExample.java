@@ -35,6 +35,7 @@ public abstract class ConcurrentExample extends JPanel {
   protected final JLabel message2Label = new MessageLabel(" ");
   protected final JPanel imagePanel = new ImagePanel(this);
   protected final JButton resetButton = new JButton("Reset");
+  private JTextField threadCountField;
 
   private ConcurrentSpriteCanvas canvas;
 
@@ -400,7 +401,7 @@ public abstract class ConcurrentExample extends JPanel {
    * @return a default thread count field
    */
   protected JTextField createThreadCountField() {
-    final JTextField threadCountField = new JTextField(3);
+    threadCountField = new JTextField(3);
     threadCountField.setHorizontalAlignment(SwingConstants.CENTER);
     return threadCountField;
   }
@@ -493,6 +494,10 @@ public abstract class ConcurrentExample extends JPanel {
       }
     }
     return count;
+  }
+
+  protected int getThreadCount() {
+      return getThreadCount(threadCountField);
   }
 
   /**
