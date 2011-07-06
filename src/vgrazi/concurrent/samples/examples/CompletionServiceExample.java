@@ -28,6 +28,7 @@ public class CompletionServiceExample extends ConcurrentExample {
   private final JButton submitButton = new JButton("submit");
   private final JButton takeButton = new JButton("take().get()");
   private CompletionService<Result> completionService;
+  private Executor executor = Executors.newCachedThreadPool();
   private int index;
   private int RESET_COUNT = 0;
   private JTextField threadCountField = createThreadCountField();
@@ -47,7 +48,12 @@ public class CompletionServiceExample extends ConcurrentExample {
           setState(1);
           int count = getThreadCount(threadCountField);
           for (int i = 0; i < count; i++) {
-            submit();
+              executor.execute(new Runnable() {
+                  public void run() {
+                      submit();
+
+                  }
+              });
           }
         }
       });
@@ -71,7 +77,7 @@ public class CompletionServiceExample extends ConcurrentExample {
     Callable<Result> callable = new Callable<Result>() {
       public Result call() throws Exception {
         setSpriteAcquired(result);
-        long time = (long) (1000 + Math.random() * 2000);
+        long time = (long) (1000 + Math.random() * 3000);
         Thread.sleep(time);
         if (result.resetCount == RESET_COUNT) {
           message2("Calculation " + result.index + " complete", ConcurrentExampleConstants.MESSAGE_COLOR);
