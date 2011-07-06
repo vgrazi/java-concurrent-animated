@@ -46,6 +46,10 @@
     <MenuItem label="BlockingQueue">
         <Example class="vgrazi.concurrent.samples.examples.BlockingQueueExample" paging="true" fair="false" mutexLabel="BlockingQueue"/>
     </MenuItem>
+    <!--todo: add an image slide-->
+    <MenuItem label="TransferQueue">
+        <Example class="vgrazi.concurrent.samples.examples.TransferQueueExample" paging="true" fair="false" mutexLabel="TransferQueue"/>
+    </MenuItem>
     <ImageSlide image="images/completionService.jpg"/>
     <MenuItem label="CompletionService">
         <Example class="vgrazi.concurrent.samples.examples.CompletionServiceExample" paging="true" fair="false" mutexLabel="CompletionService"/>
