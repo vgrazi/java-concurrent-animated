@@ -42,7 +42,7 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
 
   @Override
   protected String getSnippet() {
-    return "<html><style type=\"text/css\"> \n" +
+    return "<html><head><style type=\"text/css\"> \n" +
         ".ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }\n" +
         ".s0 { }\n" +
         ".s1 { color: rgb(128,128,128); font-style: italic; }\n" +
