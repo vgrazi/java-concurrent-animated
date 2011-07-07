@@ -7,9 +7,7 @@ import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /*
  * @user vgrazi.
@@ -34,13 +32,19 @@ public class BlockingQueueExample extends ConcurrentExample {
   private boolean initialized = false;
   private static final int MIN_SNIPPET_POSITION = 340;
   private JTextField threadCountField = createThreadCountField();
+  private final ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(10);
+  private final Executor executor = Executors.newCachedThreadPool();
 
     public String getTitle() {
     return "BlockingQueue";
   }
 
   public BlockingQueueExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.BLOCKING, MIN_SNIPPET_POSITION, false, slideNumber);
+    this(title, frame, MIN_SNIPPET_POSITION, slideNumber);
+  }
+
+  public BlockingQueueExample(String title, Container frame, int snippetPosition, int slideNumber) {
+    super(title, frame, ExampleType.BLOCKING, snippetPosition, false, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -51,18 +55,26 @@ public class BlockingQueueExample extends ConcurrentExample {
 
         initializeButton(takeButton, new Runnable() {
         public void run() {
+            clearMessages();
           int count = getThreadCount(threadCountField);
+          delayAfterClick();
           for (int i = 0; i < count; i++) {
-            take();
+              executor.execute(new Runnable() {
+                  public void run() {
+                      take();
+                  }
+              });
           }
         }
       });
         initializeButton(pollButton, new Runnable() {
           public void run() {
+              clearMessages();
             int count = getThreadCount(threadCountField);
             for (int i = 0; i < count; i++) {
               poll();
             }
+            delayAfterClick();
           }
         });
       initializeOthers();
@@ -73,9 +85,19 @@ public class BlockingQueueExample extends ConcurrentExample {
 
   }
 
+    protected void delayAfterClick() {
+        scheduledExecutor.schedule(new Runnable() {
+            public void run() {
+                afterClick();
+
+            }
+        }, 100, TimeUnit.MILLISECONDS);
+    }
+
     protected void initializeOffer() {
         initializeButton(offerButton, new Runnable() {
         public void run() {
+            clearMessages();
           int count = getThreadCount(threadCountField);
           for (int i = 0; i < count; i++) {
             threadCountExecutor.execute(new Runnable() {
@@ -84,6 +106,7 @@ public class BlockingQueueExample extends ConcurrentExample {
                 }
             });
           }
+          delayAfterClick();
         }
       });
     }
@@ -91,11 +114,14 @@ public class BlockingQueueExample extends ConcurrentExample {
     protected void initializePut() {
         initializeButton(putButton, new Runnable() {
           public void run() {
+              clearMessages();
+
             setAnimationCanvasVisible(true);
             int count = getThreadCount(threadCountField);
             for (int i = 0; i < count; i++) {
               put();
             }
+            delayAfterClick();
           }
         });
     }
@@ -108,35 +134,42 @@ public class BlockingQueueExample extends ConcurrentExample {
 
     private void put() {
     try {
-      message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+//      message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       setState(1);
       ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
       getQueue().put(sprite);
       sprite.setAcquired();
-      message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
+//      message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
   }
 
+    /**
+     * Hook method for subclasses
+     */
+  protected void afterClick() {
+  }
+
+
   private void poll() {
     setState(2);
     int index = this.index++;
-    message2("Attempting removal " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+//    message2("Attempting removal " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     ConcurrentSprite sprite = getQueue().poll();
     if (sprite != null) {
       sprite.setReleased();
-      message2("Removed index " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
+//      message2("Removed", ConcurrentExampleConstants.MESSAGE_COLOR);
     }
     else {
-      message2("Poll returned null", ConcurrentExampleConstants.MESSAGE_COLOR);
+      message1("Poll returned null", ConcurrentExampleConstants.MESSAGE_COLOR);
     }
   }
 
   private void take() {
     setState(4);
     int index = this.index++;
-    message2("Attempting removal " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+//    message2("Attempting removal " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     ConcurrentSprite sprite = null;
     try {
       sprite = getQueue().take();
@@ -145,22 +178,22 @@ public class BlockingQueueExample extends ConcurrentExample {
     }
     if (sprite != null) {
       sprite.setReleased();
-      message2("Removed index " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
+//        message2("Removed", ConcurrentExampleConstants.MESSAGE_COLOR);
     }
   }
 
   protected void offer() {
     try {
-      message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+//      message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       setState(3);
       ConcurrentSprite sprite = createAttemptingSprite(ConcurrentSprite.SpriteType.OVAL);
 
       if (getQueue().offer(sprite, timeout, TimeUnit.MILLISECONDS)) {
         sprite.setAcquired();
-        message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
+//        message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
       } else {
         sprite.setRejected();
-        message1("Rejected", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+//        message1("Rejected", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
       }
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
@@ -190,9 +223,8 @@ public class BlockingQueueExample extends ConcurrentExample {
     resetThreadCountField(threadCountField);
     setQueue(createQueue());
     index = 1;
-    message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    setState(0);
+      clearMessages();
+      setState(0);
   }
 
     protected String getSnippet() {

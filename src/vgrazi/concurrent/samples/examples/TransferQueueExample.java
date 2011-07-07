@@ -19,33 +19,40 @@ public class TransferQueueExample extends BlockingQueueExample {
     private final JButton tryTransferButton = new JButton("tryTansfer()");
     private final JButton tryTransferTimeoutButton = new JButton("tryTansfer(T, 5, TimeUnit.SECONDS)");
     private final JButton getWaitingCountButton = new JButton("getWaitingConsumerCount");
+    private static final int MIN_SNIPPET_POSITION = 460;
 
+
+    @Override
+    protected void initializeOffer() {
+        
+    }
 
     public String getTitle() {
       return "TransferQueue";
     }
 
     public TransferQueueExample(String title, Container frame, int slideNumber) {
-      super(title, frame, slideNumber);
+      super(title, frame, MIN_SNIPPET_POSITION, slideNumber);
     }
 
 
     protected void initializeOthers() {
-        initializeGetWaitingCount();
+        initializeTransfer();
+        initializeTryTransfer();
     }
 
     protected void initializeGetWaitingCount() {
         initializeButton(getWaitingCountButton, new Runnable() {
           public void run() {
-            int waitingConsumerCount = ((TransferQueue<ConcurrentSprite>) getQueue()).getWaitingConsumerCount();
-            message1("Waiting consumer count:" + waitingConsumerCount, ConcurrentExampleConstants.MESSAGE_COLOR);
+              displayWaitingConsumerCount();
           }
         });
     }
 
-    protected void initializeOffer() {
+    protected void initializeTryTransfer() {
         initializeButton(tryTransferButton, new Runnable() {
               public void run() {
+                  clearMessages();
                   int count = getThreadCount();
                   for (int i = 0; i < count; i++) {
                       final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
@@ -65,11 +72,13 @@ public class TransferQueueExample extends BlockingQueueExample {
                           }
                       });
                   }
+                  delayAfterClick();
               }
           });
 
         initializeButton(tryTransferTimeoutButton, new Runnable() {
               public void run() {
+                  clearMessages();
                   int count = getThreadCount();
                   for (int i = 0; i < count; i++) {
                       final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
@@ -89,13 +98,15 @@ public class TransferQueueExample extends BlockingQueueExample {
                           }
                       });
                   }
+                  delayAfterClick();
               }
           });        
     }
 
-    protected void initializePut() {
+    protected void initializeTransfer() {
         initializeButton(transferButton, new Runnable() {
           public void run() {
+              clearMessages();            
             int count = getThreadCount();
             for (int i = 0; i < count; i++) {
               final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
@@ -110,8 +121,18 @@ public class TransferQueueExample extends BlockingQueueExample {
                     }
                 });
             }
+              delayAfterClick();                         
           }
         });
+    }
+
+    protected void afterClick() {
+        displayWaitingConsumerCount();
+    }
+
+    private void displayWaitingConsumerCount() {
+        int waitingConsumerCount = ((TransferQueue<ConcurrentSprite>) getQueue()).getWaitingConsumerCount();
+        message2("Waiting consumer count:" + waitingConsumerCount, ConcurrentExampleConstants.MESSAGE_COLOR);
     }
 
     public String getDescriptionHtml() {

@@ -556,6 +556,19 @@ public abstract class ConcurrentExample extends JPanel {
     message2Label.setForeground(foreground);
     message2Label.setText(message2Label.getText());
   }
+    protected void clearMessages() {
+        clearMessage1();
+        clearMessage2();
+    }
+    protected void clearMessage2() {
+        message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+    }
+
+    protected void clearMessage1() {
+        message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+    }
+
+
 
   //  protected void description(String text) {
   //    imagePanel.setText(text);
