@@ -37,8 +37,13 @@ public class TransferQueueExample extends BlockingQueueExample {
 
 
     protected void initializeOthers() {
-        initializeTransfer();
+        super.initializePut();
         initializeTryTransfer();
+    }
+
+    @Override
+    protected void initializePut() {
+        initializeTransfer();
     }
 
     protected void initializeGetWaitingCount() {
@@ -53,6 +58,7 @@ public class TransferQueueExample extends BlockingQueueExample {
         initializeButton(tryTransferButton, new Runnable() {
               public void run() {
                   clearMessages();
+                  setState(6);
                   int count = getThreadCount();
                   for (int i = 0; i < count; i++) {
                       final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
@@ -79,6 +85,7 @@ public class TransferQueueExample extends BlockingQueueExample {
         initializeButton(tryTransferTimeoutButton, new Runnable() {
               public void run() {
                   clearMessages();
+                  setState(7);
                   int count = getThreadCount();
                   for (int i = 0; i < count; i++) {
                       final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
@@ -106,6 +113,7 @@ public class TransferQueueExample extends BlockingQueueExample {
     protected void initializeTransfer() {
         initializeButton(transferButton, new Runnable() {
           public void run() {
+              setState(5);
               clearMessages();            
             int count = getThreadCount();
             for (int i = 0; i < count; i++) {
@@ -160,48 +168,39 @@ public class TransferQueueExample extends BlockingQueueExample {
     protected String getSnippet() {
 
       String snippet;
-      snippet = "<html><PRE>" +
-              "<font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Constructor - pass in the upper bound</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> BlockingQueue queue = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ArrayBlockingQueue<ConcurrentSprite>(4); \n" +
+      snippet = "<html><head><style type=\"text/css\"> \n" +
+              ".ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }\n" +
+              ".s0 { }\n" +
+              ".s1 { color: rgb(0,0,128); font-weight: bold; }\n" +
+              ".s2 { color: rgb(0,0,255); }\n" +
+              ".s9 { color: rgb(128,128,128); }\n" +
+              "</style> \n" +
+              "</head>\n" +
+              "<BODY BGCOLOR=\"#ffffff\">\n" +
+              "<pre>\n" +
+              "<span class=\"<state0:s0>\"> \n" +
+              "" +
+              "        TransferQueue&lt;T&gt; transferQueue\n" +
+              "             </span><span class=\"<state0:s1>\"> = new </span><span class=\"<state0:s0>\">LinkedTransferQueue&lt;T&gt;(); \n" +
+              "        </span><span class=\"<state1:s1>\">try </span><span class=\"<state1:s0>\">{ \n" +
+              "            transferQueue.put(t); \n" +
+              "        } </span><span class=\"<state1:s1>\">catch </span><span class=\"<state1:s0>\">(InterruptedException e) { } \n" +
               " \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to put will block</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// until there is room in the buffer</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\">Thread putThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread() { \n" +
-              "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
-              "        </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
-              "          queue.put(); \n" +
-              "        } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(InterruptedException e) { }\n" +
-              //       "          Thread.currentThread().interrupt(); \n" +
-              //       "        } \n" +
-              //       "      } \n" +
-              //       "    }); \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// offer is like put except that it</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// times out after the specified timeout period</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">Thread offerThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Thread() { \n" +
-              "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> run() { \n" +
-              "        </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
-              "          queue.offer(someObject, 1L, TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
-              "        }</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) { }\n" +
-              //       "          Thread.currentThread().interrupt(); \n" +
-              //       "        } \n" +
-              //       "      } \n" +
-              //       "    });" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to poll will return </I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// null if there is nothing on the queue</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\">Thread pollThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread() { \n" +
-              "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
-              "        queue.poll(); \n" +
-              "      } \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to take will block</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// until the there is something to take</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\">Thread takeThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> Thread() { \n" +
-              "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> run() { \n" +
-              "        queue.take(); \n" +
-              "      } \n" +
-              //       "    }); \n" +
-              "</FONT></PRE></html>";
-
+              "        </span><span class=\"<state4:s1>\">try </span><span class=\"<state4:s0>\">{ \n" +
+              "            T t = transferQueue.take(); \n" +
+              "        } </span><span class=\"<state4:s1>\">catch </span><span class=\"<state4:s0>\">(InterruptedException e) { } </span>\n" +
+              "        </span><span class=\"<state2:s0>\"> \n" +
+              "        T t = transferQueue.poll(); \n" +
+              "        </span>" +
+              " \n" + "<span class=\"<state5:s0>\">" +
+              "        T t = transferQueue.transfer(); \n" +
+              "        </span>\n" +
+              "        <span class=\"<state6:s1>\">boolean </span><span class=\"<state6:s0>\">success = transferQueue.tryTransfer(t); \n" +
+              " \n" +
+              "        </span><span class=\"<state7:s1>\">boolean </span><span class=\"<state7:s0>\">success = transferQueue.tryTransfer(t, " +
+              "</span><span class=\"<state7:s2>\">5</span><span class=\"<state7:s0>\">, TimeUnit.SECONDS);</span></pre>\n" +
+              "</body>\n" +
+              "</html>";
       return snippet;
     }
 
