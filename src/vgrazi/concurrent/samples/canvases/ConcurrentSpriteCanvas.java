@@ -74,8 +74,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
    */
   int verticalIndex;
   private final PropertyChangeSupport PROPERTY_CHANGE_SUPPORT = new PropertyChangeSupport(this);
+    private final BasicStroke basicStroke = new BasicStroke(3);
 
-  public ConcurrentSpriteCanvas(final ConcurrentExample concurrentExample, final String labelText) {
+    public ConcurrentSpriteCanvas(final ConcurrentExample concurrentExample, final String labelText) {
     setFont(ConcurrentExampleConstants.MUTEX_HEADER_FONT);
     this.concurrentExample = concurrentExample;
     setOpaque(true);
@@ -215,7 +216,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     map.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g.addRenderingHints(map);
     g.setColor(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    g.setStroke(new BasicStroke(2));
+    g.setStroke(basicStroke);
     g.fillRect(0, 0, 1500, 2000);
     //    Set sprites = new HashSet(this.sprites);
     final Dimension size = getSize();
@@ -653,7 +654,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
    */
   protected void renderWorkingAnimation(Graphics g1, int xBorder, int yPos, int circleFrame) {
     Graphics2D g = (Graphics2D) g1;
-    g.setStroke(new BasicStroke(2));
+    g.setStroke(basicStroke);
 
 
 //               <----------------W---------------->
