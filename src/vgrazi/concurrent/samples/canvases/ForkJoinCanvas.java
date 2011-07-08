@@ -17,7 +17,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
   private final int spriteHeight = 45;
   private final int leftBorder = 40;
   private int lastActiveCount;
-
+  private int maxActiveThreadCount;
   private FontMetrics fontMetrics;
   private List<ForkJoinSprite> sprites = new ArrayList<ForkJoinSprite>();
   private final Map<Integer, Integer> levelMap = new ConcurrentHashMap<Integer, Integer>();
@@ -97,7 +97,10 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
     }
     if(activeThreadCount != 0 && lastActiveCount != activeThreadCount) {
       lastActiveCount = activeThreadCount;
-      getConcurrentExample().message1(String.format("%d active threads", activeThreadCount), ConcurrentExampleConstants.MESSAGE_COLOR);
+        if(activeThreadCount > maxActiveThreadCount) {
+            maxActiveThreadCount = activeThreadCount;
+        }
+      getConcurrentExample().message1(String.format("active threads:%d\tmax active threads:%d", activeThreadCount, maxActiveThreadCount), ConcurrentExampleConstants.MESSAGE_COLOR);
 //      System.out.printf("ForkJoinCanvas.drawForkJoinSprites active thread count:%d%n", activeThreadCount);
     }
   }

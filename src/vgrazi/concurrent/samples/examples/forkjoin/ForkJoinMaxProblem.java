@@ -70,7 +70,6 @@ public class ForkJoinMaxProblem {
 //      System.out.printf("Calculating from %d to %d%n", start, end);
       this.level = step;
     }
-
     @Override
     protected void compute() {
       final Thread thread = Thread.currentThread();
@@ -91,23 +90,21 @@ public class ForkJoinMaxProblem {
       final int length = end - start;
       if(length == 1) {
         result = array[start];
-        if(forkJoinThread.getIndex() == 0){
-            concurrentExample.setState(2);
-        }
-//        sleep(.75f);
+        concurrentExample.setState(2);
+//        flipFlop(forkJoinThread);
+        sleep(.75f);
 
       }
       else {
-        if(forkJoinThread.getIndex() == 0){
-            concurrentExample.setState(3);
-        }
+        concurrentExample.setState(3);
+        sleep(1);
         int mid = (start + end)/2;
         forkJoinThread.setCurrentSprite(null);
         Solver solver1 = new Solver(array, start, mid, level +1);
         Solver solver2 = new Solver(array, mid, end, level +1);
 //        sleep(.375f);
         invokeAll(solver1, solver2);
-          forkJoinThread.setCurrentSprite(sprite);
+        forkJoinThread.setCurrentSprite(sprite);
 //        sleep(.375f);
 
         result = Math.max(solver1.result, solver2.result);
@@ -116,7 +113,7 @@ public class ForkJoinMaxProblem {
       sprite.setComplete(result);
     }
 
-    private void sleep(float seconds) {
+      private void sleep(float seconds) {
       try {
         Thread.sleep((long) (seconds * 1000L));
       }
@@ -139,7 +136,6 @@ public class ForkJoinMaxProblem {
   private void findMax(int[] array) {
     Solver solver = new Solver(array, 0, array.length, 0);
 
-//      System.out.println("Thread:"+ threadCount);
     pool = new ForkJoinPool(threadCount);
     StopWatch stopwatch = new StopWatch();
       try{
@@ -150,7 +146,6 @@ public class ForkJoinMaxProblem {
           System.out.println("ForkJoinMaxProblem.findMax cancelled");
       }
       stopwatch.stop();
-      String time = stopwatch.getDurationString();
       int result = solver.result;
 //      System.out.printf("Fork&Join   Done. Result: %d  time:%s%n", result, time);
       concurrentExample.message1(String.format("Done - Result: %d    Execution time: %s%n", result, stopwatch.getDurationSecondsString()), ConcurrentExampleConstants.MESSAGE_COLOR);
@@ -170,11 +165,12 @@ public class ForkJoinMaxProblem {
 //    System.out.printf("Synchronous Done. Result: %d  time:%s%n", max, time);
   }
 
-//  private void displayThreadCounts() {
-//    for(Map.Entry<Thread, Integer> entry : counterMap.entrySet()) {
-//      System.out.println(entry);
-//    }
-//  }
+  private void displayThreadCounts() {
+      System.out.println("Current thread:" + Thread.currentThread());
+    for(Map.Entry<Thread, Integer> entry : counterMap.entrySet()) {
+      System.out.println(entry);
+    }
+  }
   public void reset() {
     if(pool != null) {
       pool.shutdownNow();

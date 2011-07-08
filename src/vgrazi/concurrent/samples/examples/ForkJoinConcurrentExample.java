@@ -19,6 +19,19 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
     super(label, frame, ExampleType.WORKING, 650, false, slideShowIndex);
   }
 
+    /**
+     * @param title              the title to display in the title bar
+     * @param container          the container to contain the animation
+     * @param exampleType        the type of animation
+     * @param minSnippetPosition the horizontal position to start the snippet frame
+     * @param fair               true
+     * @param slideNumber        when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
+     */
+    public ForkJoinConcurrentExample(String title, Container container, ExampleType exampleType, int minSnippetPosition, boolean fair, int slideNumber) {
+      super(title, container, exampleType, minSnippetPosition, fair, slideNumber);
+    }
+    
+
   protected void initializeComponents() {
     if(!initialized) {
       initializeExecuteButton();
@@ -106,21 +119,9 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
     if(problem != null) {
       problem.reset();
     }
-    message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
+    clearMessages();
     ((ForkJoinCanvas) getCanvas()).reset();
     ForkJoinThread.reset();
     setState(0);
-  }
-
-  /**
-   * @param title              the title to display in the title bar
-   * @param container          the container to contain the animation
-   * @param exampleType        the type of animation
-   * @param minSnippetPosition the horizontal position to start the snippet frame
-   * @param fair               true
-   * @param slideNumber        when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
-   */
-  public ForkJoinConcurrentExample(String title, Container container, ExampleType exampleType, int minSnippetPosition, boolean fair, int slideNumber) {
-    super(title, container, exampleType, minSnippetPosition, fair, slideNumber);
   }
 }
