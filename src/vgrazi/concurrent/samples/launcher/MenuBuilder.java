@@ -118,11 +118,11 @@ public class MenuBuilder extends DefaultHandler {
         } catch (ClassNotFoundException e) {
           throw new SAXException("No class found " + example.className);
         } catch (InvocationTargetException e) {
-          throw new SAXException("Invocation target exception trying to construct" + example.className);
+          throw new SAXException("Invocation target exception trying to construct " + example.className);
         } catch (InstantiationException e) {
-          throw new SAXException("Invocation target exception trying to instantiate" + example.className);
+          throw new SAXException("Invocation target exception trying to instantiate " + example.className);
         } catch (IllegalAccessException e) {
-          throw new SAXException("IllegalAccess exception trying to instantiate" + example.className);
+          throw new SAXException("IllegalAccess exception trying to instantiate " + example.className);
         }
       initializeMenuItem(label, concurrentExamples);
     }
