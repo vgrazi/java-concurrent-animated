@@ -145,6 +145,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
                 System.out.println("Animation thread waiting");
                 animationThreadMutex.wait();
                 System.out.println("Animation thread resuming");
+                repaint();
               }
             } catch (InterruptedException e) {
               Thread.currentThread().interrupt();
@@ -155,8 +156,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
-  private boolean isAnimating() {
-    return !isPaused() && (!getSprites().isEmpty() || !getPooledSprites().isEmpty() || (concurrentExample instanceof Pooled && ((Pooled) concurrentExample).getAvailableThreadCount() > 0));
+  protected boolean isAnimating() {
+    return !isPaused() && (sprites.size() > 0 || !getPooledSprites().isEmpty() || (concurrentExample instanceof Pooled && ((Pooled) concurrentExample).getAvailableThreadCount() > 0));
   }
 
   public void pause() {

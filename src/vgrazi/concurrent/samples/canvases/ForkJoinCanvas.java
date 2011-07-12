@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples.canvases;
 
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
+import vgrazi.concurrent.samples.examples.ForkJoinConcurrentExample;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import vgrazi.concurrent.samples.sprites.ForkJoinSprite;
 
@@ -29,7 +30,9 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
 
   @Override
   public void addSprite(ConcurrentSprite sprite) {
+    ((ForkJoinConcurrentExample) getConcurrentExample()).setAnimating(true);
     sprites.add((ForkJoinSprite) sprite);
+    notifyAnimationThread();
   }
 
   @Override
@@ -106,6 +109,11 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
   }
 
   @Override
+  protected boolean isAnimating() {
+    return ((ForkJoinConcurrentExample) getConcurrentExample()).isAnimating();
+  }
+
+  @Override
   public void clearSprites() {
     super.clearSprites();
     sprites.clear();
@@ -118,5 +126,6 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
 
   public void reset() {
     levelMap.clear();
+    clearSprites();
   }
 }
