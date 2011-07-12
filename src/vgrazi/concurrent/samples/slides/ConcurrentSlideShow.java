@@ -17,11 +17,13 @@ public class ConcurrentSlideShow {
    * Advance the slide index. If it is beyond the number of slides, stop
    */
   public static void bumpSlideShowIndex() {
-    if(slideShowIndex < slideShowSlides.size()) {
-      slideShowIndex++;
-    }
-    else {
-      slideShowIndex = 1;
+    if (slideShowSlides != null) {
+      if(slideShowIndex < slideShowSlides.size()) {
+        slideShowIndex++;
+      }
+      else {
+        slideShowIndex = 1;
+      }
     }
 //    System.out.println("ConcurrentSlideShow.bumpSlideShowIndex displaying slide " + slideShowIndex);
   }
@@ -58,7 +60,10 @@ public class ConcurrentSlideShow {
 
   public static void nextSlide() {
     bumpSlideShowIndex();
-    ActionListener listener = getCurrentSlideAction();
+    ActionListener listener = null;
+    if (slideShowSlides != null ) {
+      listener = getCurrentSlideAction();
+    }
     if(listener != null) {
       listener.actionPerformed(null);
     }
