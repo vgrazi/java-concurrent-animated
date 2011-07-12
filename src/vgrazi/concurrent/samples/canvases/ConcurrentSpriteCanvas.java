@@ -55,7 +55,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private ScheduledExecutorService clock;
 
   private Queue<ConcurrentSprite> sprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
-  private Queue<ConcurrentSprite> pooledSprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
+  private final Queue<ConcurrentSprite> pooledSprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
   private ConcurrentExample concurrentExample;
   private String labelText;
 
@@ -74,9 +74,11 @@ public class ConcurrentSpriteCanvas extends JPanel {
    */
   int verticalIndex;
   private final PropertyChangeSupport PROPERTY_CHANGE_SUPPORT = new PropertyChangeSupport(this);
-    private final BasicStroke basicStroke = new BasicStroke(3);
+  private final BasicStroke basicStroke = new BasicStroke(3);
+  private static final Object animationThreadMutex = new Object();
+  private boolean paused;
 
-    public ConcurrentSpriteCanvas(final ConcurrentExample concurrentExample, final String labelText) {
+  public ConcurrentSpriteCanvas(final ConcurrentExample concurrentExample, final String labelText) {
     setFont(ConcurrentExampleConstants.MUTEX_HEADER_FONT);
     this.concurrentExample = concurrentExample;
     setOpaque(true);
@@ -127,7 +129,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
       resumeClock();
     }
     else {
-      pause();
+      pauseClock();
     }
   }
 
@@ -136,13 +138,52 @@ public class ConcurrentSpriteCanvas extends JPanel {
       clock = new ScheduledThreadPoolExecutor(1);
       clock.scheduleAtFixedRate(new Runnable() {
         public void run() {
-          repaint();
+          synchronized (animationThreadMutex) {
+            try {
+              repaint();
+              while(!isAnimating()) {
+                System.out.println("Animation thread waiting");
+                animationThreadMutex.wait();
+                System.out.println("Animation thread resuming");
+              }
+            } catch (InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
+          }
         }
       }, 0, DELAY, TimeUnit.MILLISECONDS);
     }
   }
 
-  private void pause() {
+  private boolean isAnimating() {
+    return !isPaused() && (!getSprites().isEmpty() || !getPooledSprites().isEmpty() || (concurrentExample instanceof Pooled && ((Pooled) concurrentExample).getAvailableThreadCount() > 0));
+  }
+
+  public void pause() {
+    synchronized (animationThreadMutex) {
+      paused = true;
+    }
+  }
+  public void resume() {
+    synchronized (animationThreadMutex) {
+      paused = false;
+      notifyAnimationThread();
+    }
+  }
+
+  public boolean isPaused() {
+    return paused;
+  }
+
+  protected Queue<ConcurrentSprite> getSprites() {
+    return sprites;
+  }
+
+  private Queue<ConcurrentSprite> getPooledSprites() {
+    return pooledSprites;
+  }
+
+  private void pauseClock() {
     if (!clock.isShutdown()) {
       clock.shutdownNow();
     }
@@ -202,6 +243,13 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   public void addSprite(ConcurrentSprite sprite) {
     sprites.add(sprite);
+    notifyAnimationThread();
+  }
+
+  public void notifyAnimationThread() {
+    synchronized (animationThreadMutex) {
+      animationThreadMutex.notifyAll();
+    }
   }
 
   public int getSpriteCount() {
@@ -371,6 +419,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
         pooledSprites.add(sprite);
       }
     }
+    notifyAnimationThread();
     int yPos = getSize().height - 20 - topOffset - 7 * ARROW_DELTA;
     g.setColor(ConcurrentExampleConstants.MUTEX_FONT_COLOR);
     g.drawString("Pooled",  ACQUIRE_BORDER + leftOffset + 12, yPos - 45);

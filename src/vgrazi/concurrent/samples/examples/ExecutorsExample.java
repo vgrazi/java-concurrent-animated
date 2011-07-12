@@ -236,6 +236,7 @@ public class ExecutorsExample extends ConcurrentExample implements Pooled {
       public void run() {
         setState(4);
         int count = ((ThreadPoolExecutor) executor).prestartAllCoreThreads();
+        getCanvas().notifyAnimationThread();
         message1(String.format("Prestarted %d thread%s", count, count == 1 ? "" : "s"), ConcurrentExampleConstants.MESSAGE_COLOR);
         message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
       }
