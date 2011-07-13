@@ -135,6 +135,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   public void resumeClock() {
     if (clock == null || clock.isShutdown()) {
+      System.out.println("ConcurrentSpriteCanvas.resumeClock");
       clock = new ScheduledThreadPoolExecutor(1);
       clock.scheduleAtFixedRate(new Runnable() {
         public void run() {
@@ -142,9 +143,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
             try {
               repaint();
               while(!isAnimating()) {
-                System.out.println("Animation thread waiting");
+//                System.out.println("Animation thread waiting");
                 animationThreadMutex.wait();
-                System.out.println("Animation thread resuming");
+//                System.out.println("Animation thread resuming");
                 repaint();
               }
             } catch (InterruptedException e) {
@@ -162,11 +163,13 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   public void pause() {
     synchronized (animationThreadMutex) {
+//      System.out.println("ConcurrentSpriteCanvas.pause");
       paused = true;
     }
   }
   public void resume() {
     synchronized (animationThreadMutex) {
+//      System.out.println("ConcurrentSpriteCanvas.resume");
       paused = false;
       notifyAnimationThread();
     }
@@ -184,8 +187,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
     return pooledSprites;
   }
 
-  private void pauseClock() {
+  public void pauseClock() {
     if (!clock.isShutdown()) {
+      System.out.println("ConcurrentSpriteCanvas.pauseClock");
       clock.shutdownNow();
     }
   }

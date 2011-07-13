@@ -55,19 +55,21 @@ public abstract class ConcurrentExample extends JPanel {
           setState(-1);
         } else if (e.getKeyCode() == KeyEvent.VK_C) {
           reset();
+          canvas.resumeClock();
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
           canvas.togglePauseResume();
         } else if (e.getKeyCode() == KeyEvent.VK_R) {
           reset();
+          canvas.resumeClock();
         } else if (e.getKeyCode() == KeyEvent.VK_X) {
           message1("Canvas:" + toString(canvas.getBounds()) + " " + (canvas.isVisible() ? "Visible" : "Hidden"), Color.BLACK);
           message2("imagePanel:" + toString(imagePanel.getBounds()) + " " + (canvas.isVisible() ? "Visible" : "Hidden"), Color.BLACK);
         }
       }
       if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
-        ConcurrentSlideShow.nextSlide();
+        nextSlide();
       } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
-        ConcurrentSlideShow.previousSlide();
+        previousSlide();
       }
     }
 
@@ -75,6 +77,7 @@ public abstract class ConcurrentExample extends JPanel {
       return "(" + bounds.x + "," + bounds.y + "," + bounds.width + "," + bounds.height + ")";
     }
   };
+
   protected ConcurrentSprite acquiredSprite;
   private static final int RELEASING_DELTA = 10;
   private static final Font SNIPPET_FONT = new Font("SansSerif", Font.PLAIN, 18);
@@ -124,16 +127,26 @@ public abstract class ConcurrentExample extends JPanel {
       @Override
       public void mouseClicked(MouseEvent e) {
         if((e.getModifiersEx() & MouseEvent.ADJUSTMENT_EVENT_MASK) != 0) {
-          ConcurrentSlideShow.previousSlide();
+          previousSlide();
         }
         else {
-          ConcurrentSlideShow.nextSlide();
+          nextSlide();
         }
       }
     });
 //    snippetLabel.setToolTipText(getToolTipText());
     snippetLabel.setFont(SNIPPET_FONT);
     imagePanel.setOpaque(true);
+  }
+
+  private void nextSlide() {
+    getCanvas().pauseClock();
+    ConcurrentSlideShow.nextSlide();
+  }
+
+  private void previousSlide() {
+    getCanvas().pauseClock();
+    ConcurrentSlideShow.previousSlide();
   }
 
   protected void createCanvas() {
@@ -300,6 +313,10 @@ public abstract class ConcurrentExample extends JPanel {
     //    canvas.setVisible(false);
   }
 
+  public void pauseAnimationClock() {
+    canvas.pauseClock();
+  }
+
   protected int getNextAcquiringIndex() {
     if (canvas.getSpriteCount() == 0) {
       acquiring.set(0);
@@ -324,6 +341,7 @@ public abstract class ConcurrentExample extends JPanel {
    */
   public final void launchExample() {
     reset();
+    canvas.resumeClock();
     initializeFrame();
   }
 
@@ -578,6 +596,7 @@ public abstract class ConcurrentExample extends JPanel {
     initializeButton(resetButton, new Runnable() {
       public void run() {
         reset();
+        canvas.resumeClock();
       }
     });
   }

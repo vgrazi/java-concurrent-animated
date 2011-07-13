@@ -56,6 +56,7 @@ public class JavaConcurrentAnimatedApplet extends JApplet {
     @Override
     public void stop() {
         super.stop();
+        examplePanel.pauseAnimationClock();
         shutdown();
     }
 
@@ -68,6 +69,7 @@ public class JavaConcurrentAnimatedApplet extends JApplet {
     private void shutdown() {
         if(examplePanel != null) {
             examplePanel.reset();
+            examplePanel.pauseAnimationClock();
             examplePanel = null;
         }
     }
