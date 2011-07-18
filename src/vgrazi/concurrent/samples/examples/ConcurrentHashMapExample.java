@@ -21,7 +21,7 @@ public class ConcurrentHashMapExample extends ConcurrentExample {
 	private static ExecutorService threadPool = Executors.newCachedThreadPool();
 
 	private final JButton putIfAbsentButton = new JButton("putIfAbsent");
-	private final JButton replaceKVButton = new JButton("replaceKV(k,v)");
+	private final JButton replaceKVButton = new JButton("replace(k,v)");
 	private boolean initialized = false;
 	private JTextField threadCountField = createThreadCountField();
 	private static final int MIN_SNIPPET_POSITION = 400;
