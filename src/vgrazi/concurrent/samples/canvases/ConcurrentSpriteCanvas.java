@@ -142,7 +142,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
           synchronized (animationThreadMutex) {
             try {
               repaint();
-              while(!isAnimating()) {
+              while (!isAnimating()) {
 //                System.out.println("Animation thread waiting");
                 animationThreadMutex.wait();
 //                System.out.println("Animation thread resuming");
@@ -163,13 +163,13 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   public void pause() {
     synchronized (animationThreadMutex) {
-//      System.out.println("ConcurrentSpriteCanvas.pause");
+      System.out.println("ConcurrentSpriteCanvas.pause");
       paused = true;
     }
   }
   public void resume() {
     synchronized (animationThreadMutex) {
-//      System.out.println("ConcurrentSpriteCanvas.resume");
+      System.out.println("ConcurrentSpriteCanvas.resume");
       paused = false;
       notifyAnimationThread();
     }
@@ -262,40 +262,57 @@ public class ConcurrentSpriteCanvas extends JPanel {
   }
 
   public void paintComponent(Graphics g1) {
-    super.paintComponent(g1);
-
     Graphics2D g = (Graphics2D) g1;
+    super.paintComponent(g);
+
+    // first remove any spent sprites
+    removeSpentSprites();
+
+
+    intializePainting(g);
+    //    Set sprites = new HashSet(this.sprites);
+
+
+    renderMutex(g);
+
+    //    System.out.println("ConcurrentSpriteCanvas.paint sprite count:" + sprites.size());
+    renderSprites(g);
+
+  }
+
+  private void intializePainting(Graphics2D g) {
     Map<RenderingHints.Key, Object> map = new HashMap<RenderingHints.Key, Object>(1);
     map.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g.addRenderingHints(map);
     g.setColor(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     g.setStroke(basicStroke);
     g.fillRect(0, 0, 1500, 2000);
-    //    Set sprites = new HashSet(this.sprites);
-    final Dimension size = getSize();
+  }
 
-    // first remove any spent sprites
+  private void removeSpentSprites() {
     for (ConcurrentSprite sprite : sprites) {
-      if (sprite.getCurrentLocation() > size.width - rightBorder) {
+      if (sprite.getCurrentLocation() > getWidth() - rightBorder) {
         sprites.remove(sprite);
         concurrentExample.spriteRemoved(sprite);
       } else if (sprite.isRejected() && sprite.getCurrentLocation() < 0) {
         sprites.remove(sprite);
       }
     }
+  }
 
-    // render the mutex
+  private void renderMutex(Graphics2D g) {
     if(labelText != null) {
 // draw the mutex box
-      drawMutex(g, size);
+      drawMutex(g);
 
       // Draw the label text
       g.setColor(ConcurrentExampleConstants.MUTEX_FONT_COLOR);
       g.setFont(ConcurrentExampleConstants.MUTEX_HEADER_FONT);
       g.drawString(labelText, getLabelXPosition(), getLabelYPosition());
     }
+  }
 
-    //    System.out.println("ConcurrentSpriteCanvas.paint sprite count:" + sprites.size());
+  private void renderSprites(Graphics2D g) {
     try {
       for (ConcurrentSprite sprite : sprites) {
         int index = sprite.getIndex();
@@ -349,13 +366,13 @@ public class ConcurrentSpriteCanvas extends JPanel {
     return topOffset - 10;
   }
 
-  protected void drawMutex(Graphics2D g, Dimension size) {
+  protected void drawMutex(Graphics2D g) {
     g.setColor(ConcurrentExampleConstants.MUTEX_BACKGROUND);
     int fontHeight = fontMetrics.getHeight();
     switch(exampleType) {
 		case CONCURRENT_MAP: {
             // render the existing map
-			g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, size.height - 20 - topOffset, true);
+			g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, getHeight() - 20 - topOffset, true);
 
 			g.setColor(ConcurrentExampleConstants.CAS_CIRCLE_COLOR);
 
@@ -370,7 +387,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 			break;
 		}
       case CAS:
-        g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, size.height - 20 - topOffset, true);
+        g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, getHeight() - 20 - topOffset, true);
         // todo: calculate dynamically
         int fontWidth = fontMetrics.stringWidth(String.valueOf(CAS.getValue()));
 
@@ -382,15 +399,15 @@ public class ConcurrentSpriteCanvas extends JPanel {
         break;
       case BLOCKING:
       case POOLED:
-        g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, size.height - 20 - topOffset, true);
+        g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, getHeight() - 20 - topOffset, true);
         break;
       case WORKING:
-        g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset + 10, size.height - 20 - topOffset, true);
+        g.fill3DRect(ACQUIRE_BORDER + leftOffset, topOffset, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset + 10, getHeight() - 20 - topOffset, true);
         break;
       case PLURAL:
       case ONE_USE:
         int nextLocation = topOffset + ARROW_DELTA * 3 / 4;
-        int lastLocation = size.height - 20 - topOffset;
+        int lastLocation = getHeight() - 20 - topOffset;
         if (exampleType == PLURAL) {
           while (nextLocation <= lastLocation) {
             g.fill3DRect(ACQUIRE_BORDER + leftOffset, nextLocation, RELEASE_BORDER - ACQUIRE_BORDER + leftOffset, deltaY, true);
@@ -424,18 +441,20 @@ public class ConcurrentSpriteCanvas extends JPanel {
         pooledSprites.add(sprite);
       }
     }
-    notifyAnimationThread();
     int yPos = getSize().height - 20 - topOffset - 7 * ARROW_DELTA;
     g.setColor(ConcurrentExampleConstants.MUTEX_FONT_COLOR);
     g.drawString("Pooled",  ACQUIRE_BORDER + leftOffset + 12, yPos - 45);
     g.drawString("Threads", ACQUIRE_BORDER + leftOffset + 8, yPos - 20);
     g.drawLine(ACQUIRE_BORDER + leftOffset + 8, yPos - 17, ACQUIRE_BORDER + leftOffset + RELEASE_BORDER - ACQUIRE_BORDER + leftOffset - 8, yPos - 17);
 //    int yPos = topOffset + ARROW_DELTA * 3 / 4 + (deltaY + BORDER) * verticalIndex + (getSize().height - 20 - topOffset) / 2 + 10;
-    for (ConcurrentSprite sprite : pooledSprites) {
-      int xPos = sprite.getCurrentLocation();
-      sprite.bumpCurrentLocation(DELTA);
-      drawArrowSprite(g, xPos, yPos, sprite);
-      yPos += deltaY;
+    if (poolSize > 0) {
+      for (ConcurrentSprite sprite : pooledSprites) {
+        int xPos = sprite.getCurrentLocation();
+        sprite.bumpCurrentLocation(DELTA);
+        drawArrowSprite(g, xPos, yPos, sprite);
+        yPos += deltaY;
+      }
+      notifyAnimationThread();
     }
   }
 
