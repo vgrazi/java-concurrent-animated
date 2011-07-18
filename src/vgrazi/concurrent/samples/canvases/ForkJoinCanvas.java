@@ -120,7 +120,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
   }
 
   @Override
-  protected void drawMutex(Graphics2D g, Dimension size) {
+  protected void drawMutex(Graphics2D g) {
     // no mutex in this example
   }
 
