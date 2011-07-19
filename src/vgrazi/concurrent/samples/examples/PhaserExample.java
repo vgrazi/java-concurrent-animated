@@ -8,6 +8,7 @@ import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 /*
  * @user vgrazi.
@@ -102,14 +103,14 @@ public class PhaserExample extends ConcurrentExample {
         public void run() {
           setState(5);
           phaser.register();
-          displayPhaseAndParties(phaser.getPhase());
+          displayPhaseAndParties();
         }
       });
       initializeButton(bulkRegisterButton, new Runnable() {
         public void run() {
           setState(6);
           phaser.bulkRegister(getThreadCount());
-          displayPhaseAndParties(phaser.getPhase());
+          displayPhaseAndParties();
         }
       });
       initializeThreadCountField(threadCountField);
@@ -166,8 +167,8 @@ public class PhaserExample extends ConcurrentExample {
       if (spriteColor != null) {
         sprite.setColor(spriteColor);
       }
+      displayPhaseAndParties();
       int phase = phaserMethod.call();
-      displayPhaseAndParties(phase);
     } catch (Exception e) {
       message1(e.getMessage(), ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
       sprite.setRejected();
@@ -176,8 +177,17 @@ public class PhaserExample extends ConcurrentExample {
     sprite.setReleased();
   }
 
-  private void displayPhaseAndParties(int phase) {
-    message1(String.format("Phase: %d \tRegistered:%d \tArrived:%d", phase, phaser.getRegisteredParties(), phaser.getArrivedParties()), ConcurrentExampleConstants.MESSAGE_COLOR);
+  /**
+   * Displays Phase, # registered parties, # arrived parties, and # unarrived parties.
+   * Note: This can be called before an awaiting call. It is scheduled for a few ms later so that the await can finish before this is called
+   */
+  private void displayPhaseAndParties() {
+    scheduledExecutor.schedule(new Runnable() {
+      public void run() {
+        message1(String.format("Phase: %d \tRegistered:%d \tArrived:%d \tUnarrived:%d", phaser.getPhase(), phaser.getRegisteredParties(), phaser.getArrivedParties(), phaser.getUnarrivedParties()), ConcurrentExampleConstants.MESSAGE_COLOR);
+
+      }
+    }, 500, TimeUnit.MILLISECONDS);
   }
 
 
@@ -201,9 +211,7 @@ public class PhaserExample extends ConcurrentExample {
     phaser = new Phaser(4) {
       @Override
       protected boolean onAdvance(int phase, int registeredParties) {
-        String text = "Phase:" + phase + " Registered parties:" + registeredParties;
-        System.out.println("PhaserExample.onAdvance: " + text);
-        message1(text, ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+        message1(String.format("Phase: %d \tRegistered:%d \tArrived:%d \tUnarrived:%d", phaser.getPhase(), phaser.getRegisteredParties(), phaser.getArrivedParties(), phaser.getUnarrivedParties()), ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
         setState(7);
         return false;
       }
@@ -226,23 +234,25 @@ public class PhaserExample extends ConcurrentExample {
             "   Phaser phaser = </span><span class=\"<state0:s1>\">new </span><span class=\"<state0:s0>\">Phaser(</span><span class=\"<state0:s2>\">4</span><span class=\"<state0:s0>\">) { \n" +
             "      <span class=\"<state7:s1>\">@Override</span> \n" +
             "     </span><span class=\"<state7:s3>\">// Perform when all parties arrive</span><span class=\"s0\"> \n" +
-            "     </span><span class=\"<state7:s1>\">protected boolean </span><span class=\"<state7:s0>\">onAdvance(</span><span class=\"<state7:s1>\">int </span><span class=\"<state7:s0>\">phase, </span><span class=\"<state7:s1>\">int </span><span class=\"<state7:s0>\">registeredParties) { \n" +
-            "       </span><span class=\"<state7:s3>\">// return true if the Phaser should terminate on advance, else false</span><span class=\"<state7:s0>\"> \n" +
+            "     </span><span class=\"<state7:s1>\">protected boolean </span><span class=\"<state7:s0>\">onAdvance(</span><span class=\"<state7:s1>\">int </span><span class=\"<state7:s0>\">phase, \n" +
+            "                         </span><span class=\"<state7:s1>\">int </span><span class=\"<state7:s0>\">registeredParties) { \n" +
+            "       </span><span class=\"<state7:s3>\">// return true if the Phaser should\n" +
+            "       // terminate on advance, else false</span><span class=\"<state7:s0>\"> \n" +
             "       </span><span class=\"<state7:s1>\">return false</span><span class=\"<state7:s0>\">; \n" +
             "     } \n" +
             "<span class=\"<state0:s1>\">   };</span> \n" +
             "    \n" +
-            "   <span class=\"<state3:s0>\">phaser.arriveAndAwaitAdvance();</span> \n" +
+            "   <span class=\"<state3:s1>\">int </span><span class=\"<state3:s0>\">phase = phaser.arriveAndAwaitAdvance();</span> \n" +
             "\n" +
-            "   <span class=\"<state1:s0>\">phaser.arrive();</span> \n" +
+            "   <span class=\"<state1:s1>\">int </span><span class=\"<state1:s0>\">phase = phaser.arrive();</span> \n" +
             "    \n" +
-            "   <span class=\"<state4:s0>\">phaser.awaitAdvance(</span><span class=\"<state4:s1>\">int </span><span class=\"<state4:s0>\">phase); \n" +
+            "   <span class=\"<state4:s1>\">int </span><span class=\"<state4:s0>\">phase = phaser.awaitAdvance(</span><span class=\"<state4:s1>\">int </span><span class=\"<state4:s0>\">phase); \n" +
             "\n" +
-            "   <span class=\"<state2:s0>\">phaser.arriveAndDeregister();</span> \n" +
+            "   <span class=\"<state2:s1>\">int </span><span class=\"<state2:s0>\">phase = phaser.arriveAndDeregister();</span> \n" +
             "\n" +
-            "   <span class=\"<state5:s0>\">phaser.register();</span>\n" +
+            "   <span class=\"<state5:s1>\">int </span><span class=\"<state5:s0>\">phase = phaser.register();</span>\n" +
             "    \n" +
-            "   <span class=\"<state6:s0>\">phaser.bulkRegister(</span><span class=\"<state6:s1>\">int </span><span class=\"<state6:s0>\">parties);</span></pre>\n" +
+            "   <span class=\"<state6:s1>\">int </span><span class=\"<state6:s0>\">phase = phaser.bulkRegister(</span><span class=\"<state6:s1>\">int </span><span class=\"<state6:s0>\">parties);</span></pre>\n" +
             "</body>\n" +
             "</html>";
     return snippet;
