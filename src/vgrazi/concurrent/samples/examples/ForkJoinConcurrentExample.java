@@ -1,6 +1,5 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.canvases.ForkJoinCanvas;
 import vgrazi.concurrent.samples.examples.forkjoin.ForkJoinMaxProblem;
