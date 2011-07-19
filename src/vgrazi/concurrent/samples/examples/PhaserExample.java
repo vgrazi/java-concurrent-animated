@@ -7,6 +7,7 @@ import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.Callable;
 
 /*
  * @user vgrazi.
@@ -18,7 +19,6 @@ public class PhaserExample extends ConcurrentExample {
   private Phaser phaser;
 
   private final JButton arriveButton = new JButton("arrive()");
-  private final JButton arriveAndAwaitButton = new JButton("arriveAndAwait()");
   private final JButton arriveAndDeregisterButton = new JButton("arriveAndDeregister()");
   private final JButton arriveAndAwaitAdvanceButton = new JButton("arriveAndAwaitAdvance()");
   private final JButton awaitAdvanceButton = new JButton("awaitAdvance(phase)");
@@ -34,13 +34,13 @@ public class PhaserExample extends ConcurrentExample {
 
   protected void initializeComponents() {
     if(!initialized) {
-      initializeButton(arriveAndAwaitButton, new Runnable() {
+      initializeButton(arriveAndAwaitAdvanceButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
           for (int i = 0; i < count; i++) {
             threadCountExecutor.execute(new Runnable() {
               public void run() {
-                arriveAndAwait();
+                arriveAndAwaitAdvance();
               }
             });
           }
@@ -58,18 +58,9 @@ public class PhaserExample extends ConcurrentExample {
           }
         }
       });
-      initializeButton(arriveAndDeregisterButton, new Runnable() {
-        public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                arriveAndDeregister();
-              }
-            });
-          }
-        }
-      });
+
+      addButtonSpacer();
+
       initializeButton(awaitAdvanceButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
@@ -106,26 +97,17 @@ public class PhaserExample extends ConcurrentExample {
           }
         }
       });
-      initializeButton(arriveAndAwaitAdvanceButton, new Runnable() {
-        public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                arriveAndAwaitAdvance();
-              }
-            });
-          }
-        }
-      });
+
       initializeButton(registerButton, new Runnable() {
         public void run() {
+          setState(5);
           phaser.register();
           displayPhaseAndParties(phaser.getPhase());
         }
       });
       initializeButton(bulkRegisterButton, new Runnable() {
         public void run() {
+          setState(6);
           phaser.bulkRegister(getThreadCount());
           displayPhaseAndParties(phaser.getPhase());
         }
@@ -137,87 +119,65 @@ public class PhaserExample extends ConcurrentExample {
   }
 
   private void arrive() {
-    ConcurrentSprite sprite = null;
-    setAnimationCanvasVisible(true);
-    message1(String.format("Waiting for phaser (registered parties:%d)...", phaser.getRegisteredParties()), ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-    setState(1);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    sprite = createAcquiringSprite();
-    int phase = phaser.arrive();
-
-    sprite.setReleased();
-    setState((0));
-  }
-
-  private void arriveAndAwait() {
-    ConcurrentSprite sprite = null;
-    setAnimationCanvasVisible(true);
-    message1(String.format("Waiting for phaser (registered parties:%d)...", phaser.getRegisteredParties()), ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-    setState(1);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    sprite = createAcquiringSprite();
-    int phase = phaser.arriveAndAwaitAdvance();
-
-    sprite.setReleased();
-    setState((0));
+    methodSetup(null, 1, new Callable<Integer>() {
+      public Integer call() throws Exception {
+        return phaser.arrive();
+      }
+    });
   }
 
   private void arriveAndDeregister() {
-    ConcurrentSprite sprite = null;
-    setAnimationCanvasVisible(true);
-    setState(1);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    sprite = createAcquiringSprite();
-    int phase = phaser.arriveAndDeregister();
-    displayPhaseAndParties(phase);
-
-    sprite.setReleased();
-    setState((0));
+    methodSetup(null, 2, new Callable<Integer>() {
+      public Integer call() throws Exception {
+        return phaser.arriveAndDeregister();
+      }
+    });
   }
 
   private void arriveAndAwaitAdvance() {
-    ConcurrentSprite sprite = null;
-    setAnimationCanvasVisible(true);
-    setState(1);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    sprite = createAcquiringSprite();
-    int phase = phaser.arriveAndAwaitAdvance();
-    displayPhaseAndParties(phase);
-
-    sprite.setReleased();
-    setState((0));
+    methodSetup(null, 3, new Callable<Integer>() {
+      public Integer call() throws Exception {
+        return phaser.arriveAndAwaitAdvance();
+      }
+    });
   }
 
   private void awaitAdvanceThisPhase() {
-    ConcurrentSprite sprite = null;
-    setAnimationCanvasVisible(true);
-    setState(1);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    sprite = createAcquiringSprite();
-    sprite.setColor(ConcurrentExampleConstants.ATTEMPTING_COLOR);
-    int phase = phaser.awaitAdvance(phaser.getPhase());
-    displayPhaseAndParties(phase);
-
-    sprite.setReleased();
-    setState((0));
+    methodSetup(ConcurrentExampleConstants.ATTEMPTING_COLOR, 4, new Callable<Integer>() {
+      public Integer call() throws Exception {
+        return phaser.awaitAdvance(phaser.getPhase());
+      }
+    });
   }
 
   private void awaitAdvanceWrongPhase() {
-    ConcurrentSprite sprite = null;
-    setAnimationCanvasVisible(true);
-    setState(1);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    sprite = createAcquiringSprite();
-    sprite.setColor(ConcurrentExampleConstants.ATTEMPTING_COLOR);
-    int phase = phaser.awaitAdvance(phaser.getPhase() + 1);
-    displayPhaseAndParties(phase);
+    methodSetup(ConcurrentExampleConstants.ATTEMPTING_COLOR, 4, new Callable<Integer>() {
+      public Integer call() throws Exception {
+        return phaser.awaitAdvance(phaser.getPhase() + 1);
+      }
+    });
+  }
+
+  private void methodSetup(Color spriteColor, int state, Callable<Integer> phaserMethod) {
+    ConcurrentSprite sprite = createAcquiringSprite();
+    try {
+      setState(state);
+      message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+      if (spriteColor != null) {
+        sprite.setColor(spriteColor);
+      }
+      int phase = phaserMethod.call();
+      displayPhaseAndParties(phase);
+    } catch (Exception e) {
+      message1(e.getMessage(), ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+      sprite.setRejected();
+    }
 
     sprite.setReleased();
-    setState((0));
   }
 
   private void displayPhaseAndParties(int phase) {
-    message1(String.format("Phase: %d Registered Parties:%d", phase, phaser.getRegisteredParties()), ConcurrentExampleConstants.MESSAGE_COLOR);
+    message1(String.format("Phase: %d \tRegistered:%d \tArrived:%d", phase, phaser.getRegisteredParties(), phaser.getArrivedParties()), ConcurrentExampleConstants.MESSAGE_COLOR);
   }
 
 
@@ -244,48 +204,71 @@ public class PhaserExample extends ConcurrentExample {
         String text = "Phase:" + phase + " Registered parties:" + registeredParties;
         System.out.println("PhaserExample.onAdvance: " + text);
         message1(text, ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+        setState(7);
         return false;
       }
     };
   }
   protected String getSnippet() {
     final String snippet;
-    snippet = "<html><PRE><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Contructor specifies number of parties, and an<br>    // optional Runnable that gets called when the</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// phaser is opened.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier cyclicBarrier = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">" +
-       "<br>    <B>    new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier(4</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">, </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Runnable(){ \n" +
-       "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> run(){ \n" +
-       "        System.out.println(</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Date() + </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#008000>\"><B>&quot; Runnable hit&quot;</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">); \n" +
-       "      } \n" +
-//       "    }); \n" +
-       " \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Each call to arriveAndAwait() blocks, until<br>    // the number specified in the constructor is reached.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Then the Runnable is executed and all can pass. </I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
-       "    <font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-       "    Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread(){ \n" +
-       "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
-       "        </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
-       "          cyclicBarrier.arriveAndAwait(); \n" +
-       "        } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(BrokenBarrierException e) {} \n" +
-//       "        } \n" +
-//       "      } \n" +
-//       "    });" +
-       " \n" +
-       "    <font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
-       "    Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread(){ \n" +
-       "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
-       "        </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> { \n" +
-       "          cyclicBarrier.arriveAndAwait(timeout, TimeUnit.MILLISECONDS); \n" +
-       "        } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">(BrokenBarrierException e) {} \n" +
-//       "        } \n" +
-//       "      } \n" +
-//       "    });" +
-       " \n" +
-            "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// reset() allows the phaser to be reused.</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Any waiting threads will throw a BrokenBarrierException</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    <font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">cyclicBarrier.reset()</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
-            "</FONT></PRE></html>";
+    snippet="<html><head><style type=\"text/css\"> \n" +
+            ".ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }\n" +
+            ".s0 { }\n" +
+            ".s1 { color: rgb(0,0,128); font-weight: bold; }\n" +
+            ".s2 { color: rgb(0,0,255); }\n" +
+            ".s3 { color: rgb(128,128,128); font-style: italic; }\n" +
+            ".s9 { color: rgb(128,128,128); }\n" +
+            "</style> \n" +
+            "</head>\n" +
+            "<BODY BGCOLOR=\"#ffffff\">\n" +
+            "<pre>\n" +
+            "<span class=\"<state0:s0>\"> \n" +
+            "   Phaser phaser = </span><span class=\"<state0:s1>\">new </span><span class=\"<state0:s0>\">Phaser(</span><span class=\"<state0:s2>\">4</span><span class=\"<state0:s0>\">) { \n" +
+            "      <span class=\"<state7:s1>\">@Override</span> \n" +
+            "     </span><span class=\"<state7:s3>\">// Perform when all parties arrive</span><span class=\"s0\"> \n" +
+            "     </span><span class=\"<state7:s1>\">protected boolean </span><span class=\"<state7:s0>\">onAdvance(</span><span class=\"<state7:s1>\">int </span><span class=\"<state7:s0>\">phase, </span><span class=\"<state7:s1>\">int </span><span class=\"<state7:s0>\">registeredParties) { \n" +
+            "       </span><span class=\"<state7:s3>\">// return true if the Phaser should terminate on advance, else false</span><span class=\"<state7:s0>\"> \n" +
+            "       </span><span class=\"<state7:s1>\">return false</span><span class=\"<state7:s0>\">; \n" +
+            "     } \n" +
+            "<span class=\"<state0:s1>\">   };</span> \n" +
+            "    \n" +
+            "   <span class=\"<state3:s0>\">phaser.arriveAndAwaitAdvance();</span> \n" +
+            "\n" +
+            "   <span class=\"<state1:s0>\">phaser.arrive();</span> \n" +
+            "    \n" +
+            "   <span class=\"<state4:s0>\">phaser.awaitAdvance(</span><span class=\"<state4:s1>\">int </span><span class=\"<state4:s0>\">phase); \n" +
+            "\n" +
+            "   <span class=\"<state2:s0>\">phaser.arriveAndDeregister();</span> \n" +
+            "\n" +
+            "   <span class=\"<state5:s0>\">phaser.register();</span>\n" +
+            "    \n" +
+            "   <span class=\"<state6:s0>\">phaser.bulkRegister(</span><span class=\"<state6:s1>\">int </span><span class=\"<state6:s0>\">parties);</span></pre>\n" +
+            "</body>\n" +
+            "</html>";
     return snippet;
   }
+
+//  private void snippetText() {
+//    Phaser phaser = new Phaser(4) {
+//      @Override
+//      // Perform when all parties arrive
+//      protected boolean onAdvance(int phase, int registeredParties) {
+//        // return true if the Phaser should terminate on advance, else false
+//        return false;
+//      }
+//    };
+//
+//    phaser.arrive();
+//
+//    phaser.arriveAndDeregister();
+//
+//    phaser.arriveAndAwaitAdvance();
+//
+////    phaser.awaitAdvance(int phase);
+//
+//    phaser.register();
+//
+////    phaser.bulkRegister(int parties);
+//  }
+
 }
