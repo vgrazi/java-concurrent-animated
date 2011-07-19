@@ -38,6 +38,9 @@
     <MenuItem label="CyclicBarrier">
         <Example class="vgrazi.concurrent.samples.examples.CyclicBarrierExample" paging="true" fair="false" mutexLabel="CyclicBarrier"/>
     </MenuItem>
+    <MenuItem label="Phaser">
+        <Example class="vgrazi.concurrent.samples.examples.PhaserExample" paging="true" fair="false" mutexLabel="Phaser"/>
+    </MenuItem>
     <ImageSlide image="images/AtomicInteger.jpg"/>
     <MenuItem label="AtomicInteger">
         <Example class="vgrazi.concurrent.samples.examples.AtomicIntegerExample" paging="true" fair="false" mutexLabel="AtomicInteger"/>
