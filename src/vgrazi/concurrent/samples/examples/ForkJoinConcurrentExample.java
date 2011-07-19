@@ -126,7 +126,6 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
     SwingUtilities.invokeLater(new Runnable() {
 
       public void run() {
-        ((ForkJoinCanvas) getCanvas()).reset();
         setState(0);
         clearMessages();
       }
