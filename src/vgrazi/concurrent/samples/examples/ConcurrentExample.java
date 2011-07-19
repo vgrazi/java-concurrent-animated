@@ -19,9 +19,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -29,6 +27,9 @@ public abstract class ConcurrentExample extends JPanel {
 
   private Container container;
   private Executor executor = Executors.newCachedThreadPool();
+  protected static ScheduledExecutorService scheduledExecutor = new ScheduledThreadPoolExecutor(1);
+  protected final Executor threadCountExecutor = Executors.newCachedThreadPool();
+
   //  private final Insets INSETS = new Insets(5, 5, 5, 5);
   protected final long timeout = 3 * 1000;
   protected final JLabel message1Label = new MessageLabel(" ");
@@ -86,7 +87,6 @@ public abstract class ConcurrentExample extends JPanel {
   private boolean fair;
   private final int slideNumber;
   private final ConcurrentLinkedQueue<JButton> buttons = new ConcurrentLinkedQueue<JButton>();
-  protected final Executor threadCountExecutor = Executors.newCachedThreadPool();
   private final static Logger logger = Logger.getLogger(ConcurrentExample.class.getName());
   //  public ConcurrentExample() {
 
