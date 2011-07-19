@@ -64,7 +64,7 @@ public class ConcurrentHashMapExample extends ConcurrentExample {
 				+ "\"><I>// If key is contained, replaces value with supplied value. \n" +
                 "    // returns the old value, or null if key was absent.</I>"
 				+ "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n\n"
-				+ "    String previousValue = concurrentMap.putIfAbsent(key, value);\n"
+				+ "    String previousValue = concurrentMap.replace(key, value);\n"
 				+ "    <FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>boolean</B></FONT> " +
                 "<FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> wasAbsent = previousValue == null;\n"
 
