@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ForkJoinMaxProblem {
+public class ForkJoinMaximumProblem {
   private int arraySize;
   private int threadCount;
   private static Random random = new Random();
@@ -24,7 +24,7 @@ public class ForkJoinMaxProblem {
   private Map<Thread, Integer> counterMap = new ConcurrentHashMap<Thread, Integer>();
   private ForkJoinPool pool;
 
-  public ForkJoinMaxProblem(ForkJoinConcurrentExample concurrentExample, ForkJoinCanvas canvas, int arraySize, int threadCount) {
+  public ForkJoinMaximumProblem(ForkJoinConcurrentExample concurrentExample, ForkJoinCanvas canvas, int arraySize, int threadCount) {
     this.concurrentExample = concurrentExample;
     this.canvas = canvas;
     this.arraySize = arraySize;
@@ -32,7 +32,7 @@ public class ForkJoinMaxProblem {
   }
 
   public static void main(String[] args) {
-    final ForkJoinMaxProblem problem = new ForkJoinMaxProblem(null, null, 10, 2);
+    final ForkJoinMaximumProblem problem = new ForkJoinMaximumProblem(null, null, 10, 2);
     problem.launch();
   }
 
@@ -93,21 +93,23 @@ public class ForkJoinMaxProblem {
         result = array[start];
         concurrentExample.setState(2);
 //        flipFlop(forkJoinThread);
-        sleep(1.5f);
+        sleep(.75f);
 
       } else {
         concurrentExample.setState(3);
-        sleep(1.5f);
+        sleep(1);
         int mid = (start + end) / 2;
         forkJoinThread.setCurrentSprite(null);
         Solver solver1 = new Solver(array, start, mid, level + 1);
         Solver solver2 = new Solver(array, mid, end, level + 1);
+//        sleep(.375f);
         invokeAll(solver1, solver2);
         forkJoinThread.setCurrentSprite(sprite);
+//        sleep(.375f);
 
         result = Math.max(solver1.result, solver2.result);
       }
-      sleep(1.5f);
+      sleep(.75f);
       sprite.setComplete(result);
     }
 
@@ -139,7 +141,7 @@ public class ForkJoinMaxProblem {
       pool.invoke(solver);
       concurrentExample.setState(4);
     } catch (CancellationException e) {
-      System.out.println("ForkJoinMaxProblem.findMax cancelled");
+      System.out.println("ForkJoinMaximumProblem.findMax cancelled");
     }
     stopwatch.stop();
     int result = solver.result;
@@ -161,7 +163,7 @@ public class ForkJoinMaxProblem {
 //    time = stopwatch.getDurationString();
 //    System.out.printf("Synchronous Done. Result: %d  time:%s%n", max, time);
   }
-
+//
   private void displayThreadCounts() {
     System.out.println("Current thread:" + Thread.currentThread());
     for (Map.Entry<Thread, Integer> entry : counterMap.entrySet()) {
