@@ -2,7 +2,7 @@ package vgrazi.concurrent.samples.examples;
 
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.canvases.ForkJoinCanvas;
-import vgrazi.concurrent.samples.examples.forkjoin.ForkJoinMaxProblem;
+import vgrazi.concurrent.samples.examples.forkjoin.ForkJoinMaximumProblem;
 import vgrazi.concurrent.samples.sprites.ForkJoinThread;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
   JButton button = new JButton("ForkJoinPool.invoke(ForkJoinTask)");
   private final JTextField threadCountField = createThreadCountField();
   private boolean initialized;
-  private ForkJoinMaxProblem problem;
+  private ForkJoinMaximumProblem problem;
   private boolean animating;
 
   public ForkJoinConcurrentExample(String label, Container frame, int slideShowIndex) {
@@ -48,7 +48,7 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
       public void run() {
         reset();
         setAnimating(true);
-        problem = new ForkJoinMaxProblem(ForkJoinConcurrentExample.this, (ForkJoinCanvas) getCanvas(), 14, getThreadCount(threadCountField));
+        problem = new ForkJoinMaximumProblem(ForkJoinConcurrentExample.this, (ForkJoinCanvas) getCanvas(), 14, getThreadCount(threadCountField));
         problem.launch();
       }
     });
