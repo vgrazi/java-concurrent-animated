@@ -93,23 +93,21 @@ public class ForkJoinMaxProblem {
         result = array[start];
         concurrentExample.setState(2);
 //        flipFlop(forkJoinThread);
-        sleep(.75f);
+        sleep(1.5f);
 
       } else {
         concurrentExample.setState(3);
-        sleep(1);
+        sleep(1.5f);
         int mid = (start + end) / 2;
         forkJoinThread.setCurrentSprite(null);
         Solver solver1 = new Solver(array, start, mid, level + 1);
         Solver solver2 = new Solver(array, mid, end, level + 1);
-//        sleep(.375f);
         invokeAll(solver1, solver2);
         forkJoinThread.setCurrentSprite(sprite);
-//        sleep(.375f);
 
         result = Math.max(solver1.result, solver2.result);
       }
-      sleep(.75f);
+      sleep(1.5f);
       sprite.setComplete(result);
     }
 
