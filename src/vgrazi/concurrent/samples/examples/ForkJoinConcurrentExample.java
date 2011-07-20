@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ForkJoinConcurrentExample extends ConcurrentExample {
-  JButton button = new JButton("ForkJoinPool.invoke(ForkJoinTask)");
+  private JButton button = new JButton("ForkJoinPool.invoke(ForkJoinTask)");
   private final JTextField threadCountField = createThreadCountField();
   private boolean initialized;
   private ForkJoinMaximumProblem problem;
