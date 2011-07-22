@@ -217,45 +217,33 @@ public class PhaserExample extends ConcurrentExample {
       }
     };
   }
-  protected String getSnippet() {
-    final String snippet;
-    snippet="<html><head><style type=\"text/css\"> \n" +
-            ".ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }\n" +
-            ".s0 { }\n" +
-            ".s1 { color: rgb(0,0,128); font-weight: bold; }\n" +
-            ".s2 { color: rgb(0,0,255); }\n" +
-            ".s3 { color: rgb(128,128,128); font-style: italic; }\n" +
-            ".s9 { color: rgb(128,128,128); }\n" +
-            "</style> \n" +
-            "</head>\n" +
-            "<BODY BGCOLOR=\"#ffffff\">\n" +
-            "<pre>\n" +
-            "<span class=\"<state0:s0>\"> \n" +
-            "   Phaser phaser = </span><span class=\"<state0:s1>\">new </span><span class=\"<state0:s0>\">Phaser(</span><span class=\"<state0:s2>\">4</span><span class=\"<state0:s0>\">) { \n" +
-            "      <span class=\"<state7:s1>\">@Override</span> \n" +
-            "     </span><span class=\"<state7:s3>\">// Perform when all parties arrive</span><span class=\"s0\"> \n" +
-            "     </span><span class=\"<state7:s1>\">protected boolean </span><span class=\"<state7:s0>\">onAdvance(</span><span class=\"<state7:s1>\">int </span><span class=\"<state7:s0>\">phase, \n" +
-            "                         </span><span class=\"<state7:s1>\">int </span><span class=\"<state7:s0>\">registeredParties) { \n" +
-            "       </span><span class=\"<state7:s3>\">// return true if the Phaser should\n" +
-            "       // terminate on advance, else false</span><span class=\"<state7:s0>\"> \n" +
-            "       </span><span class=\"<state7:s1>\">return false</span><span class=\"<state7:s0>\">; \n" +
-            "     } \n" +
-            "<span class=\"<state0:s1>\">   };</span> \n" +
-            "    \n" +
-            "   <span class=\"<state3:s1>\">int </span><span class=\"<state3:s0>\">phase = phaser.arriveAndAwaitAdvance();</span> \n" +
-            "\n" +
-            "   <span class=\"<state1:s1>\">int </span><span class=\"<state1:s0>\">phase = phaser.arrive();</span> \n" +
-            "    \n" +
-            "   <span class=\"<state4:s1>\">int </span><span class=\"<state4:s0>\">phase = phaser.awaitAdvance(</span><span class=\"<state4:s1>\">int </span><span class=\"<state4:s0>\">phase); \n" +
-            "\n" +
-            "   <span class=\"<state2:s1>\">int </span><span class=\"<state2:s0>\">phase = phaser.arriveAndDeregister();</span> \n" +
-            "\n" +
-            "   <span class=\"<state5:s1>\">int </span><span class=\"<state5:s0>\">phase = phaser.register();</span>\n" +
-            "    \n" +
-            "   <span class=\"<state6:s1>\">int </span><span class=\"<state6:s0>\">phase = phaser.bulkRegister(</span><span class=\"<state6:s1>\">int </span><span class=\"<state6:s0>\">parties);</span></pre>\n" +
-            "</body>\n" +
-            "</html>";
-    return snippet;
+
+  protected String getSnippetText() {
+    return
+    "<format state=0 class=default>\n" +
+    "   Phaser phaser = </format><format state=0 class=keyword>new </format><format state=0 class=default>Phaser(</format><format state=0 class=literal>4</format><format state=0 class=default>) { \n" +
+    "      <format state=7 class=default>@Override</format> \n" +
+    "     </format><format state=7 class=comment>// Perform when all parties arrive</format><format state=7 class=default> \n" +
+    "     </format><format state=7 class=keyword>protected boolean </format><format state=7 class=default>onAdvance(</format><format state=7 class=keyword>int </format><format state=7 class=default>phase, \n" +
+    "                         </format><format state=7 class=keyword>int </format><format state=7 class=default>registeredParties) { \n" +
+    "       </format><format state=7 class=comment>// return true if the Phaser should\n" +
+    "       // terminate on advance, else false</format><format state=7 class=default> \n" +
+    "       </format><format state=7 class=keyword>return false</format><format state=7 class=default>; \n" +
+    "     } \n" +
+    "<format state=0 class=keyword>   };</format> \n" +
+    "    \n" +
+    "   <format state=3 class=keyword>int </format><format state=3 class=default>phase = phaser.arriveAndAwaitAdvance();</format> \n" +
+    "\n" +
+    "   <format state=1 class=keyword>int </format><format state=1 class=default>phase = phaser.arrive();</format> \n" +
+    "    \n" +
+    "   <format state=4 class=keyword>int </format><format state=4 class=default>phase = phaser.awaitAdvance(</format><format state=4 class=keyword>int </format><format state=4 class=default>phase</format>); \n" +
+    "\n" +
+    "   <format state=2 class=keyword>int </format><format state=2 class=default>phase = phaser.arriveAndDeregister();</format> \n" +
+    "\n" +
+    "   <format state=5 class=keyword>int </format><format state=5 class=default>phase = phaser.register();</format>\n" +
+    "    \n" +
+    "   <format state=6 class=keyword>int </format><format state=6 class=default>phase = phaser.bulkRegister(</format><format state=6 class=keyword>int </format><format state=6 class=default>parties);</format>";
+
   }
 
 //  private void snippetText() {
@@ -280,5 +268,6 @@ public class PhaserExample extends ConcurrentExample {
 //
 ////    phaser.bulkRegister(int parties);
 //  }
+
 
 }

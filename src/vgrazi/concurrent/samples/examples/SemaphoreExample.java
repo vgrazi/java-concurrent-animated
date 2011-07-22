@@ -51,47 +51,32 @@ public class SemaphoreExample extends ConcurrentExample {
     initializeFair(fair);
   }
 
-  protected String getSnippet() {
-
-    String snippet;
-    snippet = "<html><PRE>\n" +
-            "<font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            " \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Constructor - pass in the permit count</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Semaphore semaphore = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Semaphore(4); \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state6:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state6:#000000>\"> Semaphore semaphore = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state6:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state6:#000000>\"> Semaphore(4, true); \n" +
-            " \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to acquire will block</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// until the specified number of releases are counted</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\">Thread acquireThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread()</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"> { \n" +
-            "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
-            "        </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
-            "          semaphore.acquire(); \n" +
-            "        } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(InterruptedException e) { interrupt(); }\n" +
-            //       "          Thread.currentThread().interrupt(); \n" +
-            //       "        } \n" +
-            //       "      } \n" +
-            //       "    }); \n" +
-            " \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\">Thread releaseThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread()</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"> { \n" +
-            "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
-            "        semaphore.release(); \n" +
-            "      } \n" +
-            //       "    }); \n" +
-            " \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// tryAcquire is like acquire except that it</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// times out after the specified timeout period</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">Thread tryAcquire = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Thread() { \n" +
-            "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> run() { \n" +
-            "        </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
-            "          if(semaphore.tryAcquire(" + timeoutString + "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">)){//do something}; \n" +
-            "        } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) { interrupt(); }\n" +
-            //       "          Thread.currentThread().interrupt(); \n" +
-            //       "        } \n" +
-            //       "      } \n" +
-            //       "    });" +
-            "</FONT></PRE></html>";
-
+  protected  String getSnippetText() {
+      String snippet =
+  "    <format state=6 class=comment>// Constructor - pass in the number of permits</format>\n" +
+  "    <format state=6 class=keyword>final</format> <format state=6 class=default>Semaphore semaphore = <format state=6 class=keyword>new</format><format state=6 class=default> Semaphore(</format><format state=6 class=literal>4,</format><format state=6 class=keyword> true</format><format state=6 class=default>);</format>\n" +
+  "    <format state=0 class=keyword>final</format> <format state=0 class=default>Semaphore semaphore = <format state=0 class=keyword>new</format><format state=0 class=default> Semaphore(</format><format state=0 class=literal>4</format><format state=6 class=default>);</format>\n" +
+  "\n" +
+  "    <format state=1 class=comment>// Threads attempting to acquire will block\n" +
+  "    // until the specified number of releases are counted</format>\n" +
+  "    <format state=1 class=keyword>try </format><format state=1 class=default>{\n" +
+  "      semaphore.acquire();\n" +
+  "    }</format><format state=1 class=keyword> catch <format state=1 class=default>(InterruptedException e) { }</format>\n" +
+  "\n" +
+  "    <format state=2 class=default>semaphore.release();</format>\n" +
+  "\n" +
+  "    <format state=4 class=comment>// tryAcquire is like acquire, except that it\n" +
+  "    // times out after an (optional) specified time.</format>\n" +
+  "    <format state=4 class=keyword>try</format><format state=4 class=default> {</format>\n" +
+  "    <format state=4 class=keyword>  if</format><format state=4 class=default>(semaphore.tryAcquire(</format><format state=4 class=literal>5</format><format state=4 class=default>, TimeUnit.SECONDS)) {</format>\n" +
+  "    <format state=4 class=comment>    // Do something\n" +
+  "    <format state=4 class=default>  }\n" +
+  "    } <format state=4 class=keyword><format state=4 class=keyword>catch</format><format state=4 class=default> (InterruptedException e) { }</format>\n" +
+  "\n" +
+  "    <format state=3 class=comment>// If no time is specified, times out immediately if not acquired</format>\n" +
+  "    <format state=3 class=keyword>if</format><format state=3 class=default>(semaphore.tryAcquire()) {</format>\n" +
+  "    <format state=3 class=comment>  // Do something</format>\n" +
+  "    <format state=3 class=default>}</format>\n";
     return snippet;
   }
 
@@ -192,13 +177,15 @@ public class SemaphoreExample extends ConcurrentExample {
     }
     semaphore.release();
     displayPermits();
+    setState(2);
   }
 
-  private void _release(ConcurrentSprite sprite) {
-    setState(2);
+  private void _release(ConcurrentSprite sprite, boolean setState) {
     sprite.setReleased();
     message1("Released ", ConcurrentExampleConstants.MESSAGE_COLOR);
-    setState(2);
+    if (setState) {
+      setState(2);
+    }
   }
 
   private void acquire() {
@@ -213,12 +200,11 @@ public class SemaphoreExample extends ConcurrentExample {
       }
       sprite.setAcquired();
       message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
-      setState(1);
       // the sprite has been acquired by the permit. Wait now for a release message
       synchronized (sprite) {
         sprite.wait();
       }
-      _release(sprite);
+      _release(sprite, false);
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
@@ -226,14 +212,13 @@ public class SemaphoreExample extends ConcurrentExample {
 
   private void tryTimedAcquire() {
     try {
-      setState(3);
+      setState(4);
       message1("Trying acquire..", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       ConcurrentSprite sprite = createAttemptingSprite();
       if (semaphore.tryAcquire(timeout, TimeUnit.MILLISECONDS)) {
         displayPermits();
         message1("Acquire succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();
-        setState(3);
         synchronized (this) {
           acquiredSprites.add(sprite);
         }
@@ -241,12 +226,12 @@ public class SemaphoreExample extends ConcurrentExample {
         synchronized (sprite) {
           sprite.wait();
         }
-        _release(sprite);
+        _release(sprite, false);
       } else {
         Thread.sleep(ConcurrentSpriteCanvas.getTimeToAcquireBorder());
         message1("Acquire failed", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
         sprite.setRejected();
-        setState(3);
+        setState(4);
       }
     }
     catch (InterruptedException e) {
@@ -272,7 +257,7 @@ public class SemaphoreExample extends ConcurrentExample {
         synchronized (sprite) {
           sprite.wait();
         }
-        _release(sprite);
+        _release(sprite, false);
       } else {
         Thread.sleep(ConcurrentSpriteCanvas.getTimeToAcquireBorder());
         message1("Acquire failed", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
@@ -305,6 +290,7 @@ public class SemaphoreExample extends ConcurrentExample {
     resetThreadCountField(threadCountField);
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     displayPermits();
+    setState(6);
   }
 
   @Override

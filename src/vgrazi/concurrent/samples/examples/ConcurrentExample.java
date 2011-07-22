@@ -286,7 +286,27 @@ public abstract class ConcurrentExample extends JPanel {
    *
    * @return a code snippet, with &lt;state1> etc delimiting areas that need to change to bold based on state
    */
-  protected abstract String getSnippet();
+  protected String getSnippet() {
+    final String snippet;
+    snippet="<html><head><style type=\"text/css\"> \n" +
+            ".default { }\n" +
+            ".keyword { color: rgb(0,0,128); font-weight: bold; }\n" +
+            ".literal { color: rgb(0,0,255); }\n" +
+            ".comment { color: rgb(128,128,128);}\n" +
+            ".unselected { color: rgb(128,128,128); }\n" +
+            "</style> \n" +
+            "</head>\n" +
+            "<BODY BGCOLOR=\"#ffffff\">\n" +
+            "<pre>\n" + getSnippetText() +
+            "</pre></body>\n" +
+            "</html>";
+    return snippet;
+  }
+
+  protected String getSnippetText() {
+    return null;
+  }
+
 
   /**
    * Bumps the vertical location of a {@link ExampleType#ONE_USE} mutex. Ignore by all other ExampleTypes
@@ -631,12 +651,21 @@ public abstract class ConcurrentExample extends JPanel {
 
           // for newer html output, intelliJ is spitting out css. The default css class is .s9
           // Look for <state2:s1> if state == 2 convert that to s1 else s9
-          snippet = snippet.replaceAll("<state" + state + "\\:(s\\d)>", "$1");
-          snippet = snippet.replaceAll("<state\\d:(s\\d)>", "s9");
+//          System.out.println(snippet);
+          snippet = snippet.replaceAll("<state" + state + "\\:(\\w*)>", "$1");
+          snippet = snippet.replaceAll("<state\\d:(s\\w+)>", "s9");
+          snippet = snippet.replaceAll("<state\\d:(\\w+)>", "unselected");
+//          "<format state=3, class=\"keyword\"/>int </format>"
+
+
+          snippet = snippet.replaceAll(String.format("<format state=%d\\s+class=(\\w+)>", state), String.format("<span class=\"%s\">", "$1"));
+          snippet = snippet.replaceAll("<format state=\\d+\\s*class=(\\w+)>", "<span class=\"unselected\">");
+          snippet = snippet.replaceAll("</format>", "</span>");
 
         }
         return snippet;
     }
+
 
   private JLabel getSnippetLabel() {
     return snippetLabel;
