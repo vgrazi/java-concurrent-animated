@@ -54,8 +54,8 @@ public class SemaphoreExample extends ConcurrentExample {
   protected  String getSnippetText() {
       String snippet =
   "    <6 comment>// Constructor - pass in the number of permits\n" +
-  "    <6 keyword>final <6 default>Semaphore semaphore = <6 keyword>new</format><6 default> Semaphore(</format><6 literal>4,</format><6 keyword> true</format><6 default>);</format>\n" +
-  "    <0 keyword>final <0 default>Semaphore semaphore = <0 keyword>new</format><0 default> Semaphore(<0 literal>4<6 default>);\n" +
+  "    <6 keyword>final <6 default>Semaphore semaphore = <6 keyword>new<6 default> Semaphore(<6 literal>4,<6 keyword> true<6 default>);\n" +
+  "    <0 keyword>final <0 default>Semaphore semaphore = <0 keyword>new<0 default> Semaphore(<0 literal>4<6 default>);\n" +
   "\n" +
   "    <1 comment>// Threads attempting to acquire will block\n" +
   "    // until the specified number of releases are counted\n" +
