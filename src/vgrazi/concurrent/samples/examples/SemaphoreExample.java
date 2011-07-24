@@ -53,30 +53,30 @@ public class SemaphoreExample extends ConcurrentExample {
 
   protected  String getSnippetText() {
       String snippet =
-  "    <format state=6 class=comment>// Constructor - pass in the number of permits</format>\n" +
-  "    <format state=6 class=keyword>final</format> <format state=6 class=default>Semaphore semaphore = <format state=6 class=keyword>new</format><format state=6 class=default> Semaphore(</format><format state=6 class=literal>4,</format><format state=6 class=keyword> true</format><format state=6 class=default>);</format>\n" +
-  "    <format state=0 class=keyword>final</format> <format state=0 class=default>Semaphore semaphore = <format state=0 class=keyword>new</format><format state=0 class=default> Semaphore(</format><format state=0 class=literal>4</format><format state=6 class=default>);</format>\n" +
+  "    <6 comment>// Constructor - pass in the number of permits\n" +
+  "    <6 keyword>final <6 default>Semaphore semaphore = <6 keyword>new</format><6 default> Semaphore(</format><6 literal>4,</format><6 keyword> true</format><6 default>);</format>\n" +
+  "    <0 keyword>final <0 default>Semaphore semaphore = <0 keyword>new</format><0 default> Semaphore(<0 literal>4<6 default>);\n" +
   "\n" +
-  "    <format state=1 class=comment>// Threads attempting to acquire will block\n" +
-  "    // until the specified number of releases are counted</format>\n" +
-  "    <format state=1 class=keyword>try </format><format state=1 class=default>{\n" +
+  "    <1 comment>// Threads attempting to acquire will block\n" +
+  "    // until the specified number of releases are counted\n" +
+  "    <1 keyword>try <1 default>{\n" +
   "      semaphore.acquire();\n" +
-  "    }</format><format state=1 class=keyword> catch <format state=1 class=default>(InterruptedException e) { }</format>\n" +
+  "    }<1 keyword> catch <1 default>(InterruptedException e) { }\n" +
   "\n" +
-  "    <format state=2 class=default>semaphore.release();</format>\n" +
+  "    <2 default>semaphore.release();\n" +
   "\n" +
-  "    <format state=4 class=comment>// tryAcquire is like acquire, except that it\n" +
-  "    // times out after an (optional) specified time.</format>\n" +
-  "    <format state=4 class=keyword>try</format><format state=4 class=default> {</format>\n" +
-  "    <format state=4 class=keyword>  if</format><format state=4 class=default>(semaphore.tryAcquire(</format><format state=4 class=literal>5</format><format state=4 class=default>, TimeUnit.SECONDS)) {</format>\n" +
-  "    <format state=4 class=comment>    // Do something\n" +
-  "    <format state=4 class=default>  }\n" +
-  "    } <format state=4 class=keyword><format state=4 class=keyword>catch</format><format state=4 class=default> (InterruptedException e) { }</format>\n" +
+  "    <4 comment>// tryAcquire is like acquire, except that it\n" +
+  "    // times out after an (optional) specified time.\n" +
+  "    <4 keyword>try<4 default> {\n" +
+  "    <4 keyword>  if<4 default>(semaphore.tryAcquire(<4 literal>5<4 default>, TimeUnit.SECONDS)) {\n" +
+  "    <4 comment>    // Do something\n" +
+  "    <4 default>  }\n" +
+  "    } <4 keyword><4 keyword>catch<4 default> (InterruptedException e) { }\n" +
   "\n" +
-  "    <format state=3 class=comment>// If no time is specified, times out immediately if not acquired</format>\n" +
-  "    <format state=3 class=keyword>if</format><format state=3 class=default>(semaphore.tryAcquire()) {</format>\n" +
-  "    <format state=3 class=comment>  // Do something</format>\n" +
-  "    <format state=3 class=default>}</format>\n";
+  "    <3 comment>// If no time is specified, times out immediately if not acquired\n" +
+  "    <3 keyword>if<3 default>(semaphore.tryAcquire()) {\n" +
+  "    <3 comment>  // Do something\n" +
+  "    <3 default>}\n";
     return snippet;
   }
 

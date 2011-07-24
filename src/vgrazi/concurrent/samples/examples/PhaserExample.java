@@ -220,29 +220,29 @@ public class PhaserExample extends ConcurrentExample {
 
   protected String getSnippetText() {
     return
-    "<format state=0 class=default>\n" +
-    "   Phaser phaser = </format><format state=0 class=keyword>new </format><format state=0 class=default>Phaser(</format><format state=0 class=literal>4</format><format state=0 class=default>) { \n" +
-    "      <format state=7 class=default>@Override</format> \n" +
-    "     </format><format state=7 class=comment>// Perform when all parties arrive</format><format state=7 class=default> \n" +
-    "     </format><format state=7 class=keyword>protected boolean </format><format state=7 class=default>onAdvance(</format><format state=7 class=keyword>int </format><format state=7 class=default>phase, \n" +
-    "                         </format><format state=7 class=keyword>int </format><format state=7 class=default>registeredParties) { \n" +
-    "       </format><format state=7 class=comment>// return true if the Phaser should\n" +
-    "       // terminate on advance, else false</format><format state=7 class=default> \n" +
-    "       </format><format state=7 class=keyword>return false</format><format state=7 class=default>; \n" +
+    "<0 default>\n" +
+    "   Phaser phaser = </format><0 keyword>new <0 default>Phaser(<0 literal>4<0 default>) { \n" +
+    "      <7 default>@Override \n" +
+    "     <7 comment>// Perform when all parties arrive<7 default> \n" +
+    "     <7 keyword>protected boolean <7 default>onAdvance(<7 keyword>int <7 default>phase, \n" +
+    "                         <7 keyword>int <7 default>registeredParties) { \n" +
+    "       <7 comment>// return true if the Phaser should\n" +
+    "       // terminate on advance, else false<7 default> \n" +
+    "       <7 keyword>return false<7 default>; \n" +
     "     } \n" +
-    "<format state=0 class=keyword>   };</format> \n" +
+    "<0 default>   }; \n" +
     "    \n" +
-    "   <format state=3 class=keyword>int </format><format state=3 class=default>phase = phaser.arriveAndAwaitAdvance();</format> \n" +
+    "   <3 keyword>int <3 default>phase = phaser.arriveAndAwaitAdvance(); \n" +
     "\n" +
-    "   <format state=1 class=keyword>int </format><format state=1 class=default>phase = phaser.arrive();</format> \n" +
+    "   <1 keyword>int <1 default>phase = phaser.arrive(); \n" +
     "    \n" +
-    "   <format state=4 class=keyword>int </format><format state=4 class=default>phase = phaser.awaitAdvance(</format><format state=4 class=keyword>int </format><format state=4 class=default>phase</format>); \n" +
+    "   <4 keyword>int <4 default>phase = phaser.awaitAdvance(<4 keyword>int <4 default>phase); \n" +
     "\n" +
-    "   <format state=2 class=keyword>int </format><format state=2 class=default>phase = phaser.arriveAndDeregister();</format> \n" +
+    "   <2 keyword>int <2 default>phase = phaser.arriveAndDeregister(); \n" +
     "\n" +
-    "   <format state=5 class=keyword>int </format><format state=5 class=default>phase = phaser.register();</format>\n" +
+    "   <5 keyword>int <5 default>phase = phaser.register();\n" +
     "    \n" +
-    "   <format state=6 class=keyword>int </format><format state=6 class=default>phase = phaser.bulkRegister(</format><format state=6 class=keyword>int </format><format state=6 class=default>parties);</format>";
+    "   <6 keyword>int <6 default>phase = phaser.bulkRegister(<6 keyword>int <6 default>parties);";
 
   }
 
