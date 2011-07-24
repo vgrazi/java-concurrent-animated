@@ -282,6 +282,18 @@ public abstract class ConcurrentExample extends JPanel {
 
 
   /**
+   * Override in Example subclasses as a more convenient way of returning the snippet, instead of overriding getSnippet
+   * the default getSnippet will provide the <html><head><style><pre> as well as the default classes.
+   * In getSnippetText, return the string, with /n and proper indentation as desired to indicate line feed and spaces
+   * then insert <d class> for each state, where d is the state and class is the class: default, keyword, literal, comment, unselected.
+   * For example <3 literal> means display this as a literal (light blue) when the state==3
+   * @return the snippet text
+   */
+  protected String getSnippetText() {
+    return null;
+  }
+
+  /**
    * Returns a code snippet, with &lt;state1> etc delimiting areas that need to change to bold based on state
    *
    * @return a code snippet, with &lt;state1> etc delimiting areas that need to change to bold based on state
@@ -301,10 +313,6 @@ public abstract class ConcurrentExample extends JPanel {
             "</pre></body>\n" +
             "</html>";
     return snippet;
-  }
-
-  protected String getSnippetText() {
-    return null;
   }
 
 
@@ -633,6 +641,7 @@ public abstract class ConcurrentExample extends JPanel {
 
   }
 
+
     private static String applyState(int state, String snippet) {
 //        System.out.println("ConcurrentExample.applyState " + state);
         if (snippet != null) {
@@ -658,9 +667,8 @@ public abstract class ConcurrentExample extends JPanel {
 //          "<format state=3, class=\"keyword\"/>int </format>"
 
 
-          snippet = snippet.replaceAll(String.format("<format state=%d\\s+class=(\\w+)>", state), String.format("<span class=\"%s\">", "$1"));
-          snippet = snippet.replaceAll("<format state=\\d+\\s*class=(\\w+)>", "<span class=\"unselected\">");
-          snippet = snippet.replaceAll("</format>", "</span>");
+          snippet = snippet.replaceAll(String.format("<%d\\s+(\\w+)>", state), String.format("</span><span class=\"%s\">", "$1"));
+          snippet = snippet.replaceAll("<\\d+\\s*(\\w+)>", "</span><span class=\"unselected\">");
 
         }
         return snippet;
