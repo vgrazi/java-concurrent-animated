@@ -22,8 +22,8 @@ public class PhaserExample extends ConcurrentExample {
   private final JButton arriveButton = new JButton("arrive()");
   private final JButton arriveAndDeregisterButton = new JButton("arriveAndDeregister()");
   private final JButton arriveAndAwaitAdvanceButton = new JButton("arriveAndAwaitAdvance()");
-  private final JButton awaitAdvanceButton = new JButton("awaitAdvance(phase)");
-  private final JButton awaitAdvanceWrongPhaseButton = new JButton("awaitAdvance(phase+1)");
+  private final JButton awaitAdvanceButton = new JButton("awaitAdvance(this_phase)");
+  private final JButton awaitAdvanceWrongPhaseButton = new JButton("awaitAdvance(other_phase)");
   private final JButton registerButton = new JButton("register()");
   private final JButton bulkRegisterButton = new JButton("bulkRegister()");
   private boolean initialized;
