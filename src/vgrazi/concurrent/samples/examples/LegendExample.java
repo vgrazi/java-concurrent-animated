@@ -54,6 +54,7 @@ public class LegendExample extends ConcurrentExample {
   private void startDemo() {
     switch (position) {
       case 0:
+        startButton.setText("Continue Demo");
         // reset just in case we are coming around again
         resetExample();
         // todo: add justification - left, right, center.
@@ -130,6 +131,7 @@ public class LegendExample extends ConcurrentExample {
         position++;
         break;
       case 10:
+        startButton.setText("Restart Demo");
         sprites[18] = createTextSprite(   "Page Down ");
         sprites[19] = createTextSprite( "to start    ");
         sprites[20] = createTextSprite( "presentation");
