@@ -386,6 +386,7 @@ public abstract class ConcurrentExample extends JPanel {
     initializeOutput();
     initializeAnimationCanvas();
     setDefaultState();
+    repaint();
   }
 
   /**
