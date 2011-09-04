@@ -301,9 +301,9 @@ public abstract class ConcurrentExample extends JPanel {
   protected String getSnippet() {
     final String snippet;
     snippet="<html><head><style type=\"text/css\"> \n" +
-            ".default { }\n" +
-            ".keyword { color: rgb(0,0,128); font-weight: bold; }\n" +
-            ".literal { color: rgb(0,0,255); }\n" +
+            ".default { font-weight: bold}\n" +
+            ".keyword { color: rgb(0,0,200); font-weight: bold; }\n" +
+            ".literal { color: rgb(0,0,255); font-weight: bold}\n" +
             ".comment { color: rgb(128,128,128);}\n" +
             ".unselected { color: rgb(128,128,128); }\n" +
             "</style> \n" +
