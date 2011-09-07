@@ -338,6 +338,7 @@ public abstract class ConcurrentExample extends JPanel {
       imagePanel.setVisible(true);
     }
     canvas.resumeClock();
+    repaint();
     //    canvas.setVisible(false);
   }
 
