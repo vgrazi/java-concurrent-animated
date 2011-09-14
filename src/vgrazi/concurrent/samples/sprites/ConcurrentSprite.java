@@ -15,7 +15,7 @@ public class ConcurrentSprite {
    * If value or expected value are set to NO_VALUE, they will not be drawn
    */
   public static int NO_VALUE = Integer.MIN_VALUE;
-  private SpriteState state = SpriteState.ACQUIRING;
+  private volatile SpriteState state = SpriteState.ACQUIRING;
 
   /**
    * WORKING sprite is equivalent to an ARROW sprint except in the acquired state.
@@ -118,10 +118,13 @@ public class ConcurrentSprite {
    * Draw this Sprite escaping from the borders.
    */
   public void setReleased() {
-    state = SpriteState.RELEASED;
-    destination = Integer.MAX_VALUE;
-    if(currentLocation < ConcurrentSpriteCanvas.ACQUIRE_BORDER) {
-      setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER);
+    // never allow a rejected sprite to be resurrected
+    if (state != SpriteState.REJECTED) {
+      state = SpriteState.RELEASED;
+      destination = Integer.MAX_VALUE;
+      if(currentLocation < ConcurrentSpriteCanvas.ACQUIRE_BORDER) {
+        setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER);
+      }
     }
   }
 
