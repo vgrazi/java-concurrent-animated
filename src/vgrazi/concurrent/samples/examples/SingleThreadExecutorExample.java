@@ -18,6 +18,15 @@ public class SingleThreadExecutorExample extends ExecutorsExample {
     super(label, frame, slideShowIndex);
   }
 
+  protected void initializeComponents() {
+    if (!initialized) {
+      initializeExecuteButton();
+      initializeThreadCountField(threadCountField);
+      initialized = true;
+    }
+    reset();
+  }
+
   @Override
   public void reset() {
     if (executor != null) {

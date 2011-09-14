@@ -17,6 +17,14 @@ public class CachedThreadExecutorExample extends ExecutorsExample {
   public CachedThreadExecutorExample(String label, Container frame, int slideShowIndex) {
     super(label, frame, slideShowIndex);
   }
+  protected void initializeComponents() {
+    if (!initialized) {
+      initializeExecuteButton();
+      initializeThreadCountField(threadCountField);
+      initialized = true;
+    }
+    reset();
+  }
 
   @Override
   public void reset() {

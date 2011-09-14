@@ -23,7 +23,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
     private final JButton setRejectedExecutionHandlerCallerRunsButton = new JButton("setRejectedExecutionHandler(CallerRuns)");
   private final JButton setRejectedExecutionHandlerDiscardOldestButton = new JButton("setRejectedExecutionHandler(DiscardOldest)");
   private final JButton setRejectedExecutionHandlerDiscardButton = new JButton("setRejectedExecutionHandler(Discard)");
-  private boolean initialized = false;
+  protected boolean initialized = false;
   protected int sleepTime;
   public static final String FIXED_TYPE = "FixedThreadPool";
   public static final String SINGLE_TYPE = "SingleThreadExecutor";
@@ -58,28 +58,12 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
             "</HTML>";
   }
 
-  protected void initializeComponents() {
-    if (!initialized) {
-      initializeExecuteButton();
-      if (getTitle().equals(FIXED_TYPE)) {
-        initializePrestartButton();
-      }
-      initializeThreadCountField(threadCountField);
-      if (getTitle().equals(BLOCKING_TYPE)) {
-        initializeSaturationPolicyButton();
-      }
-
-      initialized = true;
-    }
-    reset();
-  }
-
   public String getDescriptionHtml() {
     return "";
   }
 
 
-  private void initializeExecuteButton() {
+  protected void initializeExecuteButton() {
     initializeButton(executeButton, new Runnable() {
       public void run() {
         final int threadCount = getThreadCount(threadCountField);
@@ -110,16 +94,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
     }, 500, TimeUnit.MILLISECONDS);
   }
 
-  private void setRejected(final ConcurrentSprite sprite) {
-    scheduledExecutor.schedule(new Runnable() {
-      @Override
-      public void run() {
-        sprite.setRejected();
-      }
-    }, 500, TimeUnit.MILLISECONDS);
-  }
-
-  private void initializePrestartButton() {
+  protected void initializePrestartButton() {
     initializeButton(prestartButton, new Runnable() {
       public void run() {
         setState(4);
@@ -131,7 +106,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
     });
   }
 
-  private void initializeSaturationPolicyButton() {
+  protected void initializeSaturationPolicyButton() {
     initializeButton(setRejectedExecutionHandlerAbortButton, new Runnable() {
       public void run() {
         ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
@@ -168,6 +143,15 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
         setState(5);
       }
     });
+  }
+
+  private void setRejected(final ConcurrentSprite sprite) {
+    scheduledExecutor.schedule(new Runnable() {
+      @Override
+      public void run() {
+        sprite.setRejected();
+      }
+    }, 500, TimeUnit.MILLISECONDS);
   }
 
   public int getAvailableThreadCount() {

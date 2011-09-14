@@ -36,6 +36,17 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
     super.reset();
   }
 
+  protected void initializeComponents() {
+    if (!initialized) {
+      initializeExecuteButton();
+      initializeThreadCountField(threadCountField);
+      initializeSaturationPolicyButton();
+
+      initialized = true;
+    }
+    reset();
+  }
+
   @Override
   protected void initializeThreadPool() {
     executor = new ThreadPoolExecutor(0, 4, 1, TimeUnit.MINUTES, new LinkedBlockingQueue<Runnable>(4));

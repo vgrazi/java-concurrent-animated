@@ -18,6 +18,17 @@ public class FixedThreadExecutorExample extends ExecutorsExample {
     super(label, frame, slideShowIndex);
   }
 
+  protected void initializeComponents() {
+    if (!initialized) {
+      initializeExecuteButton();
+      initializePrestartButton();
+      initializeThreadCountField(threadCountField);
+
+      initialized = true;
+    }
+    reset();
+  }
+
   @Override
   public void reset() {
     if (executor != null) {
