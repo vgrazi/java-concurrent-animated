@@ -8,13 +8,13 @@ public class ConcurrentExampleConstants {
   public static final Color MESSAGE_FLASH_COLOR = new Color(0, 204, 0);
   public static final Color ERROR_MESSAGE_COLOR = Color.white; //new Color(157, 14, 45); // RED
   public static final Color WARNING_MESSAGE_COLOR = new Color(255, 199, 38);
-  public static final Color ACQUIRING_COLOR = new Color(108, 203, 237);
-  public static final Color ACQUIRING_IMTERRUPTIBLY_COLOR = new Color(220, 220, 220);
-  public static final Color ATTEMPTING_COLOR = new Color(255, 199, 38);
+  public static final Color ACQUIRING_COLOR = new Color(0, 56, 104).brighter().brighter().brighter();
+  public static final Color ACQUIRING_INTERRUPTIBLY_COLOR = new Color(220, 220, 220);
+  public static final Color ATTEMPTING_COLOR = Color.orange;
   public static final Color REJECTED_COLOR = Color.white;//new Color(157, 14, 45);//RED
-  public static final Color DEFAULT_BACKGROUND = new Color(0, 56, 104);// DARK BLUE
-  public static final Color MUTEX_BACKGROUND = new Color(135, 134, 126);//GRAY
-  public static final Color MUTEX_FONT_COLOR = new Color(227, 223, 219);//GRAY 40%
+  public static final Color DEFAULT_BACKGROUND = new Color(0,0,0);// BLACK
+  public static final Color MUTEX_BACKGROUND = new Color(135, 134, 126).brighter();//GRAY
+  public static final Color MUTEX_FONT_COLOR = new Color(255, 255, 255);//GRAY 40%
   public static final Color CAS_CIRCLE_COLOR = Color.black;
   public static final Color CAS_ANIMATION_COLOR = Color.white;
   public static final Color TEXT_SPRITE_COLOR = Color.WHITE ;
@@ -25,13 +25,6 @@ public class ConcurrentExampleConstants {
   public static final Font LABEL_FONT = new Font("SansSerif", Font.BOLD, 16);
   public static final Font TEXT_SPRITE_FONT = new Font("Serif", Font.BOLD, 20);
   public static final String LOGO = "images/concurrent.gif";
-//  public static final String LOGO = "images/CS.JPG";
-  public static final String LOGO_APPLET = "concurrent.gif";
-  public static final String[] SLIDES = new String[] {
-          "CENTER:\\Documents and Settings\\Victor\\My Documents\\My Pictures\\Morris.jpg",
-          "CENTER:\\Documents and Settings\\Victor\\My Documents\\My Pictures\\Morris_Frieda.jpg",
-          "CENTER:\\Documents and Settings\\Victor\\My Documents\\My Pictures\\Morris_Frieda_Victoria.jpg",
-  };
 
   public static final String INSTRUCTIONS_FILE = "/images/instructions.html";
   public static final String REFERENCES_FILE = "/images/references.html";
