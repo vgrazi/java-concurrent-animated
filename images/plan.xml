@@ -5,17 +5,14 @@
     </MenuItem>
     <ImageSlide image="images/executors.jpg"/>
     <MenuItem label="Executors">
-        <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>
-        <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
-        <Example class="vgrazi.concurrent.samples.examples.ExecutorsExample" paging="true" fair="false" mutexLabel="CachedThreadPool"/>
+        <Example class="vgrazi.concurrent.samples.examples.FixedThreadExecutorExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>
+        <Example class="vgrazi.concurrent.samples.examples.SingleThreadExecutorExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
+        <Example class="vgrazi.concurrent.samples.examples.CachedThreadExecutorExample" paging="true" fair="false" mutexLabel="CachedThreadPool"/>
+        <Example class="vgrazi.concurrent.samples.examples.RejectedExecutionExecutorExample" paging="true" fair="false" mutexLabel="RejectedExecutionExample"/>
     </MenuItem>
     <ImageSlide image="images/future.jpg"/>
     <MenuItem label="Future">
         <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false" mutexLabel="Future"/>
-    </MenuItem>
-    <MenuItem label="Semaphore">
-        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="false" fair="false" mutexLabel="Semaphore"/>
-        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="true" fair="true" mutexLabel="Semaphore (fair)"/>
     </MenuItem>
     <ImageSlide image="images/reentrantLock.jpg"/>
     <MenuItem label="ReentrantLock">
@@ -24,6 +21,10 @@
     <ImageSlide image="images/condition.jpg"/>
     <MenuItem label="Condition">
         <Example class="vgrazi.concurrent.samples.examples.ConditionExample" paging="true" fair="false" mutexLabel="Condition"/>
+    </MenuItem>
+    <MenuItem label="Semaphore">
+        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="false" fair="false" mutexLabel="Semaphore"/>
+        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="true" fair="true" mutexLabel="Semaphore (fair)"/>
     </MenuItem>
     <ImageSlide image="images/reentrantRWLock.jpg"/>
     <MenuItem label="ReadWriteLock">
