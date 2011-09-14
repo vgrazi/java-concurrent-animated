@@ -200,7 +200,7 @@ public class ReentrantLockExample extends ConcurrentExample {
     message1("Waiting for lock...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     ConcurrentSprite sprite = createAcquiringSprite();
-    sprite.setColor(ConcurrentExampleConstants.ACQUIRING_IMTERRUPTIBLY_COLOR);
+    sprite.setColor(ConcurrentExampleConstants.ACQUIRING_INTERRUPTIBLY_COLOR);
     final ThreadSpriteHolder threadSpriteHolder = new ThreadSpriteHolder(Thread.currentThread(), sprite);
     interruptibleSprites.add(threadSpriteHolder);
     try {
