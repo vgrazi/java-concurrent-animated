@@ -47,9 +47,9 @@ public class ConcurrentExampleLauncher {
     @Override
     public void keyReleased(KeyEvent e) {
 //      logger.log(Level.INFO, "ConcurrentExampleLauncher.keyPressed " + e);
-      if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+      if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN) {
         ConcurrentSlideShow.nextSlide();
-      } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+      } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP || e.getKeyCode() == KeyEvent.VK_UP) {
         ConcurrentSlideShow.previousSlide();
       }
     }

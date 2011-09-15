@@ -67,9 +67,9 @@ public abstract class ConcurrentExample extends JPanel {
           message2("imagePanel:" + toString(imagePanel.getBounds()) + " " + (canvas.isVisible() ? "Visible" : "Hidden"), Color.BLACK);
         }
       }
-      if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+      if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN) {
         nextSlide();
-      } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+      } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP||e.getKeyCode() == KeyEvent.VK_UP) {
         previousSlide();
       }
     }
