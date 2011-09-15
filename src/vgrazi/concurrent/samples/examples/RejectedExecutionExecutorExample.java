@@ -27,9 +27,9 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
       executor.shutdownNow();
     }
     initializeThreadPool();
-    setState(0);
-    resetThreadCountField(threadCountField);
-
+    setState(1);
+    resetThreadCountField(threadCountField, 10);
+    currentSaturationHandler = "AbortPolicy";
     nextIndex = 1;
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
     message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
@@ -55,29 +55,53 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
   @Override
   protected void setDefaultState() {
     sleepTime = 2000;
-    setState(0);
+    setState(1);
   }
 
-  protected String getSnippet() {
-    String snippet = "<html><PRE><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// FixedThreadPool Construction</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Executor executor = </FONT>\n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">     <B>new</B> <FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">ThreadPoolExecutor(0, 4, 1, TimeUnit.MINUTES, \n" +
-            "               </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">     <B>new</B> <FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> LinkedBlockingQueue<Runnable>(4));\n" +
-            " \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Use the Executor to launch some Runnable </I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "    executor.execute(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Runnable(){ \n" +
-            "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>public</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>void</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> run(){ \n" +
-            "          </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// do work</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "        }}); \n"+
-          " \n" +
-          "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// RejectedExecutionHandler handler = ThreadPoolExecutor.CallerRunsPolicy(); </I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000000>\"> \n" +
-          "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// RejectedExecutionHandler handler = ThreadPoolExecutor.DiscardPolicy();</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000000>\"> \n" +
-          "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// RejectedExecutionHandler handler = ThreadPoolExecutor.DiscardOldestPolicy(); </I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000000>\"> \n" +
-          "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// RejectedExecutionHandler handler = ThreadPoolExecutor.AbortPolicy(); </I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000000>\"> \n" +
-          "    ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(handler);\n" +
-          " \n";
+  public String getSnippetText() {
+    String snippet = "" +
+            "<1 highlight>  Runnables are kept in a Queue until they can be handled.\n" +
+            "  By default, the Executors factory methods use unbounded Queues.\n" +
+            "  However you can create your own ThreadPoolExecutor and pass in a \n" +
+            "  bounded Queue.\n\n" +
+            "  If that Queue becomes saturated, then a runtime \n" +
+            "  RejectedExecutionException will be thrown.\n\n" +
+            "  To prevent that exception, pass in a saturation policy, as shown.\n" +
+            "  Instantiate a saturation policy, and if desired, supply a \n" +
+            "  rejectedExecution method for more fine grained handling.<0 default>\n\n\n" +
+            "" +
+            "  <1 keyword>final <1 default>Executor executor = \n" +
+            "     <1 keyword>new <1 default>ThreadPoolExecutor(0, 4, 1, TimeUnit.MINUTES, \n" +
+            "               <1 keyword>new <1 default>LinkedBlockingQueue(4));\n" +
+            "\n\n" +
+            "  <3 comment>// Use the Executor to launch some Runnable\n" +
+            "  <3 default>executor.execute(<3 keyword>new <3 default>Runnable(){\n" +
+            "      <3 keyword>public void <3 default>run() {\n" +
+            "           <3 comment>// do work\n" +
+            "      <3 default>}});\n" +
+            "\n\n" +
+            "  <5 default>RejectedExecutionHandler handler =\n" +
+            "      <w keyword>new <w default>ThreadPoolExecutor.CallerRunsPolicy() {\n" +
+            "         public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {\n" +
+            "             <0 comment>// do something with the rejected Runnable\n" +
+            "         <w default>}}\n" +
+            "       <x keyword>new <x default>ThreadPoolExecutor.DiscardPolicy();\n" +
+            "       <y keyword>new <y default>ThreadPoolExecutor.DiscardOldestPolicy();\n" +
+            "       <z keyword>new <z default>ThreadPoolExecutor.AbortPolicy();\n" +
+            "  <5 default>((ThreadPoolExecutor) executor).setRejectedExecutionHandler(handler);\n";
+    if("CallerRunsPolicy".equals(currentSaturationHandler)) {
+      snippet = snippet.replaceAll("<w", "<" + getState());
+    }
+    else if("DiscardPolicy".equals(currentSaturationHandler)) {
+      snippet = snippet.replaceAll("<x", "<" + getState());
+    }
+    else if("DiscardOldestPolicy".equals(currentSaturationHandler)) {
+      snippet = snippet.replaceAll("<y", "<" + getState());
+    }
+    else if("AbortPolicy".equals(currentSaturationHandler)) {
+      snippet = snippet.replaceAll("<z", "<" + getState());
+    }
+    snippet = snippet.replaceAll("<[w-z]", "<0");
     return snippet;
   }
-
 }
