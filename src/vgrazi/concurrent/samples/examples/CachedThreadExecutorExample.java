@@ -32,7 +32,7 @@ public class CachedThreadExecutorExample extends ExecutorsExample {
       executor.shutdownNow();
     }
     initializeThreadPool();
-    setState(1);
+    setState(2);
     resetThreadCountField(threadCountField);
 
     nextIndex = 1;
