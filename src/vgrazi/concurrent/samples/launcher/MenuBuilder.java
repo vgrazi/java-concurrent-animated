@@ -132,7 +132,7 @@ public class MenuBuilder extends DefaultHandler {
    * It seems to take too much time to launch the first Example. Therefore let's warm one up here.
    */
   private void warmup() {
-    new FutureExample(ExecutorsExample.FIXED_TYPE, container, delta++);
+    new FutureExample("", container, delta++);
   }
 
   /**
