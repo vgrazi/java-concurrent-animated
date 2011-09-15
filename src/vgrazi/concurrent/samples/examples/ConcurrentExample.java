@@ -88,6 +88,7 @@ public abstract class ConcurrentExample extends JPanel {
   private final int slideNumber;
   private final ConcurrentLinkedQueue<JButton> buttons = new ConcurrentLinkedQueue<JButton>();
   private final static Logger logger = Logger.getLogger(ConcurrentExample.class.getName());
+  private int state;
   //  public ConcurrentExample() {
 
 
@@ -303,6 +304,7 @@ public abstract class ConcurrentExample extends JPanel {
     snippet="<html><head><style type=\"text/css\"> \n" +
             ".default { font-weight: bold}\n" +
             ".keyword { color: rgb(0,0,200); font-weight: bold; }\n" +
+            ".highlight { color: rgb(0,0,0); background-color: yellow; font-weight: normal; }\n" +
             ".literal { color: rgb(0,0,255); font-weight: bold}\n" +
             ".comment { color: rgb(128,128,128);}\n" +
             ".unselected { color: rgb(128,128,128); }\n" +
@@ -627,12 +629,17 @@ public abstract class ConcurrentExample extends JPanel {
     });
   }
 
+  protected int getState() {
+    return state;
+  }
+
   /**
    * Sets the state and redraws the snippet. State == -1 colors the entire snippet. State == 0 colors the constructor, etc
    *
    * @param state -1 colors the entire snippet. 0 colors the constructor, etc
    */
   public void setState(int state) {
+    this.state = state;
     String snippet = getSnippet();
     snippet = applyState(state, snippet);
     getSnippetLabel().setText(snippet);
