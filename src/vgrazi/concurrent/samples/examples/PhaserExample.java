@@ -221,7 +221,7 @@ public class PhaserExample extends ConcurrentExample {
   protected String getSnippetText() {
     return
     "<0 default>\n" +
-    "   Phaser phaser = </format><0 keyword>new <0 default>Phaser(<0 literal>4<0 default>) { \n" +
+    "   Phaser phaser = <0 keyword>new <0 default>Phaser(<0 literal>4<0 default>) { \n" +
     "      <7 default>@Override \n" +
     "     <7 comment>// Perform when all parties arrive<7 default> \n" +
     "     <7 keyword>protected boolean <7 default>onAdvance(<7 keyword>int <7 default>phase, \n" +
