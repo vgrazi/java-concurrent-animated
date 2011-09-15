@@ -25,12 +25,8 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
   private final JButton setRejectedExecutionHandlerDiscardButton = new JButton("setRejectedExecutionHandler(Discard)");
   protected boolean initialized = false;
   protected int sleepTime;
-  public static final String FIXED_TYPE = "FixedThreadPool";
-  public static final String SINGLE_TYPE = "SingleThreadExecutor";
-  public static final String CACHED_TYPE = "CachedThreadPool";
-  public static final String BLOCKING_TYPE = "RejectedExecutionHandler";
   final JTextField threadCountField = createThreadCountField();
-
+  protected String currentSaturationHandler = "AbortPolicy";
 
   /**
    * Each example must have a unique slide show index (or -1). Indexes must start with 0 and must be in sequence, no skipping
@@ -107,9 +103,10 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
   }
 
   protected void initializeSaturationPolicyButton() {
-    initializeButton(setRejectedExecutionHandlerAbortButton, new Runnable() {
+    initializeButton(setRejectedExecutionHandlerCallerRunsButton, new Runnable() {
       public void run() {
-        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        currentSaturationHandler = "CallerRunsPolicy";
         setState(5);
       }
     });
@@ -122,6 +119,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
             message2("DiscardPolicy invoked. Discarding", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
           }
         });
+        currentSaturationHandler = "DiscardPolicy";
         setState(5);
       }
     });
@@ -134,12 +132,14 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
             message2("DiscardPolicy invoked. Discarding", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
           }
         });
+        currentSaturationHandler = "DiscardOldestPolicy";
         setState(5);
       }
     });
-    initializeButton(setRejectedExecutionHandlerCallerRunsButton, new Runnable() {
+    initializeButton(setRejectedExecutionHandlerAbortButton, new Runnable() {
       public void run() {
-        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+        currentSaturationHandler = "AbortPolicy";
         setState(5);
       }
     });
