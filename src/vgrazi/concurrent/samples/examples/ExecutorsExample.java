@@ -14,7 +14,15 @@ import java.util.concurrent.*;
  */
 
 public abstract class ExecutorsExample extends ConcurrentExample implements Pooled {
-  protected ExecutorService executor;
+  public ExecutorService getExecutor() {
+    return executor;
+  }
+
+  public void setExecutor(ExecutorService executor) {
+    this.executor = executor;
+  }
+
+  private ExecutorService executor;
   int nextIndex;
   private final JButton executeButton = new JButton("execute");
   private final JButton prestartButton = new JButton("prestartAllCoreThreads");
@@ -102,10 +110,25 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
     });
   }
 
-  protected void initializeSaturationPolicyButton() {
+  protected void initializeSaturationPolicyButtons() {
     initializeButton(setRejectedExecutionHandlerCallerRunsButton, new Runnable() {
       public void run() {
-        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy(){
+          @Override
+          public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
+            final ConcurrentSprite sprite = ((ExampleRunnable) r).getSprite();
+            sprite.setAcquired();
+            scheduledExecutor.schedule(new Runnable() {
+              @Override
+              public void run() {
+                sprite.setReleased();
+              }
+            }, 3, TimeUnit.SECONDS);
+//            setAcquiredSprite(sprite);
+            System.out.println("CallerRuns.rejectedExecution " + sprite);
+            message2("CallerRuns invoked. Caller runs", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+          }
+        });
         currentSaturationHandler = "CallerRunsPolicy";
         setState(5);
       }
@@ -129,7 +152,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
           @Override
           public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
             setRejected(((ExampleRunnable) r).getSprite());
-            message2("DiscardPolicy invoked. Discarding", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+            message2("DiscardOldestPolicy invoked. Discarding oldest", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
           }
         });
         currentSaturationHandler = "DiscardOldestPolicy";
@@ -138,7 +161,13 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
     });
     initializeButton(setRejectedExecutionHandlerAbortButton, new Runnable() {
       public void run() {
-        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy() {
+          @Override
+          public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
+            setRejected(((ExampleRunnable) r).getSprite());
+            message2("AbortPolicy invoked. Aborting", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+          }
+        });
         currentSaturationHandler = "AbortPolicy";
         setState(5);
       }
@@ -186,7 +215,6 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
         System.out.println("ExecutorsExample.run interrupted exception");
         Thread.currentThread().interrupt();
       }
-      message2("Completed executing index " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
     }
 
     public ConcurrentSprite getSprite() {

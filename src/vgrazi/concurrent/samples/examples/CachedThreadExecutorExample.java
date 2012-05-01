@@ -3,6 +3,7 @@ package vgrazi.concurrent.samples.examples;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 
 import java.awt.*;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CachedThreadExecutorExample extends ExecutorsExample {
@@ -28,6 +29,7 @@ public class CachedThreadExecutorExample extends ExecutorsExample {
 
   @Override
   public void reset() {
+    ExecutorService executor = getExecutor();
     if (executor != null) {
       executor.shutdownNow();
     }
@@ -43,7 +45,7 @@ public class CachedThreadExecutorExample extends ExecutorsExample {
 
   @Override
   protected void initializeThreadPool() {
-    executor = Executors.newCachedThreadPool();
+    setExecutor(Executors.newCachedThreadPool());
   }
 
   @Override

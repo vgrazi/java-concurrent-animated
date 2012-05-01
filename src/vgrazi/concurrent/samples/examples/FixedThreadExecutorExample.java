@@ -3,6 +3,7 @@ package vgrazi.concurrent.samples.examples;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 
 import java.awt.*;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FixedThreadExecutorExample extends ExecutorsExample {
@@ -31,6 +32,7 @@ public class FixedThreadExecutorExample extends ExecutorsExample {
 
   @Override
   public void reset() {
+    ExecutorService executor = getExecutor();
     if (executor != null) {
       executor.shutdownNow();
     }
@@ -47,7 +49,7 @@ public class FixedThreadExecutorExample extends ExecutorsExample {
   @Override
   protected void initializeThreadPool() {
 //    getAnimationCanvas().setLabelText("FixedThreadPooledExecutor");
-    executor = Executors.newFixedThreadPool(4);
+    setExecutor(Executors.newFixedThreadPool(4));
   }
 
   @Override

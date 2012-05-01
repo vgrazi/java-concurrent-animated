@@ -287,4 +287,10 @@ public class ConcurrentSprite {
   public String getExpectedStringValue() {
     return expectedStringValue;
   }
+
+  @Override
+  public String toString() {
+    return String.format("Sprite %d", index);    //To change body of overridden methods use File | Settings | File Templates.
+  }
+
 }
