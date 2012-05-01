@@ -61,8 +61,8 @@
     <MenuItem label="ConcurrentHashMap">
         <Example class="vgrazi.concurrent.samples.examples.ConcurrentHashMapExample" paging="true" fair="false" mutexLabel="ConcurrentHashMap"/>
     </MenuItem>
-    <MenuItem label="Fork &amp; Join">
-        <Example class="vgrazi.concurrent.samples.examples.ForkJoinConcurrentExample" paging="true" mutexLabel="Fork &amp; Join"/>
+    <MenuItem label="Fork/Join">
+        <Example class="vgrazi.concurrent.samples.examples.ForkJoinConcurrentExample" paging="true" mutexLabel="Fork/Join"/>
     </MenuItem>
     <ImageSlide image="images/concurrent.gif" text="/images/references.html"/>
     <References/>
