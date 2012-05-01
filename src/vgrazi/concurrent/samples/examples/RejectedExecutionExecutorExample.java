@@ -3,7 +3,6 @@ package vgrazi.concurrent.samples.examples;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 
 import java.awt.*;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -23,8 +22,8 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
 
   @Override
   public void reset() {
-    if (executor != null) {
-      executor.shutdownNow();
+    if (getExecutor() != null) {
+      getExecutor().shutdownNow();
     }
     initializeThreadPool();
     setState(1);
@@ -40,7 +39,7 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
     if (!initialized) {
       initializeExecuteButton();
       initializeThreadCountField(threadCountField);
-      initializeSaturationPolicyButton();
+      initializeSaturationPolicyButtons();
 
       initialized = true;
     }
@@ -49,7 +48,7 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
 
   @Override
   protected void initializeThreadPool() {
-    executor = new ThreadPoolExecutor(0, 4, 1, TimeUnit.MINUTES, new LinkedBlockingQueue<Runnable>(4));
+    setExecutor(new ThreadPoolExecutor(0, 4, 1, TimeUnit.MINUTES, new LinkedBlockingQueue<Runnable>(4)));
   }
 
   @Override
@@ -61,11 +60,13 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
   public String getSnippetText() {
     String snippet = "" +
             "<1 highlight>  Runnables are kept in a Queue until they can be handled.\n" +
+            "  (These are independent of the running threads, \n" +
+            "    which are removed from the queue to execute.)\n\n" +
             "  By default, the Executors factory methods use unbounded Queues.\n" +
             "  However you can create your own ThreadPoolExecutor and pass in a \n" +
             "  bounded Queue.\n\n" +
-            "  If that Queue becomes saturated, then a runtime \n" +
-            "  RejectedExecutionException will be thrown.\n\n" +
+            "  If that Queue becomes saturated (filled to capacity with Runnables),\n" +
+            "   then a runtime RejectedExecutionException will be thrown.\n\n" +
             "  To prevent that exception, pass in a saturation policy, as shown.\n" +
             "  Instantiate a saturation policy, and if desired, supply a \n" +
             "  rejectedExecution method for more fine grained handling.<0 default>\n\n\n" +
@@ -83,11 +84,11 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
             "  <5 default>RejectedExecutionHandler handler =\n" +
             "      <w keyword>new <w default>ThreadPoolExecutor.CallerRunsPolicy() {\n" +
             "         public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {\n" +
-            "             <0 comment>// do something with the rejected Runnable\n" +
+            "             <0 comment>// optionally - do something with the rejected Runnable\n" +
             "         <w default>}}\n" +
             "       <x keyword>new <x default>ThreadPoolExecutor.DiscardPolicy();\n" +
             "       <y keyword>new <y default>ThreadPoolExecutor.DiscardOldestPolicy();\n" +
-            "       <z keyword>new <z default>ThreadPoolExecutor.AbortPolicy();\n" +
+            "       <z keyword>new <z default>ThreadPoolExecutor.AbortPolicy(); <z comment>//Default policy, throws RejectedExecutionException\n" +
             "  <5 default>((ThreadPoolExecutor) executor).setRejectedExecutionHandler(handler);\n";
     if("CallerRunsPolicy".equals(currentSaturationHandler)) {
       snippet = snippet.replaceAll("<w", "<" + getState());
