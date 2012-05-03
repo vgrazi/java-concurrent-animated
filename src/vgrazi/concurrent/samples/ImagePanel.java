@@ -20,17 +20,11 @@ public class ImagePanel extends JPanel {
   private ConcurrentExample concurrentExample;
   private int xPos;
   private int yPos;
-  private String imageName;
   private final static Logger logger = Logger.getLogger(ImagePanel.class.getName());
   public void setVisible(boolean aFlag) {
     super.setVisible(aFlag);
   }
 
-  public ImagePanel(String image) {
-    this((ConcurrentExample) null);
-    this.imageName = image;
-  }
-  
   public ImagePanel(ConcurrentExample example) {
     setLayout(new BorderLayout());
 

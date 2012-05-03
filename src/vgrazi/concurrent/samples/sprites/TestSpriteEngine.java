@@ -1,7 +1,7 @@
 package vgrazi.concurrent.samples.sprites;
 
 import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
-import vgrazi.concurrent.samples.util.UIUtils;
+import vgrazi.util.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;

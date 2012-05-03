@@ -6,7 +6,9 @@ import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ImagePanel;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
-import vgrazi.concurrent.samples.util.UIUtils;
+import vgrazi.ui.fancymenu.ButtonMenu;
+import vgrazi.ui.fancymenu.ButtonMenuLayout;
+import vgrazi.util.UIUtils;
 import vgrazi.util.IOUtils;
 
 import javax.swing.*;
@@ -16,6 +18,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -37,11 +40,12 @@ Countdownlatch, I'm not sure whether it's obvious from the slides that once the 
 */
 public class ConcurrentExampleLauncher {
   private final JFrame frame = new JFrame();
-  private final Container container = frame.getContentPane();
+  private final Container container = new JPanel(new BorderLayout());
   private JLabel backgroundImage;
   private ConcurrentExample examplePanel;
+  private static MenuBuilder menuBuilder;
 
-  private static ConcurrentExampleLauncher instance;
+  private static volatile ConcurrentExampleLauncher instance;
   private ImagePanel imagePanel;
   private static final KeyAdapter keyListener = new KeyAdapter() {
     @Override
@@ -51,6 +55,11 @@ public class ConcurrentExampleLauncher {
         ConcurrentSlideShow.nextSlide();
       } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP || e.getKeyCode() == KeyEvent.VK_UP) {
         ConcurrentSlideShow.previousSlide();
+      } else if(e.getKeyCode() == KeyEvent.VK_H && e.isControlDown()) {
+        ButtonMenu buttonMenu = MenuBuilder.getButtonMenu();
+        if(buttonMenu != null) {
+          buttonMenu.setVisible(!buttonMenu.isVisible());
+        }
       }
     }
   };
@@ -59,24 +68,48 @@ public class ConcurrentExampleLauncher {
 
   public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
     instance = new ConcurrentExampleLauncher();
+    System.out.printf("ConcurrentExampleLauncher.main set instance to %s%n", instance);
   }
 
   private ConcurrentExampleLauncher() throws IOException, SAXException, ParserConfigurationException {
+    // todo: remove this escape!!!
+    instance = this;
     SPLASH_LABEL = IOUtils.readHtmlText(ConcurrentExampleConstants.INSTRUCTIONS_FILE);
     REFERENCES_LABEL = IOUtils.readHtmlText(ConcurrentExampleConstants.REFERENCES_FILE);
     ToolTipManager ttm = ToolTipManager.sharedInstance();
-    ttm.setDismissDelay(30*60*1000);
+    ttm.setDismissDelay(30 * 60 * 1000);
     ttm.setInitialDelay(500);
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     MenuBar menuBar = new MenuBar();
-    frame.setMenuBar(menuBar);
-    new MenuBuilder(this, container, menuBar, frame).initializeMenuItems();
+
+    configureMSWindowsSpecificStuff(menuBar);
+    menuBuilder = new MenuBuilder(this, container, menuBar, frame);
+    menuBuilder.initializeMenuItems();
     UIUtils.center(frame, .9f, .9f);
     ((JComponent) container).setOpaque(true);
+    Container contentPane = frame.getContentPane();
+    contentPane.setLayout(new ButtonMenuLayout());
+
+    menuBuilder.initializeButtonMenu();
+    ButtonMenu menu = MenuBuilder.getButtonMenu();
+    contentPane.add(menu);
+    contentPane.add(container);
     setBackgroundColors();
+    contentPane.setBackground(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     showSplash();
     frame.setVisible(true);
+  }
+
+  /**
+   * If this is MS Windows, adds a menu bar
+   * @param menuBar
+   */
+  private void configureMSWindowsSpecificStuff(MenuBar menuBar) {
+    if (File.pathSeparatorChar == ';') {
+      // Windows
+      frame.setMenuBar(menuBar);
+    }
   }
 
 
@@ -151,7 +184,7 @@ public class ConcurrentExampleLauncher {
   }
 
   private ImageIcon getImageIcon(String imageName, boolean resizeImage) {
-    ImageIcon imageIcon = vgrazi.concurrent.samples.util.UIUtils.getImageIcon(imageName);
+    ImageIcon imageIcon = vgrazi.util.UIUtils.getImageIcon(imageName);
     if (resizeImage) {
       Dimension size = getImageSize();
       imageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(size.width, size.height, 0));
@@ -178,6 +211,9 @@ public class ConcurrentExampleLauncher {
       if(examplePanel.getSlideNumber() != -1) {
         ConcurrentSlideShow.setSlideShowIndex(examplePanel.getSlideNumber());
       }
+      int menuIndex = examplePanel.getMenuIndex();
+//      System.out.printf("ConcurrentExampleLauncher.launchExamplePanel setting selected index to %d%n", menuIndex);
+      MenuBuilder.getButtonMenu().setSelected(menuIndex, false);
       examplePanel.setAnimationCanvasVisible(true);
     } else {
       showSplashes();
@@ -190,8 +226,10 @@ public class ConcurrentExampleLauncher {
   private void showSplashes() {
     if (flip) {
       showSplash();
+      MenuBuilder.getButtonMenu().setSplashSelected();
     } else {
       showReferences();
+      MenuBuilder.getButtonMenu().setReferencesSelected();
     }
     flip = !flip;
   }
@@ -209,7 +247,9 @@ public class ConcurrentExampleLauncher {
       container.remove(imagePanel);
       imagePanel = null;
     }
-    if (((Container) frame.getGlassPane()).getComponentCount() > 0) {
+    int componentCount = ((Container) frame.getGlassPane()).getComponentCount();
+    if (componentCount > 0) {
+      System.out.printf("ConcurrentExampleLauncher.clearFrame contains %d elements. Removing first %s%n", componentCount, ((Container) frame.getGlassPane()).getComponents()[0]);
       ((Container) frame.getGlassPane()).remove(0);
     }
   }

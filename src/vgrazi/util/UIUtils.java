@@ -1,4 +1,4 @@
-package vgrazi.concurrent.samples.util;
+package vgrazi.util;
 
 import vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher;
 

@@ -4,10 +4,12 @@ import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.ImagePanel;
 import vgrazi.concurrent.samples.MessageLabel;
+import vgrazi.concurrent.samples.launcher.MenuBuilder;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentTextSprite;
+import vgrazi.ui.fancymenu.ButtonMenu;
 import vgrazi.util.StringUtils;
 
 import javax.swing.*;
@@ -69,8 +71,13 @@ public abstract class ConcurrentExample extends JPanel {
       }
       if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN) {
         nextSlide();
-      } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP||e.getKeyCode() == KeyEvent.VK_UP) {
+      } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP || e.getKeyCode() == KeyEvent.VK_UP) {
         previousSlide();
+      } else if (e.getKeyCode() == KeyEvent.VK_H && e.isControlDown()) {
+        ButtonMenu buttonMenu = MenuBuilder.getButtonMenu();
+        if (buttonMenu != null) {
+          buttonMenu.setVisible(!buttonMenu.isVisible());
+        }
       }
     }
 
@@ -89,6 +96,7 @@ public abstract class ConcurrentExample extends JPanel {
   private final ConcurrentLinkedQueue<JButton> buttons = new ConcurrentLinkedQueue<JButton>();
   private final static Logger logger = Logger.getLogger(ConcurrentExample.class.getName());
   private int state;
+  private int menuIndex;
   //  public ConcurrentExample() {
 
 
@@ -754,5 +762,13 @@ public abstract class ConcurrentExample extends JPanel {
 
   public Map<Integer, ActionListener> getSlideShowSlides() {
     return ConcurrentSlideShow.slideShowSlides;
+  }
+
+  public int getMenuIndex() {
+    return menuIndex;
+  }
+
+  public void setMenuIndex(int menuIndex) {
+    this.menuIndex = menuIndex;
   }
 }

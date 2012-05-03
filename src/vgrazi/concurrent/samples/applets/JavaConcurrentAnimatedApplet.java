@@ -29,9 +29,13 @@ public class JavaConcurrentAnimatedApplet extends JApplet {
         try {
             Class aClass = Class.forName(example);
             Constructor constructor = aClass.getConstructor(String.class, Container.class, int.class);
+//          System.out.println("JavaConcurrentAnimatedApplet.init Creating new example instance");
             examplePanel = (ConcurrentExample) constructor.newInstance(title, this, 0);
+//          System.out.println("JavaConcurrentAnimatedApplet.init adding example");
             this.add(examplePanel);
+//          System.out.println("JavaConcurrentAnimatedApplet.init launch the example");
             examplePanel.launchExample();
+//          System.out.println("JavaConcurrentAnimatedApplet.init set the canvas to true");
             examplePanel.setAnimationCanvasVisible(true);
 
         } catch (ClassNotFoundException e) {
@@ -68,9 +72,13 @@ public class JavaConcurrentAnimatedApplet extends JApplet {
 
     private void shutdown() {
         if(examplePanel != null) {
+          try {
             examplePanel.reset();
             examplePanel.pauseAnimationClock();
-            examplePanel = null;
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+          examplePanel = null;
         }
     }
 }

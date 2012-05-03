@@ -8,6 +8,7 @@ import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ImagePanelActionListener;
 import vgrazi.concurrent.samples.examples.*;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
+import vgrazi.ui.fancymenu.ButtonMenu;
 import vgrazi.util.IOUtils;
 
 import javax.swing.*;
@@ -20,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.List;
@@ -42,6 +45,9 @@ public class MenuBuilder extends DefaultHandler {
   private List<Example> examples;
   private final Class<?>[] constructorTypes1 = new Class<?>[]{String.class, Container.class, boolean.class, int.class};
   private final Class<?>[] constructorTypes2 = new Class<?>[]{String.class, Container.class, int.class};
+  private final List<String> menuItems = new ArrayList<String>();
+  private final List<ActionListener> actionListeners = new ArrayList<ActionListener>();
+  private static ButtonMenu buttonMenu;
 
   public MenuBuilder(ConcurrentExampleLauncher concurrentExampleLauncher, Container container, MenuBar menuBar, JFrame frame) {
     this.concurrentExampleLauncher = concurrentExampleLauncher;
@@ -63,36 +69,82 @@ public class MenuBuilder extends DefaultHandler {
     }, 0, 1000, TimeUnit.MILLISECONDS);
   }
 
+  private boolean imageSlide;
+  private int menuIndex = -1;
+
   @Override
-  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+  public void startElement(final String uri, String localName, String qName, final Attributes attributes) throws SAXException {
     if("ImageSlide".equals(qName)) {
+      menuIndex++;
+      imageSlide = true;
       String htmlFile = attributes.getValue("text");
       if (htmlFile != null) {
         try {
           String html = IOUtils.readHtmlText(htmlFile);
-          initializeImageSlide(attributes.getValue("image"), html, delta++, false, Alignment.CENTER);
+          initializeImageSlide(attributes.getValue("image"), html, delta++, false, Alignment.CENTER, menuIndex);
         } catch (IOException e) {
           e.printStackTrace();
         }
       }
       else {
-        initializeImageSlide(attributes.getValue("image"), delta++, false, Alignment.CENTER);
+        initializeImageSlide(attributes.getValue("image"), delta++, false, Alignment.CENTER, menuIndex);
       }
     }
     else if("MenuItem".equals(qName)) {
+      if (!imageSlide) {
+        menuIndex++;
+      }
+      else {
+        imageSlide = false;
+      }
+      // don't set imageSlide = false, an imageSlide followed by a MenuItem is still an ImageSlide
       label = attributes.getValue("label");
       examples = new ArrayList<Example>();
     }
     else if("Example".equals(qName)) {
+      imageSlide = false;
 //      <Example class="vgrazi.concurrent.samples.examples.BlockingQueueExample" paging="true" fair="false" mutexLabel="BlockingQueue"/>
       Example example = new Example(attributes.getValue("class"), attributes.getValue("paging"), attributes.getValue("fair"), attributes.getValue("mutexLabel"));
       examples.add(example);
     }
-    else if("References".equals(qName)) {
-      initializeReferencesMenuItem();
-    }
+//    else if("References".equals(qName)) {
+//      imageSlide = false;
+//      initializeReferencesMenuItem();
+//    }
     else if("Help".equals(qName)) {
+      imageSlide = false;
       initializeHelpMenuItem();
+    }
+    else if("Hyperlink".equals(qName)) {
+      if (Desktop.isDesktopSupported()) {
+        menuIndex++;
+        imageSlide = false;
+        String menuLabel = attributes.getValue("label");
+        final String url = attributes.getValue("uri");
+        Menu menu = new Menu(menuLabel);
+        menuBar.add(menu);
+        menuItems.add(menuLabel);
+        MenuItem menuItem = new MenuItem(menuLabel);
+        menu.add(menuItem);
+        ActionListener actionListener = new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            openURL(url);
+          }
+        };
+        menuItem.addActionListener(actionListener);
+        actionListeners.add(actionListener);
+      }
+    }
+  }
+
+  private void openURL(String uri) {
+    try {
+      Desktop.getDesktop().browse(new URI(uri));
+    } catch (IOException e) {
+      /* TODO: error handling */
+      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+    } catch (URISyntaxException e) {
+      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
     }
   }
 
@@ -112,6 +164,7 @@ public class MenuBuilder extends DefaultHandler {
               Constructor constructor = exampleClass.getConstructor(constructorTypes2);
               concurrentExamples[i] = (ConcurrentExample) constructor.newInstance(example.mutexLabel, container, (example.paging ? delta++ : -1));
             }
+            concurrentExamples[i].setMenuIndex(menuIndex);
           }
         } catch (NoSuchMethodException e) {
           throw new SAXException("No constructor for " + example.className);
@@ -144,8 +197,10 @@ public class MenuBuilder extends DefaultHandler {
   private void initializeMenuItem(final String menuLabel, final ConcurrentExample... examplePanels) {
     Menu menu = new Menu(menuLabel + " ");
     menuBar.add(menu);
+    menuItems.add(menuLabel);
     if (examplePanels != null && examplePanels.length > 0) {
-      for (final ConcurrentExample examplePanel : examplePanels) {
+      for (int i = 0, examplePanelsLength = examplePanels.length; i < examplePanelsLength; i++) {
+        ConcurrentExample examplePanel = examplePanels[i];
         // give the example access to the slide show slides (even if it is not involved in the slide show, so that
         // the user can digress to a menu item and then continue the slide show where it left off.
         ConcurrentSlideShow.setSlideShowSlides(slideShowSlides);
@@ -156,47 +211,58 @@ public class MenuBuilder extends DefaultHandler {
         MenuItem menuItem = new MenuItem(examplePanel.getTitle());
         menuItem.addActionListener(actionListener);
         menu.add(menuItem);
+        if (i == 0) {
+          actionListeners.add(actionListener);
+        }
       }
     }
   }
 
   private void initializeReferencesMenuItem() {
-    Menu menu = new Menu("References");
+    String menuLabel = "References";
+    Menu menu = new Menu(menuLabel);
     menuBar.add(menu);
-    MenuItem menuItem = new MenuItem("References");
+    menuItems.add(menuLabel);
+    MenuItem menuItem = new MenuItem(menuLabel);
     menu.add(menuItem);
-    menuItem.addActionListener(new ActionListener() {
+    ActionListener actionListener = new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         concurrentExampleLauncher.launchExamplePanel(null);
         container.repaint(50);
       }
-    });
+    };
+    menuItem.addActionListener(actionListener);
+    actionListeners.add(actionListener);
   }
 
   /**
    * Creates a Help About menu item
    */
   private void initializeHelpMenuItem() {
-    Menu menu = new Menu("Help");
+    String menuLabel = "Help";
+    Menu menu = new Menu(menuLabel);
     menuBar.add(menu);
+    menuItems.add(menuLabel);
     MenuItem menuItem = new MenuItem("About");
     menu.add(menuItem);
-    menuItem.addActionListener(new ActionListener() {
+    ActionListener actionListener = new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         logger.info(System.getProperties().toString());
         infoDialog();
         container.repaint(50);
       }
-    });
+    };
+    menuItem.addActionListener(actionListener);
+    actionListeners.add(actionListener);
   }
 
-  private void initializeImageSlide(String imageName, int slideNumber, boolean resizeImage, Alignment alignment) {
-    initializeImageSlide(imageName, null, slideNumber, resizeImage, alignment);
+  private void initializeImageSlide(String imageName, int slideNumber, boolean resizeImage, Alignment alignment, int menuIndex) {
+    initializeImageSlide(imageName, null, slideNumber, resizeImage, alignment, menuIndex);
   }
 
-  private void initializeImageSlide(String imageName, String htmlText, int slideNumber, boolean resizeImage, Alignment alignment) {
+  private void initializeImageSlide(String imageName, String htmlText, int slideNumber, boolean resizeImage, Alignment alignment, int menuIndex) {
     if (slideNumber != -1) {
-      ActionListener actionListener = new ImagePanelActionListener(imageName, htmlText, resizeImage, alignment);
+      ActionListener actionListener = new ImagePanelActionListener(imageName, htmlText, resizeImage, alignment, menuIndex, this);
       slideShowSlides.put(slideNumber, actionListener);
     }
   }
@@ -212,6 +278,20 @@ public class MenuBuilder extends DefaultHandler {
 
                     toString();
     JOptionPane.showInternalMessageDialog(frame.getContentPane(), message, "System info", JOptionPane.INFORMATION_MESSAGE);
+  }
+
+  public ButtonMenu initializeButtonMenu() {
+    if (buttonMenu == null) {
+      String[] strings = new String[menuItems.size()];
+      menuItems.toArray(strings);
+      buttonMenu = new ButtonMenu(0, 1, 0, strings);
+      buttonMenu.setActionListeners(actionListeners);
+    }
+    return buttonMenu;
+  }
+
+  public static ButtonMenu getButtonMenu() {
+    return buttonMenu;
   }
 
   /**

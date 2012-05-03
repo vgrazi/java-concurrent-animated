@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples;
 
 import vgrazi.concurrent.samples.Alignment;
 import vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher;
+import vgrazi.concurrent.samples.launcher.MenuBuilder;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,8 @@ public class ImagePanelActionListener implements ActionListener {
   private JLabel label;
   private final boolean resizeImage;
   private final Alignment alignment;
+  private int menuIndex;
+  private final MenuBuilder menuBuilder;
 
   /**
    * @param imageName the path name of the image. Null if none
@@ -24,10 +27,9 @@ public class ImagePanelActionListener implements ActionListener {
    * @param resizeImage
    * @param alignment
    */
-  public ImagePanelActionListener(String imageName, String htmlText, boolean resizeImage, Alignment alignment) {
-    this(null, imageName, htmlText, resizeImage, alignment);
+  public ImagePanelActionListener(String imageName, String htmlText, boolean resizeImage, Alignment alignment, int menuIndex, MenuBuilder menuBuilder) {
+    this(null, imageName, htmlText, resizeImage, alignment, menuIndex, menuBuilder);
   }
-
   /**
    * @param title the title to display in the frame. null to leave the current title
    * @param imageName the path name of the image. Null if none
@@ -35,11 +37,13 @@ public class ImagePanelActionListener implements ActionListener {
    * @param resizeImage
    * @param alignment
    */
-  public ImagePanelActionListener(String title, String imageName, String htmlText, boolean resizeImage, Alignment alignment) {
+  public ImagePanelActionListener(String title, String imageName, String htmlText, boolean resizeImage, Alignment alignment, int menuIndex, MenuBuilder menuBuilder) {
     this.title = title;
     this.imageName = imageName;
     this.resizeImage = resizeImage;
     this.alignment = alignment;
+    this.menuIndex = menuIndex;
+    this.menuBuilder = menuBuilder;
     if(htmlText != null) {
       label = new JLabel(htmlText);
     }
@@ -49,6 +53,13 @@ public class ImagePanelActionListener implements ActionListener {
   }
 
   public void actionPerformed(ActionEvent e) {
-    ConcurrentExampleLauncher.getInstance().showTitlePane(label, title, imageName, resizeImage, alignment);
+    ConcurrentExampleLauncher instance = ConcurrentExampleLauncher.getInstance();
+//    MenuBuilder.getButtonMenu().setSelected(menuIndex);
+    System.out.printf("ImagePanelActionListener.actionPerformed launcher:%s, label:%s, title:%s, imageName:%s%n", instance, label, title, imageName);
+//    if (instance != null)
+    {
+      instance.showTitlePane(label, "title", imageName, resizeImage, alignment);
+    }
+
   }
 }
