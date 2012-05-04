@@ -1,6 +1,5 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher;
 
 import java.awt.event.ActionListener;
@@ -18,6 +17,6 @@ public class ExampleActionListener implements ActionListener {
   }
 
   public void actionPerformed(ActionEvent e) {
-    ConcurrentExampleLauncher.getInstance().launchExamplePanel(examplePanel);
+    ConcurrentExampleLauncher.getInstance().showExamplePanel(examplePanel);
   }
 }

@@ -3,6 +3,7 @@
     <MenuItem label="Legend">
         <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Usage Legend for Animations "/>
     </MenuItem>
+    <Hyperlink label="Concurrency Training" uri="http://www.javaspecialists.eu/courses/concurrency.jsp"/>
     <ImageSlide image="images/executors.jpg"/>
     <MenuItem label="Executors">
         <Example class="vgrazi.concurrent.samples.examples.FixedThreadExecutorExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>

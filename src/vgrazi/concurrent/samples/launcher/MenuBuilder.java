@@ -227,7 +227,7 @@ public class MenuBuilder extends DefaultHandler {
     menu.add(menuItem);
     ActionListener actionListener = new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        concurrentExampleLauncher.launchExamplePanel(null);
+        concurrentExampleLauncher.showExamplePanel(null);
         container.repaint(50);
       }
     };

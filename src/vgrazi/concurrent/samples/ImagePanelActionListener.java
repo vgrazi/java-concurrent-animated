@@ -58,7 +58,7 @@ public class ImagePanelActionListener implements ActionListener {
     System.out.printf("ImagePanelActionListener.actionPerformed launcher:%s, label:%s, title:%s, imageName:%s%n", instance, label, title, imageName);
 //    if (instance != null)
     {
-      instance.showTitlePane(label, "title", imageName, resizeImage, alignment);
+      instance.showTitlePane(label, ConcurrentExampleConstants.FRAME_TITLE, imageName, resizeImage, alignment);
     }
 
   }

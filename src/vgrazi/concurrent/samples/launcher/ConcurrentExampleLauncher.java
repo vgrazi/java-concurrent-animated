@@ -118,13 +118,10 @@ public class ConcurrentExampleLauncher {
 
   }
 
-  JPanel splashPanel = new JPanel();
-
-  JPanel referencesPanel = new JPanel();
+  private final JPanel referencesPanel = new JPanel();
 
   private void showSplash() {
     final JLabel label = new JLabel(SPLASH_LABEL);
-    splashPanel.add(label);
     showTitlePane(label);
   }
 
@@ -135,7 +132,7 @@ public class ConcurrentExampleLauncher {
   }
 
   private void showTitlePane(JLabel label) {
-    showTitlePane(label, "Visualizing the Java Concurrent API - JDK " + System.getProperty("java.version"), ConcurrentExampleConstants.LOGO, false, Alignment.CENTER);
+    showTitlePane(label, ConcurrentExampleConstants.FRAME_TITLE, ConcurrentExampleConstants.LOGO, false, Alignment.CENTER);
   }
 
   public void showTitlePane(JLabel label, String frameTitle, String imageName, boolean resizeImage, Alignment alignment) {
@@ -167,10 +164,14 @@ public class ConcurrentExampleLauncher {
         }
       });
 
+      container.setLayout(null);
+      backgroundImage.setBounds(-400, -600, 2000, 2000);
       container.add(backgroundImage);
 
+      ((Container) frame.getGlassPane()).setLayout(null);
       frame.getGlassPane().setVisible(true);
       if (label != null) {
+        label.setBounds(200, -600, 2000, 2000);
         ((Container) frame.getGlassPane()).add(label);
       }
       frame.getGlassPane().validate();
@@ -200,12 +201,13 @@ public class ConcurrentExampleLauncher {
     return frame.getSize();
   }
 
-  public void launchExamplePanel(ConcurrentExample examplePanel) {
+  public void showExamplePanel(ConcurrentExample examplePanel) {
     clearFrame();
     this.examplePanel = examplePanel;
     this.imagePanel = null;
     frame.setVisible(true);
     if (examplePanel != null) {
+      container.setLayout(new BorderLayout());
       container.add(examplePanel);
       examplePanel.launchExample();
       if(examplePanel.getSlideNumber() != -1) {
