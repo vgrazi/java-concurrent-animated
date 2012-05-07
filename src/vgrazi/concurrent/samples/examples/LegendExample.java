@@ -20,7 +20,7 @@ public class LegendExample extends ConcurrentExample {
   private final ConcurrentSprite[] sprites = new ConcurrentSprite[30];
 
   private boolean initialized = false;
-  private static int minSnippetPosition = 5000;
+  private static int minSnippetPosition = 600;
 
   public LegendExample(String label, Container frame, int slideNumber) {
     super(label, frame, ExampleType.BLOCKING, minSnippetPosition, false, slideNumber);

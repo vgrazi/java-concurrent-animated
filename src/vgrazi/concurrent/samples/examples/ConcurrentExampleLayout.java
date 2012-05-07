@@ -1,5 +1,6 @@
 package vgrazi.concurrent.samples.examples;
 
+import vgrazi.concurrent.samples.SpacerButton;
 import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 import vgrazi.concurrent.samples.MessageLabel;
 import vgrazi.concurrent.samples.canvases.ForkJoinCanvas;
@@ -17,11 +18,11 @@ import java.util.List;
  */
 public class ConcurrentExampleLayout extends FlowLayout {
   private static final int MAX_OTHER_WIDTH = 650;
-  private final int MIN_SNIPPET_XPOS;
+  private final int SNIPPET_WIDTH;
   private static final int INSET = 5;
 
-  public ConcurrentExampleLayout(int minSnippetPosition) {
-    MIN_SNIPPET_XPOS = minSnippetPosition;
+  public ConcurrentExampleLayout(int snippetWidth) {
+    SNIPPET_WIDTH = snippetWidth;
   }
 
   @Override
@@ -34,6 +35,8 @@ public class ConcurrentExampleLayout extends FlowLayout {
         List<Component> others = new ArrayList<Component>();
     List<MessageLabel> messageLabels = new ArrayList<MessageLabel>();
     ConcurrentSpriteCanvas canvas = null;
+
+    // first, let's accumulate the components that we have. Then we can lay them out
     for (Component component : components) {
       //      component.setBackground(Color.yellow);
       if (component instanceof JButton) {
@@ -61,6 +64,11 @@ public class ConcurrentExampleLayout extends FlowLayout {
     for (int i = 0; i < buttons.size(); i++) {
       // if none of the buttons have focus, give focus to the first
       JButton button = buttons.get(i);
+      if(button instanceof SpacerButton) {
+        xPos = INSET;
+        yPos += INSET + height + 5;
+        continue;
+      }
       if (i == 0) {
         firstButton = button;
       }
@@ -71,7 +79,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
       height = componentSize.height;
       final int width = componentSize.width;
 
-      if (xPos + width > MIN_SNIPPET_XPOS) {
+      if (xPos + width > SNIPPET_WIDTH) {
         xPos = INSET;
         yPos += INSET + height + 5;
       }
@@ -90,13 +98,19 @@ public class ConcurrentExampleLayout extends FlowLayout {
 
     int xPosOfSnippet = 0;
 
-    // layout snippet
+////// layout snippet
     if (snippetPane != null) {
-      xPosOfSnippet = xPos;
-      if (xPosOfSnippet < MIN_SNIPPET_XPOS) {
-        xPosOfSnippet = MIN_SNIPPET_XPOS;
-      }
+      xPosOfSnippet = target.getSize().width - SNIPPET_WIDTH;
       snippetPane.setBounds(xPosOfSnippet, INSET, target.getSize().width - xPosOfSnippet - INSET, target.getSize().height - INSET * 2);
+
+//      if (xPosOfSnippet < SNIPPET_WIDTH) {
+//        xPosOfSnippet = SNIPPET_WIDTH;
+//      }
+//      xPosOfSnippet = xPos;
+//      if (xPosOfSnippet < SNIPPET_WIDTH) {
+//        xPosOfSnippet = SNIPPET_WIDTH;
+//      }
+//      snippetPane.setBounds(xPosOfSnippet, INSET, target.getSize().width - xPosOfSnippet - INSET, target.getSize().height - INSET * 2);
     }
 
     yPos += INSET * 2;
@@ -131,6 +145,9 @@ public class ConcurrentExampleLayout extends FlowLayout {
     if (otherWidth > MAX_OTHER_WIDTH) {
       otherWidth = MAX_OTHER_WIDTH;
     }
+
+////// layout ConcurrentExample
+    // fork join canvas needs a bit more vertical space, so we don't use message2. Move up a few pixels
     if(canvas instanceof ForkJoinCanvas) {
       canvas.setBounds(INSET, yPos - 30, otherWidth, target.getSize().height - yPos);
     }

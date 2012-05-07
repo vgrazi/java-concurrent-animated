@@ -33,7 +33,7 @@ public class CompletionServiceExample extends ConcurrentExample {
   private int RESET_COUNT = 0;
   private JTextField threadCountField = createThreadCountField();
   public CompletionServiceExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.BLOCKING, 390, false, slideNumber);
+    super(title, frame, ExampleType.BLOCKING, 650, false, slideNumber);
   }
 
   public String getTitle() {

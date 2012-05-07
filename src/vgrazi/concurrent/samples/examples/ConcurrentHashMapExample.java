@@ -24,13 +24,12 @@ public class ConcurrentHashMapExample extends ConcurrentExample {
 	private final JButton replaceKVButton = new JButton("replace(k,v)");
 	private boolean initialized = false;
 	private JTextField threadCountField = createThreadCountField();
-	private static final int MIN_SNIPPET_POSITION = 400;
-    private final Map<Integer, String> primeSet = new ConcurrentHashMap<Integer,String>();
+  private final Map<Integer, String> primeSet = new ConcurrentHashMap<Integer,String>();
     private static final Random RANDOM = new Random();
 
   public ConcurrentHashMapExample(String title, Container frame,
 			int slideNumber) {
-		super(title, frame, ExampleType.CONCURRENT_MAP, MIN_SNIPPET_POSITION,
+		super(title, frame, ExampleType.CONCURRENT_MAP, 730,
 				true, slideNumber);
 		reset();
 		setState(6);

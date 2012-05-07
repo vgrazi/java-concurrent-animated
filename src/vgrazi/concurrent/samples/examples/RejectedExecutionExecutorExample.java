@@ -88,7 +88,8 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
             "         <w default>}}\n" +
             "       <x keyword>new <x default>ThreadPoolExecutor.DiscardPolicy();\n" +
             "       <y keyword>new <y default>ThreadPoolExecutor.DiscardOldestPolicy();\n" +
-            "       <z keyword>new <z default>ThreadPoolExecutor.AbortPolicy(); <z comment>//Default policy, throws RejectedExecutionException\n" +
+            "       <z keyword>new <z default>ThreadPoolExecutor.AbortPolicy(); <z comment>//Default policy, throws \n" +
+            "          //RejectedExecutionException\n" +
             "  <5 default>((ThreadPoolExecutor) executor).setRejectedExecutionHandler(handler);\n";
     if("CallerRunsPolicy".equals(currentSaturationHandler)) {
       snippet = snippet.replaceAll("<w", "<" + getState());

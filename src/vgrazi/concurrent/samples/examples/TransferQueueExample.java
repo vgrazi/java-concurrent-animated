@@ -19,10 +19,9 @@ public class TransferQueueExample extends BlockingQueueExample {
     private final JButton tryTransferButton = new JButton("tryTansfer()");
     private final JButton tryTransferTimeoutButton = new JButton("tryTansfer(T, 5, TimeUnit.SECONDS)");
     private final JButton getWaitingCountButton = new JButton("getWaitingConsumerCount");
-    private static final int MIN_SNIPPET_POSITION = 460;
 
 
-    @Override
+  @Override
     protected void initializeOffer() {
         
     }
@@ -32,7 +31,7 @@ public class TransferQueueExample extends BlockingQueueExample {
     }
 
     public TransferQueueExample(String title, Container frame, int slideNumber) {
-      super(title, frame, MIN_SNIPPET_POSITION, slideNumber);
+      super(title, frame, 700, slideNumber);
     }
 
 
@@ -55,6 +54,7 @@ public class TransferQueueExample extends BlockingQueueExample {
     }
 
     protected void initializeTryTransfer() {
+      addButtonSpacer();
         initializeButton(tryTransferButton, new Runnable() {
               public void run() {
                   clearMessages();
@@ -197,7 +197,7 @@ public class TransferQueueExample extends BlockingQueueExample {
               "        </span>\n" +
               "        <span class=\"<state6:s1>\">boolean </span><span class=\"<state6:s0>\">success = transferQueue.tryTransfer(t); \n" +
               " \n" +
-              "        </span><span class=\"<state7:s1>\">boolean </span><span class=\"<state7:s0>\">success = transferQueue.tryTransfer(t, " +
+              "        </span><span class=\"<state7:s1>\">boolean </span><span class=\"<state7:s0>\">success =\n           transferQueue.tryTransfer(t, " +
               "</span><span class=\"<state7:s2>\">5</span><span class=\"<state7:s0>\">, TimeUnit.SECONDS);</span></pre>\n" +
               "</body>\n" +
               "</html>";

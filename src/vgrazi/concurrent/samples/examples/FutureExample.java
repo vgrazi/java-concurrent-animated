@@ -1,6 +1,5 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
@@ -22,10 +21,9 @@ public class FutureExample extends ConcurrentExample {
   private ConcurrentSprite sprite;
 
   private boolean initialized = false;
-  private static final int MIN_SNIPPET_POSITION = 400;
 
   public FutureExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.ONE_USE, MIN_SNIPPET_POSITION, false, slideNumber);
+    super(title, frame, ExampleType.ONE_USE, 700, false, slideNumber);
   }
 
   private void launchAcquiringSprite() throws ExecutionException, InterruptedException {

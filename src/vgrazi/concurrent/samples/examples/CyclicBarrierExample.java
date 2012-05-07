@@ -24,10 +24,9 @@ public class CyclicBarrierExample extends ConcurrentExample {
   private final JButton attemptButton = new JButton("await(timeMS, TimeUnit.MILLISECONDS)");
   private final JButton createButton = new JButton("barrier.reset()");
   private boolean initialized;
-  private static final int MIN_SNIPPET_POSITION = 360;
   private JTextField threadCountField = createThreadCountField();
   public CyclicBarrierExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.WORKING, MIN_SNIPPET_POSITION, false, slideNumber);
+    super(title, frame, ExampleType.WORKING, 720, false, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -44,6 +43,13 @@ public class CyclicBarrierExample extends ConcurrentExample {
           }
         }
       });
+      initializeButton(createButton, new Runnable() {
+        public void run() {
+          reset();
+          setState(3);
+        }
+      });
+      addButtonSpacer();
       initializeButton(attemptButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
@@ -54,12 +60,6 @@ public class CyclicBarrierExample extends ConcurrentExample {
               }
             });
           }
-        }
-      });
-      initializeButton(createButton, new Runnable() {
-        public void run() {
-          reset();
-          setState(3);
         }
       });
       initializeThreadCountField(threadCountField);

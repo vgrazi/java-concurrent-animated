@@ -9,7 +9,7 @@
         <Example class="vgrazi.concurrent.samples.examples.FixedThreadExecutorExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>
         <Example class="vgrazi.concurrent.samples.examples.SingleThreadExecutorExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
         <Example class="vgrazi.concurrent.samples.examples.CachedThreadExecutorExample" paging="true" fair="false" mutexLabel="CachedThreadPool"/>
-        <Example class="vgrazi.concurrent.samples.examples.RejectedExecutionExecutorExample" paging="true" fair="false" mutexLabel="RejectedExecutionExample"/>
+        <Example class="vgrazi.concurrent.samples.examples.RejectedExecutionExecutorExample" paging="true" fair="false" mutexLabel="RejectedExecution"/>
     </MenuItem>
     <ImageSlide image="images/future.jpg"/>
     <MenuItem label="Future">

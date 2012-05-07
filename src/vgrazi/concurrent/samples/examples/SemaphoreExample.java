@@ -39,7 +39,7 @@ public class SemaphoreExample extends ConcurrentExample {
   private String timeoutString = "";
   // todo: when you create more threads than permits, they don't always release
   private final List<ConcurrentSprite> acquiredSprites = new Vector<ConcurrentSprite>();
-  private static final int MIN_SNIPPET_POSITION = 320;
+  private static final int MIN_SNIPPET_POSITION = 650;
   private JTextField threadCountField = createThreadCountField();
 
   public SemaphoreExample(String title, Container frame, int slideNumber) {
@@ -73,7 +73,8 @@ public class SemaphoreExample extends ConcurrentExample {
   "    <4 default>  }\n" +
   "    } <4 keyword><4 keyword>catch<4 default> (InterruptedException e) { }\n" +
   "\n" +
-  "    <3 comment>// If no time is specified, times out immediately if not acquired\n" +
+  "    <3 comment>// If no time is specified, times out immediately\n" +
+  "    <3 comment>//    if not acquired\n" +
   "    <3 keyword>if<3 default>(semaphore.tryAcquire()) {\n" +
   "    <3 comment>  // Do something\n" +
   "    <3 default>}\n";

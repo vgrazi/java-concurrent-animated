@@ -27,10 +27,9 @@ public class PhaserExample extends ConcurrentExample {
   private final JButton registerButton = new JButton("register()");
   private final JButton bulkRegisterButton = new JButton("bulkRegister()");
   private boolean initialized;
-  private static final int MIN_SNIPPET_POSITION = 400;
   private JTextField threadCountField = createThreadCountField();
   public PhaserExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.WORKING, MIN_SNIPPET_POSITION, false, slideNumber);
+    super(title, frame, ExampleType.WORKING, 600, false, slideNumber);
   }
 
   protected void initializeComponents() {

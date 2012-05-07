@@ -1,6 +1,5 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
@@ -26,14 +25,13 @@ public class CountDownLatchExample extends ConcurrentExample {
   private int index;
   private boolean initialized = false;
   private final JTextField threadCountField = createThreadCountField();
-  private static final int MIN_SNIPPET_POSITION = 360;
 
   public String getTitle() {
     return "CountDownLatch";
   }
 
   public CountDownLatchExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.WORKING, MIN_SNIPPET_POSITION, false, slideNumber);
+    super(title, frame, ExampleType.WORKING, 650, false, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -57,6 +55,7 @@ public class CountDownLatchExample extends ConcurrentExample {
             release();
         }
       });
+      addButtonSpacer();
       initializeButton(attemptButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);

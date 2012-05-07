@@ -27,7 +27,6 @@ public class ReadWriteLockExample extends ConcurrentExample {
   private final JButton writeDowngradeButton = new JButton("(Downgrade to read)");
 
   private boolean initialized = false;
-  private static int minSnippetPosition = 390;
   private boolean downgrade = false;
   private boolean writerOwned = false;
   private final JTextField threadCountField = createThreadCountField();
@@ -36,7 +35,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
     this(label, frame, false, slideNumber);
   }
   public ReadWriteLockExample(String label, Container frame, boolean fair, int slideNumber) {
-    super(label, frame, ExampleType.BLOCKING, minSnippetPosition, fair, slideNumber);
+    super(label, frame, ExampleType.BLOCKING, 610, fair, slideNumber);
   }
 
   protected void initializeComponents() {

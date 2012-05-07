@@ -16,7 +16,7 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
   private boolean animating;
 
   public ForkJoinConcurrentExample(String label, Container frame, int slideShowIndex) {
-    super(label, frame, ExampleType.WORKING, 600, false, slideShowIndex);
+    super(label, frame, ExampleType.WORKING, 660, false, slideShowIndex);
   }
 
   /**

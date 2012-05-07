@@ -30,7 +30,7 @@ public class BlockingQueueExample extends ConcurrentExample {
   private final JButton takeButton = new JButton("take");
   private int index;
   private boolean initialized = false;
-  private static final int MIN_SNIPPET_POSITION = 340;
+  private static final int MIN_SNIPPET_POSITION = 670;
   private JTextField threadCountField = createThreadCountField();
   private final ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(10);
   private final Executor executor = Executors.newCachedThreadPool();
@@ -53,6 +53,7 @@ public class BlockingQueueExample extends ConcurrentExample {
         initializePut();
         initializeOffer();
 
+      addButtonSpacer();
         initializeButton(takeButton, new Runnable() {
         public void run() {
             clearMessages();

@@ -32,7 +32,7 @@ public class ConditionExample extends ConcurrentExample {
   private final JButton signalAllButton = new JButton("signalAll");
 
   private boolean initialized = false;
-  private static final int MIN_SNIPPET_POSITION = 300;
+  private static final int MIN_SNIPPET_POSITION = 600;
 
   public ConditionExample(String title, Container frame, int slideNumber) {
     super(title, frame, ExampleType.WORKING, MIN_SNIPPET_POSITION, false, slideNumber);

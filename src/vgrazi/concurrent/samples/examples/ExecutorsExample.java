@@ -44,7 +44,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
    * @param slideShowIndex when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
    */
   public ExecutorsExample(String label, Container frame, int slideShowIndex) {
-    super(label, frame, ExampleType.POOLED, 340, false, slideShowIndex);
+    super(label, frame, ExampleType.POOLED, 800, false, slideShowIndex);
   }
 
   protected  abstract void initializeThreadPool();
@@ -111,6 +111,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
   }
 
   protected void initializeSaturationPolicyButtons() {
+    addButtonSpacer();
     initializeButton(setRejectedExecutionHandlerCallerRunsButton, new Runnable() {
       public void run() {
         ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy(){
@@ -133,6 +134,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
         setState(5);
       }
     });
+    addButtonSpacer();
     initializeButton(setRejectedExecutionHandlerDiscardButton, new Runnable() {
       public void run() {
         ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy() {
@@ -146,6 +148,8 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
         setState(5);
       }
     });
+    addButtonSpacer();
+
     initializeButton(setRejectedExecutionHandlerDiscardOldestButton, new Runnable() {
       public void run() {
         ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy() {
@@ -159,6 +163,8 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
         setState(5);
       }
     });
+    addButtonSpacer();
+
     initializeButton(setRejectedExecutionHandlerAbortButton, new Runnable() {
       public void run() {
         ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy() {

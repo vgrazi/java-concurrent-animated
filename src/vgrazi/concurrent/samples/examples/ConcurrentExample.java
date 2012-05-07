@@ -1,9 +1,6 @@
 package vgrazi.concurrent.samples.examples;
 
-import vgrazi.concurrent.samples.ConcurrentExampleConstants;
-import vgrazi.concurrent.samples.ExampleType;
-import vgrazi.concurrent.samples.ImagePanel;
-import vgrazi.concurrent.samples.MessageLabel;
+import vgrazi.concurrent.samples.*;
 import vgrazi.concurrent.samples.launcher.MenuBuilder;
 import vgrazi.concurrent.samples.slides.ConcurrentSlideShow;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
@@ -106,18 +103,18 @@ public abstract class ConcurrentExample extends JPanel {
    * @param title              the title to display in the title bar
    * @param container          the container to contain the animation
    * @param exampleType        the type of animation
-   * @param minSnippetPosition the horizontal position to start the snippet frame
+   * @param snippetWidth the horizontal position to start the snippet frame
    * @param fair               true
    * @param slideNumber        when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
    */
-  public ConcurrentExample(String title, Container container, ExampleType exampleType, int minSnippetPosition, boolean fair, int slideNumber) {
+  public ConcurrentExample(String title, Container container, ExampleType exampleType, int snippetWidth, boolean fair, int slideNumber) {
     this.title = title;
     this.exampleType = exampleType;
     this.fair = fair;
     this.slideNumber = slideNumber;
     createCanvas();
     this.container = container;
-    setLayout(new ConcurrentExampleLayout(minSnippetPosition));
+    setLayout(new ConcurrentExampleLayout(snippetWidth));
     setBackgroundColors();
     message1Label.setFont(ConcurrentExampleConstants.LABEL_FONT);
     message1Label.setOpaque(false);
@@ -422,11 +419,10 @@ public abstract class ConcurrentExample extends JPanel {
     return super.add(button);
   }
 
-  protected void addButtonSpacer() {
-    JComponent label = new JLabel("                   ");
-    label.setBackground(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    label.setOpaque(true);
-    add(label);
+  protected Component addButtonSpacer() {
+    SpacerButton spacerButton = new SpacerButton();
+    buttons.add(spacerButton);
+    return super.add(spacerButton);
   }
 
   protected final void initializeOutput() {

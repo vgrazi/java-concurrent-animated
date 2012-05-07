@@ -31,7 +31,6 @@ public class ReentrantLockExample extends ConcurrentExample {
   private final JButton tryButton = new JButton("tryLock");
   private final JButton lockInterruptiblyButton = new JButton("lockInterruptibly");
   private boolean initialized = false;
-  private static final int MIN_SNIPPET_POSITION = 450;
   private final JTextField threadCountField = createThreadCountField();
   private ThreadSpriteHolder lockedSprite;
 
@@ -47,9 +46,9 @@ public class ReentrantLockExample extends ConcurrentExample {
        " \n" +
        "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Locking Thread - Once a Lock is acquired this<br>    // thread blocks until unlock is called.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
        "       lock.lock(); \n    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\">" +
-        "   try {                                \n" +
-        "         lock.lockInterruptibly();                     \n" +
-        "       } catch(InterruptedException {...}                            \n" +
+        "   try { \n" +
+        "         lock.lockInterruptibly();\n" +
+        "       } catch(InterruptedException {...}\n" +
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
        "       // lock unblocks and work continues... \n" +
        " \n" +
@@ -60,11 +59,11 @@ public class ReentrantLockExample extends ConcurrentExample {
        "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Try Lock Thread - All waiting threads are<br>    // notified when lock is unlockd. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
        "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">try</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
        "         if(lock.tryLock(1L, TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">)){\n" +
-       "           try {                                \n" +
-       "             doSomething();                     \n" +
-       "           } finally {                            \n" +
-       "             lock.unlock();                    \n" +
-       "           }                                 \n" +     
+       "           try {\n" +
+       "             doSomething();\n" +
+       "           } finally {\n" +
+       "             lock.unlock();\n" +
+       "           }\n" +
        "         }\n" +
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
        "       // lock unblocks and work continues... \n" +
@@ -75,7 +74,7 @@ public class ReentrantLockExample extends ConcurrentExample {
   }
 
   public ReentrantLockExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.BLOCKING, MIN_SNIPPET_POSITION, false, slideNumber);
+    super(title, frame, ExampleType.BLOCKING, 600, false, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -104,6 +103,7 @@ public class ReentrantLockExample extends ConcurrentExample {
           }
         }
       });
+      addButtonSpacer();
       initializeButton(tryButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
@@ -123,6 +123,7 @@ public class ReentrantLockExample extends ConcurrentExample {
         }
       });
 
+      addButtonSpacer();
       initializeButton(interruptLockedButton, new Runnable() {
         public void run() {
           setState(0);
