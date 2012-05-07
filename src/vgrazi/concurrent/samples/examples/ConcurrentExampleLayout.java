@@ -18,15 +18,15 @@ import java.util.List;
  */
 public class ConcurrentExampleLayout extends FlowLayout {
   private static final int MAX_OTHER_WIDTH = 650;
-  private final int SNIPPET_WIDTH;
+  private int snippetWidth;
   private static final int INSET = 5;
 
-  public ConcurrentExampleLayout(int snippetWidth) {
-    SNIPPET_WIDTH = snippetWidth;
+  public ConcurrentExampleLayout() {
   }
 
   @Override
   public void layoutContainer(Container target) {
+    snippetWidth = ((ConcurrentExample) target).getSnippetWidth();
     //    super.layoutContainer(target);
     //    System.out.println("ConcurrentExampleLayout.layoutContainer size:" + target.getSize());
     Component[] components = target.getComponents();
@@ -79,7 +79,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
       height = componentSize.height;
       final int width = componentSize.width;
 
-      if (xPos + width > SNIPPET_WIDTH) {
+      if (xPos + width > snippetWidth) {
         xPos = INSET;
         yPos += INSET + height + 5;
       }
@@ -100,15 +100,15 @@ public class ConcurrentExampleLayout extends FlowLayout {
 
 ////// layout snippet
     if (snippetPane != null) {
-      xPosOfSnippet = target.getSize().width - SNIPPET_WIDTH;
+      xPosOfSnippet = target.getSize().width - snippetWidth;
       snippetPane.setBounds(xPosOfSnippet, INSET, target.getSize().width - xPosOfSnippet - INSET, target.getSize().height - INSET * 2);
 
-//      if (xPosOfSnippet < SNIPPET_WIDTH) {
-//        xPosOfSnippet = SNIPPET_WIDTH;
+//      if (xPosOfSnippet < snippetWidth) {
+//        xPosOfSnippet = snippetWidth;
 //      }
 //      xPosOfSnippet = xPos;
-//      if (xPosOfSnippet < SNIPPET_WIDTH) {
-//        xPosOfSnippet = SNIPPET_WIDTH;
+//      if (xPosOfSnippet < snippetWidth) {
+//        xPosOfSnippet = snippetWidth;
 //      }
 //      snippetPane.setBounds(xPosOfSnippet, INSET, target.getSize().width - xPosOfSnippet - INSET, target.getSize().height - INSET * 2);
     }

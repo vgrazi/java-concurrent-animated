@@ -88,12 +88,19 @@ public abstract class ConcurrentExample extends JPanel {
   private static final Font SNIPPET_FONT = new Font("SansSerif", Font.PLAIN, 18);
   private String title;
   private ExampleType exampleType;
+  private int snippetWidth;
   private boolean fair;
   private final int slideNumber;
   private final ConcurrentLinkedQueue<JButton> buttons = new ConcurrentLinkedQueue<JButton>();
   private final static Logger logger = Logger.getLogger(ConcurrentExample.class.getName());
   private int state;
   private int menuIndex;
+  /**
+   * Used for calculating the vertical center line when dragged
+   */
+  private int mouseDown;
+  private int offset;
+
   //  public ConcurrentExample() {
 
 
@@ -110,11 +117,12 @@ public abstract class ConcurrentExample extends JPanel {
   public ConcurrentExample(String title, Container container, ExampleType exampleType, int snippetWidth, boolean fair, int slideNumber) {
     this.title = title;
     this.exampleType = exampleType;
+    this.snippetWidth = snippetWidth;
     this.fair = fair;
     this.slideNumber = slideNumber;
     createCanvas();
     this.container = container;
-    setLayout(new ConcurrentExampleLayout(snippetWidth));
+    setLayout(new ConcurrentExampleLayout());
     setBackgroundColors();
     message1Label.setFont(ConcurrentExampleConstants.LABEL_FONT);
     message1Label.setOpaque(false);
@@ -129,6 +137,22 @@ public abstract class ConcurrentExample extends JPanel {
     snippetPane.setFocusable(true);
     snippetPane.setFocusTraversalKeysEnabled(true);
     snippetLabel.addKeyListener(keyListener);
+    snippetLabel.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        mouseDown = e.getX();
+        System.out.println("ConcurrentExample.mousePressed " + mouseDown);
+      }
+    });
+    snippetLabel.addMouseMotionListener(new MouseAdapter() {
+      @Override
+      public void mouseDragged(MouseEvent e) {
+        offset += e.getX() - mouseDown;
+        System.out.println("ConcurrentExample.mouseDragged offset: " + offset);
+        mouseDown = e.getX();
+        doLayout();
+      }
+    });
 //    snippetLabel.setToolTipText(getToolTipText());
     snippetLabel.setFont(SNIPPET_FONT);
     imagePanel.setOpaque(true);
@@ -751,5 +775,13 @@ public abstract class ConcurrentExample extends JPanel {
 
   public void setMenuIndex(int menuIndex) {
     this.menuIndex = menuIndex;
+  }
+
+  /**
+   * Gets the snippet width, accounting for offset by dragging
+   * @return the snippet width, accounting for offset by dragging
+   */
+  public int getSnippetWidth() {
+    return snippetWidth - offset;
   }
 }
