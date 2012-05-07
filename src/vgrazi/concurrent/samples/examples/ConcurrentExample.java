@@ -115,7 +115,7 @@ public abstract class ConcurrentExample extends JPanel {
     this.exampleType = exampleType;
     this.fair = fair;
     this.slideNumber = slideNumber;
-    setCanvas(new ConcurrentSpriteCanvas(this, getTitle()));
+    createCanvas();
     this.container = container;
     setLayout(new ConcurrentExampleLayout(minSnippetPosition));
     setBackgroundColors();
@@ -145,6 +145,10 @@ public abstract class ConcurrentExample extends JPanel {
   private void previousSlide() {
     getCanvas().pauseClock();
     ConcurrentSlideShow.previousSlide();
+  }
+
+  protected void createCanvas() {
+    setCanvas(new ConcurrentSpriteCanvas(this, getTitle()));
   }
 
   public ConcurrentSpriteCanvas getCanvas() {
