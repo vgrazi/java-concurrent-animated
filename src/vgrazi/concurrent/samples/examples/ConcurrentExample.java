@@ -115,8 +115,8 @@ public abstract class ConcurrentExample extends JPanel {
     this.exampleType = exampleType;
     this.fair = fair;
     this.slideNumber = slideNumber;
-    createCanvas();
-    setContainer(container);
+    setCanvas(new ConcurrentSpriteCanvas(this, getTitle()));
+    this.container = container;
     setLayout(new ConcurrentExampleLayout(minSnippetPosition));
     setBackgroundColors();
     message1Label.setFont(ConcurrentExampleConstants.LABEL_FONT);
@@ -132,17 +132,6 @@ public abstract class ConcurrentExample extends JPanel {
     snippetPane.setFocusable(true);
     snippetPane.setFocusTraversalKeysEnabled(true);
     snippetLabel.addKeyListener(keyListener);
-    snippetLabel.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        if((e.getModifiersEx() & MouseEvent.ADJUSTMENT_EVENT_MASK) != 0) {
-          previousSlide();
-        }
-        else {
-          nextSlide();
-        }
-      }
-    });
 //    snippetLabel.setToolTipText(getToolTipText());
     snippetLabel.setFont(SNIPPET_FONT);
     imagePanel.setOpaque(true);
@@ -156,10 +145,6 @@ public abstract class ConcurrentExample extends JPanel {
   private void previousSlide() {
     getCanvas().pauseClock();
     ConcurrentSlideShow.previousSlide();
-  }
-
-  protected void createCanvas() {
-    setCanvas(new ConcurrentSpriteCanvas(this, getTitle()));
   }
 
   public ConcurrentSpriteCanvas getCanvas() {
@@ -187,10 +172,6 @@ public abstract class ConcurrentExample extends JPanel {
   public void setAnimationCanvasVisible(boolean value) {
     canvas.setVisible(value);
     imagePanel.setVisible(!value);
-  }
-
-  private void setContainer(Container container) {
-    this.container = container;
   }
 
   protected synchronized ConcurrentSprite createAcquiringSprite() {
