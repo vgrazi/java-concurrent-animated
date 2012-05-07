@@ -136,6 +136,7 @@ public class SemaphoreExample extends ConcurrentExample {
           }
         }
       });
+      addButtonSpacer();
         initializeButton(timedtryAcquireButton, new Runnable() {
           public void run() {
             timeoutString = "1L, TimeUnit.SECONDS";
