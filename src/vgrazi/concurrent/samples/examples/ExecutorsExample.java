@@ -27,10 +27,10 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
   private final JButton executeButton = new JButton("execute");
   private final JButton prestartButton = new JButton("prestartAllCoreThreads");
   // todo: How do we demo setRejectedExecutionHandler() ???
-  private final JButton setRejectedExecutionHandlerAbortButton = new JButton("setRejectedExecutionHandler(Abort)");
-    private final JButton setRejectedExecutionHandlerCallerRunsButton = new JButton("setRejectedExecutionHandler(CallerRuns)");
-  private final JButton setRejectedExecutionHandlerDiscardOldestButton = new JButton("setRejectedExecutionHandler(DiscardOldest)");
-  private final JButton setRejectedExecutionHandlerDiscardButton = new JButton("setRejectedExecutionHandler(Discard)");
+  protected final JButton setRejectedExecutionHandlerAbortButton = new JButton("setRejectedExecutionHandler(Abort)");
+  protected final JButton setRejectedExecutionHandlerCallerRunsButton = new JButton("setRejectedExecutionHandler(CallerRuns)");
+  protected final JButton setRejectedExecutionHandlerDiscardOldestButton = new JButton("setRejectedExecutionHandler(DiscardOldest)");
+  protected final JButton setRejectedExecutionHandlerDiscardButton = new JButton("setRejectedExecutionHandler(Discard)");
   protected boolean initialized = false;
   protected int sleepTime;
   final JTextField threadCountField = createThreadCountField();

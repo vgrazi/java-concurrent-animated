@@ -34,18 +34,6 @@ public class PhaserExample extends ConcurrentExample {
 
   protected void initializeComponents() {
     if(!initialized) {
-      initializeButton(arriveAndAwaitAdvanceButton, new Runnable() {
-        public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                arriveAndAwaitAdvance();
-              }
-            });
-          }
-        }
-      });
       initializeButton(arriveButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
@@ -53,6 +41,18 @@ public class PhaserExample extends ConcurrentExample {
             threadCountExecutor.execute(new Runnable() {
               public void run() {
                 arrive();
+              }
+            });
+          }
+        }
+      });
+      initializeButton(arriveAndAwaitAdvanceButton, new Runnable() {
+        public void run() {
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                arriveAndAwaitAdvance();
               }
             });
           }
@@ -85,6 +85,7 @@ public class PhaserExample extends ConcurrentExample {
           }
         }
       });
+      addButtonSpacer();
       initializeButton(arriveAndDeregisterButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
@@ -113,6 +114,18 @@ public class PhaserExample extends ConcurrentExample {
         }
       });
       initializeThreadCountField(threadCountField);
+      Dimension size = new Dimension(220, 30);
+      arriveAndAwaitAdvanceButton.setPreferredSize(size);
+      awaitAdvanceButton.setPreferredSize(size);
+      awaitAdvanceWrongPhaseButton.setPreferredSize(size);
+      arriveButton.setPreferredSize(size);
+
+      Dimension smallerSize = new Dimension(129, 30);
+//      arriveAndDeregisterButton.setPreferredSize(smallerSize);
+      registerButton.setPreferredSize(smallerSize);
+      bulkRegisterButton.setPreferredSize(smallerSize);
+
+
       initialized = true;
     }
     reset();

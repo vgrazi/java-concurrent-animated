@@ -91,16 +91,9 @@ public class ReentrantLockExample extends ConcurrentExample {
           }
         }
       });
-      initializeButton(lockInterruptiblyButton, new Runnable() {
+      initializeButton(unlockButton, new Runnable() {
         public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                lockInterruptibly();
-              }
-            });
-          }
+          unlockMethod();
         }
       });
       addButtonSpacer();
@@ -116,10 +109,16 @@ public class ReentrantLockExample extends ConcurrentExample {
           }
         }
       });
-
-      initializeButton(unlockButton, new Runnable() {
+      initializeButton(lockInterruptiblyButton, new Runnable() {
         public void run() {
-          unlockMethod();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                lockInterruptibly();
+              }
+            });
+          }
         }
       });
 

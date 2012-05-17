@@ -24,14 +24,14 @@ public class BlockingQueueExample extends ConcurrentExample {
 
   private BlockingQueue<ConcurrentSprite> queue;
 
-  private final JButton putButton = new JButton("put");
+  protected final JButton putButton = new JButton("put");
   private final JButton offerButton = new JButton("offer");
-  private final JButton pollButton = new JButton("poll");
-  private final JButton takeButton = new JButton("take");
+  protected final JButton pollButton = new JButton("poll");
+  protected final JButton takeButton = new JButton("take");
   private int index;
-  private boolean initialized = false;
+  protected boolean initialized = false;
   private static final int MIN_SNIPPET_POSITION = 670;
-  private JTextField threadCountField = createThreadCountField();
+  protected JTextField threadCountField = createThreadCountField();
   private final ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(10);
   private final Executor executor = Executors.newCachedThreadPool();
 
@@ -78,8 +78,13 @@ public class BlockingQueueExample extends ConcurrentExample {
             delayAfterClick();
           }
         });
-      initializeOthers();
 
+      Dimension size = new Dimension(100, 30);
+
+      putButton.setPreferredSize(size);
+      offerButton.setPreferredSize(size);
+      takeButton.setPreferredSize(size);
+      pollButton.setPreferredSize(size);
       initializeThreadCountField(threadCountField);
       initialized = true;
     }
@@ -127,13 +132,7 @@ public class BlockingQueueExample extends ConcurrentExample {
         });
     }
 
-    /**
-     * Hook method to allow additional subclass initialization
-     */
-    protected void initializeOthers() {
-    }
-
-    private void put() {
+    protected void put() {
     try {
 //      message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       setState(1);
@@ -153,7 +152,7 @@ public class BlockingQueueExample extends ConcurrentExample {
   }
 
 
-  private void poll() {
+  protected void poll() {
     setState(2);
     int index = this.index++;
 //    message2("Attempting removal " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
@@ -167,7 +166,7 @@ public class BlockingQueueExample extends ConcurrentExample {
     }
   }
 
-  private void take() {
+  protected void take() {
     setState(4);
     int index = this.index++;
 //    message2("Attempting removal " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);

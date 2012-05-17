@@ -46,6 +46,12 @@ public class ReadWriteLockExample extends ConcurrentExample {
       initializeReadReleaseButton();
       initializeWriteDowngradeToReadButton();
       initializeThreadCountField(threadCountField);
+
+      Dimension size = new Dimension(200, 30);
+      writeDowngradeButton.setPreferredSize(size);
+      writeAcquireButton.setPreferredSize(size);
+      readReleaseButton.setPreferredSize(size);
+      readAcquireButton.setPreferredSize(size);
       initialized = true;
     }
   }

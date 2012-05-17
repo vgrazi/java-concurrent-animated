@@ -18,8 +18,8 @@ public class CountDownLatchExample extends ConcurrentExample {
 
   private CountDownLatch countDownLatch;
 
-  private final JButton acquireButton = new JButton("await");
-  private final JButton releaseButton = new JButton("countDown");
+  private final JButton awaitButton = new JButton("await");
+  private final JButton countdownButton = new JButton("countDown");
   private final JButton attemptButton = new JButton("await(timeMS, TimeUnit.MILLISECONDS)");
 
   private int index;
@@ -37,7 +37,7 @@ public class CountDownLatchExample extends ConcurrentExample {
   protected void initializeComponents() {
     reset();
     if(!initialized) {
-      initializeButton(acquireButton, new Runnable() {
+      initializeButton(awaitButton, new Runnable() {
         public void run() {
           setAnimationCanvasVisible(true);
           int count = getThreadCount(threadCountField);
@@ -50,7 +50,7 @@ public class CountDownLatchExample extends ConcurrentExample {
           }
         }
       });
-      initializeButton(releaseButton, new Runnable() {
+      initializeButton(countdownButton, new Runnable() {
         public void run() {
             release();
         }
@@ -69,6 +69,9 @@ public class CountDownLatchExample extends ConcurrentExample {
         }
       });
       initializeThreadCountField(threadCountField);
+      Dimension size = new Dimension(144, 30);
+      awaitButton.setPreferredSize(size);
+      countdownButton.setPreferredSize(size);
       initialized = true;
     }
 

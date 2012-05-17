@@ -63,6 +63,10 @@ public class CyclicBarrierExample extends ConcurrentExample {
         }
       });
       initializeThreadCountField(threadCountField);
+      Dimension size = new Dimension(144, 30);
+      awaitButton.setPreferredSize(size);
+      createButton.setPreferredSize(size);
+
       initialized = true;
     }
     reset();

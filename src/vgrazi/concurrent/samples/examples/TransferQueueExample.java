@@ -34,105 +34,136 @@ public class TransferQueueExample extends BlockingQueueExample {
       super(title, frame, 700, slideNumber);
     }
 
+  @Override
+  protected void initializeComponents() {
+    reset();
+    if (!initialized) {
 
-    protected void initializeOthers() {
-        super.initializePut();
-        initializeTryTransfer();
-    }
-
-    @Override
-    protected void initializePut() {
-        initializeTransfer();
-    }
-
-    protected void initializeGetWaitingCount() {
-        initializeButton(getWaitingCountButton, new Runnable() {
-          public void run() {
-              displayWaitingConsumerCount();
+      initializeButton(transferButton, new Runnable() {
+        public void run() {
+          setState(5);
+          clearMessages();
+          int count = getThreadCount();
+          for (int i = 0; i < count; i++) {
+            final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
+            executor.execute(new Runnable() {
+              public void run() {
+                try {
+                  ((TransferQueue<ConcurrentSprite>) getQueue()).transfer(sprite);
+                } catch (InterruptedException e) {
+                  message1("InterruptedException", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+                  Thread.currentThread().interrupt();
+                }
+              }
+            });
           }
-        });
-    }
-
-    protected void initializeTryTransfer() {
-      addButtonSpacer();
-        initializeButton(tryTransferButton, new Runnable() {
-              public void run() {
-                  clearMessages();
-                  setState(6);
-                  int count = getThreadCount();
-                  for (int i = 0; i < count; i++) {
-                      final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
-                      executor.execute(new Runnable() {
-                          public void run() {
-                              boolean success = false;
-                              try {
-                                  // note: a true un-timed try will fail immediately. So spoof it with a small timeout
-                                  success = ((TransferQueue<ConcurrentSprite>) getQueue()).tryTransfer(sprite, 500, TimeUnit.MILLISECONDS);
-                              } catch (InterruptedException e) {
-                                  message1("InterruptedException", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-                                  Thread.currentThread().interrupt();
-                              }
-                              if (!success) {
-                                  sprite.setRejected();
-                              }
-                          }
-                      });
-                  }
-                  delayAfterClick();
-              }
-          });
-
-        initializeButton(tryTransferTimeoutButton, new Runnable() {
-              public void run() {
-                  clearMessages();
-                  setState(7);
-                  int count = getThreadCount();
-                  for (int i = 0; i < count; i++) {
-                      final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
-                      executor.execute(new Runnable() {
-                          public void run() {
-                              boolean success = false;
-                              try {
-
-                                  success = ((TransferQueue<ConcurrentSprite>) getQueue()).tryTransfer(sprite, 5, TimeUnit.SECONDS);
-                              } catch (InterruptedException e) {
-                                  message1("InterruptedException", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-                                  Thread.currentThread().interrupt();
-                              }
-                              if (!success) {
-                                  sprite.setRejected();
-                              }
-                          }
-                      });
-                  }
-                  delayAfterClick();
-              }
-          });        
-    }
-
-    protected void initializeTransfer() {
-        initializeButton(transferButton, new Runnable() {
-          public void run() {
-              setState(5);
-              clearMessages();            
-            int count = getThreadCount();
-            for (int i = 0; i < count; i++) {
-              final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
-                executor.execute(new Runnable() {
-                    public void run() {
-                        try {
-                            ((TransferQueue<ConcurrentSprite>) getQueue()).transfer(sprite);
-                        } catch (InterruptedException e) {
-                            message1("InterruptedException", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-                            Thread.currentThread().interrupt();
+          delayAfterClick();
+        }
+      });
+      initializeButton(tryTransferButton, new Runnable() {
+            public void run() {
+                clearMessages();
+                setState(6);
+                int count = getThreadCount();
+                for (int i = 0; i < count; i++) {
+                    final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
+                    executor.execute(new Runnable() {
+                        public void run() {
+                            boolean success = false;
+                            try {
+                                // note: a true un-timed try will fail immediately. So spoof it with a small timeout
+                                success = ((TransferQueue<ConcurrentSprite>) getQueue()).tryTransfer(sprite, 500, TimeUnit.MILLISECONDS);
+                            } catch (InterruptedException e) {
+                                message1("InterruptedException", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+                                Thread.currentThread().interrupt();
+                            }
+                            if (!success) {
+                                sprite.setRejected();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                delayAfterClick();
             }
-              delayAfterClick();                         
-          }
         });
+      initializeButton(takeButton, new Runnable() {
+        public void run() {
+          clearMessages();
+          int count = getThreadCount(threadCountField);
+          delayAfterClick();
+          for (int i = 0; i < count; i++) {
+            executor.execute(new Runnable() {
+              public void run() {
+                take();
+              }
+            });
+          }
+        }
+      });
+      addButtonSpacer();
+
+      initializeButton(tryTransferTimeoutButton, new Runnable() {
+            public void run() {
+                clearMessages();
+                setState(7);
+                int count = getThreadCount();
+                for (int i = 0; i < count; i++) {
+                    final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.OVAL);
+                    executor.execute(new Runnable() {
+                        public void run() {
+                            boolean success = false;
+                            try {
+
+                                success = ((TransferQueue<ConcurrentSprite>) getQueue()).tryTransfer(sprite, 5, TimeUnit.SECONDS);
+                            } catch (InterruptedException e) {
+                                message1("InterruptedException", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+                                Thread.currentThread().interrupt();
+                            }
+                            if (!success) {
+                                sprite.setRejected();
+                            }
+                        }
+                    });
+                }
+                delayAfterClick();
+            }
+        });
+      addButtonSpacer();
+
+      initializeButton(pollButton, new Runnable() {
+        public void run() {
+          clearMessages();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            poll();
+          }
+          delayAfterClick();
+        }
+      });
+      initializeButton(putButton, new Runnable() {
+        public void run() {
+          clearMessages();
+
+          setAnimationCanvasVisible(true);
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            put();
+          }
+          delayAfterClick();
+        }
+      });
+      Dimension size = new Dimension(100, 30);
+      transferButton.setPreferredSize(size);
+//      takeButton.setPreferredSize(size);
+      tryTransferButton.setPreferredSize(size);
+      tryTransferTimeoutButton.setPreferredSize(new Dimension(285, 30));
+      putButton.setPreferredSize(size);
+      pollButton.setPreferredSize(size);
+
+      initializeThreadCountField(threadCountField);
+      initialized = true;
     }
+  }
 
     protected void afterClick() {
         displayWaitingConsumerCount();
