@@ -131,6 +131,15 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
     });
   }
 
+  /**
+   * This returns the shift from the default snippet pane. Usually 0, but for F&J which needs more room, use a negative shift
+   * @return the shift from the default snippet pane.
+   */
+  public int getVerticalOffsetShift() {
+    return -30;
+  }
+
+
   public void setAnimating(boolean b) {
     animating = b;
     System.out.printf("ForkJoinConcurrentExample.setAnimating %s%n", b);
