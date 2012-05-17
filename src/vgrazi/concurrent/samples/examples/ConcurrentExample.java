@@ -148,7 +148,7 @@ public abstract class ConcurrentExample extends JPanel {
       @Override
       public void mouseDragged(MouseEvent e) {
         offset += e.getX() - mouseDown;
-        System.out.println("ConcurrentExample.mouseDragged offset: " + offset);
+//        System.out.println("ConcurrentExample.mouseDragged offset: " + offset);
         mouseDown = e.getX();
         doLayout();
       }
@@ -784,4 +784,13 @@ public abstract class ConcurrentExample extends JPanel {
   public int getSnippetWidth() {
     return snippetWidth - offset;
   }
+
+  /**
+   * This returns the default vertical shift from the bottom button to the monolith. Usually 0, but for F&J which needs more room, use a negative shift
+   * @return the shift from the default snippet pane.
+   */
+  public int getVerticalOffsetShift() {
+    return 0;
+  }
+
 }
