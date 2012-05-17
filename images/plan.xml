@@ -15,7 +15,8 @@
     <MenuItem label="Future">
         <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false" mutexLabel="Future"/>
     </MenuItem>
-    <ImageSlide image="images/reentrantLock.jpg"/>
+    <ImageSlide image="images/VisibilityAndSynchronization.png"/>
+    <!--<ImageSlide image="images/reentrantLock.jpg"/>-->
     <MenuItem label="ReentrantLock">
         <Example class="vgrazi.concurrent.samples.examples.ReentrantLockExample" paging="true" fair="false" mutexLabel="ReentrantLock"/>
     </MenuItem>
