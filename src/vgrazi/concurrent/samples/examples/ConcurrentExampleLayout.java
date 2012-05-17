@@ -3,7 +3,6 @@ package vgrazi.concurrent.samples.examples;
 import vgrazi.concurrent.samples.SpacerButton;
 import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 import vgrazi.concurrent.samples.MessageLabel;
-import vgrazi.concurrent.samples.canvases.ForkJoinCanvas;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +25,8 @@ public class ConcurrentExampleLayout extends FlowLayout {
 
   @Override
   public void layoutContainer(Container target) {
-    snippetWidth = ((ConcurrentExample) target).getSnippetWidth();
+    ConcurrentExample concurrentExample = (ConcurrentExample) target;
+    snippetWidth = concurrentExample.getSnippetWidth();
     //    super.layoutContainer(target);
     //    System.out.println("ConcurrentExampleLayout.layoutContainer size:" + target.getSize());
     Component[] components = target.getComponents();
@@ -66,7 +66,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
       JButton button = buttons.get(i);
       if(button instanceof SpacerButton) {
         xPos = INSET;
-        yPos += INSET + height + 5;
+        yPos += height;
         continue;
       }
       if (i == 0) {
@@ -98,7 +98,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
 
     int xPosOfSnippet = 0;
 
-////// layout snippet
+////// layout snippet pane
     if (snippetPane != null) {
       xPosOfSnippet = target.getSize().width - snippetWidth;
       snippetPane.setBounds(xPosOfSnippet, INSET, target.getSize().width - xPosOfSnippet - INSET, target.getSize().height - INSET * 2);
@@ -147,12 +147,9 @@ public class ConcurrentExampleLayout extends FlowLayout {
     }
 
 ////// layout ConcurrentExample
-    // fork join canvas needs a bit more vertical space, so we don't use message2. Move up a few pixels
-    if(canvas instanceof ForkJoinCanvas) {
-      canvas.setBounds(INSET, yPos - 30, otherWidth, target.getSize().height - yPos);
-    }
-    else if (canvas != null) {
-      canvas.setBounds(INSET, yPos, otherWidth, target.getSize().height - yPos);
+    if (canvas != null) {
+      // fork join canvas needs a bit more vertical space, so we don't use message2. Move up a few pixels
+      canvas.setBounds(INSET, yPos + concurrentExample.getVerticalOffsetShift(), otherWidth, target.getSize().height - yPos);
     }
     if (snippetPane != null) {
       snippetPane.setVisible(true);
