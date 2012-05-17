@@ -74,13 +74,13 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
             "  <1 keyword>final <1 default>Executor executor = \n" +
             "     <1 keyword>new <1 default>ThreadPoolExecutor(0, 4, 1, TimeUnit.MINUTES, \n" +
             "               <1 keyword>new <1 default>LinkedBlockingQueue(4));\n" +
-            "\n\n" +
+            "\n" +
             "  <3 comment>// Use the Executor to launch some Runnable\n" +
             "  <3 default>executor.execute(<3 keyword>new <3 default>Runnable(){\n" +
             "      <3 keyword>public void <3 default>run() {\n" +
             "           <3 comment>// do work\n" +
             "      <3 default>}});\n" +
-            "\n\n" +
+            "\n" +
             "  <5 default>RejectedExecutionHandler handler =\n" +
             "      <w keyword>new <w default>ThreadPoolExecutor.CallerRunsPolicy() {\n" +
             "         public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {\n" +
