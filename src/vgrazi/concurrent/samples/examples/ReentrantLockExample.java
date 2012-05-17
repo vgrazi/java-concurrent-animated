@@ -143,6 +143,14 @@ public class ReentrantLockExample extends ConcurrentExample {
         }
       });
 
+      Dimension size = new Dimension(150, 30);
+      lockButton.setPreferredSize(size);
+      unlockButton.setPreferredSize(size);
+      interruptWaitingButton.setPreferredSize(size);
+      interruptLockedButton.setPreferredSize(size);
+      tryButton.setPreferredSize(size);
+      lockInterruptiblyButton.setSize(size);
+
       initializeThreadCountField(threadCountField);
       initialized = true;
     }
