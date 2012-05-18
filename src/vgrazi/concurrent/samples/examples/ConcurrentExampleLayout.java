@@ -66,7 +66,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
       JButton button = buttons.get(i);
       if(button instanceof SpacerButton) {
         xPos = INSET;
-        yPos += height;
+        yPos += height + 5;
         continue;
       }
       if (i == 0) {
@@ -85,8 +85,6 @@ public class ConcurrentExampleLayout extends FlowLayout {
       }
       button.setBounds(xPos, yPos, width, height);
       xPos += INSET + width;
-
-      //      System.out.println("ConcurrentExampleLayout.layoutContainer position button " + button.getText() + " at " + button.getBounds());
     }
 
     yPos += height + INSET;
