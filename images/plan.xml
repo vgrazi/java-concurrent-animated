@@ -44,6 +44,9 @@
     <MenuItem label="Phaser">
         <Example class="vgrazi.concurrent.samples.examples.PhaserExample" paging="true" fair="false" mutexLabel="Phaser"/>
     </MenuItem>
+    <MenuItem label="Blinking Phaser">
+        <Example class="vgrazi.concurrent.samples.examples.BlinkerExample" paging="true" mutexLabel=""/>
+    </MenuItem>
     <ImageSlide image="images/AtomicInteger.jpg"/>
     <MenuItem label="AtomicInteger">
         <Example class="vgrazi.concurrent.samples.examples.AtomicIntegerExample" paging="true" fair="false" mutexLabel="AtomicInteger"/>
