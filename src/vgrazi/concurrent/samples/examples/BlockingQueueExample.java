@@ -79,7 +79,8 @@ public class BlockingQueueExample extends ConcurrentExample {
           }
         });
 
-      Dimension size = new Dimension(100, 30);
+
+      Dimension size = new Dimension(100, putButton.getPreferredSize().height);
 
       putButton.setPreferredSize(size);
       offerButton.setPreferredSize(size);

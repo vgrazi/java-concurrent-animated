@@ -69,7 +69,7 @@ public class CountDownLatchExample extends ConcurrentExample {
         }
       });
       initializeThreadCountField(threadCountField);
-      Dimension size = new Dimension(144, 30);
+      Dimension size = new Dimension(144, awaitButton.getPreferredSize().height);
       awaitButton.setPreferredSize(size);
       countdownButton.setPreferredSize(size);
       initialized = true;

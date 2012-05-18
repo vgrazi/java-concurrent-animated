@@ -41,7 +41,7 @@ public class RejectedExecutionExecutorExample extends ExecutorsExample {
       initializeThreadCountField(threadCountField);
       initializeSaturationPolicyButtons();
 
-      Dimension size = new Dimension(320, 30);
+      Dimension size = new Dimension(320, setRejectedExecutionHandlerAbortButton.getPreferredSize().height);
       setRejectedExecutionHandlerDiscardButton.setPreferredSize(size);
       setRejectedExecutionHandlerDiscardOldestButton.setPreferredSize(size);
       setRejectedExecutionHandlerCallerRunsButton.setPreferredSize(size);

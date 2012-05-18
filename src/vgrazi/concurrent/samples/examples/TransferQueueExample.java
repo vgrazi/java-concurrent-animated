@@ -152,11 +152,11 @@ public class TransferQueueExample extends BlockingQueueExample {
           delayAfterClick();
         }
       });
-      Dimension size = new Dimension(100, 30);
+      Dimension size = new Dimension(100, transferButton.getPreferredSize().height);
       transferButton.setPreferredSize(size);
 //      takeButton.setPreferredSize(size);
       tryTransferButton.setPreferredSize(size);
-      tryTransferTimeoutButton.setPreferredSize(new Dimension(285, 30));
+      tryTransferTimeoutButton.setPreferredSize(new Dimension(285, transferButton.getPreferredSize().height));
       putButton.setPreferredSize(size);
       pollButton.setPreferredSize(size);
 

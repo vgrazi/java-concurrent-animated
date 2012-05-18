@@ -185,7 +185,7 @@ public class ConditionExample extends ConcurrentExample {
           lock.unlock();
         }
       });
-      Dimension size = new Dimension(180, 32);
+      Dimension size = new Dimension(180, await1Button.getPreferredSize().height);
       await1Button.setPreferredSize(size);
       await2Button.setPreferredSize(size);
       await3Button.setPreferredSize(size);

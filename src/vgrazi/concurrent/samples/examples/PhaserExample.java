@@ -114,13 +114,13 @@ public class PhaserExample extends ConcurrentExample {
         }
       });
       initializeThreadCountField(threadCountField);
-      Dimension size = new Dimension(220, 30);
+      Dimension size = new Dimension(220, arriveAndAwaitAdvanceButton.getPreferredSize().height);
       arriveAndAwaitAdvanceButton.setPreferredSize(size);
       awaitAdvanceButton.setPreferredSize(size);
       awaitAdvanceWrongPhaseButton.setPreferredSize(size);
       arriveButton.setPreferredSize(size);
 
-      Dimension smallerSize = new Dimension(129, 30);
+      Dimension smallerSize = new Dimension(129, arriveAndAwaitAdvanceButton.getPreferredSize().height);
 //      arriveAndDeregisterButton.setPreferredSize(smallerSize);
       registerButton.setPreferredSize(smallerSize);
       bulkRegisterButton.setPreferredSize(smallerSize);

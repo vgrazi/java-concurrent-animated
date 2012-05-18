@@ -142,7 +142,7 @@ public class ReentrantLockExample extends ConcurrentExample {
         }
       });
 
-      Dimension size = new Dimension(150, 30);
+      Dimension size = new Dimension(150, lockButton.getPreferredSize().height);
       lockButton.setPreferredSize(size);
       unlockButton.setPreferredSize(size);
       interruptWaitingButton.setPreferredSize(size);
