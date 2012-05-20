@@ -63,7 +63,8 @@ public class BlinkerExample extends ConcurrentExample {
       changeColor(comp, defaultColor);
       blinkerPanel.add(comp);
       buttonArray[i] = comp;
-      if(i == 0) {
+      if(i == buttons -1) {
+        // use the last button for sizing (its the largest)
         Dimension preferredSize = comp.getPreferredSize();
         int buttonWidth = preferredSize.width;
         int buttonHeight = preferredSize.height;
