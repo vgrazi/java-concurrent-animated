@@ -50,10 +50,15 @@ public class UIUtils {
   }
 
   public static ImageIcon getImageIcon(String imageName) {
-    URL url = ConcurrentExampleLauncher.class.getClassLoader().getResource(imageName);
+    try {
+      URL url = ConcurrentExampleLauncher.class.getClassLoader().getResource(imageName);
 //    logger.log(Level.INFO, "ConcurrentExampleLauncher.showTitlePane image: " + url);
-    ImageIcon imageIcon = new ImageIcon(url);
-    return imageIcon;
+      ImageIcon imageIcon = new ImageIcon(url);
+      return imageIcon;
+    } catch (RuntimeException e) {
+      System.out.println("UIUtils.getImageIcon Can't find image at " + imageName);
+      throw e;
+    }
   }
 
   /**
