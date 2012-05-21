@@ -14,9 +14,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
 
-  private final int spriteWidth = 100;
+  private final int spriteWidth = 80;
   private final int spriteHeight = 45;
-  private final int leftBorder = 40;
+  private final int leftBorder = 0;
   private int lastActiveCount;
   private int maxActiveThreadCount;
   private FontMetrics fontMetrics;
@@ -92,7 +92,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
       if(sprite.getForkJoinThread() != null) {
         g.setColor(sprite.getForkJoinThread().getThreadColor());
 //        g.drawLine(left + 5, yPos + 5, left + spriteWidth - 10, yPos + 5);
-        renderWorkingAnimation(g, left, yPos + 5, sprite.getCircleLocation());
+        renderWorkingAnimation(g, left-8, yPos + 5, sprite.getCircleLocation());
         sprite.bumpCircleLocation();
         activeThreadCount++;
       }

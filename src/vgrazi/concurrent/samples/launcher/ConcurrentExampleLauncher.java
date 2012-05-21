@@ -145,8 +145,8 @@ public class ConcurrentExampleLauncher {
       ImageIcon imageIcon = getImageIcon(imageName, resizeImage);
       clearFrame();
       backgroundImage = new JLabel(imageIcon);
-      backgroundImage.setHorizontalAlignment(alignment.getHorizontal());
-      backgroundImage.setVerticalAlignment(alignment.getVertical());
+      backgroundImage.setHorizontalAlignment(SwingConstants.LEFT);
+      backgroundImage.setVerticalAlignment(SwingConstants.TOP);
       backgroundImage.setBackground(Color.white);
       backgroundImage.setOpaque(true);
       backgroundImage.setFocusable(true);
@@ -165,7 +165,7 @@ public class ConcurrentExampleLauncher {
       });
 
       container.setLayout(null);
-      backgroundImage.setBounds(-400, -600, 2000, 2000);
+      backgroundImage.setBounds(0, 0, 2000, 2000);
       container.add(backgroundImage);
 
       ((Container) frame.getGlassPane()).setLayout(null);

@@ -44,7 +44,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
    * @param slideShowIndex when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
    */
   public ExecutorsExample(String label, Container frame, int slideShowIndex) {
-    super(label, frame, ExampleType.POOLED, 800, false, slideShowIndex);
+    super(label, frame, ExampleType.POOLED, 530, false, slideShowIndex);
   }
 
   protected  abstract void initializeThreadPool();

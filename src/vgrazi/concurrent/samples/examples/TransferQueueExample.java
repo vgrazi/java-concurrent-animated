@@ -31,7 +31,7 @@ public class TransferQueueExample extends BlockingQueueExample {
     }
 
     public TransferQueueExample(String title, Container frame, int slideNumber) {
-      super(title, frame, 700, slideNumber);
+      super(title, frame, 550, slideNumber);
     }
 
   @Override
@@ -210,26 +210,27 @@ public class TransferQueueExample extends BlockingQueueExample {
               "<BODY BGCOLOR=\"#ffffff\">\n" +
               "<pre>\n" +
               "<span class=\"<state0:s0>\"> \n" +
-              "" +
-              "        TransferQueue&lt;T&gt; transferQueue\n" +
-              "             </span><span class=\"<state0:s1>\"> = new </span><span class=\"<state0:s0>\">LinkedTransferQueue&lt;T&gt;(); \n" +
-              "        </span><span class=\"<state1:s1>\">try </span><span class=\"<state1:s0>\">{ \n" +
-              "            transferQueue.put(t); \n" +
-              "        } </span><span class=\"<state1:s1>\">catch </span><span class=\"<state1:s0>\">(InterruptedException e) { } \n" +
-              " \n" +
-              "        </span><span class=\"<state4:s1>\">try </span><span class=\"<state4:s0>\">{ \n" +
-              "            T t = transferQueue.take(); \n" +
-              "        } </span><span class=\"<state4:s1>\">catch </span><span class=\"<state4:s0>\">(InterruptedException e) { } </span>\n" +
-              "        </span><span class=\"<state2:s0>\"> \n" +
-              "        T t = transferQueue.poll(); \n" +
-              "        </span>" +
-              " \n" + "<span class=\"<state5:s0>\">" +
-              "        T t = transferQueue.transfer(); \n" +
-              "        </span>\n" +
-              "        <span class=\"<state6:s1>\">boolean </span><span class=\"<state6:s0>\">success = transferQueue.tryTransfer(t); \n" +
-              " \n" +
-              "        </span><span class=\"<state7:s1>\">boolean </span><span class=\"<state7:s0>\">success =\n           transferQueue.tryTransfer(t, " +
-              "</span><span class=\"<state7:s2>\">5</span><span class=\"<state7:s0>\">, TimeUnit.SECONDS);</span></pre>\n" +
+              " TransferQueue&lt;T&gt; transferQueue\n" +
+              "      </span><span class=\"<state0:s1>\"> = new </span><span class=\"<state0:s0>\">LinkedTransferQueue&lt;T&gt;(); \n" +
+              " </span><span class=\"<state1:s1>\">try </span><span class=\"<state1:s0>\">{ \n" +
+              "     transferQueue.put(t); \n" +
+              " } </span><span class=\"<state1:s1>\">catch </span><span class=\"<state1:s0>\">(InterruptedException e) { } \n" +
+              "  \n" +
+              " </span><span class=\"<state4:s1>\">try </span><span class=\"<state4:s0>\">{ \n" +
+              "     T t = transferQueue.take(); \n" +
+              " } </span><span class=\"<state4:s1>\">catch </span><span class=\"<state4:s0>\">(InterruptedException e) { } </span>\n" +
+              " </span><span class=\"<state2:s0>\"> \n" +
+              " T t = transferQueue.poll(); \n" +
+              " </span>" +
+              "  \n" +
+              " <span class=\"<state5:s0>\">" +
+              " T t = transferQueue.transfer(); \n" +
+              " </span>\n" +
+              " <span class=\"<state6:s1>\">boolean </span><span class=\"<state6:s0>\">success = transferQueue.tryTransfer(t); \n" +
+              "  \n" +
+              " </span><span class=\"<state7:s1>\">boolean </span><span class=\"<state7:s0>\">success =transferQueue.tryTransfer(t, \n" +
+              "</span><span class=\"<state7:s2>\">5</span><span class=\"<state7:s0>\">,\n" +
+              "                     TimeUnit.SECONDS);</span></pre>\n" +
               "</body>\n" +
               "</html>";
       return snippet;

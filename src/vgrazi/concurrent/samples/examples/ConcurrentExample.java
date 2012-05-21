@@ -98,8 +98,8 @@ public abstract class ConcurrentExample extends JPanel {
   /**
    * Used for calculating the vertical center line when dragged
    */
-  private int mouseDown;
-  private int offset;
+  private volatile int mouseDown;
+  private volatile int offset;
 
   //  public ConcurrentExample() {
 
@@ -114,7 +114,7 @@ public abstract class ConcurrentExample extends JPanel {
    * @param fair               true
    * @param slideNumber        when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
    */
-  public ConcurrentExample(String title, Container container, ExampleType exampleType, int snippetWidth, boolean fair, int slideNumber) {
+  public ConcurrentExample(String title, final Container container, ExampleType exampleType, int snippetWidth, boolean fair, int slideNumber) {
     this.title = title;
     this.exampleType = exampleType;
     this.snippetWidth = snippetWidth;
@@ -143,17 +143,42 @@ public abstract class ConcurrentExample extends JPanel {
         mouseDown = e.getX();
         System.out.println("ConcurrentExample.mousePressed " + mouseDown);
       }
+
+      @Override
+      public void mouseExited(MouseEvent e) {
+        snippetLabel.getTopLevelAncestor().setCursor(Cursor.getDefaultCursor());
+      }
     });
     snippetLabel.addMouseMotionListener(new MouseAdapter() {
       @Override
-      public void mouseDragged(MouseEvent e) {
-        offset += e.getX() - mouseDown;
-//        System.out.println("ConcurrentExample.mouseDragged offset: " + offset);
-        mouseDown = e.getX();
-        doLayout();
+      public void mouseDragged(final MouseEvent e) {
+        SwingUtilities.invokeLater(new Runnable() {
+          @Override
+          public void run() {
+            offset += e.getX() - mouseDown;
+            System.out.println("ConcurrentExample.mouseDragged offset: " + offset + "snippet width:" + snippetPane.getWidth());
+            mouseDown = e.getX();
+            snippetPane.validate();
+            doLayout();
+          }
+        });
+      }
+
+      @Override
+      public void mouseMoved(final MouseEvent e) {
+//        System.out.println("ConcurrentExample.mouseMoved SETTING CURSOR" + e.getX() + "," + e.getY());
+        SwingUtilities.invokeLater(new Runnable() {
+          @Override
+          public void run() {
+            if (e.getX() < 60) {
+              snippetLabel.getTopLevelAncestor().setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+            } else {
+              snippetLabel.getTopLevelAncestor().setCursor(Cursor.getDefaultCursor());
+            }
+          }
+        });
       }
     });
-//    snippetLabel.setToolTipText(getToolTipText());
     snippetLabel.setFont(SNIPPET_FONT);
     imagePanel.setOpaque(true);
   }

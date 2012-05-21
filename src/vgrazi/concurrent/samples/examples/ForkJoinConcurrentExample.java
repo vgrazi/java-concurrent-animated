@@ -16,7 +16,7 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
   private boolean animating;
 
   public ForkJoinConcurrentExample(String label, Container frame, int slideShowIndex) {
-    super(label, frame, ExampleType.WORKING, 660, false, slideShowIndex);
+    super(label, frame, ExampleType.WORKING, 490, false, slideShowIndex);
   }
 
   /**
@@ -55,53 +55,45 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
   }
 
   @Override
-  protected String getSnippet() {
-    return "<html><head><style type=\"text/css\"> \n" +
-            ".ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }\n" +
-            ".s0 { }\n" +
-            ".s1 { color: rgb(128,128,128); font-style: italic; }\n" +
-            ".s2 { color: rgb(0,0,128); font-weight: bold; }\n" +
-            ".s3 { color: rgb(0,0,255); }\n" +
-            ".s9 { color: rgb(128,128,128); }\n" +
-            "</style> \n" +
-            "</head>\n" +
-            "<BODY BGCOLOR=\"#ffffff\">" +
-            "<pre><span class=\"s1\">  /** \n" +
-            "   * Calculate the array[14] maximum using Fork &amp; Join \n" +
-            "   */</span><span class=\"<state1:s0>\"> \n" +
-            "  </span><span class=\"<state0:s2>\">public int </span><span class=\"<state0:s0>\">findMax(</span><span class=\"<state0:s2>\">int</span>" +
-            "<span class=\"<state0:s0>\">[] array, <span class=\"<state0:s2>\">int</span><span class=\"<state0:s0>\"> threadCount) { \n" +
-            "    Solver solver = </span><span class=\"<state0:s2>\">new </span><span class=\"<state0:s0>\">Solver(array, </span><span class=\"<state0:s3>\">0</span><span class=\"<state0:s0>\">, array.length); \n" +
-            "    ForkJoinPool pool = </span><span class=\"<state0:s2>\">new </span><span class=\"<state0:s0>\">ForkJoinPool(threadCount); \n" +
-            "    pool.invoke(solver); \n" +
-            "    </span><span class=\"<state4:s2>\">int </span><span class=\"<state4:s0>\">result = solver.result; \n" +
-            "    </span><span class=\"<state4:s2>\">return </span><span class=\"<state4:s0>\">result; \n" +
-            "  } \n" +
-            "  </span><span class=\"<state0:s2>\">class </span><span class=\"<state0:s0>\">Solver </span><span class=\"<state0:s2>\">extends </span><span class=\"<state0:s0>\">RecursiveAction { \n" +
-            "    </span><span class=\"<state0:s2>\">private int </span><span class=\"<state0:s0>\">start, end, result, array[]; \n" +
-            "    </span><span class=\"<state0:s2>\">private </span><span class=\"<state0:s0>\">Solver(</span><span class=\"<state0:s2>\">int</span><span class=\"<state0:s0>\">[] array, </span>" +
-            "<span class=\"<state0:s2>\">int </span><span class=\"<state0:s0>\">start, </span><span class=\"<state0:s2>\">int </span><span class=\"<state0:s0>\">end) { \n" +
-            "      </span><span class=\"<state0:s2>\">this</span><span class=\"<state0:s0>\">.array = array; \n" +
-            "      </span><span class=\"<state0:s2>\">this</span><span class=\"<state0:s0>\">.start = start; \n" +
-            "      </span><span class=\"<state0:s2>\">this</span><span class=\"<state0:s0>\">.end = end; \n" +
-            "    } \n" +
-            "    @Override \n" +
-            "    </span><span class=\"<state0:s2>\">protected void </span><span class=\"<state0:s0>\">compute() { \n" +
-            "      </span><span class=\"<state2:s2>\">if</span><span class=\"<state2:s0>\">(end - start == </span><span class=\"<state2:s3>\">1</span><span class=\"<state2:s0>\">) { \n" +
-            "        result = array[start]; \n" +
-            "      } \n" +
-            "      </span><span class=\"<state3:s2>\">else </span><span class=\"<state0:s0>\">{ \n" +
-            "        </span><span class=\"<state3:s2>\">int </span><span class=\"<state3:s0>\">mid = (start + end)/</span><span class=\"<state3:s3>\">2</span><span class=\"<state3:s0>\">; \n" +
-            "        Solver solver1 = </span><span class=\"<state3:s2>\">new </span><span class=\"<state3:s0>\">Solver(array, start, mid); \n" +
-            "        Solver solver2 = </span><span class=\"<state3:s2>\">new </span><span class=\"<state3:s0>\">Solver(array, mid, end); \n" +
-            "        invokeAll(solver1, solver2); \n" +
-            "        result = Math.max(solver1.result, solver2.result); \n" +
-            "      } \n" +
-            "    } \n" +
-            "  } \n" +
-            "</span></pre>\n" +
-            "</body>\n" +
-            "</html>";
+  protected String getSnippetText() {
+    return  "<0 highlight>/** Challenge: Calculate the maximum\n" +
+            "  * element of array[14] using Fork/Join*/<0 default><br/>" +
+            " <0 keyword>public int <0 default>findMax(\n" +
+            "    <0 keyword>int[] <0 default>array, <0 keyword>int <0 default>nthreads) {\n" +
+            "   Solver solver = new Solver(array, 0,\n" +
+            "                            array.length);\n" +
+            "   ForkJoinPool pool \n" +
+            "      = new ForkJoinPool(nthreads);\n" +
+            "   pool.invoke(solver);\n" +
+            "   <4 keyword>int <4 default>result = solver.result;\n" +
+            "   return result;\n" +
+            " }\n" +
+            " <0 keyword>class Solver extends <0 default>RecursiveAction {\n" +
+            "   private int start, end, result;\n" +
+            "   private int array[]\n\n" +
+            "   private Solver(int[] array, int start,\n" +
+            "                     int end) {\n" +
+            "     this.array = array;\n" +
+            "     this.start = start;\n" +
+            "     this.end = end;\n" +
+            "   }\n" +
+            "   @Override\n" +
+            "   protected void compute() {\n" +
+            "     <2 keyword>if(<2 default>end - start == <2 literal>1<2 default>) {\n" +
+            "       result = array[start];\n" +
+            "     }\n" +
+            "     <3 keyword>else <3 default>{\n" +
+            "       int mid = (start + end)/2;\n" +
+            "       Solver solver1 = new Solver(array,\n" +
+            "                            start, mid);\n" +
+            "       Solver solver2 = new Solver(array,\n" +
+            "                            mid, end);\n" +
+            "       invokeAll(solver1, solver2);\n" +
+            "       result = Math.max(solver1.result,\n" +
+            "                         solver2.result);\n" +
+            "     }\n" +
+            "   }\n" +
+            " }\n";
   }
 
   @Override

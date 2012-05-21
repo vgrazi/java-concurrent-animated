@@ -29,7 +29,7 @@ public class PhaserExample extends ConcurrentExample {
   private boolean initialized;
   private JTextField threadCountField = createThreadCountField();
   public PhaserExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.WORKING, 600, false, slideNumber);
+    super(title, frame, ExampleType.WORKING, 550, false, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -233,29 +233,28 @@ public class PhaserExample extends ConcurrentExample {
   protected String getSnippetText() {
     return
     "<0 default>\n" +
-    "   Phaser phaser = <0 keyword>new <0 default>Phaser(<0 literal>4<0 default>) { \n" +
-    "      <7 default>@Override \n" +
-    "     <7 comment>// Perform when all parties arrive<7 default> \n" +
-    "     <7 keyword>protected boolean <7 default>onAdvance(<7 keyword>int <7 default>phase, \n" +
-    "                         <7 keyword>int <7 default>registeredParties) { \n" +
-    "       <7 comment>// return true if the Phaser should\n" +
-    "       // terminate on advance, else false<7 default> \n" +
-    "       <7 keyword>return false<7 default>; \n" +
-    "     } \n" +
+    " Phaser phaser = <0 keyword>new <0 default>Phaser(<0 literal>4<0 default>) { \n" +
+    "    <7 default>@Override \n" +
+    "   <7 comment>// Perform when all parties arrive<7 default> \n" +
+    "   <7 keyword>protected boolean <7 default>onAdvance(<7 keyword>int <7 default>phase, \n" +
+    "                       <7 keyword>int <7 default>registeredParties) { \n" +
+    "     <7 comment>// return true if the Phaser should\n" +
+    "     // terminate on advance, else false<7 default> \n" +
+    "     <7 keyword>return false<7 default>; \n" +
+    "   } \n" +
     "<0 default>   }; \n" +
-    "    \n" +
-    "   <3 keyword>int <3 default>phase = phaser.arriveAndAwaitAdvance(); \n" +
+    "  \n" +
+    " <3 keyword>int <3 default>phase = phaser.arriveAndAwaitAdvance(); \n" +
     "\n" +
-    "   <1 keyword>int <1 default>phase = phaser.arrive(); \n" +
-    "    \n" +
-    "   <4 keyword>int <4 default>phase = phaser.awaitAdvance(<4 keyword>int <4 default>phase); \n" +
+    " <1 keyword>int <1 default>phase = phaser.arrive(); \n" +
+    "  \n" +
+    " <4 keyword>int <4 default>phase = phaser.awaitAdvance(<4 keyword>int <4 default>phase); \n" +
     "\n" +
-    "   <2 keyword>int <2 default>phase = phaser.arriveAndDeregister(); \n" +
+    " <2 keyword>int <2 default>phase = phaser.arriveAndDeregister(); \n" +
     "\n" +
-    "   <5 keyword>int <5 default>phase = phaser.register();\n" +
-    "    \n" +
-    "   <6 keyword>int <6 default>phase = phaser.bulkRegister(<6 keyword>int <6 default>parties);";
-
+    " <5 keyword>int <5 default>phase = phaser.register();\n" +
+    "  \n" +
+    " <6 keyword>int <6 default>phase = phaser.bulkRegister(<6 keyword>int <6 default>parties);";
   }
 
 //  private void snippetText() {

@@ -48,7 +48,7 @@ public class BlinkerExample extends ConcurrentExample {
   }
 
   public BlinkerExample(String title, Container container, int slideNumber) {
-    super(null, container, ExampleType.WORKING, 770, false, slideNumber);
+    super(null, container, ExampleType.WORKING, 550, false, slideNumber);
     addButtons(BUTTON_COUNT);
     blinkerPanel.setLayout(new GridLayout(0, 3));
     add(blinkerPanel);
@@ -57,7 +57,7 @@ public class BlinkerExample extends ConcurrentExample {
 
   private void addButtons(int buttons) {
     for (int i = 0; i < buttons; i++) {
-      final JComponent comp = new JButton("Button " + i);
+      final JComponent comp = new JButton("<html><body align='center'>Button <br/>" + i + "</body></html>");
       comp.setOpaque(true);
       final Color defaultColor = comp.getBackground();
       changeColor(comp, defaultColor);
@@ -84,7 +84,6 @@ public class BlinkerExample extends ConcurrentExample {
       Thread thread = new Thread() {
         public void run() {
           try {
-            Thread.sleep(1000);
             do {
               setStateSometimes(finalI, 3);
               final Color defaultColor = comp.getBackground();
@@ -160,42 +159,45 @@ public class BlinkerExample extends ConcurrentExample {
 
   @Override
   protected String getSnippetText() {
-    return "  <0 keyword>private <0 default>Phaser phaser = <0 keyword>new <0 default>Phaser(20) {\n" +
-            " <2 keyword>    protected boolean <2 default>onAdvance(<2 keyword>int<2 default> phase, <2 keyword>int <2 default>registeredParties) {\n" +
-            "      <2 keyword>return <2 default>phase >= BLINK_COUNT - 1 || registeredParties == 0;\n" +
+    return  " <0 highlight>///// COURTESY DR. HEINZ KABUTZ -\n" +
+            "      CONCURRENCY SPECIALIST COURSE /////<0 default>\n<br/>" +
+            " <0 keyword>private <0 default>Phaser phaser = <0 keyword>new <0 default>Phaser(21) {\n" +
+            " <2 keyword>   protected boolean <2 default>onAdvance(<2 keyword>int<2 default> phase,\n" +
+            "                      <2 keyword>int <2 default>registeredParties) {\n" +
+            "     <2 keyword>return <2 default>phase >= BLINK_COUNT - 1\n" +
+            "                      || registeredParties == 0;\n" +
+            "   }\n" +
+            " <0 default>};<br/>" +
+            "<1 keyword>public void <1 default>start() {\n" +
+            " Random rand = new Random();\n" +
+            " for (final JComponent comp: buttonArray) {\n" +
+            "  Thread thread = new Thread() {\n" +
+            "   public void run() {\n" +
+            "    <3 keyword>try <3 default>{\n" +
+            "     <4 keyword>do <3 default>{\n" +
+            "      <3 default>Color defaultColor = comp.getBackground();\n" +
+            "      Color newColor = <3 keyword>new <3 default>Color(rand.nextInt());\n" +
+            "      changeColor(comp, newColor);\n" +
+            "      Thread.sleep(500 + rand.nextInt(3000));\n" +
+            "      <4 default>changeColor(comp, defaultColor);\n" +
+            "      Toolkit.getDefaultToolkit().beep();\n" +
+            "      Thread.sleep(2000);\n" +
+            "      phaser.arriveAndAwaitAdvance();\n" +
+            "     } <4 keyword>while<4 default> (!phaser.isTerminated());\n" +
+            "    <3 default>} <3 keyword>catch<3 default> (InterruptedException e) {\n" +
+            "     Thread.currentThread().interrupt();\n" +
             "    }\n" +
-            "  <0 default>};\n" +
-            "" +
-            "  <1 keyword>public void <1 default>start() {\n" +
-            "    Random rand = new Random();\n" +
-            "    for (final JComponent comp: buttonArray) {\n" +
-            "      Thread thread = new Thread() {\n" +
-            "        public void run() {\n" +
-            "          <3 keyword>try {\n" +
-            "            <3 default>Thread.sleep(1000);\n" +
-            "            <4 keyword>do {\n" +
-            "              <3 default>Color defaultColor = comp.getBackground();\n" +
-            "              Color newColor = <3 keyword>new <3 default>Color(rand.nextInt());\n" +
-            "              changeColor(comp, newColor);\n" +
-            "              Thread.sleep(500 + rand.nextInt(3000));\n" +
-            "              <4 default>changeColor(comp, defaultColor);\n" +
-            "              Toolkit.getDefaultToolkit().beep();\n" +
-            "              Thread.sleep(2000);\n" +
-            "              phaser.arriveAndAwaitAdvance();\n" +
-            "            } <4 keyword>while<4 default> (!phaser.isTerminated());\n" +
-            "          <3 default>} <3 keyword>catch<3 default> (InterruptedException e) {\n" +
-            "            Thread.currentThread().interrupt();\n" +
-            "          }\n" +
-            "        }\n" +
-            "      };\n" +
-            "      <1 default>thread.start();\n" +
-            "    }\n" +
-            "  }";
+            "   }\n" +
+            "  };\n" +
+            "  <1 default>thread.start();\n" +
+            " }\n" +
+            "}";
   }
 
   @Override
   public void reset() {
     super.reset();
+    setState(0);
     message1("", ConcurrentExampleConstants.MESSAGE_COLOR);
     message2("", ConcurrentExampleConstants.MESSAGE_COLOR);
     if (phaser != null && !phaser.isTerminated()) {

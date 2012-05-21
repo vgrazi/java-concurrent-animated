@@ -21,12 +21,12 @@ public class CyclicBarrierExample extends ConcurrentExample {
   private CyclicBarrier barrier;
 
   private final JButton awaitButton = new JButton("await()");
-  private final JButton attemptButton = new JButton("await(timeMS, TimeUnit.MILLISECONDS)");
+  private final JButton attemptButton = new JButton("await(timeMS, TimeUnit)");
   private final JButton createButton = new JButton("barrier.reset()");
   private boolean initialized;
   private JTextField threadCountField = createThreadCountField();
   public CyclicBarrierExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.WORKING, 720, false, slideNumber);
+    super(title, frame, ExampleType.WORKING, 548, false, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -63,9 +63,10 @@ public class CyclicBarrierExample extends ConcurrentExample {
         }
       });
       initializeThreadCountField(threadCountField);
-      Dimension size = new Dimension(144, awaitButton.getPreferredSize().height);
-      awaitButton.setPreferredSize(size);
+      Dimension size = new Dimension(120, awaitButton.getPreferredSize().height);
+//      awaitButton.setPreferredSize(size);
       createButton.setPreferredSize(size);
+      attemptButton.setPreferredSize(new Dimension(210, awaitButton.getPreferredSize().height));
 
       initialized = true;
     }
@@ -174,40 +175,46 @@ public class CyclicBarrierExample extends ConcurrentExample {
   protected String getSnippet() {
     final String snippet;
     snippet = "<html><PRE><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Contructor specifies number of parties, and an<br>    // optional Runnable that gets called when the</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// barrier is opened.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier cyclicBarrier = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">" +
-       "<br>    <B>    new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier(4</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">, </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Runnable(){ \n" +
-       "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> run(){ \n" +
-       "        System.out.println(</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Date() + </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#008000>\"><B>&quot; Runnable hit&quot;</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">); \n" +
-       "      } \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Contructor specifies # of parties, and an<br>" +
+            " // optional Runnable that gets called when the</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// barrier is opened.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier cyclicBarrier = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">" +
+       "<br>    <B>    new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier(4</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">, </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">Runnable(){<br/>\n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> run(){ \n" +
+       "   System.out.println(</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#008000>\"><B>&quot; Runnable hit&quot;</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">); \n" +
+       " } \n" +
 //       "    }); \n" +
        " \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Each call to await() blocks, until<br>    // the number specified in the constructor is reached.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Then the Runnable is executed and all can pass. </I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
-       "    <font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-       "    Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread(){ \n" +
-       "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
-       "        </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
-       "          cyclicBarrier.await(); \n" +
-       "        } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(BrokenBarrierException e) {} \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
+       "// Each call to await blocks, until the number<br>" +
+       " // specified in the constructor is reached.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
+       "// Then the Runnable executes and all can pass. </I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
+       " <font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
+       " Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread(){ \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
+       "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
+       "     cyclicBarrier.await(); \n" +
+       "   } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(BrokenBarrierException e) {} \n" +
 //       "        } \n" +
 //       "      } \n" +
 //       "    });" +
        " \n" +
-       "    <font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
-       "    Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread(){ \n" +
-       "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
-       "        </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> { \n" +
-       "          cyclicBarrier.await(timeout, TimeUnit.MILLISECONDS); \n" +
-       "        } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">(BrokenBarrierException e) {} \n" +
+       " <font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
+       " Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread(){ \n" +
+       "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
+       "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> { \n" +
+       "     cyclicBarrier.await(timeout,\n" +
+       "                          TimeUnit.SECONDS); \n" +
+       "   } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">(BrokenBarrierException e) {} \n" +
 //       "        } \n" +
 //       "      } \n" +
 //       "    });" +
        " \n" +
-            "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// reset() allows the barrier to be reused.</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Any waiting threads will throw a BrokenBarrierException</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    <font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">cyclicBarrier.reset()</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
+            " </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// reset() allows the barrier to be reused.</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+            " </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Any waiting threads will throw \n" +
+            " // a BrokenBarrierException</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+            " <font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">cyclicBarrier.reset()</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
             "</FONT></PRE></html>";
     return snippet;
   }

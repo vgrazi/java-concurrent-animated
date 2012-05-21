@@ -35,7 +35,7 @@ public class ReadWriteLockExample extends ConcurrentExample {
     this(label, frame, false, slideNumber);
   }
   public ReadWriteLockExample(String label, Container frame, boolean fair, int slideNumber) {
-    super(label, frame, ExampleType.BLOCKING, 610, fair, slideNumber);
+    super(label, frame, ExampleType.BLOCKING, 552, fair, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -271,49 +271,51 @@ public class ReadWriteLockExample extends ConcurrentExample {
     String snippet;
     snippet = "<html>" +
             "<PRE> " +
-            "    <FONT style=\"font-family:monospaced;\" COLOR=\"#606060\"><I>// Construct the ReadWriteLock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReadWriteLock lock =  \n" +
-            "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantReadWriteLock(); \n" +
-            "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state6:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state6:#000000>\"> ReentrantReadWriteLock(true); \n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            " <FONT style=\"font-family:monospaced;\" COLOR=\"#606060\"><I>// Construct the ReadWriteLock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> \n" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReadWriteLock lock =  \n" +
+            "     </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantReadWriteLock(); \n" +
+            "     </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state6:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state6:#000000>\"> ReentrantReadWriteLock(true); \n" +
             //       "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> WriterPreferenceReadWriteLock(); \n" +
             //       "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReaderPreferenceReadWriteLock(); \n" +
             //       "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> FIFOReadWriteLock(); \n" +
             "     \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Acquire the read lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
-            "      lock.readLock().lock(); \n" +
-            "      </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// or</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-            "      lock.readLock().tryLock(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000099>\">1L, TimeUnit.SECONDS</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">); \n" +
-            "    }" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Acquire the read lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
+            "   lock.readLock().lock(); \n" +
+            "   </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// or</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
+            "   lock.readLock().tryLock(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000099>\">1L, TimeUnit.SECONDS</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">); \n" +
+            " }" +
             " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(InterruptedException e) { }\n" +
             //            "      Thread.currentThread().interrupt(); \n" +
             //            "    } \n" +
             " \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Release the read lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
-            "    lock.readLock().unlock(); \n" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Release the read lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
+            " lock.readLock().unlock(); \n" +
             " \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Acquire the write lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>try</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
-            "      lock.writeLock().lock(); \n" +
-            "      </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// or</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "      lock.writeLock().tryLock(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000099>\">1L, TimeUnit.SECONDS</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
-            "    }" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Acquire the write lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>try</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
+            "   lock.writeLock().lock(); \n" +
+            "   </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// or</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
+            "   lock.writeLock().tryLock(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000099>\">1L, TimeUnit.SECONDS</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
+            " }" +
             " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>catch</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) { }\n" +
             //            "    } \n" +
             " \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Release the lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> \n" +
-            "    lock.writeLock().unlock(); \n" +
-            "    // or \n" +
-            "    lock.readLock().unlock(); \n" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Release the lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> \n" +
+            " lock.writeLock().unlock(); \n" +
+            " // or \n" +
+            " lock.readLock().unlock(); \n" +
             " \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Downgrade the write lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000080>\"><B>try</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000000>\"> { \n" +
-            "      lock.readLock().lock(); \n" +
-            "      lock.writeLock().unlock();\n" +
-            "    }" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Downgrade the write lock</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
+            " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000080>\"><B>try</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000000>\"> { \n" +
+            "   lock.readLock().lock(); \n" +
+            "   lock.writeLock().unlock();\n" +
+            " }" +
             " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000080>\"><B>catch</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state5:#000000>\">(InterruptedException e) {} \n" +
             //            "    } \n" +
-            " \n" +
             "</FONT>" +
             "</PRE></html>";
     return snippet;

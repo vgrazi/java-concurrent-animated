@@ -26,7 +26,7 @@ public class ReentrantLockExample extends ConcurrentExample {
   private volatile int lockCount;
   private final JButton lockButton = new JButton("lock");
   private final JButton unlockButton = new JButton("unlock");
-  private final JButton interruptWaitingButton = new JButton("interrupt (waiting)");
+  private final JButton interruptBlockedButton = new JButton("interrupt (blocked)");
   private final JButton interruptLockedButton = new JButton("interrupt (locked)");
   private final JButton tryButton = new JButton("tryLock");
   private final JButton lockInterruptiblyButton = new JButton("lockInterruptibly");
@@ -38,43 +38,37 @@ public class ReentrantLockExample extends ConcurrentExample {
     return "ReentrantLock";
   }
 
-  protected String getSnippet() {
-    String snippet;
-    snippet = "<html><PRE><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Constructor</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">final</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B> Lock lock = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantLock(); \n" +
-       " \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Locking Thread - Once a Lock is acquired this<br>    // thread blocks until unlock is called.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-       "       lock.lock(); \n    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\">" +
-        "   try { \n" +
-        "         lock.lockInterruptibly();\n" +
-        "       } catch(InterruptedException {...}\n" +
-       "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
-       "       // lock unblocks and work continues... \n" +
-       " \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Unlocking Thread - All waiting threads are<br>    // notified when lock is unlockd. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
-       "      </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
-       " lock.unlock(); \n" +
-       " \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// Try Lock Thread - All waiting threads are<br>    // notified when lock is unlockd. Then one is<br>    // selected at random to acquire the lock.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-       "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">try</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
-       "         if(lock.tryLock(1L, TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">)){\n" +
-       "           try {\n" +
-       "             doSomething();\n" +
-       "           } finally {\n" +
-       "             lock.unlock();\n" +
-       "           }\n" +
-       "         }\n" +
-       "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n" +
-       "       // lock unblocks and work continues... \n" +
-       "       "+
-       "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>} catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) {..} \n" +
-       "</FONT></PRE></html>";
-    return snippet;
+  @Override
+  protected String getSnippetText() {
+    return "    // Constructor\n" +
+            "    <0 keyword>final <0 default>Lock lock = <0 keyword>new <0 default>ReentrantLock();\n" +
+            "    <1 default>lock.lock();\n" +
+            "\n" +
+            "    <4 keyword>try<4 default> {\n" +
+            "      lock.lockInterruptibly();\n" +
+            "    } <4 keyword>catch <4 default>(InterruptedException e) {...}\n" +
+            "\n" +
+            "    <2 default>lock.unlock();\n" +
+            "\n" +
+            "    <3 keyword>boolean <3 default>acquired = <3 literal>false<3 default>;\n" +
+            "    <3 keyword>try<3 default> {\n" +
+            "      acquired = lock.tryLock(<3 literal>1L<3 default>, TimeUnit.SECONDS);\n" +
+            "      <3 keyword>if<3 default>(acquired) {\n" +
+            "        doSomething();\n" +
+            "      }\n" +
+            "    } <3 keyword>catch<3 default> (InterruptedException e) {...\n" +
+            "    } <3 keyword>finally {\n" +
+            "      if <3 default>(acquired) {\n" +
+            "        lock.unlock();\n" +
+            "      }\n" +
+            "    }\n" +
+            "    <6 default>&lt;lockedThread>.interrupt();\n" +
+            "    <5 default>&lt;blockedThread>.interrupt();" +
+            "\n";
   }
 
   public ReentrantLockExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.BLOCKING, 600, false, slideNumber);
+    super(title, frame, ExampleType.BLOCKING, 570, false, slideNumber);
   }
 
   protected void initializeComponents() {
@@ -129,14 +123,16 @@ public class ReentrantLockExample extends ConcurrentExample {
           ThreadSpriteHolder lockedSprite = ReentrantLockExample.this.lockedSprite;
           if(lockedSprite != null) {
             lockedSprite.thread.interrupt();
+            setState(6);
           }
         }
       });
 
-      initializeButton(interruptWaitingButton, new Runnable() {
+      initializeButton(interruptBlockedButton, new Runnable() {
         public void run() {
           setState(0);
           if(!interruptibleSprites.isEmpty()) {
+            setState(5);
             interrupt();
           }
         }
@@ -145,7 +141,7 @@ public class ReentrantLockExample extends ConcurrentExample {
       Dimension size = new Dimension(150, lockButton.getPreferredSize().height);
       lockButton.setPreferredSize(size);
       unlockButton.setPreferredSize(size);
-      interruptWaitingButton.setPreferredSize(size);
+      interruptBlockedButton.setPreferredSize(size);
       interruptLockedButton.setPreferredSize(size);
       tryButton.setPreferredSize(size);
       lockInterruptiblyButton.setSize(size);
@@ -271,6 +267,7 @@ public class ReentrantLockExample extends ConcurrentExample {
         sprite.setRejected();
         message1("Interrupted", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
         Thread.currentThread().interrupt();
+        setState(6);
       }
       lockedSprite = null;
       lockCount--;

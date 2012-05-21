@@ -39,45 +39,47 @@ public class SemaphoreExample extends ConcurrentExample {
   private String timeoutString = "";
   // todo: when you create more threads than permits, they don't always release
   private final List<ConcurrentSprite> acquiredSprites = new Vector<ConcurrentSprite>();
-  private static final int MIN_SNIPPET_POSITION = 650;
+  private static final int SNIPPET_WIDTH = 565;
   private JTextField threadCountField = createThreadCountField();
 
   public SemaphoreExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.BLOCKING, MIN_SNIPPET_POSITION, true, slideNumber);
+    super(title, frame, ExampleType.BLOCKING, SNIPPET_WIDTH, true, slideNumber);
   }
 
   public SemaphoreExample(String title, Container frame, boolean fair, int slideNumber) {
-    super(title, frame, ExampleType.BLOCKING, MIN_SNIPPET_POSITION, fair, slideNumber);
+    super(title, frame, ExampleType.BLOCKING, SNIPPET_WIDTH, fair, slideNumber);
     initializeFair(fair);
   }
 
   protected  String getSnippetText() {
       String snippet =
-  "    <6 comment>// Constructor - pass in the number of permits\n" +
-  "    <6 keyword>final <6 default>Semaphore semaphore = <6 keyword>new<6 default> Semaphore(<6 literal>4,<6 keyword> true<6 default>);\n" +
-  "    <0 keyword>final <0 default>Semaphore semaphore = <0 keyword>new<0 default> Semaphore(<0 literal>4<6 default>);\n" +
+  " <6 comment>// Constructor - pass in the number of permits\n" +
+  " <6 keyword>final <6 default>Semaphore semaphore =\n" +
+  "     <6 keyword>new<6 default> Semaphore(<6 literal>4,<6 keyword> true<6 default>);\n" +
+  " <0 keyword>final <0 default>Semaphore semaphore =\n" +
+  "     <0 keyword>new<0 default> Semaphore(<0 literal>4<6 default>);\n" +
   "\n" +
-  "    <1 comment>// Threads attempting to acquire will block\n" +
-  "    // until the specified number of releases are counted\n" +
-  "    <1 keyword>try <1 default>{\n" +
-  "      semaphore.acquire();\n" +
-  "    }<1 keyword> catch <1 default>(InterruptedException e) { }\n" +
+  " <1 comment>// Threads attempting to acquire will block until\n" +
+  " // the specified number of releases are counted\n" +
+  " <1 keyword>try <1 default>{\n" +
+  "   semaphore.acquire();\n" +
+  " }<1 keyword> catch <1 default>(InterruptedException e) { }\n" +
   "\n" +
-  "    <2 default>semaphore.release();\n" +
+  " <2 default>semaphore.release();\n" +
   "\n" +
-  "    <4 comment>// tryAcquire is like acquire, except that it\n" +
-  "    // times out after an (optional) specified time.\n" +
-  "    <4 keyword>try<4 default> {\n" +
-  "    <4 keyword>  if<4 default>(semaphore.tryAcquire(<4 literal>5<4 default>, TimeUnit.SECONDS)) {\n" +
-  "    <4 comment>    // Do something\n" +
-  "    <4 default>  }\n" +
-  "    } <4 keyword><4 keyword>catch<4 default> (InterruptedException e) { }\n" +
+  " <4 comment>// tryAcquire is like acquire, except that it\n" +
+  " // times out after an (optional) specified time.\n" +
+  " <4 keyword>try<4 default> {\n" +
+  " <4 keyword>  if<4 default>(semaphore.tryAcquire(<4 literal>5<4 default>, TimeUnit.SECONDS)) {\n" +
+  " <4 comment>    // Do something\n" +
+  " <4 default>  }\n" +
+  " } <4 keyword><4 keyword>catch<4 default> (InterruptedException e) { }\n" +
   "\n" +
-  "    <3 comment>// If no time is specified, times out immediately\n" +
-  "    <3 comment>//    if not acquired\n" +
-  "    <3 keyword>if<3 default>(semaphore.tryAcquire()) {\n" +
-  "    <3 comment>  // Do something\n" +
-  "    <3 default>}\n";
+  " <3 comment>// If no time is specified, times out immediately\n" +
+  " <3 comment>//    if not acquired\n" +
+  " <3 keyword>if<3 default>(semaphore.tryAcquire()) {\n" +
+  " <3 comment>  // Do something\n" +
+  " <3 default>}\n";
     return snippet;
   }
 

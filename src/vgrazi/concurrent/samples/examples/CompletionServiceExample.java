@@ -33,7 +33,7 @@ public class CompletionServiceExample extends ConcurrentExample {
   private int RESET_COUNT = 0;
   private JTextField threadCountField = createThreadCountField();
   public CompletionServiceExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.BLOCKING, 650, false, slideNumber);
+    super(title, frame, ExampleType.BLOCKING, 540, false, slideNumber);
   }
 
   public String getTitle() {
@@ -176,29 +176,30 @@ public class CompletionServiceExample extends ConcurrentExample {
     snippet =
        "<html><pre>\n" +
           "<FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"> \n" +
-          "    // Launch multiple Callables in a completion service.\n" +
-          "    // Results are queued as they arrive. \n" +
-          "    // To retrieve the results in sequence, \n" +
-          "    // call completionService.take().get();" +
-          " \n" +
-          " \n" +
-          "<FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
-          "    // Create a completionService, providing an Executor \n" +
-          "    // in the constructor. \n" +
-          "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>final</B> CompletionService<Result> completionService = \n" +
-          " <B>    new</B> ExecutorCompletionService<Result>(" +
+          "  // Launch many Callables to the\n" +
+          "  //   completion service.\n" +
+          "  // Results are queued as they arrive. \n" +
+          "  // To retrieve the results in sequence, \n" +
+          "  // call completionService.take().get();" +
+          "  \n" +
+          "  \n" +
+          " <FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
+          "  // Create a completionService, providing \n" +
+          "  //   an Executor in the constructor. \n" +
+          "  </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>final</B> CompletionService<Result> completionService = \n" +
+          "   <B>new</B> ExecutorCompletionService<Result>(" +
           " \n        Executors.newFixedThreadPool(4));" +
           " \n" +
           " \n" +
           "<FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
-          "    // Submit callables to the completion service \n" +
-          "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">completionService.submit(callable);</FONT>" +
+          "  // Submit callables to the completion service \n" +
+          "  </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">completionService.submit(callable);</FONT>" +
           " \n" +
           " \n" +
           "<FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
-          "    // Now take results as they complete \n" +
-          "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">Future<Result> future = completionService.take();</FONT>\n" +
-          "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">Result result = future.get();</FONT>" +
+          "  // Now take results as they complete \n" +
+          "  </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">Future<Result> future = completionService.take();</FONT>\n" +
+          "  </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">Result result = future.get();</FONT>" +
           " \n" +
           " \n" +
           " \n" +

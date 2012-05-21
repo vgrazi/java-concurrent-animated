@@ -81,7 +81,7 @@ public class MenuBuilder extends DefaultHandler {
       if (htmlFile != null) {
         try {
           String html = IOUtils.readHtmlText(htmlFile);
-          initializeImageSlide(attributes.getValue("image"), html, delta++, false, Alignment.CENTER, menuIndex);
+          initializeImageSlide(attributes.getValue("image"), html, delta++, false, Alignment.W, menuIndex);
         } catch (IOException e) {
           e.printStackTrace();
         }

@@ -23,7 +23,7 @@ public class FutureExample extends ConcurrentExample {
   private boolean initialized = false;
 
   public FutureExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.ONE_USE, 700, false, slideNumber);
+    super(title, frame, ExampleType.ONE_USE, 500, false, slideNumber);
   }
 
   private void launchAcquiringSprite() throws ExecutionException, InterruptedException {
@@ -59,18 +59,21 @@ public class FutureExample extends ConcurrentExample {
   protected String getSnippetText() {
     return
             "<0 comment>" +
-                    "  // Future objects are returned on submit to ExecutorService\n" +
-                    "  //   or can be created by constructing a FutureTask.\n" +
+                    "  // Future objects are returned on submit\n" +
+                    "  // to ExecutorService or can be created\n" +
+                    "  // by constructing a FutureTask.\n" +
                     "\n" +
                     "  // The Future.get() method blocks\n" +
                     "  //   until some result is available.\n" +
                     "\n" +
                     "  <1 keyword>final<1 default> Future&nbsp;future =\n" +
-                    "       Executors.newCachedThreadPool().submit(someCallable); \n\n" +
+                    "       Executors.newCachedThreadPool()\n" +
+                    "         .submit(someCallable); \n\n" +
                     "<0 comment>" +
                     "  // OR\n" +
                     "\n" +
-                    "  <1 default>FutureTask&lt;Callable> future = <1 keyword>new<1 default> FutureTask<Callable>(someCallable);\n" +
+                    "  <1 default>FutureTask&lt;Callable> future =\n" +
+                    "      <1 keyword>new<1 default> FutureTask<Callable>(someCallable);\n" +
                     "  <1 default>Thread thread = <1 keyword>new<1 default> Thread(futureTask);\n" +
                     "  <1 default>thread.start();\n" +
                     "<0 comment>\n\n\n" +

@@ -25,8 +25,8 @@
         <Example class="vgrazi.concurrent.samples.examples.ConditionExample" paging="true" fair="false" mutexLabel="Condition"/>
     </MenuItem>
     <MenuItem label="Semaphore">
-        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="false" fair="false" mutexLabel="Semaphore"/>
         <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="true" fair="true" mutexLabel="Semaphore (fair)"/>
+        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="false" fair="false" mutexLabel="Semaphore"/>
     </MenuItem>
     <ImageSlide image="images/reentrantRWLock.jpg"/>
     <MenuItem label="ReadWriteLock">

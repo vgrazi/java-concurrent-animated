@@ -29,8 +29,7 @@ public class ConcurrentHashMapExample extends ConcurrentExample {
 
   public ConcurrentHashMapExample(String title, Container frame,
 			int slideNumber) {
-		super(title, frame, ExampleType.CONCURRENT_MAP, 730,
-				true, slideNumber);
+		super(title, frame, ExampleType.CONCURRENT_MAP, 450, true, slideNumber);
 		reset();
 		setState(6);
 	}
@@ -39,34 +38,41 @@ public class ConcurrentHashMapExample extends ConcurrentExample {
 		String snippet;
 		snippet = "<html><PRE>\n"
 				+ "<FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n"
-				+ " \n"
-				+ "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\""
-				+ ConcurrentExampleConstants.HTML_DISABLED_COLOR
+				+ "  \n"
+				+ " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR
 				+ "\"><I>// Construct empty concurrent map</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n"
-				+ "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ConcurrentMap&lt;Integer, String> concurrentMap = </FONT>"
-				+ "<FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><br>              <B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ConcurrentHashMap&lt;Integer, String>();</FONT>\n"
+				+ " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">ConcurrentMap&lt;Integer, String> map = </FONT>"
+				+ "<FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><br/>" +
+                "       <B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ConcurrentHashMap&lt;>();</FONT>\n"
 				+ " \n"
-				+ "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\""
+				+ " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\""
 				+ ConcurrentExampleConstants.HTML_DISABLED_COLOR
-				+ "\"><I>// putIfAbsent only puts value if key isn't contained.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n"
-				+ "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\""
+				+ "\"><I>// putIfAbsent only puts value <br>" +
+                " // if key isn't contained.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"><br/>"
+				+ "</FONT><FONT style=\"font-family:monospaced;\" COLOR=\""
 				+ ConcurrentExampleConstants.HTML_DISABLED_COLOR
-				+ "\"><I>// returns the old value, or null if key wasn't contained.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n"
-				+ "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">"
+				+ " \"><I> // Returns the previous value, or null<br/>" +
+                " // if key wasn't previously contained.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"><br/>"
+				+ "</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B> int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">"
 				+ " key = 1;\n"
-				+ "    String value = \"v(1)\";\n"
-				+ "    String previousValue = concurrentMap.putIfAbsent(key, value);\n"
-				+ "    <FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>boolean</B></FONT> wasAbsent = previousValue == null;\n\n"
+				+ " String value = \"v(1)\";\n"
+				+ " String previousValue<br/>" +
+                "     = map.putIfAbsent(key, value);\n"
+				+ " <FONT style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>boolean</B></FONT> wasAbsent<br/>" +
+                "     = previousValue == null;\n\n"
 
-				+ "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\""
+				+ " </FONT><FONT style=\"font-family:monospaced;\" COLOR=\""
 				+ ConcurrentExampleConstants.HTML_DISABLED_COLOR
-				+ "\"><I>// If key is contained, replaces value with supplied value. \n" +
-                "    // returns the old value, or null if key was absent.</I>"
-				+ "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n\n"
-				+ "    String previousValue = concurrentMap.replace(key, value);\n"
-				+ "    <FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>boolean</B></FONT> " +
-                "<FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> wasAbsent = previousValue == null;\n"
-
+				+ "\"><I>// If key is contained, replaces value<br/>" +
+                " //    with supplied value.<br/>" +
+                " // Returns the previous value, <br/>" +
+                " //    or null if key was absent.</I>"
+				+ "</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">\n\n"
+				+ " String previousValue<br/>"
+                + "     = map.replace(key, value);\n"
+				+ " <FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>boolean</B></FONT> " +
+                "<FONT style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">wasAbsent<br/>" +
+                "     = previousValue == null;\n"
 				+ " \n" + "</PRE></html>";
 
 		return snippet;

@@ -49,10 +49,9 @@ public class ConditionExample extends ConcurrentExample {
   private final JButton signal3AllButton = new JButton("signalAll [condition 3]");
 
   private boolean initialized = false;
-  private static final int MIN_SNIPPET_POSITION = 700;
 
   public ConditionExample(String title, Container frame, int slideNumber) {
-    super(title, frame, ExampleType.WORKING, MIN_SNIPPET_POSITION, false, slideNumber);
+    super(title, frame, ExampleType.WORKING, 555, false, slideNumber);
     reset();
   }
 
@@ -199,11 +198,6 @@ public class ConditionExample extends ConcurrentExample {
     }
   }
 
-  @Override
-  public int getVerticalOffsetShift() {
-    return -60;
-  }
-
   public String getDescriptionHtml() {
     StringBuffer sb = new StringBuffer();
 //    sb.append("<html>");
@@ -247,11 +241,10 @@ public class ConditionExample extends ConcurrentExample {
   protected String getBaseSnippet() {
 
     return "<html><PRE><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\">" +
-//       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Constructor</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Lock lock = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantLock(); \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition1 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition2 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
-       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition3 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Lock lock = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantLock(); \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition1 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition2 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
+       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition3 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
        "\n" +
 //       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\">\n" +
 //       "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
@@ -259,26 +252,26 @@ public class ConditionExample extends ConcurrentExample {
             //       "    </FONT>" +
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\">" +
        "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-       "    lock.lock();\n" +
-       "    try {\n" +
-       "      condition[i].await(); \n" +
-       "    } catch(InterruptedException e) {...}\n" +
+       " lock.lock();\n" +
+       " try {\n" +
+       "   condition[i].await(); \n" +
+       " } catch(InterruptedException e) {...}\n" +
        "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-       "    finally {\n" +
-       "      lock.unlock();\n" +
-       "    } \n" +
+       " finally {\n" +
+       "   lock.unlock();\n" +
+       " } \n" +
        "</FONT>" +
             "\n" +
        "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
-       "    lock.lock();\n" +
-       "    condition[i].signal();\n" +
-       "    lock.unlock();\n" +
+       " lock.lock();\n" +
+       " condition[i].signal();\n" +
+       " lock.unlock();\n" +
        "</FONT>" +
        "\n" +
             "<font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-       "    lock.lock();\n" +
-       "    condition[i].signalAll();\n" +
-       "    lock.unlock();\n" +
+       " lock.lock();\n" +
+       " condition[i].signalAll();\n" +
+       " lock.unlock();\n" +
        "</FONT>" +
        "</PRE></html>";
   }

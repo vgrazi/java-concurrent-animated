@@ -58,22 +58,20 @@ public class FixedThreadExecutorExample extends ExecutorsExample {
     setState(0);
   }
 
-  protected String getSnippet() {
-    return "<html><PRE><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// FixedThreadPool Construction</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> Executor executor = </FONT>\n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><FONT style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">     Executors.newFixedThreadPool(4);\n" +
-            " \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Use the Executor to launch some Runnable </I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "    executor.execute(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Runnable(){ \n" +
-            "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>public</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>void</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> run(){ \n" +
-            "          </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// do work</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "        }}); \n"+
-          " \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Prestarting Core Threads</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> count = </FONT>\n" +
-            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\">  ((ThreadPoolExecutor)executor).prestartAllCoreThreads(); \n" +
-            "    </FONT></PRE></html";
+  @Override
+  protected String getSnippetText() {
+    return  "  <0 comment>// FixedThreadPool Construction\n" +
+            "  <0 keyword>final <0 default>Executor executor =\n" +
+            "          Executors.newFixedThreadPool(<0 literal>3<0 default>);\n" +
+            "  <3 comment>// Use the Executor to execute a Runnable\n" +
+            "  <3 default>executor.execute(<3 keyword>new <3 default>Runnable() {\n" +
+            "    <3 keyword>@Override\n" +
+            "    public void <3 default>run() {\n" +
+            "      <3 comment>// Do work\n" +
+            "    <3 default>}});\n" +
+            "\n" +
+            "  <4 comment>// Prestarting Core Threads\n" +
+            "  <4 keyword>int <4 default>count = ((ThreadPoolExecutor)executor)\n" +
+            "          .prestartAllCoreThreads();\n";
   }
-
 }
