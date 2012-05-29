@@ -62,7 +62,7 @@ public class FixedThreadExecutorExample extends ExecutorsExample {
   protected String getSnippetText() {
     return  "  <0 comment>// FixedThreadPool Construction\n" +
             "  <0 keyword>final <0 default>Executor executor =\n" +
-            "          Executors.newFixedThreadPool(<0 literal>3<0 default>);\n" +
+            "          Executors.newFixedThreadPool(<0 literal>4<0 default>);\n" +
             "  <3 comment>// Use the Executor to execute a Runnable\n" +
             "  <3 default>executor.execute(<3 keyword>new <3 default>Runnable() {\n" +
             "    <3 keyword>@Override\n" +
