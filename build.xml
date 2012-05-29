@@ -27,6 +27,7 @@
         <copy todir="dist/images">
             <fileset dir="images">
                 <include name="*.gif"/>
+                <include name="*.png"/>
                 <include name="*.jpg"/>
                 <include name="*.htm?"/>
                 <include name="*.xml"/>
