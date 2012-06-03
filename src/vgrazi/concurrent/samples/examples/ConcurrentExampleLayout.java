@@ -112,7 +112,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
 
 ////// layout snippet pane
     if (snippetPane != null) {
-      xPosOfSnippet = targetWidth - snippetWidth;
+      xPosOfSnippet = targetWidth - snippetWidth + concurrentExample.getOffset();
       snippetPane.setBounds(xPosOfSnippet, INSET, targetWidth - xPosOfSnippet - INSET, targetHeight - INSET * 2);
     }
 

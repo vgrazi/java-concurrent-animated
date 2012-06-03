@@ -155,8 +155,8 @@ public abstract class ConcurrentExample extends JPanel {
             offset += e.getX() - mouseDown;
             System.out.println("ConcurrentExample.mouseDragged offset: " + offset + "snippet width:" + snippetPane.getWidth());
             mouseDown = e.getX();
-            //todo: is this validate necessary
-//            snippetPane.validate();
+            // validate is necessary to re-render the snippet scrollbars after dragging
+            snippetPane.validate();
             doLayout();
           }
         });
