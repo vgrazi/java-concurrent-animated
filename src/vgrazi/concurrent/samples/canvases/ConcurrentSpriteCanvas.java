@@ -890,6 +890,16 @@ public class ConcurrentSpriteCanvas extends JPanel {
   //    frame.show();
   //  }
 
+  @Override
+  /**
+   * Returns the preferred canvas size.
+   * Default provides a common preferred size for all canvases, but override to tweak for specific canvases
+   * Currently only the width is used
+   */
+  public Dimension getPreferredSize() {
+    return new Dimension(430, 10000);
+  }
+
   public void shuffleSprites() {
     List<ConcurrentSprite> sprites = new ArrayList<ConcurrentSprite>(this.sprites);
     Collections.shuffle(sprites);
