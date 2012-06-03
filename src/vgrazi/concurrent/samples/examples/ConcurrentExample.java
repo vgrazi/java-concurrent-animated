@@ -33,7 +33,6 @@ public abstract class ConcurrentExample extends JPanel {
   protected final long timeout = 3 * 1000;
   protected final JLabel message1Label = new MessageLabel(" ");
   protected final JLabel message2Label = new MessageLabel(" ");
-  protected final JPanel imagePanel = new ImagePanel(this);
   protected final JButton resetButton = new JButton("Reset");
   private JTextField threadCountField;
 
@@ -63,7 +62,6 @@ public abstract class ConcurrentExample extends JPanel {
           canvas.resumeClock();
         } else if (e.getKeyCode() == KeyEvent.VK_X) {
           message1("Canvas:" + toString(canvas.getBounds()) + " " + (canvas.isVisible() ? "Visible" : "Hidden"), Color.BLACK);
-          message2("imagePanel:" + toString(imagePanel.getBounds()) + " " + (canvas.isVisible() ? "Visible" : "Hidden"), Color.BLACK);
         }
       }
       if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN || e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -128,8 +126,6 @@ public abstract class ConcurrentExample extends JPanel {
     message1Label.setOpaque(false);
     message2Label.setFont(ConcurrentExampleConstants.LABEL_FONT);
     message2Label.setOpaque(false);
-    //    imagePanel.setBackground(Color.yellow);
-    imagePanel.setBorder(BorderFactory.createEtchedBorder());
 
     snippetLabel.setOpaque(true);
     snippetLabel.setFocusable(true);
@@ -158,7 +154,8 @@ public abstract class ConcurrentExample extends JPanel {
             offset += e.getX() - mouseDown;
             System.out.println("ConcurrentExample.mouseDragged offset: " + offset + "snippet width:" + snippetPane.getWidth());
             mouseDown = e.getX();
-            snippetPane.validate();
+            //todo: is this validate necessary
+//            snippetPane.validate();
             doLayout();
           }
         });
@@ -180,7 +177,6 @@ public abstract class ConcurrentExample extends JPanel {
       }
     });
     snippetLabel.setFont(SNIPPET_FONT);
-    imagePanel.setOpaque(true);
   }
 
   private void nextSlide() {
@@ -215,13 +211,11 @@ public abstract class ConcurrentExample extends JPanel {
 
   private void setBackgroundColors() {
     setBackground(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    imagePanel.setBackground(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     snippetLabel.setBackground(Color.white);
   }
 
   public void setAnimationCanvasVisible(boolean value) {
     canvas.setVisible(value);
-    imagePanel.setVisible(!value);
   }
 
   protected synchronized ConcurrentSprite createAcquiringSprite() {
@@ -375,9 +369,6 @@ public abstract class ConcurrentExample extends JPanel {
     acquiring = new AtomicInteger(0);
     releasing = new AtomicInteger(0);
     canvas.clearSprites();
-    if (!canvas.isVisible()) {
-      imagePanel.setVisible(true);
-    }
     canvas.resumeClock();
     repaint();
     //    canvas.setVisible(false);
@@ -477,7 +468,6 @@ public abstract class ConcurrentExample extends JPanel {
   protected final void initializeOutput() {
     add(message1Label);
     add(message2Label);
-    add(imagePanel);
   }
 
   /**
@@ -736,10 +726,6 @@ public abstract class ConcurrentExample extends JPanel {
     return canvas;
   }
 
-  public JPanel getImagePanel() {
-    return imagePanel;
-  }
-
   protected synchronized void setAcquiredSprite(ConcurrentSprite sprite) {
     acquiredSprite = sprite;
   }
@@ -803,10 +789,10 @@ public abstract class ConcurrentExample extends JPanel {
   }
 
   /**
-   * Gets the snippet width, accounting for offset by dragging
+   * Gets the minimum snippet width, accounting for offset by dragging
    * @return the snippet width, accounting for offset by dragging
    */
-  public int getSnippetWidth() {
+  public int getSnippetMinimumWidth() {
     return snippetWidth - offset;
   }
 
@@ -817,5 +803,4 @@ public abstract class ConcurrentExample extends JPanel {
   public int getVerticalOffsetShift() {
     return 0;
   }
-
 }
