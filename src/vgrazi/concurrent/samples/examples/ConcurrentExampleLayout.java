@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ConcurrentExampleLayout extends FlowLayout {
   private static final int MAX_OTHER_WIDTH = 650;
-  private int snippetWidth;
+  private int snippetMinimumWidth;
   private static final int INSET = 5;
 
   public ConcurrentExampleLayout() {
@@ -26,7 +26,11 @@ public class ConcurrentExampleLayout extends FlowLayout {
   @Override
   public void layoutContainer(Container target) {
     ConcurrentExample concurrentExample = (ConcurrentExample) target;
-    snippetWidth = concurrentExample.getSnippetWidth();
+    int targetWidth = concurrentExample.getSize().width;
+    int targetHeight = concurrentExample.getSize().height;
+
+    snippetMinimumWidth = concurrentExample.getSnippetMinimumWidth();
+
     //    super.layoutContainer(target);
     //    System.out.println("ConcurrentExampleLayout.layoutContainer size:" + target.getSize());
     Component[] components = target.getComponents();
@@ -55,7 +59,6 @@ public class ConcurrentExampleLayout extends FlowLayout {
 
     int xPos = INSET;
     int yPos = 10;
-    int otherWidth;
 
     // layout buttons
     JButton firstButton = null;
@@ -79,10 +82,6 @@ public class ConcurrentExampleLayout extends FlowLayout {
       height = componentSize.height;
       final int width = componentSize.width;
 
-      if (xPos + width > snippetWidth) {
-        xPos = INSET;
-        yPos += INSET + height + 5;
-      }
       button.setBounds(xPos, yPos, width, height);
       xPos += INSET + width;
     }
@@ -94,26 +93,32 @@ public class ConcurrentExampleLayout extends FlowLayout {
       firstButton.requestFocus();
     }
 
+    // now, this is a little tricky - we want the snippet pane to be at least the snippetMinimumWidth.
+    // but we also want the canvas to be the preferred width.
+    // so, if the total width <= snippetMinimumWidth + canvas preferred width, then set the snippet width to be snippetMinimumWidth
+    // and give the rest to the canvas.
+    // else if total width is > snippetMinimumWidth + canvas preferred width, give the canvas the preferred width and the rest to the snippet
+
+    int canvasPreferredWidth = canvas.getPreferredSize().width;
+    int snippetWidth;
+    if(canvasPreferredWidth + snippetMinimumWidth > targetWidth) {
+      snippetWidth = snippetMinimumWidth;
+    }
+    else {
+      snippetWidth = targetWidth - canvasPreferredWidth;
+    }
+
     int xPosOfSnippet = 0;
 
 ////// layout snippet pane
     if (snippetPane != null) {
-      xPosOfSnippet = target.getSize().width - snippetWidth;
-      snippetPane.setBounds(xPosOfSnippet, INSET, target.getSize().width - xPosOfSnippet - INSET, target.getSize().height - INSET * 2);
-
-//      if (xPosOfSnippet < snippetWidth) {
-//        xPosOfSnippet = snippetWidth;
-//      }
-//      xPosOfSnippet = xPos;
-//      if (xPosOfSnippet < snippetWidth) {
-//        xPosOfSnippet = snippetWidth;
-//      }
-//      snippetPane.setBounds(xPosOfSnippet, INSET, target.getSize().width - xPosOfSnippet - INSET, target.getSize().height - INSET * 2);
+      xPosOfSnippet = targetWidth - snippetWidth;
+      snippetPane.setBounds(xPosOfSnippet, INSET, targetWidth - xPosOfSnippet - INSET, targetHeight - INSET * 2);
     }
 
     yPos += INSET * 2;
 
-    // layout others
+    // layout others - i.e. - the thread counter
     xPos = INSET;
     for (Component component : others) {
       final Dimension preferredSize = component.getPreferredSize();
@@ -135,20 +140,19 @@ public class ConcurrentExampleLayout extends FlowLayout {
       label.setBounds(INSET, yPos, defaultWidth, height);
       yPos += height + INSET;
     }
-    if (xPosOfSnippet > 0) {
-      otherWidth = xPosOfSnippet - INSET * 2;
-    } else {
-      otherWidth = target.getSize().width - INSET * 2;
-    }
+
+    int otherWidth = targetWidth - INSET * 2;
     if (otherWidth > MAX_OTHER_WIDTH) {
       otherWidth = MAX_OTHER_WIDTH;
     }
 
-////// layout ConcurrentExample
+////// layout ConcurrentExample canvas
     if (canvas != null) {
       // fork join canvas needs a bit more vertical space, so we don't use message2. Move up a few pixels
-      canvas.setBounds(INSET, yPos + concurrentExample.getVerticalOffsetShift(), otherWidth, target.getSize().height - yPos);
+      canvas.setBounds(INSET, yPos + concurrentExample.getVerticalOffsetShift(), otherWidth, targetHeight - yPos);
     }
+
+/// Noq set the snippet pane and message labels visible
     if (snippetPane != null) {
       snippetPane.setVisible(true);
     }
