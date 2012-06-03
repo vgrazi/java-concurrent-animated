@@ -86,7 +86,7 @@ public abstract class ConcurrentExample extends JPanel {
   private static final Font SNIPPET_FONT = new Font("SansSerif", Font.PLAIN, 18);
   private String title;
   private ExampleType exampleType;
-  private int snippetWidth;
+  private int snippetMinimumWidth;
   private boolean fair;
   private final int slideNumber;
   private final ConcurrentLinkedQueue<JButton> buttons = new ConcurrentLinkedQueue<JButton>();
@@ -108,14 +108,14 @@ public abstract class ConcurrentExample extends JPanel {
    * @param title              the title to display in the title bar
    * @param container          the container to contain the animation
    * @param exampleType        the type of animation
-   * @param snippetWidth the horizontal position to start the snippet frame
+   * @param snippetMinimumWidth the horizontal position to start the snippet frame
    * @param fair               true
    * @param slideNumber        when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
    */
-  public ConcurrentExample(String title, final Container container, ExampleType exampleType, int snippetWidth, boolean fair, int slideNumber) {
+  public ConcurrentExample(String title, final Container container, ExampleType exampleType, int snippetMinimumWidth, boolean fair, int slideNumber) {
     this.title = title;
     this.exampleType = exampleType;
-    this.snippetWidth = snippetWidth;
+    this.snippetMinimumWidth = snippetMinimumWidth;
     this.fair = fair;
     this.slideNumber = slideNumber;
     createCanvas();
@@ -151,6 +151,7 @@ public abstract class ConcurrentExample extends JPanel {
         SwingUtilities.invokeLater(new Runnable() {
           @Override
           public void run() {
+            // the new offset is the new mouse location minus the click location
             offset += e.getX() - mouseDown;
             System.out.println("ConcurrentExample.mouseDragged offset: " + offset + "snippet width:" + snippetPane.getWidth());
             mouseDown = e.getX();
@@ -793,7 +794,7 @@ public abstract class ConcurrentExample extends JPanel {
    * @return the snippet width, accounting for offset by dragging
    */
   public int getSnippetMinimumWidth() {
-    return snippetWidth - offset;
+    return snippetMinimumWidth;
   }
 
   /**
@@ -802,5 +803,9 @@ public abstract class ConcurrentExample extends JPanel {
    */
   public int getVerticalOffsetShift() {
     return 0;
+  }
+
+  public int getOffset() {
+    return offset;
   }
 }
