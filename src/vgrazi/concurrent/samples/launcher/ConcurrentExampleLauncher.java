@@ -68,7 +68,7 @@ public class ConcurrentExampleLauncher {
 
   public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
     instance = new ConcurrentExampleLauncher();
-    System.out.printf("ConcurrentExampleLauncher.main set instance to %s%n", instance);
+//    System.out.printf("ConcurrentExampleLauncher.main set instance to %s%n", instance);
   }
 
   private ConcurrentExampleLauncher() throws IOException, SAXException, ParserConfigurationException {
@@ -251,7 +251,7 @@ public class ConcurrentExampleLauncher {
     }
     int componentCount = ((Container) frame.getGlassPane()).getComponentCount();
     if (componentCount > 0) {
-      System.out.printf("ConcurrentExampleLauncher.clearFrame contains %d elements. Removing first %s%n", componentCount, ((Container) frame.getGlassPane()).getComponents()[0]);
+//      System.out.printf("ConcurrentExampleLauncher.clearFrame contains %d elements. Removing first %s%n", componentCount, ((Container) frame.getGlassPane()).getComponents()[0]);
       ((Container) frame.getGlassPane()).remove(0);
     }
   }

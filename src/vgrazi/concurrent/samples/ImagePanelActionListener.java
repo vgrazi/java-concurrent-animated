@@ -55,7 +55,7 @@ public class ImagePanelActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     ConcurrentExampleLauncher instance = ConcurrentExampleLauncher.getInstance();
 //    MenuBuilder.getButtonMenu().setSelected(menuIndex);
-    System.out.printf("ImagePanelActionListener.actionPerformed launcher:%s, label:%s, title:%s, imageName:%s%n", instance, label, title, imageName);
+//    System.out.printf("ImagePanelActionListener.actionPerformed launcher:%s, label:%s, title:%s, imageName:%s%n", instance, label, title, imageName);
 //    if (instance != null)
     {
       instance.showTitlePane(label, ConcurrentExampleConstants.FRAME_TITLE, imageName, resizeImage, alignment);
