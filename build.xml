@@ -23,7 +23,7 @@
         <javac srcdir="${src}" destdir="${build}" debug="true" debuglevel="lines,source"/>
     </target>
 
-    <target name="copyImages" depends="compile">
+    <target name="copy_assets" depends="compile">
         <copy todir="dist/images">
             <fileset dir="images">
                 <include name="*.gif"/>
@@ -35,7 +35,7 @@
         </copy>
     </target>
 
-    <target name="dist" depends="copyImages"
+    <target name="dist" depends="copy_assets"
             description="generate the distribution">
         <delete file="${dist}/concurrentanimated.jar"/>
         <!-- Put everything in ${build} into the jar file -->
