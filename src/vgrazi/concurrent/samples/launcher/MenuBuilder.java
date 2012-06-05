@@ -211,6 +211,7 @@ public class MenuBuilder extends DefaultHandler {
         MenuItem menuItem = new MenuItem(examplePanel.getTitle());
         menuItem.addActionListener(actionListener);
         menu.add(menuItem);
+        System.out.printf("MenuBuilder.initializeMenuItem added Menu:'%s'/'%s'", menuLabel, examplePanel.getTitle());
         if (i == 0) {
           actionListeners.add(actionListener);
         }
