@@ -45,7 +45,7 @@
         <Example class="vgrazi.concurrent.samples.examples.PhaserExample" paging="true" fair="false" mutexLabel="Phaser"/>
     </MenuItem>
     <MenuItem label="Blinking Phaser">
-        <Example class="vgrazi.concurrent.samples.examples.BlinkerExample" paging="true" mutexLabel=""/>
+        <Example class="vgrazi.concurrent.samples.examples.BlinkerExample" paging="true" />
     </MenuItem>
     <ImageSlide image="images/AtomicInteger.jpg"/>
     <MenuItem label="AtomicInteger">
@@ -69,9 +69,9 @@
     <MenuItem label="Fork/Join">
         <Example class="vgrazi.concurrent.samples.examples.ForkJoinConcurrentExample" paging="true" mutexLabel="Fork/Join"/>
     </MenuItem>
-    <ImageSlide image="images/concurrent.gif" text="/images/references.html"/>
+    <ImageSlide image="images/concurrent.png" text="/images/references.html"/>
     <References/>
-    <ImageSlide image="images/concurrent.gif" text="/images/instructions.html"/>
+    <ImageSlide image="images/concurrent.png" text="/images/instructions.html"/>
     <Help/>
 
 </plan>
