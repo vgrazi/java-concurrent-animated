@@ -48,7 +48,7 @@ public class BlinkerExample extends ConcurrentExample {
   }
 
   public BlinkerExample(String title, Container container, int slideNumber) {
-    super(null, container, ExampleType.WORKING, 550, false, slideNumber);
+    super(title, container, ExampleType.WORKING, 550, false, slideNumber);
     addButtons(BUTTON_COUNT);
     blinkerPanel.setLayout(new GridLayout(0, 3));
     add(blinkerPanel);
