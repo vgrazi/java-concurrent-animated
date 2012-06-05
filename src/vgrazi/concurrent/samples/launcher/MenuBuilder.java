@@ -208,10 +208,14 @@ public class MenuBuilder extends DefaultHandler {
         if (examplePanel.getSlideNumber() != -1) {
           slideShowSlides.put(examplePanel.getSlideNumber(), actionListener);
         }
-        MenuItem menuItem = new MenuItem(examplePanel.getTitle());
+        String title = examplePanel.getTitle();
+        if(title == null || title.trim().equals("")) {
+          title = menuLabel;
+        }
+        MenuItem menuItem = new MenuItem(title);
         menuItem.addActionListener(actionListener);
         menu.add(menuItem);
-        System.out.printf("MenuBuilder.initializeMenuItem added Menu:'%s'/'%s'", menuLabel, examplePanel.getTitle());
+        System.out.printf("MenuBuilder.initializeMenuItem added Menu:'%s'/'%s'", menuLabel, title);
         if (i == 0) {
           actionListeners.add(actionListener);
         }
