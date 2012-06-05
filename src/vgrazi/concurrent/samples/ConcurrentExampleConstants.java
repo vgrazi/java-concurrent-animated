@@ -24,7 +24,7 @@ public class ConcurrentExampleConstants {
   public static final Font MUTEX_HEADER_FONT = new Font("Serif", Font.BOLD, 24);
   public static final Font LABEL_FONT = new Font("SansSerif", Font.BOLD, 16);
   public static final Font TEXT_SPRITE_FONT = new Font("Serif", Font.BOLD, 20);
-  public static final String LOGO = "images/concurrent.gif";
+  public static final String LOGO = "images/concurrent.png";
 
   public static final String INSTRUCTIONS_FILE = "/images/instructions.html";
   public static final String REFERENCES_FILE = "/images/references.html";
