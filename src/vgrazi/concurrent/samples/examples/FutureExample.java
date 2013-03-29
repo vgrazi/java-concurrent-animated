@@ -79,7 +79,10 @@ public class FutureExample extends ConcurrentExample {
                     "<0 comment>\n\n\n" +
                     "  //  Finally, the Future task completes\n" +
                     "  //       and the block passes through.\n" +
-                    "  <2 default>Object result = future.get();";
+                    "  <2 keyword>try{\n" +
+                    "  <2 default>  Object result = future.get();\n"+
+                    "  <2 keyword>} catch(<2 default>InterruptedException e<2 keyword>){...}\n";
+
 
   }
 
