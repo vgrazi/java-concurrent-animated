@@ -82,11 +82,14 @@ public class CountDownLatchExample extends ConcurrentExample {
       setState(3);
       message1("Attempting acquire..", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       ConcurrentSprite sprite = createAttemptingSprite();
+      sprite.setThreadState(Thread.State.TIMED_WAITING);
       if(countDownLatch.await(timeout, TimeUnit.MILLISECONDS)) {
         message1("Acquire attempt succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
+        sprite.setThreadState(Thread.State.RUNNABLE);
         sprite.setReleased();
       } else {
         message1("Acquire attempt failed", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+        sprite.setThreadState(Thread.State.RUNNABLE);
         sprite.setRejected();
       }
       setState(3);
@@ -111,7 +114,9 @@ public class CountDownLatchExample extends ConcurrentExample {
       message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       setState(1);
       ConcurrentSprite sprite = createAcquiringSprite();
+      sprite.setThreadState(Thread.State.WAITING);
       countDownLatch.await();
+      sprite.setThreadState(Thread.State.RUNNABLE);
       sprite.setReleased();
       message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
       setState(1);

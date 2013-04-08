@@ -132,7 +132,7 @@ public class PhaserExample extends ConcurrentExample {
   }
 
   private void arrive() {
-    methodSetup(null, 1, new Callable<Integer>() {
+    methodSetup(Thread.State.RUNNABLE, 1, new Callable<Integer>() {
       public Integer call() throws Exception {
         return phaser.arrive();
       }
@@ -148,7 +148,7 @@ public class PhaserExample extends ConcurrentExample {
   }
 
   private void arriveAndAwaitAdvance() {
-    methodSetup(null, 3, new Callable<Integer>() {
+    methodSetup(Thread.State.WAITING, 3, new Callable<Integer>() {
       public Integer call() throws Exception {
         return phaser.arriveAndAwaitAdvance();
       }
@@ -156,7 +156,7 @@ public class PhaserExample extends ConcurrentExample {
   }
 
   private void awaitAdvanceThisPhase() {
-    methodSetup(ConcurrentExampleConstants.ATTEMPTING_COLOR, 4, new Callable<Integer>() {
+    methodSetup(Thread.State.WAITING, 4, new Callable<Integer>() {
       public Integer call() throws Exception {
         return phaser.awaitAdvance(phaser.getPhase());
       }
@@ -164,23 +164,24 @@ public class PhaserExample extends ConcurrentExample {
   }
 
   private void awaitAdvanceWrongPhase() {
-    methodSetup(ConcurrentExampleConstants.ATTEMPTING_COLOR, 4, new Callable<Integer>() {
+    methodSetup(Thread.State.RUNNABLE, 4, new Callable<Integer>() {
       public Integer call() throws Exception {
         return phaser.awaitAdvance(phaser.getPhase() + 1);
       }
     });
   }
 
-  private void methodSetup(Color spriteColor, int state, Callable<Integer> phaserMethod) {
+  private void methodSetup(Thread.State threadState, int state, Callable<Integer> phaserMethod) {
     ConcurrentSprite sprite = createAcquiringSprite();
     try {
       setState(state);
       message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-      if (spriteColor != null) {
-        sprite.setColor(spriteColor);
+      if (threadState != null) {
+        sprite.setThreadState(threadState);
       }
       displayPhaseAndParties();
       int phase = phaserMethod.call();
+      sprite.setThreadState(Thread.State.RUNNABLE);
     } catch (Exception e) {
       message1(e.getMessage(), ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
       sprite.setRejected();

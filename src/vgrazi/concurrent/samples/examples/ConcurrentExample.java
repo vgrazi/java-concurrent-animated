@@ -180,6 +180,10 @@ public abstract class ConcurrentExample extends JPanel {
     snippetLabel.setFont(SNIPPET_FONT);
   }
 
+  public boolean displayStateColors() {
+    return true;
+  }
+
   private void nextSlide() {
     getCanvas().pauseClock();
     ConcurrentSlideShow.nextSlide();
@@ -219,6 +223,10 @@ public abstract class ConcurrentExample extends JPanel {
     canvas.setVisible(value);
   }
 
+  protected synchronized ConcurrentSprite createSpecialHeadSprite() {
+    return createAcquiringSprite(ConcurrentSprite.SpriteType.SPECIAL);
+  }
+
   protected synchronized ConcurrentSprite createAcquiringSprite() {
     return createAcquiringSprite(ConcurrentSprite.SpriteType.WORKING);
   }
@@ -239,9 +247,6 @@ public abstract class ConcurrentExample extends JPanel {
   /**
    * A pulling sprite is a "getter" thread that pulls the result from a Future
    * It is drawn to the right of the mutex and waits for the associated sprite to be released
-   * @param index
-   * @param type
-   * @return
    */
   protected synchronized ConcurrentSprite createPullingSprite(ConcurrentSprite pullee) {
     return createPullingSprite(pullee, ConcurrentSprite.SpriteType.PULLER);
@@ -250,7 +255,6 @@ public abstract class ConcurrentExample extends JPanel {
   /**
    * A pulling sprite is a "getter" thread that pulls the result from a Future
    * It is drawn to the right of the mutex and waits for the associated sprite to be released
-   * @param index
    * @param type
    * @return
    */
@@ -266,6 +270,9 @@ public abstract class ConcurrentExample extends JPanel {
     ConcurrentSprite sprite = new ConcurrentSprite(index);
     sprite.setType(type);
     sprite.setAcquiring();
+    if (displayStateColors()) {
+      sprite.setThreadState(Thread.State.RUNNABLE);
+    }
     canvas.addSprite(sprite);
     return sprite;
   }

@@ -81,7 +81,9 @@ public class CyclicBarrierExample extends ConcurrentExample {
       setState(1);
       message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
       sprite = createAcquiringSprite();
+      sprite.setThreadState(Thread.State.WAITING);
       int count = barrier.await();
+      sprite.setThreadState(Thread.State.RUNNABLE);
       sprite.setReleased();
       setState((0));
       message1("barrier complete " + count, ConcurrentExampleConstants.MESSAGE_COLOR);
@@ -89,6 +91,7 @@ public class CyclicBarrierExample extends ConcurrentExample {
     catch(BrokenBarrierException e) {
       System.out.println("CyclicBarrierExample.attempt " + e);
       message1("BrokenBarrierException.", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+      sprite.setThreadState(Thread.State.RUNNABLE);
       sprite.setRejected();
       resetBarrier();
     }
@@ -105,18 +108,23 @@ public class CyclicBarrierExample extends ConcurrentExample {
       setState(2);
       message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
       sprite = createAttemptingSprite();
+      sprite.setThreadState(Thread.State.TIMED_WAITING);
+
       int index = barrier.await(timeout, TimeUnit.MILLISECONDS);
       sprite.setReleased();
+      sprite.setThreadState(Thread.State.RUNNABLE);
       message1("barrier complete " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
     }
     catch(BrokenBarrierException e) {
       System.out.println("CyclicBarrierExample.attempt " + e);
       message1("BrokenBarrierException.", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
       sprite.setRejected();
+      sprite.setThreadState(Thread.State.RUNNABLE);
       resetBarrier();
     }
     catch(TimeoutException e) {
       sprite.setRejected();
+      sprite.setThreadState(Thread.State.RUNNABLE);
       message1("TimeoutException.", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
       System.out.println("CyclicBarrierExample.attempt " + e);
       resetBarrier();

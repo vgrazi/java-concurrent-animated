@@ -92,10 +92,16 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
           executor.execute(runnable);
         } catch (RejectedExecutionException e) {
           message2("RejectedExecutionException ", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+          setThreadState(sprite);
           setRejected(sprite);
         }
       }
     }, 500, TimeUnit.MILLISECONDS);
+  }
+
+  private void setThreadState(ConcurrentSprite sprite) {
+    Thread.State state = Thread.currentThread().getState();
+    sprite.setThreadState(state);
   }
 
   protected void initializePrestartButton() {

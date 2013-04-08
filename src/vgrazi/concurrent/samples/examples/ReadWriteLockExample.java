@@ -116,7 +116,9 @@ public class ReadWriteLockExample extends ConcurrentExample {
     logger.info("Acquiring read lock " + readLock);
     // create the sprite before locking, otherwise the thread won't appear if another thread has the lock
     final ConcurrentSprite sprite = createAcquiringSprite();
+    sprite.setThreadState(Thread.State.WAITING);
     readLock.lock();
+    sprite.setThreadState(Thread.State.RUNNABLE);
     lockCount++;
     writerOwned = false;
     sprite.setAcquired();
@@ -153,10 +155,12 @@ public class ReadWriteLockExample extends ConcurrentExample {
   private void writeAcquire() {
     message1("Waiting to acquire WRITE lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     message2(" ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-    final ConcurrentSprite sprite = createAcquiringSprite();
+    final ConcurrentSprite sprite = createSpecialHeadSprite();
     Lock writeLock = lock.writeLock();
     sprite.setColor(Color.RED);
+    sprite.setThreadState(Thread.State.WAITING);
     writeLock.lock();
+    sprite.setThreadState(Thread.State.RUNNABLE);
     lockCount++;
     sprite.setAcquired();
     message1("Acquired write lock ", ConcurrentExampleConstants.MESSAGE_COLOR);

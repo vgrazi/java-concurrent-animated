@@ -15,7 +15,7 @@ import java.util.concurrent.*;
 
 public class FutureExample extends ConcurrentExample {
 
-  private final JButton launchButton = new JButton("(Launch)");
+  private final JButton launchButton = new JButton("Thread.start()");
   private final JButton getButton = new JButton("get");
   private Future<Object> future;
   private ConcurrentSprite sprite;

@@ -20,7 +20,9 @@
     <target name="compile" depends="unzip_jars"
             description="compile the source ">
         <!-- Compile the java code from ${src} into ${build} -->
-        <javac srcdir="${src}" destdir="${build}" debug="true" debuglevel="lines,source"/>
+        <javac srcdir="${src}" destdir="${build}" debug="true" debuglevel="lines,source" target="1.6">
+            <exclude name="vgrazi/concurrent/samples/work/**"/>
+        </javac>
     </target>
 
     <target name="copy_assets" depends="compile">

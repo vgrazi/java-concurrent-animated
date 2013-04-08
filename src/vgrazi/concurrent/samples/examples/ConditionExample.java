@@ -27,9 +27,10 @@ public class ConditionExample extends ConcurrentExample {
   private Condition condition1;
   private Condition condition2;
   private Condition condition3;
+  private final static Color CONDITION1_COLOR = Color.YELLOW;
   private final static Color CONDITION2_COLOR = Color.CYAN;
   private final static Color CONDITION3_COLOR = Color.GREEN;
-  private static final Color CONDITION1_SIGNAL_COLOR = Color.blue.brighter();
+  private static final Color CONDITION1_SIGNAL_COLOR = CONDITION1_COLOR.brighter();
   private static final Color CONDITION2_SIGNAL_COLOR = CONDITION2_COLOR.brighter();
   private static final Color CONDITION3_SIGNAL_COLOR = CONDITION3_COLOR.brighter().brighter();
 
@@ -63,6 +64,7 @@ public class ConditionExample extends ConcurrentExample {
             conditionIndex = 1;
             setState(1);
             ConcurrentSprite sprite = createAcquiringSprite();
+            sprite.setColor(CONDITION1_COLOR);
             lock.lock();
             condition1.await();
 //            setState(2);
@@ -196,6 +198,11 @@ public class ConditionExample extends ConcurrentExample {
       signal3AllButton.setPreferredSize(size);
       initialized = true;
     }
+  }
+
+  @Override
+  public boolean displayStateColors() {
+    return false;
   }
 
   public String getDescriptionHtml() {

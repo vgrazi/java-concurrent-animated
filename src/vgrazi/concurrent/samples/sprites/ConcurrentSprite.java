@@ -30,12 +30,36 @@ public class ConcurrentSprite {
   private int verticalPosition;
   int circleLocation;
 
+  private Thread.State threadState;
+
+  public Thread.State getThreadState() {
+    return threadState;
+  }
+
+  public void setPooled(boolean b) {
+    if (b) {
+      setColor(ConcurrentExampleConstants.WAITING_THREAD_STATE_COLOR);
+    }
+    else {
+      setColor(ConcurrentExampleConstants.RUNNABLE_THREAD_STATE_COLOR);
+    }
+  }
+
+  public void setThreadState(Thread.State threadState) {
+    this.threadState = threadState;
+  }
+
   public void setIndex(int index) {
     this.index = index;
   }
 
   public static enum SpriteType {
-    WORKING, ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT, PUT_IF_ABSENT;
+    WORKING, ARROW, RUNNABLE, OVAL, CAS, PULLER, TEXT, PUT_IF_ABSENT,
+    /**
+     * Special is used to distinguish a particular kind of runner. Used for write threads in a read write lock.
+     * Rendered as a filled diamond
+     */
+    SPECIAL
   }
 
   public static enum SpriteState {
@@ -61,7 +85,7 @@ public class ConcurrentSprite {
   private Color color = ConcurrentExampleConstants.ACQUIRING_COLOR;
 
   public ConcurrentSprite(int index, Color color) {
-    this.index = index;
+    this(index);
     this.color = color;
   }
 
@@ -197,6 +221,13 @@ public class ConcurrentSprite {
   }
 
   /**
+   * returns true if the arrow is entirely within the mutex borders
+   * @return
+   */
+  public boolean isInMutexBorders() {
+    return currentLocation >= ConcurrentSpriteCanvas.ACQUIRE_BORDER;
+  }
+  /**
    * circle location is only used by working threads to display the circular animation path
    * Other animations ignore it.
    */
@@ -221,7 +252,18 @@ public class ConcurrentSprite {
   }
 
   public Color getColor() {
-    return color;
+    if (state != null) {
+      Color color = ThreadStateToColorMapper.getColorForState(this);
+      if (color != null) {
+        return color ;
+      }
+    }
+    if (color != null) {
+      return color;
+    }
+    else {
+      return ConcurrentExampleConstants.RUNNABLE_COLOR;
+    }
   }
 
   public boolean isAcquiring() {

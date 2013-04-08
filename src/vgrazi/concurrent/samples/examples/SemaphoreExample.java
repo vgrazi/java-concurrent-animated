@@ -197,7 +197,9 @@ public class SemaphoreExample extends ConcurrentExample {
       message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       setState(1);
       ConcurrentSprite sprite = createAcquiringSprite();
+      sprite.setThreadState(Thread.State.WAITING);
       semaphore.acquire();
+      sprite.setThreadState(Thread.State.RUNNABLE);
       displayPermits();
       synchronized (this) {
         acquiredSprites.add(sprite);
@@ -219,7 +221,9 @@ public class SemaphoreExample extends ConcurrentExample {
       setState(4);
       message1("Trying acquire..", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       ConcurrentSprite sprite = createAttemptingSprite();
+      sprite.setThreadState(Thread.State.TIMED_WAITING);
       if (semaphore.tryAcquire(timeout, TimeUnit.MILLISECONDS)) {
+        sprite.setThreadState(Thread.State.RUNNABLE);
         displayPermits();
         message1("Acquire succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();
@@ -232,6 +236,7 @@ public class SemaphoreExample extends ConcurrentExample {
         }
         _release(sprite, false);
       } else {
+        sprite.setThreadState(Thread.State.RUNNABLE);
         Thread.sleep(ConcurrentSpriteCanvas.getTimeToAcquireBorder());
         message1("Acquire failed", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
         sprite.setRejected();
@@ -249,7 +254,9 @@ public class SemaphoreExample extends ConcurrentExample {
     message1("Trying acquire..", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     ConcurrentSprite sprite = createAttemptingSprite();
     try {
+      sprite.setThreadState(Thread.State.WAITING);
       if (semaphore.tryAcquire()) {
+        sprite.setThreadState(Thread.State.RUNNABLE);
         displayPermits();
         message1("Acquire succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();

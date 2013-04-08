@@ -244,7 +244,7 @@ public class MenuBuilder extends DefaultHandler {
    * Creates a Help About menu item
    */
   private void initializeHelpMenuItem() {
-    String menuLabel = "Help";
+    String menuLabel = "Help/About";
     Menu menu = new Menu(menuLabel);
     menuBar.add(menu);
     menuItems.add(menuLabel);

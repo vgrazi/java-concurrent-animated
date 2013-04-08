@@ -13,9 +13,11 @@ public class ConcurrentExampleConstants {
   public static final Color ATTEMPTING_COLOR = Color.orange;
   public static final Color REJECTED_COLOR = Color.white;//new Color(157, 14, 45);//RED
   public static final Color DEFAULT_BACKGROUND = new Color(0,0,0);// BLACK
+//  public static final Color DEFAULT_BACKGROUND = new Color(134, 204, 250);// SKY BLUE
   public static final Color MUTEX_BACKGROUND = new Color(135, 134, 126).brighter();//GRAY
   public static final Color MUTEX_FONT_COLOR = new Color(255, 255, 255);//GRAY 40%
   public static final Color CAS_CIRCLE_COLOR = Color.black;
+  public static final Color POOLED_FONT_COLOR = new Color(0, 0, 255);
   public static final Color CAS_ANIMATION_COLOR = Color.white;
   public static final Color TEXT_SPRITE_COLOR = Color.WHITE ;
   public static final Color FORK_JOIN_COMPLETE_COLOR = ConcurrentExampleConstants.ACQUIRING_COLOR.darker();
@@ -30,4 +32,15 @@ public class ConcurrentExampleConstants {
   public static final String REFERENCES_FILE = "/images/references.html";
   public static final String PLAN_FILE = "images/plan.xml";
   public static String FRAME_TITLE = "Visualizing the Java Concurrent API - JDK " + System.getProperty("java.version");
+  /**
+   * The color of the rectangular "Runnable" images
+   */
+  public static final Color RUNNABLE_COLOR = Color.yellow;
+  // Thread state colors
+  public static final Color NEW_THREAD_STATE_COLOR = Color.yellow;
+  public static final Color RUNNABLE_THREAD_STATE_COLOR = Color.green;
+  public static final Color BLOCKED_THREAD_STATE_COLOR = new Color(0, 180, 255);
+  public static final Color WAITING_THREAD_STATE_COLOR = Color.white;
+  public static final Color TIMED_WAITING_THREAD_STATE_COLOR = Color.lightGray;
+  public static final Color TERMINATED_THREAD_STATE_COLOR = Color.BLUE;
 }
