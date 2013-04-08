@@ -237,6 +237,7 @@ public class ReentrantLockExample extends ConcurrentExample {
         lockCount++;
         message1("Acquire tryLock succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setAcquired();
+        sprite.setThreadState(Thread.currentThread().getState());
         setAcquiredSprite(sprite);
         waitForUnlockNotification(sprite);
       } else {
