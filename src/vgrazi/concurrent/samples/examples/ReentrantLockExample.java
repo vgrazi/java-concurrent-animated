@@ -21,7 +21,7 @@ public class ReentrantLockExample extends ConcurrentExample {
 
   private Lock lock;
   private final Object MUTEX = new Object();
-//  @ProtectedBy(this)
+  //  @ProtectedBy(this)
   private final List<ThreadSpriteHolder> interruptibleSprites = Collections.synchronizedList(new ArrayList<ThreadSpriteHolder>());
   private volatile int lockCount;
   private final JButton lockButton = new JButton("lock");
@@ -40,7 +40,32 @@ public class ReentrantLockExample extends ConcurrentExample {
 
   @Override
   protected String getSnippetText() {
-    return "\n";
+    return "    // Constructor\n" +
+            "    <0 keyword>final <0 default>Lock lock = <0 keyword>new <0 default>ReentrantLock();\n" +
+            "    <1 default>lock.lock();\n" +
+            "\n" +
+            "    <4 keyword>try<4 default> {\n" +
+            "      lock.lockInterruptibly();\n" +
+            "    } <4 keyword>catch <4 default>(InterruptedException e) {...}\n" +
+            "\n" +
+            "    <2 default>lock.unlock();\n" +
+            "\n" +
+            "    <3 keyword>boolean <3 default>acquired = <3 literal>false<3 default>;\n" +
+            "    <3 keyword>try<3 default> {\n" +
+            "      acquired = lock.tryLock(<3 literal>1L<3 default>, TimeUnit.SECONDS);\n" +
+            "      <3 keyword>if<3 default>(acquired) {\n" +
+            "        doSomething();\n" +
+            "      }\n" +
+            "    } <3 keyword>catch<3 default> (InterruptedException e) {...\n" +
+            "    } <3 keyword>finally {\n" +
+            "      if <3 default>(acquired) {\n" +
+            "        lock.unlock();\n" +
+            "      }\n" +
+            "    }\n" +
+            "    <6 default>&lt;lockedThread>.interrupt();\n" +
+            "    <5 default>&lt;blockedThread>.interrupt();" +
+            "\n";
+
   }
 
   public ReentrantLockExample(String title, Container frame, int slideNumber) {
@@ -48,7 +73,7 @@ public class ReentrantLockExample extends ConcurrentExample {
   }
 
   protected void initializeComponents() {
-    if(!initialized) {
+    if (!initialized) {
       initializeButton(lockButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
@@ -97,7 +122,7 @@ public class ReentrantLockExample extends ConcurrentExample {
         public void run() {
           setState(0);
           ThreadSpriteHolder lockedSprite = ReentrantLockExample.this.lockedSprite;
-          if(lockedSprite != null) {
+          if (lockedSprite != null) {
             lockedSprite.thread.interrupt();
             setState(6);
           }
@@ -107,7 +132,7 @@ public class ReentrantLockExample extends ConcurrentExample {
       initializeButton(interruptBlockedButton, new Runnable() {
         public void run() {
           setState(0);
-          if(!interruptibleSprites.isEmpty()) {
+          if (!interruptibleSprites.isEmpty()) {
             setState(5);
             interrupt();
           }
@@ -150,8 +175,7 @@ public class ReentrantLockExample extends ConcurrentExample {
           System.out.println("ReentrantLockExample.unlockMethod interrupted");
           Thread.currentThread().interrupt();
         }
-      }
-      else {
+      } else {
         message1("Un-held lock calling unlock", Color.red);
         message2("IllegalMonitorStateException thrown", Color.red);
         break;
@@ -196,8 +220,7 @@ public class ReentrantLockExample extends ConcurrentExample {
       setAcquiredSprite(sprite);
       message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
       waitForUnlockNotification(threadSpriteHolder);
-    }
-    catch(InterruptedException e) {
+    } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
   }
@@ -209,7 +232,7 @@ public class ReentrantLockExample extends ConcurrentExample {
       message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
       ConcurrentSprite sprite = createAttemptingSprite();
 
-      if(lock.tryLock(timeout, TimeUnit.MILLISECONDS)) {
+      if (lock.tryLock(timeout, TimeUnit.MILLISECONDS)) {
         lockedSprite = new ThreadSpriteHolder(Thread.currentThread(), sprite);
         lockCount++;
         message1("Acquire tryLock succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
@@ -220,8 +243,7 @@ public class ReentrantLockExample extends ConcurrentExample {
         message1("Acquire tryLock failed", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
         sprite.setRejected();
       }
-    }
-    catch(InterruptedException e) {
+    } catch (InterruptedException e) {
       System.out.println("ReentrantLockExample.tryLock interrupted");
       Thread.currentThread().interrupt();
     }
@@ -237,11 +259,10 @@ public class ReentrantLockExample extends ConcurrentExample {
    * @param sprite the sprite that has acquired, waiting for unlock or interrupt
    */
   private void waitForUnlockNotification(ConcurrentSprite sprite) {
-    synchronized(MUTEX) {
+    synchronized (MUTEX) {
       try {
         MUTEX.wait();
-      }
-      catch(InterruptedException e) {
+      } catch (InterruptedException e) {
         System.out.println("ReentrantLockExample.waitForUnlockNotification interrupted");
         sprite.setRejected();
         message1("Interrupted", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
@@ -257,12 +278,12 @@ public class ReentrantLockExample extends ConcurrentExample {
   private void unlock() {
 //    setState(2);
     message2("Waiting for unlock ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-    synchronized(this) {
-      synchronized(MUTEX) {
+    synchronized (this) {
+      synchronized (MUTEX) {
         MUTEX.notify();
       }
       ConcurrentSprite acquiredSprite = this.acquiredSprite;
-      if(acquiredSprite != null) {
+      if (acquiredSprite != null) {
         acquiredSprite.setReleased();
         setAcquiredSprite(null);
       }
@@ -291,7 +312,7 @@ public class ReentrantLockExample extends ConcurrentExample {
 //    sb.append("<tr><td>&nbsp;</td></tr>");
 //    sb.append("</table></html>");
 //    return sb.toString();
-      return "";
+    return "";
   }
 
   @Override
@@ -304,6 +325,7 @@ public class ReentrantLockExample extends ConcurrentExample {
     setState(0);
     super.reset();
   }
+
   class ThreadSpriteHolder {
     private Thread thread;
     private ConcurrentSprite sprite;
