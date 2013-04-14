@@ -106,6 +106,7 @@ public class SynchronizedExample extends ConcurrentExample {
           waitMethod();
         }
       });
+      addButtonSpacer();
       initializeButton(notifyButton, new Runnable() {
         @Override
         public void run() {
@@ -113,7 +114,6 @@ public class SynchronizedExample extends ConcurrentExample {
           // note: When the notify button is pressed, then nothing happens until the locked sprite releases. At that point, one waiting sprite will revive. No blocked will enter
         }
       });
-      addButtonSpacer();
       initializeButton(interruptLockedButton, new Runnable() {
         public void run() {
           setState(0);
