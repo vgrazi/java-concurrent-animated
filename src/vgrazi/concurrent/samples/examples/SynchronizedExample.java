@@ -67,8 +67,33 @@ public class SynchronizedExample extends ConcurrentExample {
   }
 
   @Override
-  protected String getSnippet() {
-    return "";
+  protected String getSnippetText() {
+    return  "  <1 keyword>synchronized <1 default>(object) {\n" +
+            "    . . .\n" +
+            "  \n" +
+            "    // do some work\n" +
+            "  \n" +
+            "    . . .          \n" +
+            "    <2 default>// releasing lock\n" +
+            "  }\n" +
+            "  \n" +
+            "  <3 keyword>synchronized <3 default>(object) {\n" +
+            "    <3 keyword>try {\n" +
+            "      <3 default>object.wait();\n" +
+            "    } <3 keyword>catch <3 default>(InterruptedException e) {\n" +
+            "      Thread.currentThread().interrupt();\n" +
+            "    }\n" +
+            "  }\n" +
+            "  \n" +
+            "  <4 keyword>synchronized <4 default>(object) {\n" +
+            "    object.notify();\n" +
+            "  }\n" +
+            "  \n" +
+            "  <5 keyword>synchronized <5 default>(object) {\n" +
+            "    object.notifyAll();\n" +
+            "  }\n" +
+            "  \n" +
+            "  <6 default>thread.interrupt();";
   }
 
   @Override
@@ -89,8 +114,8 @@ public class SynchronizedExample extends ConcurrentExample {
           synchronized (UTILITY_MUTEX) {
             notificationState = 3;
             UTILITY_MUTEX.notify();
+            setState(2);
           }
-//          displayReport();
         }
       });
 
@@ -104,6 +129,7 @@ public class SynchronizedExample extends ConcurrentExample {
             sprite.setThreadState(Thread.State.BLOCKED);
             sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
             resetSpriteThreadStates();
+            setState(6);
           }
         }
       });
@@ -112,7 +138,7 @@ public class SynchronizedExample extends ConcurrentExample {
         @Override
         public void run() {
           // get rid of any existing lock
-
+          setState(3);
           synchronized (UTILITY_MUTEX) {
             notificationState = 0;
             UTILITY_MUTEX.notify();
@@ -130,7 +156,7 @@ public class SynchronizedExample extends ConcurrentExample {
             notificationState = 1;
             UTILITY_MUTEX.notify();
           }
-
+          setState(4);
         }
       });
 
@@ -142,6 +168,7 @@ public class SynchronizedExample extends ConcurrentExample {
             notificationState = 2;
             UTILITY_MUTEX.notify();
           }
+          setState(5);
         }
       });
 
@@ -262,6 +289,7 @@ public class SynchronizedExample extends ConcurrentExample {
     for (ConcurrentSprite sprite: sprites) {
       sprite.getThread().interrupt();
     }
+    setState(0);
     sprites.clear();
   }
 }
