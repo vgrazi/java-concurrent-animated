@@ -31,6 +31,7 @@ public class ConcurrentSprite {
   int circleLocation;
 
   private Thread.State threadState;
+  private Thread thread;
 
   public Thread.State getThreadState() {
     return threadState;
@@ -51,6 +52,14 @@ public class ConcurrentSprite {
 
   public void setIndex(int index) {
     this.index = index;
+  }
+
+  public void setThread(Thread thread) {
+    this.thread = thread;
+  }
+
+  public Thread getThread() {
+    return thread;
   }
 
   public static enum SpriteType {
@@ -90,6 +99,7 @@ public class ConcurrentSprite {
   }
 
   public ConcurrentSprite(int index) {
+    setThread(Thread.currentThread());
     this.index = index;
   }
 
