@@ -42,5 +42,5 @@ public class ConcurrentExampleConstants {
   public static final Color BLOCKED_THREAD_STATE_COLOR = new Color(0, 180, 255);
   public static final Color WAITING_THREAD_STATE_COLOR = Color.white;
   public static final Color TIMED_WAITING_THREAD_STATE_COLOR = Color.lightGray;
-  public static final Color TERMINATED_THREAD_STATE_COLOR = Color.BLUE;
+  public static final Color TERMINATED_THREAD_STATE_COLOR = Color.RED;
 }
