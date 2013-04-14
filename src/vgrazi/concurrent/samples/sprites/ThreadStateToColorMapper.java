@@ -10,6 +10,10 @@ public class ThreadStateToColorMapper {
 
   public static Color getColorForState(ConcurrentSprite sprite) {
     Thread.State state = sprite.getThreadState();
+    return getColorForState(state);
+  }
+
+  public static Color getColorForState(Thread.State state) {
     if (state != null) {
       switch (state) {
         case NEW:
