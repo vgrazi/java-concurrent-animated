@@ -748,8 +748,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
         g.drawString("(" + expectedValue + ")", xPos - 53, y);
       }
     } else {
-      renderWorkingAnimation(g, y - 1, sprite.getCircleLocation());
-      if (sprite.getThreadState() != Thread.State.WAITING) {
+      renderWorkingAnimation(g, y - 1, sprite.getCircleLocation(), sprite);
+      if (sprite.getThreadState() != Thread.State.WAITING && sprite.getThreadState() != Thread.State.BLOCKED) {
         sprite.bumpCircleLocation();
       }
     }
@@ -758,15 +758,16 @@ public class ConcurrentSpriteCanvas extends JPanel {
   /**
    * Renders a "working" (oval path) animation at the default left border
    */
-  protected void renderWorkingAnimation(Graphics g1, int yPos, int circleFrame) {
-    renderWorkingAnimation(g1, getWorkerThreadLeftPosition(), yPos, circleFrame);
+  protected void renderWorkingAnimation(Graphics g1, int yPos, int circleFrame, ConcurrentSprite sprite) {
+    renderWorkingAnimation(g1, getWorkerThreadLeftPosition(), yPos, circleFrame, sprite);
   }
 
   /**
    * Renders a "working" (oval path) animation at the specified left border
    * @param xBorder the pixel count to the left border from the start of the canvas
+   * @param sprite
    */
-  protected void renderWorkingAnimation(Graphics g1, int xBorder, int yPos, int circleFrame) {
+  protected void renderWorkingAnimation(Graphics g1, int xBorder, int yPos, int circleFrame, ConcurrentSprite sprite) {
     Graphics2D g = (Graphics2D) g1;
     g.setStroke(basicStroke);
 
@@ -819,23 +820,34 @@ public class ConcurrentSpriteCanvas extends JPanel {
       // THE RIGHT ARC
       x = (int) Math.sqrt((2 * R - t) * t);
       y = t;
-      g.fillOval(xBorder + W + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      renderOrbitingWorkingRunnable(xBorder, yPos, g, W, x, y, radius, sprite);
     } else if (t >= 2 * R && t <= 2 * R + W) {
       // BOTTOM LINE
       x = -(t - 2 * R) + radius;
       y = 2 * R;
-      g.fillOval(xBorder + W + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      renderOrbitingWorkingRunnable(xBorder, yPos, g, W, x, y, radius, sprite);
     } else if (t > 2 * R + W && t < 4 * R + W) {
       // LEFT ARC
       int T = t - (2 * R + W);
       x = -W - (int) Math.sqrt((2 * R - T) * T) + radius;
       y = 2 * R - T;
-      g.fillOval(xBorder + W + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      renderOrbitingWorkingRunnable(xBorder, yPos, g, W, x, y, radius, sprite);
     } else {//if(t >= 4*R+W && t < 4*R+2*W-1) {
       // TOP LINE
       x = t - (4 * R + 2 * W) + radius;
       y = 0;
-      g.fillOval(xBorder + W + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      renderOrbitingWorkingRunnable(xBorder, yPos, g, W, x, y, radius, sprite);
+    }
+  }
+
+  /**
+   * The small orbiting runnable on the working sprite, renders as a circle except write lock renders as a square
+   */
+  private void renderOrbitingWorkingRunnable(int xBorder, int yPos, Graphics2D g, int w, int x, int y, int radius, ConcurrentSprite sprite) {
+    if (sprite.getType() == ConcurrentSprite.SpriteType.SPECIAL) {
+      g.fillRect(xBorder + w + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2 + 1, radius * 2 + 1);
+    } else {
+      g.fillOval(xBorder + w + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
   }
 
