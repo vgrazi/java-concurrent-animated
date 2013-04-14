@@ -1,4 +1,4 @@
-package vgrazi.concurrent.samples.work;
+package vgrazi.concurrent.samples.research;
 
 import java.util.ArrayList;
 import java.util.Date;
