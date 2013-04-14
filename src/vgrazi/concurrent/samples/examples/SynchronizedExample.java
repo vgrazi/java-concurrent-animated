@@ -190,7 +190,7 @@ public class SynchronizedExample extends ConcurrentExample {
 
                 } catch (InterruptedException e) {
                   Thread.currentThread().interrupt();
-                  releaseSprite(sprite);
+                  rejectSprite(sprite);
                 }
               }
               synchronized (UTILITY_MUTEX) {
@@ -223,7 +223,7 @@ public class SynchronizedExample extends ConcurrentExample {
               }
             }
           } catch (InterruptedException e) {
-            releaseSprite(sprite);
+            rejectSprite(sprite);
             Thread.currentThread().interrupt();
           }
         }
@@ -235,6 +235,12 @@ public class SynchronizedExample extends ConcurrentExample {
 
   private void releaseSprite(ConcurrentSprite sprite) {
     sprite.setReleased();
+    sprite.setThreadState(Thread.State.TERMINATED);
+    sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.TERMINATED));
+  }
+
+  private void rejectSprite(ConcurrentSprite sprite) {
+    sprite.setRejected();
     sprite.setThreadState(Thread.State.TERMINATED);
     sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.TERMINATED));
   }
