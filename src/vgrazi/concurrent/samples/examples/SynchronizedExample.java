@@ -94,6 +94,20 @@ public class SynchronizedExample extends ConcurrentExample {
         }
       });
 
+//      todo: interrupt should transition waiting threads to blocked state
+      initializeButton(interruptButton, new Runnable() {
+        @Override
+        public void run() {
+          if (!sprites.isEmpty()) {
+            ConcurrentSprite sprite = sprites.get(0);
+            sprite.getThread().interrupt();
+            sprite.setThreadState(Thread.State.BLOCKED);
+            sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
+            resetSpriteThreadStates();
+          }
+        }
+      });
+      addButtonSpacer();
       initializeButton(lockWaitButton, new Runnable() {
         @Override
         public void run() {
@@ -131,19 +145,6 @@ public class SynchronizedExample extends ConcurrentExample {
         }
       });
 
-//      todo: interrupt should transition waiting threads to blocked state
-      initializeButton(interruptButton, new Runnable() {
-        @Override
-        public void run() {
-          if (!sprites.isEmpty()) {
-            ConcurrentSprite sprite = sprites.get(0);
-            sprite.getThread().interrupt();
-            sprite.setThreadState(Thread.State.BLOCKED);
-            sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
-            resetSpriteThreadStates();
-          }
-        }
-      });
       initialized = true;
     }
   }
