@@ -10,31 +10,64 @@ import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 
-/*
- * @user vgrazi.
- * Time: 12:26:11 AM
- */
-
 public class SynchronizedExample extends ConcurrentExample {
+  /*
+  LOCK is the actual lock being illustrated, represented by the monolith
+  MUTEX helps control the animations. It is the lock held by the sprite, to prevent it from exiting the synchronized block.
 
-  private final Object lock = new Object();
-  private final Object MUTEX = new Object();
-  private volatile int lockCount;
-  private final List<ThreadSpriteHolder> lockedSpriteList = new ArrayList<ThreadSpriteHolder>();
+ Lock
+  •	synchronize on LOCK,
+  •	wait on MUTEX
+
+ Unlock
+  •	Release MUTEX (next blocked thread will Lock)
+
+ Wait
+  •	There is a “Runnable” thread holding the lock, waiting on MUTEX.
+  •	Call MUTEX.notify to transit the Runnable thread holding the lock to WAITING
+  •	and LOCK.wait to allow the next thread in.
+
+ Notify
+  •	Notify LOCK to get the waiting thread to wake up.
+  •	The notifying thread should set all waiting thread colors to BLOCKED then the running thread should change its color to RUNNABLE
+  •	if there is another thread holding the lock
+      o	transit to the blocked state
+  •	else
+      o	transit a waiting thread to runnable and let it exit the monolith
+
+ NotifyAll
+  •	Same as notify except call LOCK.notifyAll()
+*/
+
+  /**
+   * LOCK is the actual lock being illustrated, represented by the monolith
+   */
+  private Object LOCK = new Object();
+
+  /**
+   * MUTEX helps control the animations. It is the lock held by the sprite, to prevent it from exiting the synchronized block.
+   */
+  private Object MUTEX = new Object();
+
+  /**
+   * A List of all Sprites holding the lock.
+   */
+  private List<ConcurrentSprite> lockedSpriteList = new ArrayList<ConcurrentSprite>();
+  private List<ConcurrentSprite> waitingSpriteList = new ArrayList<ConcurrentSprite>();
 
   // when notifying, we can either be telling the thread to wait or to unlock. Before notifying, set the state
   private enum NotifyTracker {
     WAIT, UNLOCK
   }
+
   private volatile NotifyTracker notifyTracker;
   //  @ProtectedBy(this)
   private final JButton lockButton = new JButton("synchronized");
   private final JButton unlockButton = new JButton("(exit synchronized)");
   private final JButton waitButton = new JButton("wait");
   private final JButton notifyButton = new JButton("notify");
-  private final JButton interruptLockedButton = new JButton("interrupt (locked)");
+  private final JButton interruptLockedButton = new JButton("interrupt (waiting)");
   private boolean initialized = false;
-//  private final JTextField threadCountField = createThreadCountField();
 
   public String getTitle() {
     return "synchronized";
@@ -42,31 +75,7 @@ public class SynchronizedExample extends ConcurrentExample {
 
   @Override
   protected String getSnippetText() {
-    return "    // Constructor\n" +
-            "    <0 keyword>final <0 default>Lock lock = <0 keyword>new <0 default>ReentrantLock();\n" +
-            "    <1 default>lock.lock();\n" +
-            "\n" +
-            "    <4 keyword>try<4 default> {\n" +
-            "      lock.lockInterruptibly();\n" +
-            "    } <4 keyword>catch <4 default>(InterruptedException e) {...}\n" +
-            "\n" +
-            "    <2 default>lock.unlock();\n" +
-            "\n" +
-            "    <3 keyword>boolean <3 default>acquired = <3 literal>false<3 default>;\n" +
-            "    <3 keyword>try<3 default> {\n" +
-            "      acquired = lock.tryLock(<3 literal>1L<3 default>, TimeUnit.SECONDS);\n" +
-            "      <3 keyword>if<3 default>(acquired) {\n" +
-            "        doSomething();\n" +
-            "      }\n" +
-            "    } <3 keyword>catch<3 default> (InterruptedException e) {...\n" +
-            "    } <3 keyword>finally {\n" +
-            "      if <3 default>(acquired) {\n" +
-            "        lock.unlock();\n" +
-            "      }\n" +
-            "    }\n" +
-            "    <6 default>&lt;lockedThread>.interrupt();\n" +
-            "    <5 default>&lt;blockedThread>.interrupt();" +
-            "\n";
+    return "";
   }
 
   public SynchronizedExample(String title, Container frame, int slideNumber) {
@@ -74,18 +83,14 @@ public class SynchronizedExample extends ConcurrentExample {
   }
 
   protected void initializeComponents() {
-    if(!initialized) {
+    if (!initialized) {
       initializeButton(lockButton, new Runnable() {
         public void run() {
-//          int count = getThreadCount(threadCountField);
-//          for (int i = 0; i < count; i++)
-          {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                lock();
-              }
-            });
-          }
+          threadCountExecutor.execute(new Runnable() {
+            public void run() {
+              lock();
+            }
+          });
         }
       });
       initializeButton(unlockButton, new Runnable() {
@@ -98,84 +103,114 @@ public class SynchronizedExample extends ConcurrentExample {
         @Override
         public void run() {
           notifyTracker = NotifyTracker.WAIT;
-          unlockMethod();
+          waitMethod();
         }
       });
       initializeButton(notifyButton, new Runnable() {
         @Override
         public void run() {
-          notifyTracker = NotifyTracker.WAIT;
-          unlockMethod();
+          notifyMethod();
+          // note: When the notify button is pressed, then nothing happens until the locked sprite releases. At that point, one waiting sprite will revive. No blocked will enter
         }
       });
       addButtonSpacer();
       initializeButton(interruptLockedButton, new Runnable() {
         public void run() {
           setState(0);
-          ThreadSpriteHolder lockedSprite = removeLastLocked();
-          if(lockedSprite != null) {
-            lockedSprite.thread.interrupt();
-            setState(6);
+          if (!waitingSpriteList.isEmpty()) {
+            ConcurrentSprite lockedSprite = waitingSpriteList.get(0);
+            if (lockedSprite != null) {
+              System.out.println("SynchronizedExample.run todo: lockedSprite.thread.interrupt();");
+              setState(6);
+            }
           }
         }
       });
-
 
       Dimension size = new Dimension(150, lockButton.getPreferredSize().height);
       lockButton.setPreferredSize(size);
       unlockButton.setPreferredSize(size);
       interruptLockedButton.setPreferredSize(size);
-
-//      initializeThreadCountField(threadCountField);
       initialized = true;
-    }
-  }
-
-  private ThreadSpriteHolder removeLastLocked() {
-    return lockedSpriteList.remove(lockedSpriteList.size() - 1);
-  }
-
-  private ThreadSpriteHolder getLastLocked() {
-    if (!lockedSpriteList.isEmpty()) {
-      return lockedSpriteList.get(lockedSpriteList.size() - 1);
-    }
-    else {
-      return null;
     }
   }
 
   private void unlockMethod() {
     setState(2);
-//    int count = getThreadCount(threadCountField);
-//    for (int i = 0; i < count; i++)
-    {
-      if (notifyTracker == NotifyTracker.UNLOCK) {
-        if (lockCount > 0) {
-          unlock();
-          try {
-            // sleep a little to give a chance for the locking thread to reach its target
-            Thread.sleep(500);
-          } catch (InterruptedException e) {
-            message1(e.getMessage(), ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-            System.out.println("ReentrantLockExample.unlockMethod interrupted");
-            Thread.currentThread().interrupt();
-          }
-        }
-        else {
-          message1("Un-held lock calling unlock", Color.red);
-          message2("IllegalMonitorStateException thrown", Color.red);
-  //        break;
-        }
+    unlock();
+    try {
+      // sleep a little to give a chance for the locking thread to reach its target
+      Thread.sleep(500);
+    } catch (InterruptedException e) {
+      message1(e.getMessage(), ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      System.out.println("ReentrantLockExample.unlockMethod interrupted");
+      Thread.currentThread().interrupt();
+    }
+  }
+
+  private void notifyMethod() {
+    synchronized (LOCK) {
+      for (ConcurrentSprite sprite : waitingSpriteList) {
+        sprite.setThreadState(Thread.State.BLOCKED);
       }
-      else {
-        // WAIT
-        ThreadSpriteHolder threadSpriteHolder = getLastLocked();
-        threadSpriteHolder.getSprite().setThreadState(Thread.State.WAITING);
-        synchronized (this) {
-          synchronized (MUTEX) {
-            MUTEX.notifyAll();
+      LOCK.notify();
+    }
+    // check if all threads are waiting, else we know one is running and holding the lock
+    System.out.printf("SynchronizedExample.notifyMethod waiting list:%d locked list:%d%n", waitingSpriteList.size(), lockedSpriteList.size());
+    // all threads holding the lock are waiting
+    // transit a waiting thread to runnable, and let it exit
+    if (!waitingSpriteList.isEmpty()) {
+
+      System.out.println("SynchronizedExample.notifyMethod. ");
+      if (lockedSpriteList.size() - waitingSpriteList.size() <2) {
+        ConcurrentSprite sprite = waitingSpriteList.remove(0);
+        //        lockedSpriteList.remove(sprite);
+        synchronized (LOCK) {
+          sprite.setThreadState(Thread.State.RUNNABLE);
+          synchronized (MUTEX){
+            try {
+              MUTEX.wait();
+            } catch (InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
           }
         }
+
+        //        sprite.setReleased();
+      }
+      setNotifyButtonState();
+    }
+//    unlock();
+    try {
+      // sleep a little to give a chance for the locking thread to reach its target
+      Thread.sleep(500);
+    } catch (InterruptedException e) {
+      message1(e.getMessage(), ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      System.out.println("ReentrantLockExample.unlockMethod interrupted");
+      Thread.currentThread().interrupt();
+    }
+  }
+
+  /**
+   * The notify button can only be pressed if there is a thread holding the lock. Else disable
+   */
+  private void setNotifyButtonState() {
+    notifyButton.setEnabled(lockedSpriteList.size() > waitingSpriteList.size());
+  }
+
+  private void waitMethod() {
+    setState(2);
+    // WAIT
+    ConcurrentSprite sprite = getLockHolder();
+    if (sprite != null) {
+      sprite.setThreadState(Thread.State.WAITING);
+      waitingSpriteList.add(sprite);
+      setNotifyButtonState();
+      synchronized (MUTEX) {
+        MUTEX.notifyAll();
+      }
+      synchronized (LOCK) {
+        LOCK.notifyAll();
       }
     }
   }
@@ -187,11 +222,11 @@ public class SynchronizedExample extends ConcurrentExample {
     message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     ConcurrentSprite sprite = createAcquiringSprite();
     sprite.setThreadState(Thread.State.BLOCKED);
-    synchronized (lock) {
+    synchronized (LOCK) {
       sprite.setThreadState(Thread.State.RUNNABLE);
-      lockCount++;
       sprite.setAcquired();
-      lockedSpriteList.add(new ThreadSpriteHolder(Thread.currentThread(), sprite));
+      lockedSpriteList.add(sprite);
+      setNotifyButtonState();
       setAcquiredSprite(sprite);
       message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
       waitForUnlockNotification(sprite);
@@ -200,91 +235,98 @@ public class SynchronizedExample extends ConcurrentExample {
 
   /**
    * Sits in a wait block until MUTEX.notify() is called by the locked thread.
+   *
    * @param sprite the sprite that has acquired, waiting for unlock or interrupt
    */
   private void waitForUnlockNotification(ConcurrentSprite sprite) {
-    synchronized(MUTEX) {
-      try {
+    try {
+      synchronized (MUTEX) {
         MUTEX.wait();
+        // notify the next sprite to transition the next RUNNABLE thread holding the lock to WAITING
+        // todo: seems wrong!!!! MUTEX just received a notify, and we are sending another?
+        MUTEX.notify();
       }
-      catch(InterruptedException e) {
-        System.out.println("ReentrantLockExample.waitForUnlockNotification interrupted");
-        if (notifyTracker == NotifyTracker.UNLOCK) {
-          sprite.setRejected();
-          message1("Interrupted", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-          Thread.currentThread().interrupt();
-          setState(6);
-        }
-        else if (notifyTracker == NotifyTracker.WAIT) {
-          synchronized (lock) {
-            try {
-              lock.wait();
-            } catch (InterruptedException e1) {
-              Thread.currentThread().interrupt();
-            }
+
+      // at this point, the user pressed Notify button, MUTEX was notified,
+      // todo: Change state of one thread to BLOCKED
+      synchronized (LOCK) {
+        LOCK.notify();
+      }
+    } catch (InterruptedException e) {
+      System.out.println("SynchronizedExample.waitForUnlockNotification interrupted");
+      if (notifyTracker == NotifyTracker.UNLOCK) {
+        sprite.setRejected();
+        message1("Interrupted", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+        Thread.currentThread().interrupt();
+        setState(6);
+        waitingSpriteList.add(sprite);
+        setNotifyButtonState();
+      } else if (notifyTracker == NotifyTracker.WAIT) {
+        synchronized (LOCK) {
+          try {
+            LOCK.wait();
+            waitingSpriteList.add(sprite);
+            setNotifyButtonState();
+          } catch (InterruptedException e1) {
+            Thread.currentThread().interrupt();
+          }
+          finally {
+            waitingSpriteList.remove(sprite);
           }
         }
       }
-      // todo: remove?
-//      lockedSprite = null;
-      lockCount--;
     }
   }
 
-
   private void unlock() {
-//    setState(2);
+    //    setState(2);
     message2("Waiting for unlock ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
-    synchronized(this) {
-      synchronized(MUTEX) {
-        MUTEX.notifyAll();
-      }
-      // remove the last sprite
-      ThreadSpriteHolder acquiredSpriteHolder = getLastLocked();
-      if (acquiredSpriteHolder != null) {
-        ConcurrentSprite acquiredSprite = acquiredSpriteHolder.getSprite();
-        if(acquiredSprite != null) {
-          acquiredSprite.setReleased();
-          setAcquiredSprite(null);
-        }
-      }
-      message2("Unlocked", ConcurrentExampleConstants.MESSAGE_COLOR);
+    synchronized (MUTEX) {
+      MUTEX.notify();
     }
+    // remove the last sprite
+    ConcurrentSprite acquiredSprite = getLockHolder();
+    if (acquiredSprite != null) {
+      acquiredSprite.setReleased();
+      lockedSpriteList.remove(acquiredSprite);
+      setAcquiredSprite(null);
+      setNotifyButtonState();
+    }
+    message2("Unlocked", ConcurrentExampleConstants.MESSAGE_COLOR);
 //    setState(2);
+  }
+
+  private ConcurrentSprite getLockHolder() {
+    System.out.printf("SynchronizedExample.getLastLocked locked:%d waiting:%d%n", lockedSpriteList.size(), waitingSpriteList.size());
+    List<ConcurrentSprite> lockedSpriteListClone = new ArrayList<ConcurrentSprite>(lockedSpriteList);
+    lockedSpriteListClone.removeAll(waitingSpriteList);
+    ConcurrentSprite rval;
+    if (!lockedSpriteListClone.isEmpty()) {
+      rval = lockedSpriteListClone.get(0);
+    } else {
+      rval = null;
+    }
+    System.out.printf("SynchronizedExample.getLastLocked returning %s%n", rval);
+    return rval;
   }
 
   public String getDescriptionHtml() {
-//    StringBuffer sb = new StringBuffer();
-//    sb.append("<html>");
-//    sb.append("<table border=\"0\"><tr valign='top'><td valign='top'>");
-//    sb.append("<font size='" + FONT_SIZE + "'color=\"" + ConcurrentExampleConstants.HTML_FONT_COLOR + "\">");
-//
-//    sb.append("A <font size='" + FONT_SIZE + "'color=\"" + ConcurrentExampleConstants.HTML_EM_FONT_COLOR + "\"><code>Mutex</code></font> is a Sync implementation that is similar to a Java synchronized lock, except that ");
-//    sb.append("unlike a lock, its life survives beyond the end of the block. ");
-//    sb.append("A <font size='" + FONT_SIZE + "'color=\"" + ConcurrentExampleConstants.HTML_EM_FONT_COLOR + "\"><code>Mutex</code></font> is not reentrant.<p><p>");
-//    sb.append("Once a Mutex is acquired, subsequent calls to <font size='" + FONT_SIZE + "'color=\"" + ConcurrentExampleConstants.HTML_EM_FONT_COLOR + "\"><code>Mutex.lock()</code></font> will block ");
-//    sb.append("until <font size='" + FONT_SIZE + "'color=\"" + ConcurrentExampleConstants.HTML_EM_FONT_COLOR + "\"><code>Mutex.release()</code></font> has been called.<p><p>");
-//    sb.append("Per contract with the Sync interface, the method <font size='" + FONT_SIZE + "'color=\"" + ConcurrentExampleConstants.HTML_EM_FONT_COLOR + "\"><code>Mutex.tryLock(ms)</code></font> will tryLock ");
-//    sb.append("an lock and return true if sucessful or false otherwise");
-//    sb.append("</td></tr>");
-//    sb.append("<tr><td>&nbsp;</td></tr>");
-//    sb.append("<tr><td>&nbsp;</td></tr>");
-//    sb.append("<tr><td>&nbsp;</td></tr>");
-//    sb.append("<tr><td>&nbsp;</td></tr>");
-//    sb.append("</table></html>");
-//    return sb.toString();
-      return "";
+    return "";
   }
 
   @Override
   public void reset() {
-//    lock = new ReentrantLock();
+    LOCK = new Object();
+    MUTEX = new Object();
+    lockedSpriteList = new ArrayList<ConcurrentSprite>();
+    waitingSpriteList = new ArrayList<ConcurrentSprite>();
     message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
     message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
-//    resetThreadCountField(threadCountField);
+    setNotifyButtonState();
     setState(0);
     super.reset();
   }
+
   class ThreadSpriteHolder {
     private Thread thread;
     private ConcurrentSprite sprite;
