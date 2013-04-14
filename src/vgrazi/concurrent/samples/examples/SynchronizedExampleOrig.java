@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 
-public class SynchronizedExample extends ConcurrentExample {
+public class SynchronizedExampleOrig extends ConcurrentExample {
   /*
   LOCK is the actual lock being illustrated, represented by the monolith
   MUTEX helps control the animations. It is the lock held by the sprite, to prevent it from exiting the synchronized block.
@@ -78,7 +78,7 @@ public class SynchronizedExample extends ConcurrentExample {
     return "";
   }
 
-  public SynchronizedExample(String title, Container frame, int slideNumber) {
+  public SynchronizedExampleOrig(String title, Container frame, int slideNumber) {
     super(title, frame, ExampleType.BLOCKING, 570, false, slideNumber);
   }
 
@@ -120,7 +120,7 @@ public class SynchronizedExample extends ConcurrentExample {
           if (!waitingSpriteList.isEmpty()) {
             ConcurrentSprite lockedSprite = waitingSpriteList.get(0);
             if (lockedSprite != null) {
-              System.out.println("SynchronizedExample.run todo: lockedSprite.thread.interrupt();");
+              System.out.println("SynchronizedExampleOrig.run todo: lockedSprite.thread.interrupt();");
               setState(6);
             }
           }
@@ -156,12 +156,12 @@ public class SynchronizedExample extends ConcurrentExample {
       LOCK.notify();
     }
     // check if all threads are waiting, else we know one is running and holding the lock
-    System.out.printf("SynchronizedExample.notifyMethod waiting list:%d locked list:%d%n", waitingSpriteList.size(), lockedSpriteList.size());
+    System.out.printf("SynchronizedExampleOrig.notifyMethod waiting list:%d locked list:%d%n", waitingSpriteList.size(), lockedSpriteList.size());
     // all threads holding the lock are waiting
     // transit a waiting thread to runnable, and let it exit
     if (!waitingSpriteList.isEmpty()) {
 
-      System.out.println("SynchronizedExample.notifyMethod. ");
+      System.out.println("SynchronizedExampleOrig.notifyMethod. ");
       if (lockedSpriteList.size() - waitingSpriteList.size() <2) {
         ConcurrentSprite sprite = waitingSpriteList.remove(0);
         //        lockedSpriteList.remove(sprite);
@@ -253,7 +253,7 @@ public class SynchronizedExample extends ConcurrentExample {
         LOCK.notify();
       }
     } catch (InterruptedException e) {
-      System.out.println("SynchronizedExample.waitForUnlockNotification interrupted");
+      System.out.println("SynchronizedExampleOrig.waitForUnlockNotification interrupted");
       if (notifyTracker == NotifyTracker.UNLOCK) {
         sprite.setRejected();
         message1("Interrupted", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
@@ -297,7 +297,7 @@ public class SynchronizedExample extends ConcurrentExample {
   }
 
   private ConcurrentSprite getLockHolder() {
-    System.out.printf("SynchronizedExample.getLastLocked locked:%d waiting:%d%n", lockedSpriteList.size(), waitingSpriteList.size());
+    System.out.printf("SynchronizedExampleOrig.getLastLocked locked:%d waiting:%d%n", lockedSpriteList.size(), waitingSpriteList.size());
     List<ConcurrentSprite> lockedSpriteListClone = new ArrayList<ConcurrentSprite>(lockedSpriteList);
     lockedSpriteListClone.removeAll(waitingSpriteList);
     ConcurrentSprite rval;
@@ -306,7 +306,7 @@ public class SynchronizedExample extends ConcurrentExample {
     } else {
       rval = null;
     }
-    System.out.printf("SynchronizedExample.getLastLocked returning %s%n", rval);
+    System.out.printf("SynchronizedExampleOrig.getLastLocked returning %s%n", rval);
     return rval;
   }
 
