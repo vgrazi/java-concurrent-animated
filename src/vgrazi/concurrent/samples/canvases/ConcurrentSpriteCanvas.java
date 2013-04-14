@@ -483,7 +483,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     switch (sprite.getType()) {
       case RUNNABLE:
         if (concurrentExample.displayStateColors()) {
-          g.setColor(ConcurrentExampleConstants.RUNNABLE_COLOR);
+          g.setColor(sprite.getColor());
         }
         g.fill3DRect(xPos - 57 + 30, yPos - 4 + (deltaY + BORDER) * verticalIndex, ARROW_LENGTH * 6 - 30, 8, true);
         break;
