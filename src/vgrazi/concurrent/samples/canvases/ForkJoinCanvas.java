@@ -92,7 +92,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
       if(sprite.getForkJoinThread() != null) {
         g.setColor(sprite.getForkJoinThread().getThreadColor());
 //        g.drawLine(left + 5, yPos + 5, left + spriteWidth - 10, yPos + 5);
-        renderWorkingAnimation(g, left-8, yPos + 5, sprite.getCircleLocation());
+        renderWorkingAnimation(g, left-8, yPos + 5, sprite.getCircleLocation(), sprite);
         sprite.bumpCircleLocation();
         activeThreadCount++;
       }
