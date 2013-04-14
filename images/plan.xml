@@ -4,7 +4,8 @@
         <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Usage Legend for Animations "/>
     </MenuItem>
     <Hyperlink label="Concurrency Training" uri="http://www.javaspecialists.eu/courses/concurrency.jsp"/>
-    <ImageSlide image="images/executors.jpg"/>
+    <ImageSlide image="images/ThreadStatesSlide.png"/>
+    <!--<ImageSlide image="images/executors.jpg"/>-->
     <MenuItem label="Executors">
         <Example class="vgrazi.concurrent.samples.examples.FixedThreadExecutorExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>
         <Example class="vgrazi.concurrent.samples.examples.SingleThreadExecutorExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
@@ -17,6 +18,9 @@
     </MenuItem>
     <ImageSlide image="images/VisibilityAndSynchronization.png"/>
     <!--<ImageSlide image="images/reentrantLock.jpg"/>-->
+    <MenuItem label="synchronized">
+        <Example class="vgrazi.concurrent.samples.examples.SynchronizedExample" paging="true" fair="false" mutexLabel="synchronized"/>
+    </MenuItem>
     <MenuItem label="ReentrantLock">
         <Example class="vgrazi.concurrent.samples.examples.ReentrantLockExample" paging="true" fair="false" mutexLabel="ReentrantLock"/>
     </MenuItem>
