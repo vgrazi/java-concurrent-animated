@@ -184,6 +184,9 @@ public class ReadWriteLockExample extends ConcurrentExample {
           // convert our color to a read lock
           sprite.setColor(ConcurrentExampleConstants.ACQUIRING_COLOR);
 
+          // change the rotating square to a circle
+          sprite.setType(ConcurrentSprite.SpriteType.WORKING);
+
           // now that we are a read lock, all read locks can enter. Notify to try again.
           MUTEX.notify();
 
