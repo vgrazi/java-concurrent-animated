@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+//todo: Enable/Disable buttons based on state
 public class SynchronizedExample extends ConcurrentExample {
 
   //  private final JButton launchWaitButton = new JButton("Launch wait thread");
@@ -18,9 +19,11 @@ public class SynchronizedExample extends ConcurrentExample {
   private final JButton releaseLockButton = new JButton("exit synchronized");
   private final JButton notifyButton = new JButton("notify");
   private final JButton notifyAllButton = new JButton("notifyAll");
-  private final JButton interruptButton = new JButton("interrupt");
+  private final JButton interruptRunningButton = new JButton("interrupt running");
+  private final JButton interruptWaitingButton = new JButton("interrupt waiting");
   //  private final JLabel reportLabel = new JLabel();
   private final AtomicInteger threadCounter = new AtomicInteger(0);
+  private ConcurrentSprite lockedThread;
   private List<ConcurrentSprite> sprites = new ArrayList<ConcurrentSprite>();
 
 
@@ -120,19 +123,43 @@ public class SynchronizedExample extends ConcurrentExample {
       });
 
 //      todo: interrupt should transition waiting threads to blocked state
-      initializeButton(interruptButton, new Runnable() {
-        @Override
-        public void run() {
-          if (!sprites.isEmpty()) {
-            ConcurrentSprite sprite = sprites.get(0);
-            sprite.getThread().interrupt();
-            sprite.setThreadState(Thread.State.BLOCKED);
-            sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
-            resetSpriteThreadStates();
-            setState(6);
-          }
-        }
-      });
+//      initializeButton(interruptRunningButton, new Runnable() {
+//        @Override
+//        public void run() {
+//          ConcurrentSprite sprite = null;
+//          if (!sprites.isEmpty()) {
+//            if(lockedThread != null) {
+//              sprite = lockedThread;
+//              sprite.setRejected();
+//            }
+//            if (sprite != null) {
+//              sprite.getThread().interrupt();
+//              sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
+//              resetSpriteThreadStates();
+//              setState(6);
+//            }
+//          }
+//        }
+//      });
+
+//      initializeButton(interruptWaitingButton, new Runnable() {
+//        @Override
+//        public void run() {
+//          // find a sprite with state not blocked
+//          for (int i = 0; i < sprites.size(); i++) {
+//            ConcurrentSprite sprite = sprites.get(i);
+//            if(sprite != lockedThread && sprite.getThread().getState() != Thread.State.BLOCKED) {
+//              System.out.println("SynchronizedExample.run FOUND A WAITING SPRITE");
+//              sprite.getThread().interrupt();
+//              sprite.setThreadState(Thread.State.BLOCKED);
+//              sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
+//              setState(6);
+//              resetSpriteThreadStates();
+//              break;
+//            }
+//          }
+//        }
+//      });
       addButtonSpacer();
       initializeButton(lockWaitButton, new Runnable() {
         @Override
@@ -190,8 +217,15 @@ public class SynchronizedExample extends ConcurrentExample {
         sprites.add(sprite);
         sprite.setThreadState(Thread.State.BLOCKED);
         synchronized (MAIN_MUTEX) {
-          sprite.setAcquired();
-          sprite.setThreadState(Thread.State.RUNNABLE);
+          lockedThread = sprite;
+          if (!sprite.getThread().isInterrupted()) {
+            sprite.setAcquired();
+            sprite.setThreadState(Thread.State.RUNNABLE);
+          }
+          else {
+            sprite.setRejected();
+            sprite.setThreadState(Thread.State.TERMINATED);
+          }
           // note: Calls to notify and notifyAll also end up here (notification == 1 and 2 respectively. Detect those.
           if (notification > 0) {
             if (notification == 1) {
@@ -210,11 +244,11 @@ public class SynchronizedExample extends ConcurrentExample {
               if (state == 1) {
                 state = 0;
                 try {
-
+                  lockedThread = null;
                   sprite.setThreadState(Thread.State.WAITING);
                   MAIN_MUTEX.wait();
+                  lockedThread = sprite;
                   sprite.setThreadState(Thread.State.RUNNABLE);
-
                 } catch (InterruptedException e) {
                   Thread.currentThread().interrupt();
                   rejectSprite(sprite);
@@ -228,15 +262,12 @@ public class SynchronizedExample extends ConcurrentExample {
                 // we received a notification. Check notificationState and act accordingly
                 switch (notificationState) {
                   case 0:
-
                     state = 1;
                     break;
                   case 1:
-
                     MAIN_MUTEX.notify();
                     break;
                   case 2:
-
                     MAIN_MUTEX.notifyAll();
                     break;
                   case 3:
@@ -282,6 +313,35 @@ public class SynchronizedExample extends ConcurrentExample {
         sprite.setColor(ThreadStateToColorMapper.getColorForState(sprite));
       }
     }
+    setButtonState();
+  }
+
+  /**
+   * Enables and disables buttons according to context
+   */
+  private void setButtonState() {
+//    if(sprites.isEmpty()) {
+//      // if there are no threads, disable everything except lock
+//      if(sprites.isEmpty()) {
+//        lockWaitButton.setEnabled(false);
+//        releaseLockButton.setEnabled(false);
+//        notifyButton.setEnabled(false);
+//        notifyAllButton.setEnabled(false);
+//      }
+//      else if(lockedThread == null) {
+//        // if there is no locked thread, disable notify and notifyAll
+//        lockWaitButton.setEnabled(false);
+//        releaseLockButton.setEnabled(false);
+//        notifyButton.setEnabled(false);
+//        notifyAllButton.setEnabled(false);
+//      } else {
+//        // otherwise, enable everything
+//        lockWaitButton.setEnabled(true);
+//        releaseLockButton.setEnabled(true);
+//        notifyButton.setEnabled(true);
+//        notifyAllButton.setEnabled(true);
+//      }
+//    }
   }
 
   @Override
@@ -291,5 +351,6 @@ public class SynchronizedExample extends ConcurrentExample {
     }
     setState(0);
     sprites.clear();
+    setButtonState();
   }
 }
