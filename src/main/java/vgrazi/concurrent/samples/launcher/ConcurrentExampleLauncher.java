@@ -71,7 +71,7 @@ public class ConcurrentExampleLauncher {
 //    System.out.printf("ConcurrentExampleLauncher.main set instance to %s%n", instance);
   }
 
-  private ConcurrentExampleLauncher() throws IOException, SAXException, ParserConfigurationException {
+  public ConcurrentExampleLauncher() throws IOException, SAXException, ParserConfigurationException {
     // todo: remove this escape!!!
     instance = this;
     SPLASH_LABEL = IOUtils.readHtmlText(ConcurrentExampleConstants.INSTRUCTIONS_FILE);
