@@ -36,13 +36,13 @@ public class ConcurrentSpriteCanvas extends JPanel {
   public static int BACK_DELTA = 15;
   public static final int ARROW_LENGTH = 10;
   static final int OVAL_LENGTH = 5;
-  private static final int ARROW_HEAD_LENGTH = 5;
-  private static final int RADIUS = 5;
-  private int ARROW_DELTA = 20;
+  protected static final int ARROW_HEAD_LENGTH = 5;
+  protected static final int RADIUS = 5;
+  protected int ARROW_DELTA = 20;
   private int rightBorder = 2;
-  private int topBorder = 2;
-  private int topOffset = 30;
-  private int leftOffset = 0;
+  protected int topBorder = 2;
+  protected int topOffset = 30;
+  protected int leftOffset = 0;
 
   private static final int ACQUIRE_BORDER_WORKING = 175;
   private static final int RELEASE_BORDER_WORKING = ACQUIRE_BORDER_WORKING + 50;
@@ -55,7 +55,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   private ScheduledExecutorService clock;
 
-  private Queue<ConcurrentSprite> sprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
+  protected Queue<ConcurrentSprite> sprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
   private final Queue<ConcurrentSprite> pooledSprites = new ConcurrentLinkedQueue<ConcurrentSprite>();
   private ConcurrentExample concurrentExample;
   private String labelText;
@@ -68,7 +68,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private final int oneUseDeltaY = ARROW_DELTA - BORDER + 12;
   private int NEXT_LOCATION;
   private final static int VERTICAL_ARROW_DELTA = 45;
-  private final FontMetrics fontMetrics;
+  protected final FontMetrics fontMetrics;
 
   /**
    * Used only by the {@link ExampleType#ONE_USE} example type, used to position the mutex vertically
@@ -269,7 +269,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     removeSpentSprites();
 
 
-    intializePainting(g);
+    initializePainting(g);
     //    Set sprites = new HashSet(this.sprites);
 
 
@@ -280,7 +280,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   }
 
-  private void intializePainting(Graphics2D g) {
+  private void initializePainting(Graphics2D g) {
     Map<RenderingHints.Key, Object> map = new HashMap<RenderingHints.Key, Object>(1);
     map.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g.addRenderingHints(map);
@@ -312,7 +312,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
-  private void renderSprites(Graphics2D g) {
+  protected void renderSprites(Graphics2D g) {
     try {
       for (ConcurrentSprite sprite : sprites) {
         int index = sprite.getIndex();
@@ -884,69 +884,6 @@ public class ConcurrentSpriteCanvas extends JPanel {
   protected ConcurrentExample getConcurrentExample() {
     return concurrentExample;
   }
-
-  //  private static void parameterTestFrame() {
-  //    JFrame frame = new JFrame("Set Canvas Parameters");
-  //
-  //    frame.getContentPane().setLayout(new FlowLayout());
-  //    final JTextField deltaField = new JTextField(String.valueOf(DELTA), 6);
-  //    deltaField.addFocusListener(new FocusAdapter() {
-  //      public void focusGained(FocusEvent e) {
-  //        deltaField.select(0, 100);
-  //      }
-  //    });
-  //    final JTextField backDeltaField = new JTextField(String.valueOf(BACK_DELTA), 6);
-  //    backDeltaField.addFocusListener(new FocusAdapter() {
-  //      public void focusGained(FocusEvent e) {
-  //        backDeltaField.select(0, 100);
-  //      }
-  //    });
-  //    final JTextField delayField = new JTextField(String.valueOf(DELAY));
-  //    backDeltaField.addFocusListener(new FocusAdapter() {
-  //      public void focusGained(FocusEvent e) {
-  //        delayField.select(0, 100);
-  //      }
-  //    });
-  //
-  //    deltaField.addActionListener(new ActionListener() {
-  //      public void actionPerformed(ActionEvent e) {
-  //        int value = Integer.parseInt(deltaField.getText());
-  //        if(value > 0) {
-  //          DELTA = value;
-  //        }
-  //      }
-  //    });
-  //    backDeltaField.addActionListener(new ActionListener() {
-  //      public void actionPerformed(ActionEvent e) {
-  //        int value = Integer.parseInt(backDeltaField.getText());
-  //        if(value > 0) {
-  //          BACK_DELTA = value;
-  //        }
-  //      }
-  //    });
-  //    delayField.addActionListener(new ActionListener() {
-  //      public void actionPerformed(ActionEvent e) {
-  //        int value = Integer.parseInt(delayField.getText());
-  //        if(value > 0) {
-  //          DELAY = value;
-  //        }
-  //      }
-  //    });
-  //    frame.getContentPane().add(new JLabel("DELTA"));
-  //    frame.getContentPane().add(deltaField);
-  //
-  //    frame.getContentPane().add(new JLabel("BACK_DELTA"));
-  //    frame.getContentPane().add(backDeltaField);
-  //
-  //    frame.getContentPane().add(new JLabel("DELAY"));
-  //    frame.getContentPane().add(delayField);
-  //
-  //    frame.pack();
-  //    UIUtils.center(frame);
-  //
-  //    frame.setLocation(frame.getLocation().x, frame.getLocation().y - 200);
-  //    frame.show();
-  //  }
 
   @Override
   /**
