@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples.examples;
 
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
+import vgrazi.concurrent.samples.canvases.BasicCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
 
@@ -51,7 +52,11 @@ public class SemaphoreExample extends ConcurrentExample {
     initializeFair(fair);
   }
 
-  protected  String getSnippetText() {
+    protected void createCanvas() {
+     setCanvas(new BasicCanvas(this, getTitle()));
+    }
+
+    protected  String getSnippetText() {
       String snippet =
   " <6 comment>// Constructor - pass in the number of permits\n" +
   " <6 keyword>final <6 default>Semaphore semaphore =\n" +
@@ -132,7 +137,7 @@ public class SemaphoreExample extends ConcurrentExample {
           for (int i = 0; i < count; i++) {
             threadCountExecutor.execute(new Runnable() {
               public void run() {
-                tryUntimedAcquire();                
+                tryUntimedAcquire();
               }
             });
           }
@@ -311,6 +316,6 @@ public class SemaphoreExample extends ConcurrentExample {
     }
     else {
       setState(0);
-    }    
+    }
   }
 }

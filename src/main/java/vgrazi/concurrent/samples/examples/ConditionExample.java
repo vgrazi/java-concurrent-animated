@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples.examples;
 
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
+import vgrazi.concurrent.samples.canvases.BasicCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
@@ -55,8 +56,12 @@ public class ConditionExample extends ConcurrentExample {
     super(title, frame, ExampleType.WORKING, 555, false, slideNumber);
     reset();
   }
+    protected void createCanvas() {
+        setCanvas(new BasicCanvas(this, getTitle()));
+    }
 
-  protected void initializeComponents() {
+
+    protected void initializeComponents() {
     if(!initialized) {
       initializeButton(await1Button, new Runnable() {
         public void run() {

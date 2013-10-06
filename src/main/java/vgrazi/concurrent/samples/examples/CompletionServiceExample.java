@@ -1,5 +1,6 @@
 package vgrazi.concurrent.samples.examples;
 
+import vgrazi.concurrent.samples.canvases.BasicCanvas;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
@@ -40,7 +41,11 @@ public class CompletionServiceExample extends ConcurrentExample {
     return "CompletionService";
   }
 
-  protected void initializeComponents() {
+    protected void createCanvas() {
+        setCanvas(new BasicCanvas(this, getTitle()));
+    }
+
+    protected void initializeComponents() {
     reset();
     if(!initialized) {
       initializeButton(submitButton, new Runnable() {

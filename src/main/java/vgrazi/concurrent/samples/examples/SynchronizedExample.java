@@ -1,6 +1,7 @@
 package vgrazi.concurrent.samples.examples;
 
 import vgrazi.concurrent.samples.ExampleType;
+import vgrazi.concurrent.samples.canvases.BasicCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import vgrazi.concurrent.samples.sprites.ThreadStateToColorMapper;
 
@@ -63,8 +64,11 @@ public class SynchronizedExample extends ConcurrentExample {
   public SynchronizedExample(String label, Container frame, int slideNumber) {
     super(label, frame, ExampleType.BLOCKING, 552, true, slideNumber);
   }
+    protected void createCanvas() {
+        setCanvas(new BasicCanvas(this, getTitle()));
+    }
 
-  @Override
+    @Override
   public String getDescriptionHtml() {
     return "";
   }
@@ -123,43 +127,43 @@ public class SynchronizedExample extends ConcurrentExample {
       });
 
 //      todo: interrupt should transition waiting threads to blocked state
-//      initializeButton(interruptRunningButton, new Runnable() {
-//        @Override
-//        public void run() {
-//          ConcurrentSprite sprite = null;
-//          if (!sprites.isEmpty()) {
-//            if(lockedThread != null) {
-//              sprite = lockedThread;
-//              sprite.setRejected();
-//            }
-//            if (sprite != null) {
-//              sprite.getThread().interrupt();
-//              sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
-//              resetSpriteThreadStates();
-//              setState(6);
-//            }
-//          }
-//        }
-//      });
+      initializeButton(interruptRunningButton, new Runnable() {
+        @Override
+        public void run() {
+          ConcurrentSprite sprite = null;
+          if (!sprites.isEmpty()) {
+            if(lockedThread != null) {
+              sprite = lockedThread;
+              sprite.setRejected();
+            }
+            if (sprite != null) {
+              sprite.getThread().interrupt();
+              sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
+              resetSpriteThreadStates();
+              setState(6);
+            }
+          }
+        }
+      });
 
-//      initializeButton(interruptWaitingButton, new Runnable() {
-//        @Override
-//        public void run() {
-//          // find a sprite with state not blocked
-//          for (int i = 0; i < sprites.size(); i++) {
-//            ConcurrentSprite sprite = sprites.get(i);
-//            if(sprite != lockedThread && sprite.getThread().getState() != Thread.State.BLOCKED) {
-//              System.out.println("SynchronizedExample.run FOUND A WAITING SPRITE");
-//              sprite.getThread().interrupt();
-//              sprite.setThreadState(Thread.State.BLOCKED);
-//              sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
-//              setState(6);
-//              resetSpriteThreadStates();
-//              break;
-//            }
-//          }
-//        }
-//      });
+      initializeButton(interruptWaitingButton, new Runnable() {
+        @Override
+        public void run() {
+          // find a sprite with state not blocked
+          for (int i = 0; i < sprites.size(); i++) {
+            ConcurrentSprite sprite = sprites.get(i);
+            if(sprite != lockedThread && sprite.getThread().getState() != Thread.State.BLOCKED) {
+              System.out.println("SynchronizedExample.run FOUND A WAITING SPRITE");
+              sprite.getThread().interrupt();
+              sprite.setThreadState(Thread.State.BLOCKED);
+              sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
+              setState(6);
+              resetSpriteThreadStates();
+              break;
+            }
+          }
+        }
+      });
       addButtonSpacer();
       initializeButton(lockWaitButton, new Runnable() {
         @Override
@@ -307,7 +311,9 @@ public class SynchronizedExample extends ConcurrentExample {
    * Sets the states of any blocked sprites to BLOCKED
    */
   private void resetSpriteThreadStates() {
-    for (ConcurrentSprite sprite : sprites) {
+    // use a for loop, not for each, to prevent concurrent modification exception
+    for (int i = 0; i < sprites.size(); i++) {
+      ConcurrentSprite sprite = sprites.get(i);
       if (sprite.getThread().getState() == Thread.State.BLOCKED) {
         sprite.setThreadState(Thread.State.BLOCKED);
         sprite.setColor(ThreadStateToColorMapper.getColorForState(sprite));

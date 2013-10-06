@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples.examples;
 
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
+import vgrazi.concurrent.samples.canvases.OvalObjectCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
@@ -44,6 +45,11 @@ public class BlockingQueueExample extends ConcurrentExample {
   public BlockingQueueExample(String title, Container frame, int snippetPosition, int slideNumber) {
     super(title, frame, ExampleType.BLOCKING, snippetPosition, false, slideNumber);
   }
+
+  protected void createCanvas() {
+    setCanvas(new OvalObjectCanvas(this, getTitle()));
+  }
+
 
   protected void initializeComponents() {
     reset();

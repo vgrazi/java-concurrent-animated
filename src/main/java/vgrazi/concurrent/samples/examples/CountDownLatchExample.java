@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples.examples;
 
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
+import vgrazi.concurrent.samples.canvases.BasicCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
@@ -33,8 +34,11 @@ public class CountDownLatchExample extends ConcurrentExample {
   public CountDownLatchExample(String title, Container frame, int slideNumber) {
     super(title, frame, ExampleType.WORKING, 520, false, slideNumber);
   }
+    protected void createCanvas() {
+        setCanvas(new BasicCanvas(this, getTitle()));
+    }
 
-  protected void initializeComponents() {
+    protected void initializeComponents() {
     reset();
     if(!initialized) {
       initializeButton(awaitButton, new Runnable() {

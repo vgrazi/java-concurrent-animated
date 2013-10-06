@@ -2,6 +2,7 @@ package vgrazi.concurrent.samples.examples;
 
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
+import vgrazi.concurrent.samples.canvases.BasicCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 import java.util.List;
 import javax.swing.*;
@@ -37,6 +38,10 @@ public class ReentrantLockExample extends ConcurrentExample {
   public String getTitle() {
     return "ReentrantLock";
   }
+
+    protected void createCanvas() {
+        setCanvas(new BasicCanvas(this, getTitle()));
+    }
 
   @Override
   protected String getSnippetText() {
