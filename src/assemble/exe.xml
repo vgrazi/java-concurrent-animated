@@ -1,0 +1,28 @@
+<assembly>
+  <id>exe</id>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory></outputDirectory>
+      <outputFileNameMapping></outputFileNameMapping>
+      <unpack>true</unpack>
+      <scope>compile</scope>
+      <includes>
+        <include>log4j:log4j</include>
+        <include>org.codehaus.jsr166-mirror:jsr166y</include>
+        <include>jsr166e:jsr166e</include>
+        <include>junit:junit</include>
+      </includes>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>target/classes</directory>
+      <outputDirectory></outputDirectory>
+    </fileSet>
+  </fileSets>
+</assembly>
+
