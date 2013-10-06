@@ -146,24 +146,24 @@ public class SynchronizedExample extends ConcurrentExample {
         }
       });
 
-      initializeButton(interruptWaitingButton, new Runnable() {
-        @Override
-        public void run() {
-          // find a sprite with state not blocked
-          for (int i = 0; i < sprites.size(); i++) {
-            ConcurrentSprite sprite = sprites.get(i);
-            if(sprite != lockedThread && sprite.getThread().getState() != Thread.State.BLOCKED) {
-              System.out.println("SynchronizedExample.run FOUND A WAITING SPRITE");
-              sprite.getThread().interrupt();
-              sprite.setThreadState(Thread.State.BLOCKED);
-              sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
-              setState(6);
-              resetSpriteThreadStates();
-              break;
-            }
-          }
-        }
-      });
+//      initializeButton(interruptWaitingButton, new Runnable() {
+//        @Override
+//        public void run() {
+//          // find a sprite with state not blocked
+//          for (int i = 0; i < sprites.size(); i++) {
+//            ConcurrentSprite sprite = sprites.get(i);
+//            if(sprite != lockedThread && sprite.getThread().getState() != Thread.State.BLOCKED) {
+//              System.out.println("SynchronizedExample.run FOUND A WAITING SPRITE");
+//              sprite.getThread().interrupt();
+//              sprite.setThreadState(Thread.State.BLOCKED);
+//              sprite.setColor(ThreadStateToColorMapper.getColorForState(Thread.State.BLOCKED));
+//              setState(6);
+//              resetSpriteThreadStates();
+//              break;
+//            }
+//          }
+//        }
+//      });
       addButtonSpacer();
       initializeButton(lockWaitButton, new Runnable() {
         @Override
