@@ -845,7 +845,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
    */
   private void renderOrbitingWorkingRunnable(int xBorder, int yPos, Graphics2D g, int w, int x, int y, int radius, ConcurrentSprite sprite) {
     if (sprite.getType() == ConcurrentSprite.SpriteType.SPECIAL) {
-      g.fillRect(xBorder + w + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2 + 1, radius * 2 + 1);
+      g.setColor(ConcurrentExampleConstants.READ_WRITE_HEAD_COLOR);
+      g.fillRect(xBorder + w + 20 + x - radius * 2-1, yPos - radius / 2 - 2 + y, radius * 2 + 2, radius * 2 + 2);
     } else {
       g.fillOval(xBorder + w + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
     }
