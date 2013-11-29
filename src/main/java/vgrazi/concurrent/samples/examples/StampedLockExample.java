@@ -17,6 +17,9 @@ import java.util.logging.Logger;
  * WriteLock is obtained from long stamp = lock.writeLock() and released from lock.unlockWrite(stamp)
  * Optimistic ReadLock is obtained from long stamp = lock.tryOptimisticRead(). Copy results to local variables, then call lock.validate(stamp)
  * If not valid, obtain a true read lock, then recopy the variables locally.
+ * Todo: if validate fails, allow user to retry a pessimistic lock. This should park the working rendering in BLOCKED or WAITING state (confirm) until the lock is available.
+ * Todo: An optimistic lock thread should render as a dotted line, both as an arrow and as a working thread
+ *
  */
 public class StampedLockExample extends ConcurrentExample {
   private final static Logger logger = Logger.getLogger(StampedLockExample.class.getCanonicalName());
@@ -45,11 +48,6 @@ public class StampedLockExample extends ConcurrentExample {
 
   public StampedLockExample(String label, Container frame, boolean fair, int slideNumber) {
     super(label, frame, ExampleType.BLOCKING, 552, fair, slideNumber);
-  }
-
-  @Override
-  protected void createCanvas() {
-    setCanvas(new BasicCanvas(this, "StampedLock"));
   }
 
   protected void initializeComponents() {
