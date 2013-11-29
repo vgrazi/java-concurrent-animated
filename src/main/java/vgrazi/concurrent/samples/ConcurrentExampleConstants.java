@@ -23,6 +23,7 @@ public class ConcurrentExampleConstants {
   public static final Color FORK_JOIN_COMPLETE_COLOR = ConcurrentExampleConstants.ACQUIRING_COLOR.darker();
   public static final Color[] FORK_JOIN_THREAD_COLORS = {Color.YELLOW, Color.CYAN, Color.PINK, Color.GRAY, Color.GREEN, Color.ORANGE};
 
+  public static final Color READ_WRITE_HEAD_COLOR = new Color(0, 200, 0).darker();
   public static final Font MUTEX_HEADER_FONT = new Font("Serif", Font.BOLD, 24);
   public static final Font LABEL_FONT = new Font("SansSerif", Font.BOLD, 16);
   public static final Font TEXT_SPRITE_FONT = new Font("Serif", Font.BOLD, 20);
