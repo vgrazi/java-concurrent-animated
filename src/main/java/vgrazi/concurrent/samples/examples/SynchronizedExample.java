@@ -312,8 +312,7 @@ public class SynchronizedExample extends ConcurrentExample {
    */
   private void resetSpriteThreadStates() {
     // use a for loop, not for each, to prevent concurrent modification exception
-    for (int i = 0; i < sprites.size(); i++) {
-      ConcurrentSprite sprite = sprites.get(i);
+    for (ConcurrentSprite sprite : sprites) {
       if (sprite.getThread().getState() == Thread.State.BLOCKED) {
         sprite.setThreadState(Thread.State.BLOCKED);
         sprite.setColor(ThreadStateToColorMapper.getColorForState(sprite));
