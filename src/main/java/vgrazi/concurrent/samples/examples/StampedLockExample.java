@@ -3,13 +3,14 @@ package vgrazi.concurrent.samples.examples;
 import jsr166e.StampedLock;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
-import vgrazi.concurrent.samples.canvases.BasicCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
 
 import javax.swing.*;
 import java.awt.*;
-//import java.util.concurrent.locks.StampedLock;
+import java.util.*;
 import java.util.logging.Logger;
+
+//import java.util.concurrent.locks.StampedLock;
 
 /**
  * Notes:
@@ -17,9 +18,8 @@ import java.util.logging.Logger;
  * WriteLock is obtained from long stamp = lock.writeLock() and released from lock.unlockWrite(stamp)
  * Optimistic ReadLock is obtained from long stamp = lock.tryOptimisticRead(). Copy results to local variables, then call lock.validate(stamp)
  * If not valid, obtain a true read lock, then recopy the variables locally.
- * Todo: if validate fails, allow user to retry a pessimistic lock. This should park the working rendering in BLOCKED or WAITING state (confirm) until the lock is available.
- * Todo: An optimistic lock thread should render as a dotted line, both as an arrow and as a working thread
- *
+ * todo: BUG!! When optimistic lock is converted to pessimistic, it allows a writer to acquire the lock
+ * todo: verify thread state when acquiring a reader from an optimistic lock, if there is a writer
  */
 public class StampedLockExample extends ConcurrentExample {
   private final static Logger logger = Logger.getLogger(StampedLockExample.class.getCanonicalName());
@@ -27,8 +27,8 @@ public class StampedLockExample extends ConcurrentExample {
   private final Object READ_LOCK_MUTEX = new Object();
   private final Object WRITE_LOCK_MUTEX = new Object();
   private final Object OPTIMISTIC_LOCK_MUTEX = new Object();
+  private final Object OPTIMISTIC_LOCK_MUTEX1 = new Object();
   private volatile int readLockCount;
-  private volatile int optimisticLockCount;
   private volatile int writeLockCount;
   private final JButton lockReadButton = new JButton("lock.readLock()");
   private final JButton lockWriteButton = new JButton("lock.writeLock()");
@@ -36,7 +36,8 @@ public class StampedLockExample extends ConcurrentExample {
   private final JButton unlockReadButton = new JButton("lock.unlockRead()");
   private final JButton unlockWriteButton = new JButton("lock.unlockWrite()");
   private final JButton validateButton = new JButton("lock.validate()");
-  private long optimisticLockStamp;
+  private final Stack<Long> optimisticLockStamps = new Stack<Long>();
+  private final Stack<ConcurrentSprite> optimisticLocks = new Stack<ConcurrentSprite>();
 
   private boolean initialized = false;
   private boolean writerOwned = false;
@@ -53,9 +54,9 @@ public class StampedLockExample extends ConcurrentExample {
   protected void initializeComponents() {
     if (!initialized) {
       initializeLockReadButton();
-      initializeLockWriteButton();
-      addButtonSpacer();
       initializeUnlockReadButton();
+      addButtonSpacer();
+      initializeLockWriteButton();
       initializeUnlockWriteButton();
       addButtonSpacer();
       initializeTryOptimisticReadButton();
@@ -129,7 +130,6 @@ public class StampedLockExample extends ConcurrentExample {
     long stamp = lock.readLock();
     sprite.setThreadState(Thread.State.RUNNABLE);
     readLockCount++;
-    writerOwned = false;
     sprite.setAcquired();
     message1("Acquired read lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
     synchronized (READ_LOCK_MUTEX) {
@@ -151,18 +151,19 @@ public class StampedLockExample extends ConcurrentExample {
 
 //    logger.info("Acquiring read lock " + readLock);
     // create the sprite before locking, otherwise the thread won't appear if another thread has the lock
-    final ConcurrentSprite sprite = createAcquiringSprite();
-    sprite.setThreadState(Thread.State.WAITING);
-    optimisticLockStamp = lock.tryOptimisticRead();
+    ConcurrentSprite sprite = createAcquiringSprite();
+    sprite.setOptimisticRead(true);
+//    sprite.setThreadState(Thread.State.WAITING);
     sprite.setThreadState(Thread.State.RUNNABLE);
-    optimisticLockCount++;
-    writerOwned = false;
     sprite.setAcquired();
     message1("Acquired optimistic read lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
     synchronized (OPTIMISTIC_LOCK_MUTEX) {
       try {
+        optimisticLockStamps.push(lock.tryOptimisticRead());
+        optimisticLocks.add(sprite);
         OPTIMISTIC_LOCK_MUTEX.wait();
-        optimisticLockCount--;
+        sprite = optimisticLocks.pop();
+        optimisticLockStamps.pop();
         sprite.setReleased();
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
@@ -201,8 +202,12 @@ public class StampedLockExample extends ConcurrentExample {
       synchronized (WRITE_LOCK_MUTEX) {
         writerOwned = true;
         WRITE_LOCK_MUTEX.wait();
+        writerOwned = false;
         lock.unlock(stamp);
         sprite.setReleased();
+        synchronized (OPTIMISTIC_LOCK_MUTEX1) {
+          OPTIMISTIC_LOCK_MUTEX1.notify();
+        }
       }
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
@@ -222,12 +227,42 @@ public class StampedLockExample extends ConcurrentExample {
   private void validateOptimisticLock() {
 //    message2("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     synchronized (OPTIMISTIC_LOCK_MUTEX) {
-      if (lock.validate(optimisticLockStamp)) {
+      if (lock.validate(optimisticLockStamps.get(optimisticLockStamps.size() -1))) {
         message1("VALID", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
         OPTIMISTIC_LOCK_MUTEX.notify();
         setState(4);
       } else {
-        message1("NON-VALID. Try pessimistic read lock", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+        message1("NOT VALID", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+        validateButton.setVisible(true);
+        if (JOptionPane.showConfirmDialog(this, "No Optimistic locks to validate. Try pessimistic?") == JOptionPane.YES_OPTION) {
+          // whatever called the optimistic lock, should now acquire a pessimistic lock
+          ConcurrentSprite sprite = optimisticLocks.get(optimisticLocks.size() - 1);
+          sprite.setOptimisticRead(false);
+          if (writerOwned) {
+            sprite.setThreadState(Thread.State.BLOCKED);
+            synchronized (OPTIMISTIC_LOCK_MUTEX1) {
+              try {
+                OPTIMISTIC_LOCK_MUTEX1.wait();
+              } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+              }
+            }
+          }
+          message1(" ", Color.ORANGE);
+          optimisticLocks.pop();
+          optimisticLockStamps.pop();
+          sprite.setThreadState(Thread.State.RUNNABLE);
+          sprite.setAcquired();
+          readLockCount++;
+          synchronized (READ_LOCK_MUTEX) {
+            try {
+              READ_LOCK_MUTEX.wait();
+              sprite.setReleased();
+            } catch (InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
+          }
+        }
       }
     }
   }
@@ -260,11 +295,10 @@ public class StampedLockExample extends ConcurrentExample {
     initializeButton(validateButton, new Runnable() {
       public void run() {
         setState(2);
-        if (optimisticLockCount > 0) {
+        if (!optimisticLocks.isEmpty()) {
           message1("Validating", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
           validateOptimisticLock();
-        }
-        else {
+        } else {
           message1("No Optimistic locks to validate", Color.red);
         }
       }
@@ -285,7 +319,6 @@ public class StampedLockExample extends ConcurrentExample {
     });
   }
 
-
   @Override
   public void reset() {
     resetExample();
@@ -298,9 +331,18 @@ public class StampedLockExample extends ConcurrentExample {
     synchronized (READ_LOCK_MUTEX) {
       READ_LOCK_MUTEX.notifyAll();
     }
-    synchronized (READ_LOCK_MUTEX) {
-      READ_LOCK_MUTEX.notifyAll();
+    synchronized (WRITE_LOCK_MUTEX) {
+      WRITE_LOCK_MUTEX.notifyAll();
     }
+    writerOwned = false;
+    synchronized (OPTIMISTIC_LOCK_MUTEX) {
+      OPTIMISTIC_LOCK_MUTEX.notifyAll();
+    }
+    synchronized (OPTIMISTIC_LOCK_MUTEX1) {
+      OPTIMISTIC_LOCK_MUTEX1.notifyAll();
+    }
+    optimisticLocks.clear();
+    optimisticLockStamps.clear();
     super.reset();
     message1("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     message2("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
