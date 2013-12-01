@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  * WriteLock is obtained from long stamp = lock.writeLock() and released from lock.unlockWrite(stamp)
  * Optimistic ReadLock is obtained from long stamp = lock.tryOptimisticRead(). Copy results to local variables, then call lock.validate(stamp)
  * If not valid, obtain a true read lock, then recopy the variables locally.
- * todo: BUG!! When optimistic lock is converted to pessimistic, it allows a writer to acquire the lock
- * todo: verify thread state when acquiring a reader from an optimistic lock, if there is a writer
+ * todo: BUG!! when optimistic twice, then writer, then release writer then validate twice, second validate blocks until read release is pressed
+ * todo: verify thread state is indeed WAITING when acquiring a reader from an optimistic lock, if there is a writer
  */
 public class StampedLockExample extends ConcurrentExample {
   private final static Logger logger = Logger.getLogger(StampedLockExample.class.getCanonicalName());
@@ -153,7 +153,6 @@ public class StampedLockExample extends ConcurrentExample {
     // create the sprite before locking, otherwise the thread won't appear if another thread has the lock
     ConcurrentSprite sprite = createAcquiringSprite();
     sprite.setOptimisticRead(true);
-//    sprite.setThreadState(Thread.State.WAITING);
     sprite.setThreadState(Thread.State.RUNNABLE);
     sprite.setAcquired();
     message1("Acquired optimistic read lock ", ConcurrentExampleConstants.MESSAGE_COLOR);
@@ -227,7 +226,7 @@ public class StampedLockExample extends ConcurrentExample {
   private void validateOptimisticLock() {
 //    message2("  ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     synchronized (OPTIMISTIC_LOCK_MUTEX) {
-      if (lock.validate(optimisticLockStamps.get(optimisticLockStamps.size() -1))) {
+      if (lock.validate(optimisticLockStamps.get(optimisticLockStamps.size() - 1))) {
         message1("VALID", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
         OPTIMISTIC_LOCK_MUTEX.notify();
         setState(4);
@@ -238,8 +237,9 @@ public class StampedLockExample extends ConcurrentExample {
           // whatever called the optimistic lock, should now acquire a pessimistic lock
           ConcurrentSprite sprite = optimisticLocks.get(optimisticLocks.size() - 1);
           sprite.setOptimisticRead(false);
+          sprite.setThreadState(Thread.State.WAITING);
+          long stamp = lock.readLock();
           if (writerOwned) {
-            sprite.setThreadState(Thread.State.BLOCKED);
             synchronized (OPTIMISTIC_LOCK_MUTEX1) {
               try {
                 OPTIMISTIC_LOCK_MUTEX1.wait();
@@ -248,6 +248,7 @@ public class StampedLockExample extends ConcurrentExample {
               }
             }
           }
+          lock.unlockRead(stamp);
           message1(" ", Color.ORANGE);
           optimisticLocks.pop();
           optimisticLockStamps.pop();
