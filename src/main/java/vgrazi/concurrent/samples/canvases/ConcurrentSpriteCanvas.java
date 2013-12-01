@@ -1,5 +1,6 @@
 package vgrazi.concurrent.samples.canvases;
 
+import com.sun.java.swing.plaf.gtk.resources.gtk;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
@@ -75,7 +76,10 @@ public class ConcurrentSpriteCanvas extends JPanel {
    */
   int verticalIndex;
   private final PropertyChangeSupport PROPERTY_CHANGE_SUPPORT = new PropertyChangeSupport(this);
-  private final BasicStroke basicStroke = new BasicStroke(3);
+  private static final BasicStroke BASIC_STROKE = new BasicStroke(3);
+  private static final Stroke DOTTED_STROKE = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 0);
+  private static final Stroke DOTTED_STROKE_1 = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 10);
+  private static final Stroke DOTTED_STROKE_2 = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4}, 20);
   private static final Object animationThreadMutex = new Object();
   private boolean paused;
 
@@ -285,7 +289,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
     map.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g.addRenderingHints(map);
     g.setColor(ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    g.setStroke(basicStroke);
+    g.setStroke(BASIC_STROKE);
     g.fillRect(0, 0, 1500, 2000);
   }
 
@@ -480,6 +484,10 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   protected void drawReleased(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y;
+    if(sprite.isOptimisticRead()) {
+      g = (Graphics2D) g.create();
+      g.setStroke(DOTTED_STROKE);
+    }
     switch (sprite.getType()) {
       case RUNNABLE:
         if (concurrentExample.displayStateColors()) {
@@ -706,6 +714,10 @@ public class ConcurrentSpriteCanvas extends JPanel {
       y1 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
       y2 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
     }
+    if(sprite.isOptimisticRead()) {
+      g = g.create();
+      ((Graphics2D)g).setStroke(DOTTED_STROKE);
+    }
     // WORKING and RUNNABLE should render as an animated circular arrow
     if ((sprite.getType() != ConcurrentSprite.SpriteType.WORKING && sprite.getType() != ConcurrentSprite.SpriteType.SPECIAL && sprite.getType() != ConcurrentSprite.SpriteType.RUNNABLE) || !sprite.isAcquired() || xPos < RELEASE_BORDER_WORKING - 30) {
       g.setColor(sprite.getColor());
@@ -767,10 +779,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
    * @param xBorder the pixel count to the left border from the start of the canvas
    * @param sprite
    */
-  protected void renderWorkingAnimation(Graphics g1, int xBorder, int yPos, int circleFrame, ConcurrentSprite sprite) {
+  protected void renderWorkingAnimation(Graphics g1, int xBorder, int yPos, final int circleFrame, ConcurrentSprite sprite) {
     Graphics2D g = (Graphics2D) g1;
-    g.setStroke(basicStroke);
-
 
 //               <----------------W---------------->
 //              (-W, 0)
@@ -785,12 +795,45 @@ public class ConcurrentSpriteCanvas extends JPanel {
 //             . _________________V_________________  .
 //             (-W, 2R)                              (0,2R)
 
+    long time = System.currentTimeMillis() /30;
+    if (sprite.isOptimisticRead()) {
+      g = (Graphics2D) g.create();
+      if(time % 3 == 0) {
+        g.setStroke(DOTTED_STROKE);
+      }
+      else if (time % 3 == 1){
+        g.setStroke(DOTTED_STROKE_1);
+      }
+      else {
+        g.setStroke(DOTTED_STROKE_2);
+      }
+    } else {
+      g.setStroke(BASIC_STROKE);
+    }
 
     int W = 59;
     int R = 7;
     int yDelta = 2 * R;
     // top line of curved path
-    g.drawLine(xBorder + 20, yPos, xBorder + W + 16, yPos);
+    {
+      Graphics2D gtop = (Graphics2D) g1;
+      if (sprite.isOptimisticRead()) {
+        gtop = (Graphics2D) g.create();
+        if(time % 3 == 0) {
+          gtop.setStroke(DOTTED_STROKE_2);
+        }
+        else if (time % 3 == 1){
+          gtop.setStroke(DOTTED_STROKE_1);
+        }
+        else {
+          gtop.setStroke(DOTTED_STROKE);
+        }
+      } else {
+        g.setStroke(BASIC_STROKE);
+      }
+
+      gtop.drawLine(xBorder + 20, yPos, xBorder + W + 16, yPos);
+    }
     // bottom line of curved path
     g.drawLine(xBorder + 20, yPos + yDelta, xBorder + W + 16, yPos + yDelta);
 
@@ -801,7 +844,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
     // now render the animation
     // the number of pixels to move per frame
-    double frameDelta = 3;
+    final double frameDelta = 3;
     int x, y;
     int radius = 4;
     // There is a horizontal rectangle with a semi circle on either end.
@@ -848,7 +891,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
       g.setColor(ConcurrentExampleConstants.READ_WRITE_HEAD_COLOR);
       g.fillRect(xBorder + w + 20 + x - radius * 2-1, yPos - radius / 2 - 2 + y, radius * 2 + 2, radius * 2 + 2);
     } else {
-      g.fillOval(xBorder + w + 20 + x - radius * 2, yPos - radius / 2 - 2 + y, radius * 2, radius * 2);
+      g.fillOval(xBorder + w + 20 + x - radius * 2-1, yPos - radius / 2 - 2 + y, radius * 2 + 2, radius * 2 + 2);
     }
   }
 

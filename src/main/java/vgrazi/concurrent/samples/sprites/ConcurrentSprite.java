@@ -32,6 +32,7 @@ public class ConcurrentSprite {
 
   private Thread.State threadState;
   private Thread thread;
+  private boolean optimisticRead;
 
   public Thread.State getThreadState() {
     return threadState;
@@ -60,6 +61,14 @@ public class ConcurrentSprite {
 
   public Thread getThread() {
     return thread;
+  }
+
+  public void setOptimisticRead(boolean optimisticRead) {
+    this.optimisticRead = optimisticRead;
+  }
+
+  public boolean isOptimisticRead() {
+    return optimisticRead;
   }
 
   public static enum SpriteType {
