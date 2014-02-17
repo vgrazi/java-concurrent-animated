@@ -39,6 +39,32 @@ public class PhaserExample extends ConcurrentExample {
 
     protected void initializeComponents() {
     if(!initialized) {
+      initializeButton(awaitAdvanceButton, new Runnable() {
+        public void run() {
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                awaitAdvanceThisPhase();
+              }
+            });
+          }
+        }
+      });
+      initializeButton(awaitAdvanceWrongPhaseButton, new Runnable() {
+        public void run() {
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                awaitAdvanceWrongPhase();
+              }
+            });
+          }
+        }
+      });
+      addButtonSpacer();
+
       initializeButton(arriveButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
@@ -66,31 +92,6 @@ public class PhaserExample extends ConcurrentExample {
 
       addButtonSpacer();
 
-      initializeButton(awaitAdvanceButton, new Runnable() {
-        public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                awaitAdvanceThisPhase();
-              }
-            });
-          }
-        }
-      });
-      initializeButton(awaitAdvanceWrongPhaseButton, new Runnable() {
-        public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                awaitAdvanceWrongPhase();
-              }
-            });
-          }
-        }
-      });
-      addButtonSpacer();
       initializeButton(arriveAndDeregisterButton, new Runnable() {
         public void run() {
           int count = getThreadCount(threadCountField);
