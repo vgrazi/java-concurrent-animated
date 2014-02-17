@@ -4,8 +4,7 @@
         <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Usage Legend for Animations "/>
     </MenuItem>
     <Hyperlink label="Concurrency Training" uri="http://www.javaspecialists.eu/courses/concurrency.jsp"/>
-    <ImageSlide image="images/ThreadStatesSlide.png"/>
-    <!--<ImageSlide image="images/executors.jpg"/>-->
+    <ImageSlide image="images/executors.jpg"/>
     <MenuItem label="Executors">
         <Example class="vgrazi.concurrent.samples.examples.FixedThreadExecutorExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>
         <Example class="vgrazi.concurrent.samples.examples.SingleThreadExecutorExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
@@ -16,11 +15,12 @@
     <MenuItem label="Future">
         <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false" mutexLabel="Future"/>
     </MenuItem>
-    <ImageSlide image="images/VisibilityAndSynchronization.png"/>
+    <ImageSlide image="images/ThreadStatesSlide.png"/>
     <!--<ImageSlide image="images/reentrantLock.jpg"/>-->
     <MenuItem label="synchronized">
         <Example class="vgrazi.concurrent.samples.examples.SynchronizedExample" paging="true" fair="false" mutexLabel="synchronized"/>
     </MenuItem>
+    <ImageSlide image="images/VisibilityAndSynchronization.png"/>
     <MenuItem label="ReentrantLock">
         <Example class="vgrazi.concurrent.samples.examples.ReentrantLockExample" paging="true" fair="false" mutexLabel="ReentrantLock"/>
     </MenuItem>
@@ -36,6 +36,9 @@
     <MenuItem label="ReadWriteLock">
         <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="true" fair="false" mutexLabel="ReadWriteLock"/>
         <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="false" fair="true" mutexLabel="ReadWriteLock (fair)"/>
+    </MenuItem>
+    <MenuItem label="StampedLock">
+        <Example class="vgrazi.concurrent.samples.examples.StampedLockExample" paging="true" fair="false" mutexLabel="StampedLock"/>
     </MenuItem>
     <ImageSlide image="images/countdownLatch.jpg"/>
     <MenuItem label="CountDownLatch">
