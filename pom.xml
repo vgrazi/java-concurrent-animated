@@ -18,17 +18,6 @@
         <finalName>javaConcurrentAnimated</finalName>
         <plugins>
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/assemble/exe.xml</descriptor>
-                    </descriptors>
-                    <archive>
-                        <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -49,14 +38,39 @@
                     <check/>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>vgrazi.concurrent.samples.launcher.ConcurrentExampleLauncher</mainClass>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <excludes>
+                                        <exclude>
+                                            vgrazi/concurrent/samples/research/**
+                                        </exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
         <dependency>
             <groupId>org.codehaus.jsr166-mirror</groupId>
             <artifactId>jsr166y</artifactId>
@@ -69,11 +83,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>jsr166e</groupId>
+            <groupId>io.gatling</groupId>
             <artifactId>jsr166e</artifactId>
-            <version>1</version>
-            <scope>system</scope>
-            <systemPath>/Users/vgrazi/dev/javaConcurrentAnimatedMaven/src/main/lib/jsr166e.jar</systemPath>
+            <version>1.0</version>
         </dependency>
     </dependencies>
     <reporting>
