@@ -274,14 +274,10 @@ public class MenuBuilder extends DefaultHandler {
 
   private void infoDialog() {
     String message =
-            new StringBuilder().
-                    append("Java VM version:").append(System.getProperty("java.vm.version")).append('\n').
-                    append(System.getProperty("sun.os.patch.level")).append('\n').
-                    append("Java version:").append(System.getProperty("java.version")).append('\n').
-                    append("Runtime version:").append(System.getProperty("java.runtime.version")).append('\n').
-                    append("CPU:").append(System.getProperty("sun.cpu.isalist")).append('\n').
-
-                    toString();
+      "Java version:" + System.getProperty("java.version") + '\n' +
+        "Java VM version:" + System.getProperty("java.vm.version") + '\n' +
+        "Runtime version:" + System.getProperty("java.runtime.version") + '\n' +
+        "CPU:" + System.getProperty("os.arch") + '\n';
     JOptionPane.showInternalMessageDialog(frame.getContentPane(), message, "System info", JOptionPane.INFORMATION_MESSAGE);
   }
 
