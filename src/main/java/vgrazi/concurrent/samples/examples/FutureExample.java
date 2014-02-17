@@ -37,7 +37,7 @@ public class FutureExample extends ConcurrentExample {
     future = Executors.newCachedThreadPool().submit(new Callable<Object>() {
       public Object call() throws Exception {
         try {
-          Thread.sleep(2000);
+          Thread.sleep(4000);
           sprite.setActionCompleted();
         }
         catch(InterruptedException e) {
