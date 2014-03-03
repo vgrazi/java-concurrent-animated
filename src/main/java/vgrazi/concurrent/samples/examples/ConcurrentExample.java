@@ -180,6 +180,11 @@ public abstract class ConcurrentExample extends JPanel {
     snippetLabel.setFont(SNIPPET_FONT);
   }
 
+
+  public ExampleType getExampleType() {
+    return exampleType;
+  }
+
   public boolean displayStateColors() {
     return true;
   }
@@ -358,28 +363,12 @@ public abstract class ConcurrentExample extends JPanel {
     return snippet;
   }
 
-
-  /**
-   * Bumps the vertical location of a {@link ExampleType#ONE_USE} mutex. Ignore by all other ExampleTypes
-   */
-  public void bumpMutexVerticalIndex() {
-    canvas.bumpVerticalMutexIndex();
-  }
-
-  /**
-   * Resets the vertical location of a {@link ExampleType#ONE_USE} mutex. Ignore by all other ExampleTypes
-   */
-  public void resetMutexVerticalIndex() {
-    canvas.resetMutexVerticalIndex();
-  }
-
   public void reset() {
     acquiring = new AtomicInteger(0);
     releasing = new AtomicInteger(0);
     canvas.clearSprites();
     canvas.resumeClock();
     repaint();
-    //    canvas.setVisible(false);
   }
 
   public void pauseAnimationClock() {
@@ -391,7 +380,12 @@ public abstract class ConcurrentExample extends JPanel {
       acquiring.set(0);
       releasing.set(0);
     }
-    return acquiring.incrementAndGet();
+    if (getExampleType() != ExampleType.ONE_USE) {
+      return acquiring.incrementAndGet();
+    }
+    else {
+      return 1;
+    }
   }
 
   protected int getNextReleasingIndex() {
