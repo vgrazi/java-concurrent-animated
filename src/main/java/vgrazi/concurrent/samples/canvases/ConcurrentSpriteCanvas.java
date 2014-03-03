@@ -1,6 +1,5 @@
 package vgrazi.concurrent.samples.canvases;
 
-import com.sun.java.swing.plaf.gtk.resources.gtk;
 import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.examples.ConcurrentExample;
@@ -466,22 +465,6 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
   }
 
-  public void bumpVerticalMutexIndex() {
-    verticalIndex += 1;
-    NEXT_LOCATION += deltaY + BORDER;
-    if (NEXT_LOCATION >= getSize().height - 100) {
-      resetMutexVerticalIndex();
-    }
-  }
-
-  public void resetMutexVerticalIndex() {
-    verticalIndex = 0;
-    NEXT_LOCATION = 0;
-    if (exampleType == ExampleType.CAS || exampleType == ExampleType.CONCURRENT_MAP) {
-      bumpVerticalMutexIndex();
-    }
-  }
-
   protected void drawReleased(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y;
     if(sprite.isOptimisticRead()) {
@@ -515,14 +498,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
           g.setColor(ConcurrentExampleConstants.CAS_ANIMATION_COLOR);
         } else {
           y = yPos - RADIUS;
-          if (exampleType == ExampleType.ONE_USE) {
-            y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
-          }
           g.fillOval(xPos - RADIUS, y, RADIUS * 2, RADIUS * 2);
           y = yPos;
-          if (exampleType == ExampleType.ONE_USE) {
-            y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
-          }
           g.drawLine(xPos, y, xPos - ARROW_LENGTH * 6, y);
         }
         int expectedValue = sprite.getExpectedValue();
@@ -546,9 +523,6 @@ public class ConcurrentSpriteCanvas extends JPanel {
       break;
       case OVAL: {
         y = yPos;
-        if (exampleType == ExampleType.ONE_USE) {
-          y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
-        }
         g.fillOval(xPos - 85, y, OVAL_LENGTH * 18, OVAL_LENGTH * 2);
       }
       break;
@@ -577,14 +551,8 @@ public class ConcurrentSpriteCanvas extends JPanel {
     }
 
     int y = yPos - RADIUS;
-    if (exampleType == ExampleType.ONE_USE) {
-      y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
-    }
     g.fillOval(xPos - RADIUS, y, RADIUS * 2, RADIUS * 2);
     y = yPos;
-    if (exampleType == ExampleType.ONE_USE) {
-      y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
-    }
     g.drawLine(xPos, y, xPos - ARROW_LENGTH * 6, y);
     if (!sprite.isReleased()) {
       sprite.bumpCurrentLocation(DELTA);
@@ -594,9 +562,6 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   protected void drawRejected(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y = yPos;
-    if (exampleType == ExampleType.ONE_USE) {
-      y += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
-    }
     switch (sprite.getType()) {
       case ARROW:
       case WORKING:
@@ -605,9 +570,6 @@ public class ConcurrentSpriteCanvas extends JPanel {
       case PUT_IF_ABSENT:
       case CAS:
         int width = RADIUS * 2;
-        if (exampleType == ExampleType.ONE_USE) {
-          width += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
-        }
         if (sprite.getType() == ConcurrentSprite.SpriteType.CAS || sprite.getType() == ConcurrentSprite.SpriteType.PUT_IF_ABSENT) {
           g.fillOval(xPos - RADIUS - ARROW_LENGTH * 18 - RADIUS - 1, yPos - RADIUS, width, RADIUS * 2);
           g.drawLine(xPos, y, xPos - ARROW_LENGTH * 18, y);
@@ -709,11 +671,6 @@ public class ConcurrentSpriteCanvas extends JPanel {
     int y = yPos;
     int y1 = yPos - ARROW_HEAD_LENGTH;
     int y2 = yPos + ARROW_HEAD_LENGTH;
-    if (exampleType == ExampleType.ONE_USE) {
-      y += NEXT_LOCATION - VERTICAL_ARROW_DELTA;
-      y1 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
-      y2 += (NEXT_LOCATION - VERTICAL_ARROW_DELTA);
-    }
     if(sprite.isOptimisticRead()) {
       g = g.create();
       ((Graphics2D)g).setStroke(DOTTED_STROKE);
