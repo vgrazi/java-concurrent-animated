@@ -27,7 +27,6 @@ public class ConcurrentSprite {
 
   protected int destination = 0;
   private int currentLocation = 0;
-  private int verticalPosition;
   int circleLocation;
 
   private Thread.State threadState;
@@ -203,10 +202,6 @@ public class ConcurrentSprite {
   public void setCurrentLocation(int currentLocation) {
     this.currentLocation = currentLocation;
 //    System.out.printf("Current location: %d%n", currentLocation);
-  }
-
-  public void setVerticalPosition(int position) {
-    verticalPosition = position;
   }
 
   public int getDestination() {
