@@ -75,28 +75,26 @@ public class SynchronizedExample extends ConcurrentExample {
 
   @Override
   protected String getSnippetText() {
-    return  "  <1 keyword>synchronized <1 default>(object) {\n" +
-            "    . . .\n" +
-            "  \n" +
+    return
+            "  <1 keyword>synchronized <1 default>(object) {\n" +
             "    // do some work\n" +
-            "  \n" +
-            "    . . .          \n" +
-            "    <2 default>// releasing lock\n" +
-            "  }\n" +
-            "  \n" +
-            "  <3 keyword>synchronized <3 default>(object) {\n" +
             "    <3 keyword>try {\n" +
-            "      <3 default>object.wait();\n" +
+            "      <3 keyword>while<3 default>(!condition){\n" +
+            "      <3 default>  object.wait();\n" +
+            "      <3 default>}\n" +
             "    } <3 keyword>catch <3 default>(InterruptedException e) {\n" +
             "      Thread.currentThread().interrupt();\n" +
             "    }\n" +
-            "  }\n" +
+            "    <2 default>// releasing lock\n" +
+            "  <1 default>}\n" +
             "  \n" +
             "  <4 keyword>synchronized <4 default>(object) {\n" +
+            "    condition = true;\n" +
             "    object.notify();\n" +
             "  }\n" +
             "  \n" +
             "  <5 keyword>synchronized <5 default>(object) {\n" +
+            "    condition = true;\n" +
             "    object.notifyAll();\n" +
             "  }\n" +
             "  \n" +
