@@ -1,0 +1,7 @@
+/**/*.ipr
+/**/*.iws
+/**/**.iml
+/**/build.xml
+/**/*.policy
+.idea/
+/java-concurrent-animated/javaConcurrentAnimatedMaven.iml

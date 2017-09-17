@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AntConfiguration">
-    <defaultAnt bundledAnt="true" />
-    <buildFile url="file://$PROJECT_DIR$/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <maximumStackSize value="2" />
-      <properties />
-    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/build.xml" />
   </component>
   <component name="ArtifactManager">
     <artifact type="exploded-war" name="Java_Concurrent_Animated:war exploded">
@@ -43,12 +35,13 @@
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <resourceExtensions />
-    <annotationProcessing enabled="false" useClasspath="true" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+    </annotationProcessing>
   </component>
-  <component name="CopyrightManager" default="">
-    <module2copyright />
-  </component>
-  <component name="DataSourceManagerImpl" compressed="false" />
+  <component name="CopyrightManager" default="" />
   <component name="DependenciesAnalyzeManager">
     <option name="myForwardDirection" value="false" />
   </component>
@@ -77,20 +70,20 @@
   </component>
   <component name="FacetAutodetectingManager">
     <autodetection-disabled>
-      <facet-type id="web">
-        <modules>
-          <module name="Java_Concurrent_Animated">
-            <files>
-              <file url="file://$USER_HOME$/Sites/Java_Concurrent_Animated/web/WEB-INF/web.xml" />
-            </files>
-          </module>
-        </modules>
-      </facet-type>
       <facet-type id="javaeeApplication">
         <modules>
           <module name="Java_Concurrent_Animated">
             <files>
               <file url="file://$USER_HOME$/Sites/Java_Concurrent_Animated/META-INF/application.xml" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
+      <facet-type id="web">
+        <modules>
+          <module name="Java_Concurrent_Animated">
+            <files>
+              <file url="file://$USER_HOME$/Sites/Java_Concurrent_Animated/web/WEB-INF/web.xml" />
             </files>
           </module>
         </modules>
@@ -250,13 +243,10 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:/dev/XMLGenerator/XMLGenerator.iml" filepath="C:/dev/XMLGenerator/XMLGenerator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/concurrent.iml" filepath="$PROJECT_DIR$/concurrent.iml" />
-      <module fileurl="file://C:/dev/groovy/groovy.iml" filepath="C:/dev/groovy/groovy.iml" />
-      <module fileurl="file://$USER_HOME$/Sites/jconcurrent/jconcurrent.iml" filepath="$USER_HOME$/Sites/jconcurrent/jconcurrent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-concurrent-animated.iml" filepath="$PROJECT_DIR$/java-concurrent-animated.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK" />
   <component name="ResourceManagerContainer">
     <option name="myResourceBundles">
       <value>
@@ -291,4 +281,3 @@
     </option>
   </component>
 </project>
-
