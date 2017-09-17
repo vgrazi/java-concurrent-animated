@@ -1,80 +1,103 @@
 <plan>
     <ImageSlide image="images/concurrentPackage.jpg"/>
     <MenuItem label="Legend">
-        <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false" mutexLabel="Usage Legend for Animations "/>
+        <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false"
+                 mutexLabel="Usage Legend for Animations "/>
     </MenuItem>
     <Hyperlink label="Concurrency Training" uri="http://www.javaspecialists.eu/courses/concurrency.jsp"/>
     <ImageSlide image="images/executors.jpg"/>
     <MenuItem label="Executors">
-        <Example class="vgrazi.concurrent.samples.examples.FixedThreadExecutorExample" paging="true" fair="false" mutexLabel="FixedThreadPool"/>
-        <Example class="vgrazi.concurrent.samples.examples.SingleThreadExecutorExample" paging="true" fair="false" mutexLabel="SingleThreadExecutor"/>
-        <Example class="vgrazi.concurrent.samples.examples.CachedThreadExecutorExample" paging="true" fair="false" mutexLabel="CachedThreadPool"/>
-        <Example class="vgrazi.concurrent.samples.examples.RejectedExecutionExecutorExample" paging="true" fair="false" mutexLabel="RejectedExecution"/>
+        <Example class="vgrazi.concurrent.samples.examples.FixedThreadExecutorExample" paging="true" fair="false"
+                 mutexLabel="FixedThreadPool"/>
+        <Example class="vgrazi.concurrent.samples.examples.SingleThreadExecutorExample" paging="true" fair="false"
+                 mutexLabel="SingleThreadExecutor"/>
+        <Example class="vgrazi.concurrent.samples.examples.CachedThreadExecutorExample" paging="true" fair="false"
+                 mutexLabel="CachedThreadPool"/>
+        <Example class="vgrazi.concurrent.samples.examples.RejectedExecutionExecutorExample" paging="true" fair="false"
+                 mutexLabel="RejectedExecution"/>
     </MenuItem>
     <ImageSlide image="images/future.jpg"/>
     <MenuItem label="Future">
-        <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false" mutexLabel="Future"/>
+        <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false"
+                 mutexLabel="Future"/>
     </MenuItem>
     <ImageSlide image="images/ThreadStatesSlide.png"/>
     <!--<ImageSlide image="images/reentrantLock.jpg"/>-->
     <MenuItem label="synchronized">
-        <Example class="vgrazi.concurrent.samples.examples.SynchronizedExample" paging="true" fair="false" mutexLabel="synchronized"/>
+        <Example class="vgrazi.concurrent.samples.examples.SynchronizedExample" paging="true" fair="false"
+                 mutexLabel="synchronized"/>
     </MenuItem>
     <ImageSlide image="images/VisibilityAndSynchronization.png"/>
     <MenuItem label="ReentrantLock">
-        <Example class="vgrazi.concurrent.samples.examples.ReentrantLockExample" paging="true" fair="false" mutexLabel="ReentrantLock"/>
+        <Example class="vgrazi.concurrent.samples.examples.ReentrantLockExample" paging="true" fair="false"
+                 mutexLabel="ReentrantLock"/>
     </MenuItem>
     <ImageSlide image="images/condition.jpg"/>
     <MenuItem label="Condition">
-        <Example class="vgrazi.concurrent.samples.examples.ConditionExample" paging="true" fair="false" mutexLabel="Condition"/>
+        <Example class="vgrazi.concurrent.samples.examples.ConditionExample" paging="true" fair="false"
+                 mutexLabel="Condition"/>
     </MenuItem>
     <MenuItem label="Semaphore">
-        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="true" fair="true" mutexLabel="Semaphore (fair)"/>
-        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="false" fair="false" mutexLabel="Semaphore"/>
+        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="true" fair="true"
+                 mutexLabel="Semaphore (fair)"/>
+        <Example class="vgrazi.concurrent.samples.examples.SemaphoreExample" paging="false" fair="false"
+                 mutexLabel="Semaphore"/>
     </MenuItem>
     <ImageSlide image="images/reentrantRWLock.jpg"/>
     <MenuItem label="ReadWriteLock">
-        <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="true" fair="false" mutexLabel="ReadWriteLock"/>
-        <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="false" fair="true" mutexLabel="ReadWriteLock (fair)"/>
+        <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="true" fair="false"
+                 mutexLabel="ReadWriteLock"/>
+        <Example class="vgrazi.concurrent.samples.examples.ReadWriteLockExample" paging="false" fair="true"
+                 mutexLabel="ReadWriteLock (fair)"/>
     </MenuItem>
     <MenuItem label="StampedLock">
-        <Example class="vgrazi.concurrent.samples.examples.StampedLockExample" paging="true" fair="false" mutexLabel="StampedLock"/>
+        <Example class="vgrazi.concurrent.samples.examples.StampedLockExample" paging="true" fair="false"
+                 mutexLabel="StampedLock"/>
     </MenuItem>
     <ImageSlide image="images/countdownLatch.jpg"/>
     <MenuItem label="CountDownLatch">
-        <Example class="vgrazi.concurrent.samples.examples.CountDownLatchExample" paging="true" fair="false" mutexLabel="CountDownLatch"/>
+        <Example class="vgrazi.concurrent.samples.examples.CountDownLatchExample" paging="true" fair="false"
+                 mutexLabel="CountDownLatch"/>
     </MenuItem>
     <ImageSlide image="images/cyclicBarrier.jpg"/>
     <MenuItem label="CyclicBarrier">
-        <Example class="vgrazi.concurrent.samples.examples.CyclicBarrierExample" paging="true" fair="false" mutexLabel="CyclicBarrier"/>
+        <Example class="vgrazi.concurrent.samples.examples.CyclicBarrierExample" paging="true" fair="false"
+                 mutexLabel="CyclicBarrier"/>
     </MenuItem>
     <MenuItem label="Phaser">
-        <Example class="vgrazi.concurrent.samples.examples.PhaserExample" paging="true" fair="false" mutexLabel="Phaser"/>
+        <Example class="vgrazi.concurrent.samples.examples.PhaserExample" paging="true" fair="false"
+                 mutexLabel="Phaser"/>
     </MenuItem>
     <MenuItem label="Blinking Phaser">
-        <Example class="vgrazi.concurrent.samples.examples.BlinkerExample" paging="true" />
+        <Example class="vgrazi.concurrent.samples.examples.BlinkerExample" paging="true"/>
     </MenuItem>
     <ImageSlide image="images/AtomicInteger.jpg"/>
     <MenuItem label="AtomicInteger">
-        <Example class="vgrazi.concurrent.samples.examples.AtomicIntegerExample" paging="true" fair="false" mutexLabel="AtomicInteger"/>
+        <Example class="vgrazi.concurrent.samples.examples.AtomicIntegerExample" paging="true" fair="false"
+                 mutexLabel="AtomicInteger"/>
     </MenuItem>
     <ImageSlide image="images/blockingQueue.jpg"/>
     <MenuItem label="BlockingQueue">
-        <Example class="vgrazi.concurrent.samples.examples.BlockingQueueExample" paging="true" fair="false" mutexLabel="BlockingQueue"/>
+        <Example class="vgrazi.concurrent.samples.examples.BlockingQueueExample" paging="true" fair="false"
+                 mutexLabel="BlockingQueue"/>
     </MenuItem>
     <!--todo: add an image slide-->
     <MenuItem label="TransferQueue">
-        <Example class="vgrazi.concurrent.samples.examples.TransferQueueExample" paging="true" fair="false" mutexLabel="TransferQueue"/>
+        <Example class="vgrazi.concurrent.samples.examples.TransferQueueExample" paging="true" fair="false"
+                 mutexLabel="TransferQueue"/>
     </MenuItem>
     <ImageSlide image="images/completionService.jpg"/>
     <MenuItem label="CompletionService">
-        <Example class="vgrazi.concurrent.samples.examples.CompletionServiceExample" paging="true" fair="false" mutexLabel="CompletionService"/>
+        <Example class="vgrazi.concurrent.samples.examples.CompletionServiceExample" paging="true" fair="false"
+                 mutexLabel="CompletionService"/>
     </MenuItem>
     <MenuItem label="ConcurrentHashMap">
-        <Example class="vgrazi.concurrent.samples.examples.ConcurrentHashMapExample" paging="true" fair="false" mutexLabel="ConcurrentHashMap"/>
+        <Example class="vgrazi.concurrent.samples.examples.ConcurrentHashMapExample" paging="true" fair="false"
+                 mutexLabel="ConcurrentHashMap"/>
     </MenuItem>
     <MenuItem label="Fork/Join">
-        <Example class="vgrazi.concurrent.samples.examples.ForkJoinConcurrentExample" paging="true" mutexLabel="Fork/Join"/>
+        <Example class="vgrazi.concurrent.samples.examples.ForkJoinConcurrentExample" paging="true"
+                 mutexLabel="Fork/Join"/>
     </MenuItem>
     <ImageSlide image="images/concurrent.png" text="/images/references.html"/>
     <References/>
