@@ -252,7 +252,9 @@ public class ConditionExample extends ConcurrentExample {
   }
   protected String getBaseSnippet() {
 
-    return "<html><PRE><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\">" +
+    return "<html><PRE>" +
+            "\n\n\n\n" +
+            "<font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\">" +
        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Lock lock = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantLock(); \n" +
        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition1 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition2 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +

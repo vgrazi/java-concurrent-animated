@@ -4,6 +4,9 @@
         <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false"
                  mutexLabel="Usage Legend for Animations "/>
     </MenuItem>
+
+    <!--<Hyperlink label="Concurrency Training on Udemy" uri="http://www.javaspecialists.eu/courses/concurrency.jsp"/>-->
+
     <ImageSlide image="images/ThreadStatesSlide.png"/>
     <!--<ImageSlide image="images/reentrantLock.jpg"/>-->
     <MenuItem label="synchronized">
