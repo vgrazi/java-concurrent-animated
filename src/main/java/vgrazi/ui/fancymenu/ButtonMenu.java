@@ -187,6 +187,7 @@ public class ButtonMenu extends JPanel {
       }
     }
     selectedIndex =i;
+//    System.out.println("Selected index set to " + selectedIndex);
   }
 
   public void setSelected(int i) {

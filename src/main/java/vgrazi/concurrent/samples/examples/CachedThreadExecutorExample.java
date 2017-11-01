@@ -21,6 +21,7 @@ public class CachedThreadExecutorExample extends ExecutorsExample {
   protected void initializeComponents() {
     if (!initialized) {
       initializeExecuteButton();
+      initializeSubmitButton();
       initializeThreadCountField(threadCountField);
       initialized = true;
     }
@@ -64,7 +65,18 @@ public class CachedThreadExecutorExample extends ExecutorsExample {
             "    executor.execute(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Runnable(){ \n" +
             "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>public</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>void</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> run(){ \n" +
             "          </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// do work</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-            "        }}); \n";
+
+
+            "    </FONT>" +
+            " \n" +
+            "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Call Executor.submit() to launch some Callable and return a Future </I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> \n" +
+            "    executor.submit(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> Callable&lt;T>(){ \n" +
+            "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>public</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>T</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> call(){ \n" +
+            "          </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\"><I>// do work</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> \n" +
+            "        </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>  return</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>new T()</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\">{ \n" +
+            "    </FONT>" +
+
+    "    }}); \n";
     return snippet;
   }
 

@@ -74,8 +74,10 @@ public class MenuBuilder extends DefaultHandler {
 
   @Override
   public void startElement(final String uri, String localName, String qName, final Attributes attributes) throws SAXException {
-    if("ImageSlide".equals(qName)) {
-      menuIndex++;
+    if("ImageSlide".equals(qName)||"ImageSlideNoPage".equals(qName)) {
+      if ("ImageSlide".equals(qName)) {
+        menuIndex++;
+      }
       imageSlide = true;
       String htmlFile = attributes.getValue("text");
       if (htmlFile != null) {

@@ -84,21 +84,27 @@ public class SynchronizedExample extends ConcurrentExample {
             "      <3 default>}\n" +
             "    } <3 keyword>catch <3 default>(InterruptedException e) {\n" +
             "      Thread.currentThread().interrupt();\n" +
-            "    }\n" +
             "    <2 default>// releasing lock\n" +
             "  <1 default>}\n" +
-            "  \n" +
             "  <4 keyword>synchronized <4 default>(object) {\n" +
             "    condition = true;\n" +
             "    object.notify();\n" +
             "  }\n" +
-            "  \n" +
             "  <5 keyword>synchronized <5 default>(object) {\n" +
             "    condition = true;\n" +
             "    object.notifyAll();\n" +
             "  }\n" +
-            "  \n" +
-            "  <6 default>thread.interrupt();";
+            "  <6 default>thread.interrupt();" +
+                    "<table  border=0 width=750 style='background-color:black;'>" +
+                    "<tr><td align=center colspan=3 ><font size=5 color=white><span style=\"text-decoration:underline\">Thread State Color Codes</span></font></td></tr>\n" +
+                    "    <tr><td align=left><font size=5><span style=\"color:#00ff00\" >gReen = Runnable</span></font></td>\n" +
+                    "    <td align=left><font size=5><span style=\"color:#00b4ff\" >BLue = BLocked</span></font></td>\n" +
+                    "    <td align=left><font size=5><span style=\"color:#ffffff\" >White = Waiting</span></font></td><td>&nbsp</td></tr><tr>\n" +
+                    "    <td align=left><font size=5><span style=\"color:#c0c0c0\" >gray = timed_waiting</span></font></td>\n" +
+                    "    <td align=left><font size=5><span style=\"color:#ff0000; font-weight:bold;\" >Red = teRminated</span></font></td><td>&nbsp</td></tr>\n" +
+                    "<tr><td colspan=5>&nbsp;</td></tr>\n" +
+                    "\n" +
+                    "";
   }
 
   @Override

@@ -25,6 +25,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
   private ExecutorService executor;
   int nextIndex;
   private final JButton executeButton = new JButton("execute");
+  private final JButton submitButton = new JButton("submit");
   private final JButton prestartButton = new JButton("prestartAllCoreThreads");
   // todo: How do we demo setRejectedExecutionHandler() ???
   protected final JButton setRejectedExecutionHandlerAbortButton = new JButton("setRejectedExecutionHandler(Abort)");
@@ -77,6 +78,16 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
       }
     });
   }
+  protected void initializeSubmitButton() {
+    initializeButton(submitButton, new Runnable() {
+      public void run() {
+        final int threadCount = getThreadCount(threadCountField);
+        for (int i = 0; i < threadCount; i++) {
+          executeNewCallable();
+        }
+      }
+    });
+  }
 
   private void executeNewRunnable() {
     scheduledExecutor.schedule(new Runnable() {
@@ -97,6 +108,27 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
         }
       }
     }, 500, TimeUnit.MILLISECONDS);
+  }
+  private void executeNewCallable() {
+    scheduledExecutor.submit(new Callable<Object>() {
+      @Override
+      public Object call() {
+
+        final int index = nextIndex++;
+        message1("Executing index " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+        final ConcurrentSprite sprite = createAcquiringSprite(ConcurrentSprite.SpriteType.RUNNABLE);
+        try {
+          Callable callable = new ExampleCallable(sprite, index);
+
+          Future future = executor.submit(callable);
+        } catch (RejectedExecutionException e) {
+          message2("RejectedExecutionException ", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+          setThreadState(sprite);
+          setRejected(sprite);
+        }
+        return null;
+      }
+    });
   }
 
   private void setThreadState(ConcurrentSprite sprite) {
@@ -227,6 +259,37 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
         System.out.println("ExecutorsExample.run interrupted exception");
         Thread.currentThread().interrupt();
       }
+    }
+
+    public ConcurrentSprite getSprite() {
+      return sprite;
+    }
+
+    @Override
+    public String toString() {
+      return "ExampleRunnable " + index;
+    }
+  }
+  class ExampleCallable implements Callable {
+    ConcurrentSprite sprite;
+    private int index;
+
+    public ExampleCallable(ConcurrentSprite sprite, int index) {
+      this.sprite = sprite;
+      this.index = index;
+    }
+    public Object call() {
+      setState(3);
+      sprite.setAcquired();
+      try {
+        int sleepTime = ExecutorsExample.this.sleepTime + (int) (Math.random() * 1000);
+        Thread.sleep(sleepTime);
+        sprite.setReleased();
+      } catch (InterruptedException e) {
+        System.out.println("ExecutorsExample.run interrupted exception");
+        Thread.currentThread().interrupt();
+      }
+      return null;
     }
 
     public ConcurrentSprite getSprite() {

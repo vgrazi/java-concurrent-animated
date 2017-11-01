@@ -4,7 +4,18 @@
         <Example class="vgrazi.concurrent.samples.examples.LegendExample" paging="true" fair="false"
                  mutexLabel="Usage Legend for Animations "/>
     </MenuItem>
-    <Hyperlink label="Concurrency Training" uri="http://www.javaspecialists.eu/courses/concurrency.jsp"/>
+    <ImageSlide image="images/ThreadStatesSlide.png"/>
+    <!--<ImageSlide image="images/reentrantLock.jpg"/>-->
+    <MenuItem label="synchronized">
+        <Example class="vgrazi.concurrent.samples.examples.SynchronizedExample" paging="true" fair="false"
+                 mutexLabel="synchronized"/>
+    </MenuItem>
+    <ImageSlideNoPage image="images/VisibilityAndSynchronization.png"/>
+    <ImageSlide image="images/future.jpg"/>
+    <MenuItem label="Future">
+        <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false"
+                 mutexLabel="Future"/>
+    </MenuItem>
     <ImageSlide image="images/executors.jpg"/>
     <MenuItem label="Executors">
         <Example class="vgrazi.concurrent.samples.examples.FixedThreadExecutorExample" paging="true" fair="false"
@@ -16,18 +27,6 @@
         <Example class="vgrazi.concurrent.samples.examples.RejectedExecutionExecutorExample" paging="true" fair="false"
                  mutexLabel="RejectedExecution"/>
     </MenuItem>
-    <ImageSlide image="images/future.jpg"/>
-    <MenuItem label="Future">
-        <Example class="vgrazi.concurrent.samples.examples.FutureExample" paging="true" fair="false"
-                 mutexLabel="Future"/>
-    </MenuItem>
-    <ImageSlide image="images/ThreadStatesSlide.png"/>
-    <!--<ImageSlide image="images/reentrantLock.jpg"/>-->
-    <MenuItem label="synchronized">
-        <Example class="vgrazi.concurrent.samples.examples.SynchronizedExample" paging="true" fair="false"
-                 mutexLabel="synchronized"/>
-    </MenuItem>
-    <ImageSlide image="images/VisibilityAndSynchronization.png"/>
     <MenuItem label="ReentrantLock">
         <Example class="vgrazi.concurrent.samples.examples.ReentrantLockExample" paging="true" fair="false"
                  mutexLabel="ReentrantLock"/>
