@@ -31,10 +31,12 @@ public class SemaphoreExample extends ConcurrentExample {
 
   private Semaphore semaphore;
 
+  private int maxPermits = 4;
 
   private final JButton timedtryAcquireButton = new JButton("tryAcquire(timeoutMS, TimeUnit.MILLISECONDS)");
   private final JButton acquireButton = new JButton("acquire");
   private final JButton releaseButton = new JButton("release");
+  private final JButton drainPermitsButton = new JButton("drainPermits()");
   private final JButton immediatetryAcquireButton = new JButton("tryAcquire()");
   private boolean initialized = false;
   private String timeoutString = "";
@@ -71,6 +73,8 @@ public class SemaphoreExample extends ConcurrentExample {
   " }<1 keyword> catch <1 default>(InterruptedException e) { }\n" +
   "\n" +
   " <2 default>semaphore.release();\n" +
+  "\n" +
+  " <5 default>semaphore.drainPermits();\n" +
   "\n" +
   " <4 comment>// tryAcquire is like acquire, except that it\n" +
   " // times out after an (optional) specified time.\n" +
@@ -130,6 +134,15 @@ public class SemaphoreExample extends ConcurrentExample {
             }
           }
         });
+        initializeButton(drainPermitsButton, new Runnable() {
+          public void run() {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                drainPermits();
+              }
+            });
+          }
+        });
       initializeButton(immediatetryAcquireButton, new Runnable() {
         public void run() {
           timeoutString = "";
@@ -166,7 +179,7 @@ public class SemaphoreExample extends ConcurrentExample {
   private void initializeFair(boolean fair) {
     reset();
     setState(6);
-    semaphore = new Semaphore(4, fair);
+    semaphore = new Semaphore(maxPermits, fair);
   }
 
   /**
@@ -184,9 +197,20 @@ public class SemaphoreExample extends ConcurrentExample {
         sprite.notify();
       }
     }
+    if (sprite == null) {
+      maxPermits++;
+    }
     semaphore.release();
     displayPermits();
     setState(2);
+  }
+
+  private void drainPermits() {
+    maxPermits -= semaphore.availablePermits();
+    semaphore.drainPermits();
+    displayPermits();
+    message1("Permits drained", ConcurrentExampleConstants.MESSAGE_COLOR);
+    setState(5);
   }
 
   private void _release(ConcurrentSprite sprite, boolean setState) {
@@ -291,12 +315,12 @@ public class SemaphoreExample extends ConcurrentExample {
   }
 
   private void displayPermits() {
-    message2(String.format("Available permits:%d of %d", semaphore.availablePermits(), 4), Color.white);
+    message2(String.format("Available permits:%d of %d", semaphore.availablePermits(), maxPermits), Color.white);
   }
   @Override
   public void reset() {
     super.reset();
-    semaphore = new Semaphore(4, isFair());
+    semaphore = new Semaphore(maxPermits, isFair());
     for (ConcurrentSprite sprite : acquiredSprites) {
       synchronized (sprite) {
         sprite.notify();
