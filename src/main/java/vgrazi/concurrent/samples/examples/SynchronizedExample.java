@@ -13,10 +13,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 //todo: Enable/Disable buttons based on state
 public class SynchronizedExample extends ConcurrentExample {
+  ThreadLocal<Long> threadLocal = new ThreadLocal<Long>();
 
   //  private final JButton launchWaitButton = new JButton("Launch wait thread");
   private final JButton launchLockButton = new JButton("synchronized");
   private final JButton lockWaitButton = new JButton("wait");
+  private final JButton lockTimedWaitButton = new JButton("wait(2000)");
   private final JButton releaseLockButton = new JButton("exit synchronized");
   private final JButton notifyButton = new JButton("notify");
   private final JButton notifyAllButton = new JButton("notifyAll");
@@ -95,13 +97,13 @@ public class SynchronizedExample extends ConcurrentExample {
             "    object.notifyAll();\n" +
             "  }\n" +
             "  <6 default>thread.interrupt();" +
-                    "<table  border=0 width=750 style='background-color:black;'>" +
+                    "<table  border=0 width=650 style='background-color:black;'>" +
                     "<tr><td align=center colspan=3 ><font size=5 color=white><span style=\"text-decoration:underline\">Thread State Color Codes</span></font></td></tr>\n" +
                     "    <tr><td align=left><font size=5><span style=\"color:#00ff00\" >gReen = Runnable</span></font></td>\n" +
                     "    <td align=left><font size=5><span style=\"color:#00b4ff\" >BLue = BLocked</span></font></td>\n" +
-                    "    <td align=left><font size=5><span style=\"color:#ffffff\" >White = Waiting</span></font></td><td>&nbsp</td></tr><tr>\n" +
+                    "    <td align=left><font size=5><span style=\"color:#ffffff\" >White = Waiting</span></font></td></tr><tr>\n" +
                     "    <td align=left><font size=5><span style=\"color:#c0c0c0\" >gray = timed_waiting</span></font></td>\n" +
-                    "    <td align=left><font size=5><span style=\"color:#ff0000; font-weight:bold;\" >Red = teRminated</span></font></td><td>&nbsp</td></tr>\n" +
+                    "    <td align=left><font size=5><span style=\"color:#ff0000; font-weight:bold;\" >Red = teRminated</span></font></td></tr>\n" +
                     "<tr><td colspan=5>&nbsp;</td></tr>\n" +
                     "\n" +
                     "";
@@ -175,10 +177,24 @@ public class SynchronizedExample extends ConcurrentExample {
           // get rid of any existing lock
           setState(3);
           synchronized (UTILITY_MUTEX) {
+            threadLocal.set(0L);
             notificationState = 0;
             UTILITY_MUTEX.notify();
           }
 
+        }
+      });
+      //todo: get this to work
+      initializeButton(lockTimedWaitButton, new Runnable() {
+        @Override
+        public void run() {
+          // get rid of any existing lock
+          setState(3);
+          synchronized (UTILITY_MUTEX) {
+            threadLocal.set(2000L);
+            notificationState = 0;
+            UTILITY_MUTEX.notify();
+          }
         }
       });
 
@@ -254,7 +270,16 @@ public class SynchronizedExample extends ConcurrentExample {
                 try {
                   lockedThread = null;
                   sprite.setThreadState(Thread.State.WAITING);
-                  MAIN_MUTEX.wait();
+                  Long time = threadLocal.get();
+                  if(time == null)
+                  {
+                    time = 0L;
+                  }
+                  else
+                  {
+                    int debug = 0;
+                  }
+                  MAIN_MUTEX.wait(time);
                   lockedThread = sprite;
                   sprite.setThreadState(Thread.State.RUNNABLE);
                 } catch (InterruptedException e) {

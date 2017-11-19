@@ -81,10 +81,13 @@ public class UIUtils {
     heightPercent = coerceZeroToOne(heightPercent);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    int width = (int) (widthPercent * screenSize.width);
-    int height = (int) (heightPercent * screenSize.height);
+    int height = (int) (heightPercent * screenSize.height * 1.1);
+//    int width = (int) (widthPercent * screenSize.width);
+    int width = (int) (height/9.0 * 16);
     int x = (screenSize.width - width)/2;
     int y = (screenSize.height - height)/2;
     frame.setBounds(x, y, width, height);
+    System.out.println(String.format("Bounds: %d, %d, %d, %h", x, y, width, height));
+//    frame.setBounds(x, y, 1280, 720);
   }
 }
