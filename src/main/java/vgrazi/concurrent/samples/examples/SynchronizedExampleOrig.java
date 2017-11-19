@@ -16,27 +16,27 @@ public class SynchronizedExampleOrig extends ConcurrentExample {
   MUTEX helps control the animations. It is the lock held by the sprite, to prevent it from exiting the synchronized block.
 
  Lock
-  •	synchronize on LOCK,
-  •	wait on MUTEX
+  -	synchronize on LOCK,
+  -	wait on MUTEX
 
  Unlock
-  •	Release MUTEX (next blocked thread will Lock)
+  -	Release MUTEX (next blocked thread will Lock)
 
  Wait
-  •	There is a “Runnable” thread holding the lock, waiting on MUTEX.
-  •	Call MUTEX.notify to transit the Runnable thread holding the lock to WAITING
-  •	and LOCK.wait to allow the next thread in.
+  -	There is a "Runnable" thread holding the lock, waiting on MUTEX.
+  -	Call MUTEX.notify to transit the Runnable thread holding the lock to WAITING
+  -	and LOCK.wait to allow the next thread in.
 
  Notify
-  •	Notify LOCK to get the waiting thread to wake up.
-  •	The notifying thread should set all waiting thread colors to BLOCKED then the running thread should change its color to RUNNABLE
-  •	if there is another thread holding the lock
+  -	Notify LOCK to get the waiting thread to wake up.
+  -	The notifying thread should set all waiting thread colors to BLOCKED then the running thread should change its color to RUNNABLE
+  -	if there is another thread holding the lock
       o	transit to the blocked state
-  •	else
+  -	else
       o	transit a waiting thread to runnable and let it exit the monolith
 
  NotifyAll
-  •	Same as notify except call LOCK.notifyAll()
+  -	Same as notify except call LOCK.notifyAll()
 */
 
   /**
