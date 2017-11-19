@@ -65,17 +65,13 @@ public class SemaphoreExample extends ConcurrentExample {
   "     <6 keyword>new<6 default> Semaphore(<6 literal>4,<6 keyword> true<6 default>);\n" +
   " <0 keyword>final <0 default>Semaphore semaphore =\n" +
   "     <0 keyword>new<0 default> Semaphore(<0 literal>4<6 default>);\n" +
-  "\n" +
   " <1 comment>// Threads attempting to acquire will block until\n" +
   " // the specified number of releases are counted\n" +
   " <1 keyword>try <1 default>{\n" +
   "   semaphore.acquire();\n" +
   " }<1 keyword> catch <1 default>(InterruptedException e) { }\n" +
-  "\n" +
   " <2 default>semaphore.release();\n" +
-  "\n" +
   " <5 default>semaphore.drainPermits();\n" +
-  "\n" +
   " <4 comment>// tryAcquire is like acquire, except that it\n" +
   " // times out after an (optional) specified time.\n" +
   " <4 keyword>try<4 default> {\n" +
@@ -320,6 +316,7 @@ public class SemaphoreExample extends ConcurrentExample {
   @Override
   public void reset() {
     super.reset();
+    maxPermits = 4;
     semaphore = new Semaphore(maxPermits, isFair());
     for (ConcurrentSprite sprite : acquiredSprites) {
       synchronized (sprite) {
