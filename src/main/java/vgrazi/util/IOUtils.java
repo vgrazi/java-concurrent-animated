@@ -10,7 +10,7 @@ public class IOUtils {
   public static String readHtmlText(String fileName) throws IOException {
     BufferedReader reader = null;
     try {
-      final InputStream stream = fileName.getClass().getResourceAsStream(fileName);
+      final InputStream stream = IOUtils.class.getResourceAsStream(fileName);
       reader = new BufferedReader(new InputStreamReader(stream));
       StringBuffer sb = new StringBuffer();
       String line;
