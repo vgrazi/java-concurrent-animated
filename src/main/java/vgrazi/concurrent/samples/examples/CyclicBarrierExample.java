@@ -22,10 +22,10 @@ public class CyclicBarrierExample extends ConcurrentExample {
   private CyclicBarrier barrier;
 
   private final JButton awaitButton = new JButton("await()");
-  private final JButton attemptButton = new JButton("await(timeMS, TimeUnit)");
+  private final JButton attemptButton = new JButton("await(timeout)");
   private final JButton createButton = new JButton("barrier.reset()");
   private boolean initialized;
-  private JTextField threadCountField = createThreadCountField();
+//  private JTextField threadCountField = createThreadCountField();
   public CyclicBarrierExample(String title, Container frame, int slideNumber) {
     super(title, frame, ExampleType.WORKING, 548, false, slideNumber);
   }
@@ -38,11 +38,23 @@ public class CyclicBarrierExample extends ConcurrentExample {
     if(!initialized) {
       initializeButton(awaitButton, new Runnable() {
         public void run() {
-          int count = getThreadCount(threadCountField);
+          int count = 1;//getThreadCount(threadCountField);
           for (int i = 0; i < count; i++) {
             threadCountExecutor.execute(new Runnable() {
               public void run() {
                 await();
+              }
+            });
+          }
+        }
+      });
+      initializeButton(attemptButton, new Runnable() {
+        public void run() {
+          int count = 1;//getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                attempt();
               }
             });
           }
@@ -54,25 +66,6 @@ public class CyclicBarrierExample extends ConcurrentExample {
           setState(3);
         }
       });
-      addButtonSpacer();
-      initializeButton(attemptButton, new Runnable() {
-        public void run() {
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-              public void run() {
-                attempt();
-              }
-            });
-          }
-        }
-      });
-      initializeThreadCountField(threadCountField);
-      Dimension size = new Dimension(120, awaitButton.getPreferredSize().height);
-//      awaitButton.setPreferredSize(size);
-      createButton.setPreferredSize(size);
-      attemptButton.setPreferredSize(new Dimension(210, awaitButton.getPreferredSize().height));
-
       initialized = true;
     }
     reset();
@@ -167,7 +160,7 @@ public class CyclicBarrierExample extends ConcurrentExample {
   public void reset() {
     super.reset();
     createBarrier();
-    resetThreadCountField(threadCountField);    
+//    resetThreadCountField(threadCountField);
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
     setState(0);

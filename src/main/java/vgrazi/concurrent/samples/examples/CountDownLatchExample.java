@@ -19,13 +19,12 @@ public class CountDownLatchExample extends ConcurrentExample {
 
   private CountDownLatch countDownLatch;
 
-  private final JButton awaitButton = new JButton("await");
-  private final JButton countdownButton = new JButton("countDown");
-  private final JButton attemptButton = new JButton("await(timeMS, TimeUnit)");
+  private final JButton awaitButton = new JButton("await()");
+  private final JButton countdownButton = new JButton("countDown()");
+  private final JButton attemptButton = new JButton("await(timeout)");
 
-  private int index;
   private boolean initialized = false;
-  private final JTextField threadCountField = createThreadCountField();
+//  private final JTextField threadCountField = createThreadCountField();
 
   public String getTitle() {
     return "CountDownLatch";
@@ -33,6 +32,7 @@ public class CountDownLatchExample extends ConcurrentExample {
 
   public CountDownLatchExample(String title, Container frame, int slideNumber) {
     super(title, frame, ExampleType.WORKING, 520, false, slideNumber);
+
   }
     protected void createCanvas() {
         setCanvas(new BasicCanvas(this, getTitle()));
@@ -44,7 +44,7 @@ public class CountDownLatchExample extends ConcurrentExample {
       initializeButton(awaitButton, new Runnable() {
         public void run() {
           setAnimationCanvasVisible(true);
-          int count = getThreadCount(threadCountField);
+          int count = 1;//getThreadCount(threadCountField);
           for (int i = 0; i < count; i++) {
             threadCountExecutor.execute(new Runnable() {
               public void run() {
@@ -54,15 +54,11 @@ public class CountDownLatchExample extends ConcurrentExample {
           }
         }
       });
-      initializeButton(countdownButton, new Runnable() {
-        public void run() {
-            release();
-        }
-      });
-      addButtonSpacer();
+
+//      addButtonSpacer();
       initializeButton(attemptButton, new Runnable() {
         public void run() {
-          int count = getThreadCount(threadCountField);
+          int count = 1;//getThreadCount(threadCountField);
           for (int i = 0; i < count; i++) {
             threadCountExecutor.execute(new Runnable() {
               public void run() {
@@ -72,10 +68,17 @@ public class CountDownLatchExample extends ConcurrentExample {
           }
         }
       });
-      initializeThreadCountField(threadCountField);
-      Dimension size = new Dimension(144, awaitButton.getPreferredSize().height);
-      awaitButton.setPreferredSize(size);
-      countdownButton.setPreferredSize(size);
+
+      initializeButton(countdownButton, new Runnable() {
+        public void run() {
+          release();
+        }
+      });
+
+//      initializeThreadCountField(threadCountField);
+//      Dimension size = new Dimension(144, awaitButton.getPreferredSize().height);
+//      awaitButton.setPreferredSize(size);
+//      countdownButton.setPreferredSize(size);
       initialized = true;
     }
 
@@ -84,15 +87,15 @@ public class CountDownLatchExample extends ConcurrentExample {
   private void attempt() {
     try {
       setState(3);
-      message1("Attempting acquire..", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      message1("Timed waiting for count to be 0 ...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       ConcurrentSprite sprite = createAttemptingSprite();
       sprite.setThreadState(Thread.State.TIMED_WAITING);
       if(countDownLatch.await(timeout, TimeUnit.MILLISECONDS)) {
-        message1("Acquire attempt succeeded", ConcurrentExampleConstants.MESSAGE_COLOR);
+        message1("Latch is open", ConcurrentExampleConstants.MESSAGE_COLOR);
         sprite.setThreadState(Thread.State.RUNNABLE);
         sprite.setReleased();
       } else {
-        message1("Acquire attempt failed", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+        message1("Latch did not open in time", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
         sprite.setThreadState(Thread.State.RUNNABLE);
         sprite.setRejected();
       }
@@ -105,24 +108,25 @@ public class CountDownLatchExample extends ConcurrentExample {
 
   private void release() {
     setState(2);
-    int index = this.index++;
-    message2("Attempting release " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+    message2("Attempting countDown", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+//    message2("Attempting release " + index, ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
     countDownLatch.countDown();
     createReleasingSprite();
-    message2("Released index " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
+    message2("Count is " + countDownLatch.getCount(), ConcurrentExampleConstants.MESSAGE_COLOR);
+//    message2("Released index " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
     setState(2);
   }
 
   private void acquire() {
     try {
-      message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      message1("Waiting for count to be 0 ...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       setState(1);
       ConcurrentSprite sprite = createAcquiringSprite();
       sprite.setThreadState(Thread.State.WAITING);
       countDownLatch.await();
       sprite.setThreadState(Thread.State.RUNNABLE);
       sprite.setReleased();
-      message1("Acquired", ConcurrentExampleConstants.MESSAGE_COLOR);
+      message1("Latch is open", ConcurrentExampleConstants.MESSAGE_COLOR);
       setState(1);
     } catch(InterruptedException e) {
       Thread.currentThread().interrupt();
@@ -151,10 +155,9 @@ public class CountDownLatchExample extends ConcurrentExample {
   public void reset() {
     super.reset();
     countDownLatch = new CountDownLatch(4);
-    index = 1;
-    resetThreadCountField(threadCountField);
+//    resetThreadCountField(threadCountField);
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+    message2("Count is " + countDownLatch.getCount(), ConcurrentExampleConstants.MESSAGE_COLOR);
     setState(0);
   }
 
