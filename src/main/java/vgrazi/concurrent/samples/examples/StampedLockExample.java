@@ -9,8 +9,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.logging.Logger;
 
-import jsr166e.StampedLock;
-//import java.util.concurrent.locks.StampedLock;
+import java.util.concurrent.locks.StampedLock;
 
 /**
  * Notes:

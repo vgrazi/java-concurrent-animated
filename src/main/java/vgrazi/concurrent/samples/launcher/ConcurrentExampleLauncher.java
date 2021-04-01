@@ -68,6 +68,7 @@ public class ConcurrentExampleLauncher {
 
   public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
     instance = new ConcurrentExampleLauncher();
+    instance.frame.setSize(instance.frame.getSize().width, 600);
 //    System.out.printf("ConcurrentExampleLauncher.main set instance to %s%n", instance);
   }
 

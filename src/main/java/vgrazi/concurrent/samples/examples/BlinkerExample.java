@@ -1,14 +1,12 @@
 package vgrazi.concurrent.samples.examples;
 
-import jsr166y.Phaser;
-import jsr166y.ThreadLocalRandom;
-import vgrazi.concurrent.samples.ConcurrentExampleConstants;
-import vgrazi.concurrent.samples.ExampleType;
-import vgrazi.concurrent.samples.canvases.ConcurrentSpriteCanvas;
+import vgrazi.concurrent.samples.*;
+import vgrazi.concurrent.samples.canvases.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * @author Heinz Kabutz
