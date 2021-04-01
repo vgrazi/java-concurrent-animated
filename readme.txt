@@ -1,3 +1,7 @@
+Note: This is undergoing a total rewrite here : https://github.com/vgrazi/JavaConcurrentAnimatedReboot
+New features: CompletableFuture
+Improved code cleanliness
+
 1. To build the executable jar:
 mvn clean package -DskipTests=true
 
