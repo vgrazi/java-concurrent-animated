@@ -30,12 +30,12 @@ public class CyclicBarrierExample extends ConcurrentExample {
     super(title, frame, ExampleType.WORKING, 548, false, slideNumber);
   }
 
-    protected void createCanvas() {
-        setCanvas(new BasicCanvas(this, getTitle()));
-    }
+  protected void createCanvas() {
+    setCanvas(new BasicCanvas(this, getTitle()));
+  }
 
-    protected void initializeComponents() {
-    if(!initialized) {
+  protected void initializeComponents() {
+    if (!initialized) {
       initializeButton(awaitButton, new Runnable() {
         public void run() {
           int count = 1;//getThreadCount(threadCountField);
@@ -75,25 +75,24 @@ public class CyclicBarrierExample extends ConcurrentExample {
     ConcurrentSprite sprite = null;
     try {
       setAnimationCanvasVisible(true);
-      message1("Waiting for barrier...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      message1("Waiting for barrier... ", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      message2("Parties outstanding " + (barrier.getParties() - barrier.getNumberWaiting() - 1), ConcurrentExampleConstants.MESSAGE_COLOR);
       setState(1);
-      message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
       sprite = createAcquiringSprite();
       sprite.setThreadState(Thread.State.WAITING);
-      int count = barrier.await();
+      barrier.await();
       sprite.setThreadState(Thread.State.RUNNABLE);
       sprite.setReleased();
       setState((0));
-      message1("barrier complete " + count, ConcurrentExampleConstants.MESSAGE_COLOR);
-    }
-    catch(BrokenBarrierException e) {
+      message1("barrier complete", ConcurrentExampleConstants.MESSAGE_COLOR);
+    } catch (BrokenBarrierException e) {
       System.out.println("CyclicBarrierExample.attempt " + e);
       message1("BrokenBarrierException.", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+      message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
       sprite.setThreadState(Thread.State.RUNNABLE);
       sprite.setRejected();
       resetBarrier();
-    }
-    catch(InterruptedException e) {
+    } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
   }
@@ -103,31 +102,30 @@ public class CyclicBarrierExample extends ConcurrentExample {
     try {
       setAnimationCanvasVisible(true);
       message1("Waiting for barrier...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
+      message2("Parties outstanding " + (barrier.getParties() - barrier.getNumberWaiting() - 1), ConcurrentExampleConstants.MESSAGE_COLOR);
       setState(2);
-      message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
       sprite = createAttemptingSprite();
       sprite.setThreadState(Thread.State.TIMED_WAITING);
 
-      int index = barrier.await(timeout, TimeUnit.MILLISECONDS);
+      barrier.await(timeout, TimeUnit.MILLISECONDS);
       sprite.setReleased();
       sprite.setThreadState(Thread.State.RUNNABLE);
-      message1("barrier complete " + index, ConcurrentExampleConstants.MESSAGE_COLOR);
-    }
-    catch(BrokenBarrierException e) {
+      message1("barrier complete", ConcurrentExampleConstants.MESSAGE_COLOR);
+    } catch (BrokenBarrierException e) {
       System.out.println("CyclicBarrierExample.attempt " + e);
       message1("BrokenBarrierException.", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+      message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
       sprite.setRejected();
       sprite.setThreadState(Thread.State.RUNNABLE);
       resetBarrier();
-    }
-    catch(TimeoutException e) {
+    } catch (TimeoutException e) {
       sprite.setRejected();
       sprite.setThreadState(Thread.State.RUNNABLE);
       message1("TimeoutException.", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+      message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
       System.out.println("CyclicBarrierExample.attempt " + e);
       resetBarrier();
-    }
-    catch(InterruptedException e) {
+    } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
   }
@@ -162,66 +160,68 @@ public class CyclicBarrierExample extends ConcurrentExample {
     createBarrier();
 //    resetThreadCountField(threadCountField);
     message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+//    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+    message2("Parties outstanding " + barrier.getParties(), ConcurrentExampleConstants.MESSAGE_COLOR);
     setState(0);
   }
 
   private void createBarrier() {
-    if(barrier != null) {
+    if (barrier != null) {
       barrier.reset();
     } else {
       barrier = new CyclicBarrier(4, new Runnable() {
-            public void run() {
-              setState(2);
-              message2("Runnable hit", ConcurrentExampleConstants.MESSAGE_COLOR);
-            }
-          });
+        public void run() {
+          setState(2);
+          message2("Runnable called", ConcurrentExampleConstants.MESSAGE_COLOR);
+        }
+      });
     }
   }
+
   protected String getSnippet() {
     final String snippet;
     snippet = "<html><PRE><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Contructor specifies # of parties, and an<br>" +
-            " // optional Runnable that gets called when the</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// barrier is opened.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier cyclicBarrier = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">" +
-       "<br>    <B>    new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier(4</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">, </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">Runnable(){<br/>\n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> run(){ \n" +
-       "   System.out.println(</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#008000>\"><B>&quot; Runnable hit&quot;</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">); \n" +
-       " } \n" +
+        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Contructor specifies # of parties, and an<br>" +
+        " // optional Runnable that gets called when the</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// barrier is opened.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier cyclicBarrier = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\">" +
+        "<br>    <B>    new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> CyclicBarrier(4</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">, </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">Runnable(){<br/>\n" +
+        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> run(){ \n" +
+        "   System.out.println(</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#008000>\"><B>&quot; Runnable hit&quot;</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\">); \n" +
+        " } \n" +
 //       "    }); \n" +
-       " \n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
-       "// Each call to await blocks, until the number<br>" +
-       " // specified in the constructor is reached.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
-       "// Then the Runnable executes and all can pass. </I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
-       " <font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-       " Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread(){ \n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
-       "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
-       "     cyclicBarrier.await(); \n" +
-       "   } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(BrokenBarrierException e) {} \n" +
+        " \n" +
+        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
+        "// Each call to await blocks, until the number<br>" +
+        " // specified in the constructor is reached.</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>" +
+        "// Then the Runnable executes and all can pass. </I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\">" +
+        " <font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
+        " Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread(){ \n" +
+        " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
+        "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
+        "     cyclicBarrier.await(); \n" +
+        "   } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(BrokenBarrierException e) {} \n" +
 //       "        } \n" +
 //       "      } \n" +
 //       "    });" +
-       " \n" +
-       " <font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
-       " Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread(){ \n" +
-       "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
-       "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> { \n" +
-       "     cyclicBarrier.await(timeout,\n" +
-       "                          TimeUnit.SECONDS); \n" +
-       "   } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">(BrokenBarrierException e) {} \n" +
+        " \n" +
+        " <font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
+        " Thread thread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread(){ \n" +
+        "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
+        "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> { \n" +
+        "     cyclicBarrier.await(timeout,\n" +
+        "                          TimeUnit.SECONDS); \n" +
+        "   } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\">(BrokenBarrierException e) {} \n" +
 //       "        } \n" +
 //       "      } \n" +
 //       "    });" +
-       " \n" +
-            " </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// reset() allows the barrier to be reused.</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            " </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Any waiting threads will throw \n" +
-            " // a BrokenBarrierException</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-            " <font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">cyclicBarrier.reset()</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
-            "</FONT></PRE></html>";
+        " \n" +
+        " </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// reset() allows the barrier to be reused.</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+        " </FONT><font style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Any waiting threads will throw \n" +
+        " // a BrokenBarrierException</I></FONT><font style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+        " <font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">cyclicBarrier.reset()</FONT><font style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
+        "</FONT></PRE></html>";
     return snippet;
   }
 }
