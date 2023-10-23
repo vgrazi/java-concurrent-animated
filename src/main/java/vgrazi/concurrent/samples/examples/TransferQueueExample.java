@@ -1,17 +1,12 @@
 package vgrazi.concurrent.samples.examples;
 
-import jsr166y.LinkedTransferQueue;
-import jsr166y.TransferQueue;
-import vgrazi.concurrent.samples.ConcurrentExampleConstants;
-import vgrazi.concurrent.samples.canvases.OvalObjectCanvas;
-import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
+import vgrazi.concurrent.samples.*;
+import vgrazi.concurrent.samples.canvases.*;
+import vgrazi.concurrent.samples.sprites.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class TransferQueueExample extends BlockingQueueExample {
   private TransferQueue<ConcurrentSprite> queue;

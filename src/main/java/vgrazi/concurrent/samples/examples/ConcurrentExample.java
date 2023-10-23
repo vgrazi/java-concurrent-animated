@@ -31,8 +31,8 @@ public abstract class ConcurrentExample extends JPanel {
 
   //  private final Insets INSETS = new Insets(5, 5, 5, 5);
   protected final long timeout = 3 * 1000;
-  protected final JLabel message1Label = new MessageLabel(" ");
-  protected final JLabel message2Label = new MessageLabel(" ");
+  protected final JLabel message1Label = new MessageLabel("  ");
+  protected final JLabel message2Label = new MessageLabel("  ");
   protected final JButton resetButton = new JButton("Reset");
   private JTextField threadCountField;
 
@@ -127,6 +127,7 @@ public abstract class ConcurrentExample extends JPanel {
     message2Label.setFont(ConcurrentExampleConstants.LABEL_FONT);
     message2Label.setOpaque(false);
 
+//    /*
     snippetLabel.setOpaque(true);
     snippetLabel.setFocusable(true);
     snippetLabel.setFocusTraversalKeysEnabled(true);
@@ -153,10 +154,10 @@ public abstract class ConcurrentExample extends JPanel {
           public void run() {
             // the new offset is the new mouse location minus the click location
             offset += e.getX() - mouseDown;
-            System.out.println("ConcurrentExample.mouseDragged offset: " + offset + "snippet width:" + snippetPane.getWidth());
+//            System.out.println("ConcurrentExample.mouseDragged offset: " + offset + "snippet width:" + snippetPane.getWidth());
             mouseDown = e.getX();
             // validate is necessary to re-render the snippet scrollbars after dragging
-            snippetPane.validate();
+            snippetLabel.validate();
             doLayout();
           }
         });
